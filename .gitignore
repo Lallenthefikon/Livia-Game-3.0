@@ -1,0 +1,46 @@
+**/SFML-2.3.2
+**/Debug
+**/Release
+
+# Compiled Object files
+
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.tlog
+*.log
+*.idb
+*.tlog
+*.sdf
+*.suo
+SfmlEmpty.sdf
+*.log
+SfmlEmpty/Debug/SfmlEmpty.tlog/CL.read.1.tlog
+*.pdb
+SfmlEmpty/Debug/vc120.idb
+*.tlog
+SfmlEmpty/Debug/SfmlEmpty.tlog/link.read.1.tlog
