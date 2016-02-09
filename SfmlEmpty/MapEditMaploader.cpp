@@ -84,6 +84,13 @@ void MapEditMaploader::clear(){
 				 default:
 					 break;
 				 }
+			 case 'A':
+				 switch (line[1]){
+				 case 'C':
+					 MapEditMaploader::createAcidMonster(MapEditMaploader::readPosition(line));
+				 default:
+					 break;
+				 }
 
 			 default:
 				 break;

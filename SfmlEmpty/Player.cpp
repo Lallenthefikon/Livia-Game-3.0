@@ -13,10 +13,10 @@ mIsAlive(true),
 // Animatin stuff
 mAnimationIndex(0),
 mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
-mTimer(1),
+mTimerANI(1),
 
 // Stats
-mJumpSpeed(-32),
+mJumpSpeed(-25),
 mMaxSpeed(15),
 mSpeed(70),
 mLife(3){
@@ -61,8 +61,15 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::WORM:
 		switch (direction){
 		case 'b':
-			mVelocity.y = mJumpSpeed;
-			entity->getHit();
+			if (!mInvernable){
+				delta = entity->getPos().y - mSprite.getPosition().y;
+				mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+					mVelocity.y = mJumpSpeed * 1.5;
+				else
+					mVelocity.y = mJumpSpeed;
+				entity->getHit();
+			}
 			break;
 		default:
 			break;
@@ -113,10 +120,15 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 }
 
 void Player::getHit(){
-	if (mLife > 0)
-		mLife--;
-	else
-		mIsAlive = false;
+	if (!mInvernable){
+		if (mLife > 0){
+			mLife--;
+			mInvernable = true;
+			mInvernableTime.restart().asMilliseconds();
+		}
+		else
+			mIsAlive = false;
+	}
 }
 
 // Privates
@@ -212,6 +224,10 @@ void Player::updateState(){
 		mState = JUMPING;
 		Player::updateANI();
 	}
+	if (mInvernableTime.getElapsedTime().asMilliseconds() > 1000){
+		mInvernable = false;
+	}
+
 }
 
 void Player::updateCollision(){
@@ -271,16 +287,16 @@ void Player::updateANI(){
 	default:
 		break;
 	}
-	mTimer = 0;
+	mTimerANI = 0;
 }
 
 void Player::animate(){
 
-	mTimer += ANIFramesPerFrame;
+	mTimerANI += ANIFramesPerFrame;
 	
-	if (mTimer >= 1){
+	if (mTimerANI >= 1){
 		mAnimationIndex += 1;
-		mTimer = 0;
+		mTimerANI = 0;
 		if (mAnimationIndex >= mCurrentAnimation->size())
 			mAnimationIndex = 0;
 		if (mCurrentAnimation->size() > 0)

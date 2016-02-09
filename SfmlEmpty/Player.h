@@ -51,11 +51,12 @@ private:
 	float mSpeed;
 
 	sf::Sprite mSprite;
+	sf::Clock mInvernableTime;
 
 	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
 	int mAnimationIndex;
-	float mTimer;
+	float mTimerANI;
 
 	sf::Vector2f
 		mVelocity,
