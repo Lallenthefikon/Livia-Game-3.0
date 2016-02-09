@@ -9,7 +9,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE{ JUMPING, IDLE, RUNNING, FALLING };
+	enum PLAYERSTATE{ JUMPING, IDLE, RUNNINGLEFT, RUNNINGRIGHT, FALLING };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }
@@ -25,8 +25,11 @@ public:
 	virtual float getHeight(){ return mSprite.getLocalBounds().height; }
 	virtual sf::Sprite getSprite(){ return mSprite; }
 	virtual bool isOnScreen(){ return mIsOnScreen; }
+	virtual bool getIsAlive() { return mIsAlive; }
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);
+	virtual void getHit();
+	
 
 
 private:
@@ -61,7 +64,9 @@ private:
 
 	bool mIsOnScreen;
 	PLAYERSTATE mState;
-
+	bool mInvernable;
+	bool mIsAlive;
+	int mLife;
 
 	char mCollisionT;
 	char mCollisionB;

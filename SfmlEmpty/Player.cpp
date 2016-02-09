@@ -8,16 +8,18 @@ Player::Player(sf::Vector2f pos) :
 mVelocity(0, 0),
 mIsOnScreen(true),
 mState(IDLE),
+mIsAlive(true),
 
 // Animatin stuff
 mAnimationIndex(0),
-mCurrentAnimation(Animations::getPlayerRunningANI()),
+mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimer(1),
 
 // Stats
 mJumpSpeed(-32),
 mMaxSpeed(15),
-mSpeed(70){
+mSpeed(70),
+mLife(3){
 
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
@@ -54,7 +56,21 @@ void Player::addVector(sf::Vector2f &vector){
 }
 
 void Player::entityCollision(Entity* entity, char direction){
-	
+	float delta;
+	switch (entity->getType()){
+	case Entity::WORM:
+		switch (direction){
+		case 'b':
+			mVelocity.y = mJumpSpeed;
+			entity->getHit();
+			break;
+		default:
+			break;
+		}
+
+	default:
+		break;
+	}
 }
 
 void Player::terrainCollision(Terrain* terrain, char direction){
@@ -94,6 +110,13 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 	default:
 		break;
 	}
+}
+
+void Player::getHit(){
+	if (mLife > 0)
+		mLife--;
+	else
+		mIsAlive = false;
 }
 
 // Privates
@@ -166,8 +189,13 @@ void Player::lerp(){
 	
 void Player::updateState(){
 
-	if (mVelocity.x != 0 && mState != JUMPING && mState != RUNNING){
-		mState = RUNNING;
+	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
+		mState = RUNNINGLEFT;
+		Player::updateANI();
+	}
+
+	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
+		mState = RUNNINGRIGHT;
 		Player::updateANI();
 	}
 
@@ -229,8 +257,12 @@ void Player::updateANI(){
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
-	case RUNNING:
-		mCurrentAnimation = Animations::getPlayerRunningANI();
+	case RUNNINGLEFT:
+		mCurrentAnimation = Animations::getPlayerRunningLeftANI();
+		break;
+
+	case RUNNINGRIGHT:
+		mCurrentAnimation = Animations::getPlayerRunningRightANI();
 		break;
 
 	case FALLING:

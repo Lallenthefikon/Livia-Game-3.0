@@ -33,6 +33,7 @@ void GameRun::update(sf::RenderWindow &window){
 	mEntityHandler.updateEntities();
 	mTerrainHandler.updateTerrains();
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+	mEntityHandler.bringOutTheDead();
 	mCamera.updateCamGAME(window);
 	window.setView(mCamera.getView());
 }

@@ -21,5 +21,7 @@ public:
 	virtual bool isOnScreen() = 0;
 	virtual void entityCollision(Entity* entity, char direction) = 0;
 	virtual void terrainCollision(Terrain* terrain, char direction) = 0;
+	virtual void getHit() = 0;
+	virtual bool getIsAlive() = 0;
 };
 

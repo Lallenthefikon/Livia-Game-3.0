@@ -10,9 +10,11 @@ public:
 	void addEntity(Entity* entity);
 	void renderEntities(sf::RenderWindow &window);
 	void updateEntities();
+	void bringOutTheDead();
 	Entities& getEntities(){ return mEntities; }
 	void addVector();
 	void clear();
+	void gameOver();
 private:
 	Entityhandler();
 	~Entityhandler();

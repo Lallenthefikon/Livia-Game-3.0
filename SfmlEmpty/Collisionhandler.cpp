@@ -29,10 +29,7 @@ void Collisionhandler::collisionBetweenEntities(Entities &entities){
 			Entity *e1 = entities[j];
 			if (e0->isOnScreen() && e1->isOnScreen()) {
 				if (hasCollided(e0, e1)) {
-					if (e0->getType() != e1->getType() && e0->getType() == Entity::PLAYER) {
 						checkCollisionDirection(e0, e1);
-						//checkCollisionDirection(e1, e0);
-					}
 				}
 			}
 		}
@@ -66,10 +63,10 @@ bool Collisionhandler::hasCollided(Entity *e0, Entity *e1) {
 	float e1Bottom = e1->getPos().y + e1->getHeight();
 
 	// Has collided if all conditions are met
-	if (e0Left < e1Right &&
-		e0Right > e1Left &&
-		e0Top < e1Bottom &&
-		e0Bottom > e1Top) {
+	if (e0Left <= e1Right &&
+		e0Right >= e1Left &&
+		e0Top <= e1Bottom &&
+		e0Bottom >= e1Top) {
 		return true;
 	}
 	else {
@@ -125,21 +122,29 @@ void Collisionhandler::checkCollisionDirection(Entity *e0, Entity *e1) {
 	if (deltaTopCollision < deltaBottomCollision && deltaTopCollision < deltaLeftCollision && deltaTopCollision < deltaRightCollision) {
 		// Top collision, e0 collided with e1's top edge
 		// lallen e0->move(sf::Vector2f(0, -1));
+		e0->entityCollision(e1, 'b');
+		e1->entityCollision(e0, 't');
 	}
 	// Checks if deltaBottomCollision is the smallest value
 	if (deltaBottomCollision < deltaTopCollision && deltaBottomCollision < deltaLeftCollision && deltaBottomCollision < deltaRightCollision) {
 		// Bottom collision
 		// lallen e0->move(sf::Vector2f(0, 1));
+		e0->entityCollision(e1, 't');
+		e1->entityCollision(e0, 'b');
 	}
 	// Checks if deltaLeftCollision is the smallest value
 	if (deltaLeftCollision < deltaRightCollision && deltaLeftCollision < deltaTopCollision && deltaLeftCollision < deltaBottomCollision) {
 		// Left collision
 		// lallen e0->move(sf::Vector2f(-1, 0));
+		e0->entityCollision(e1, 'r');
+		e1->entityCollision(e0, 'l');
 	}
 	// Checks if deltaRightCollision is the smallest value	
 	if (deltaRightCollision < deltaLeftCollision && deltaRightCollision < deltaTopCollision && deltaRightCollision < deltaBottomCollision) {
 		// Right collision
 		// lallen e0->move(sf::Vector2f(1, 0));
+		e0->entityCollision(e1, 'l');
+		e1->entityCollision(e0, 'r');
 		
 	}
 }

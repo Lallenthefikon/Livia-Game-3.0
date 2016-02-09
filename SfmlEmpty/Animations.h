@@ -7,7 +7,8 @@
 struct Animations{
 	typedef std::vector<sf::Texture*> Textures;
 	static void loadTextures();
-	static Textures* getPlayerRunningANI();
+	static Textures* getPlayerRunningLeftANI();
+	static Textures* getPlayerRunningRightANI();
 	static Textures* getPlayerJumpingANI();
 	static Textures* getPlayerIdleANI();
 	static Textures* getWormCrawlingRightANI();

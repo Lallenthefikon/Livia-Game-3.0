@@ -6,7 +6,8 @@ static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
-Animations::Textures mPlayerRunningANI;
+Animations::Textures mPlayerRunningLeftANI;
+Animations::Textures mPlayerRunningRightANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
 	
@@ -19,16 +20,26 @@ void Animations::loadTextures(){
 	// Player running ANI
 	for (int i = 0; i < 16; i++){
 	
-		mPlayerRunningANI.push_back(new sf::Texture);
-		mPlayerRunningANI[i]->loadFromImage(mPlayerRunningIMG, sf::IntRect(100 * x, 140 * y, 100, 139));
+		mPlayerRunningLeftANI.push_back(new sf::Texture);
+		mPlayerRunningLeftANI[i]->loadFromImage(mPlayerRunningIMG, sf::IntRect(100 * x, 140 * y, 100, 139));
 		x++;
 		if (x == 4){
 			x = 0;
-			y += 1;
+			y++;
 		}
 	}
 	x = 0;
 	y = 0;
+
+	for (int i = 0; i < 16; i++){
+		mPlayerRunningRightANI.push_back(new sf::Texture);
+		mPlayerRunningRightANI[i]->loadFromImage(mPlayerRunningIMG, sf::IntRect((100 * x) + 400, 140 * y, 100, 139));
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
 
 	// Player jumping ANI
 	for (int i = 0; i < 16; i++){
@@ -38,7 +49,7 @@ void Animations::loadTextures(){
 		x++;
 		if (x == 4){
 			x = 0;
-			y += 1;
+			y++;
 		}
 	}
 	x = 0;
@@ -54,9 +65,16 @@ void Animations::loadTextures(){
 	mWormCrawlingANI[0]->loadFromImage(mWormCrawlingIMG);
 }
 
-Animations::Textures* Animations::getPlayerRunningANI(){
-	return &mPlayerRunningANI;
+// Player ANI
+
+Animations::Textures* Animations::getPlayerRunningLeftANI(){
+	return &mPlayerRunningLeftANI;
 }
+
+Animations::Textures* Animations::getPlayerRunningRightANI(){
+	return &mPlayerRunningRightANI;
+}
+
 
 Animations::Textures* Animations::getPlayerJumpingANI(){
 	return &mPlayerJumpingANI;
@@ -66,6 +84,8 @@ Animations::Textures* Animations::getPlayerIdleANI(){
 	return &mPlayerIdleANI;
 }
 
+
+// Worm ANI
 Animations::Textures* Animations::getWormCrawlingRightANI(){
 	return &mWormCrawlingANI;
 }

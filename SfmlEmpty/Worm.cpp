@@ -6,7 +6,8 @@ Worm::Worm(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getWormCrawlingLeftANI()),
 mIsOnScreen(true),
 mSpeed(8),
-mMaxSpeed(8){
+mMaxSpeed(8),
+mIsAlive(true){
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
@@ -25,8 +26,7 @@ void Worm::render(sf::RenderWindow &window){
 }
 
 void Worm::update(){
-	if (mSprite.getPosition().x < 0)
-		mSprite.setPosition(16000, 0);
+
 	Worm::addSpeed();
 	Worm::lerp();
 	Worm::updateCollision();
@@ -41,7 +41,18 @@ void Worm::addVector(sf::Vector2f &vector){
 }
 
 void Worm::entityCollision(Entity* entity, char direction){
-
+	switch (entity->getType()){
+	case Entity::PLAYER:
+		switch (direction){
+		case 't':
+			break;
+		default:
+			entity->getHit();
+			break;
+		}
+	default:
+		break;
+	}
 }
 
 void Worm::terrainCollision(Terrain* terrain, char direction){
@@ -81,6 +92,10 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 	default:
 		break;
 	}
+}
+
+void Worm::getHit(){
+	mIsAlive = false;
 }
 
 // Privates

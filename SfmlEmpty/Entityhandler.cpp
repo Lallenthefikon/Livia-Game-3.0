@@ -31,6 +31,20 @@ void Entityhandler::updateEntities(){
 	}
 }
 
+void Entityhandler::bringOutTheDead(){
+	for (Entities::size_type i = 0; i < mEntities.size(); i++){
+		if (!mEntities[i]->getIsAlive()){
+			if (mEntities[i]->getType() == Entity::PLAYER){
+				Entityhandler::gameOver();
+			}
+			else{
+				delete mEntities[i];
+				mEntities.erase(mEntities.begin() + i);
+			}
+		}
+	}
+}
+
 void Entityhandler::addEntity(Entity* entity){
 	mEntities.push_back(entity);
 }
@@ -43,6 +57,11 @@ void Entityhandler::addVector(){
 
 void Entityhandler::clear(){
 	Entityhandler::internalClear();
+}
+
+void Entityhandler::gameOver(){
+	delete mEntities[0];
+	mEntities.erase(mEntities.begin());
 }
 
 // Private funcs
