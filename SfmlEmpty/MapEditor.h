@@ -20,6 +20,7 @@ public:
 	void createBlock0(sf::Vector2f mousePos);
 	void createPlayer(sf::Vector2f mousePos);
 	void createWorm(sf::Vector2f mousePos);
+	void createAcidMonster(sf::Vector2f mousepos);
 
 	virtual void setCurrentMap(std::string &mapname){ mCurrentMap = mapname; }
 	virtual void loadMap();

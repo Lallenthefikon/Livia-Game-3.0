@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Abstractgame.cpp" />
+    <ClCompile Include="AcidMonster.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Block0.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h" />
+    <ClInclude Include="AcidMonster.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Block0.h" />
     <ClInclude Include="Camera.h" />

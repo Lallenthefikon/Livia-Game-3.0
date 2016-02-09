@@ -162,6 +162,10 @@ void MapEditor::createWorm(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createWorm(mousePos));
 }
 
+void MapEditor::createAcidMonster(sf::Vector2f mousePos){
+	mEntities.push_back(Factory::createAcidMonster(mousePos));
+}
+
 void MapEditor::loadMap(){
 	mCurrentMap[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentMap);
@@ -192,6 +196,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::WORM:
 		MapEditor::createWorm(mousePos);
 		break;
+	case MapEditorMeny::ACIDMONSTER:
+		MapEditor::createAcidMonster(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -209,7 +216,7 @@ void MapEditor::eraseTerrain(int index){
 
 void MapEditor::changeInsertType(){
 	switch (mInsertType){
-	case MapEditorMeny::BLOCK0:
+	case MapEditorMeny::ACIDMONSTER:
 		mInsertType = MapEditorMeny::PLAYER;
 		break;
 	case MapEditorMeny::PLAYER:
@@ -217,6 +224,9 @@ void MapEditor::changeInsertType(){
 		break;
 	case MapEditorMeny::WORM:
 		mInsertType = MapEditorMeny::BLOCK0;
+		break;
+	case MapEditorMeny::BLOCK0:
+		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
 		break;
@@ -304,6 +314,10 @@ void MapEditor::writeEntityToFile(std::string filename){
 				output.push_back('W');
 				output.push_back('0');
 				break;
+
+			case Entity::ACIDMONSTER:
+				output.push_back('A');
+				output.push_back('C');
 
 			default:
 				break;

@@ -106,6 +106,10 @@ void MapEditMaploader::clear(){
 	 mEntities.push_back(Factory::createWorm(pos));
  }
 
+ void MapEditMaploader::createAcidMonster(sf::Vector2f &pos){
+	 mEntities.push_back(Factory::createAcidMonster(pos));
+ }
+
  sf::Vector2f MapEditMaploader::readPosition(std::string line){
 
 

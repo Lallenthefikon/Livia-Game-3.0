@@ -6,12 +6,16 @@ static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
+static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
+
 Animations::Textures mPlayerRunningLeftANI;
 Animations::Textures mPlayerRunningRightANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
 	
 Animations::Textures mWormCrawlingANI;
+
+Animations::Textures mAcidMonsterANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -63,6 +67,11 @@ void Animations::loadTextures(){
 	// Worm crawling
 	mWormCrawlingANI.push_back(new sf::Texture);
 	mWormCrawlingANI[0]->loadFromImage(mWormCrawlingIMG);
+
+	// Acidmonster
+
+	mAcidMonsterANI.push_back(new sf::Texture);
+	mAcidMonsterANI[0]->loadFromImage(mAcidMonsterIMG);
 }
 
 // Player ANI
@@ -93,3 +102,8 @@ Animations::Textures* Animations::getWormCrawlingRightANI(){
 Animations::Textures* Animations::getWormCrawlingLeftANI(){
 	return &mWormCrawlingANI;
 }
+
+Animations::Textures* Animations::getAcidMonster(){
+	return &mAcidMonsterANI;
+}
+

@@ -8,21 +8,12 @@
 
 class MapEditorMeny{
 public:
-
-	enum INSERTTYPE{
-		BLOCK0,
-		PLAYER,
-		WORM
-	};
+	enum INSERTTYPE{ BLOCK0, PLAYER, WORM, ACIDMONSTER };
 
 	static MapEditorMeny& getInstance();
-
 	void render(sf::RenderWindow &window);
-
 	void insertObjects();
-
 	bool menyClicked(sf::Vector2i mousepos);
-
 	INSERTTYPE& getInsertType(){ return mInsertType; }
 
 private:
@@ -40,7 +31,6 @@ private:
 	INSERTTYPE mInsertType;
 
 	sf::Texture mMenyTexture;
-
 	sf::Sprite mMenySprite;
 };
 

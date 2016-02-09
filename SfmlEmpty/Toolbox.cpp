@@ -6,6 +6,7 @@ static sf::Sprite mPlayerSprite;
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
 static sf::Image mPlayersheet;
+static sf::Image mAcidMonsterTexture;
 
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
@@ -23,7 +24,10 @@ Toolbox& Toolbox::getInstance(){
 void Toolbox::loadTextures(){
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
 	mBlock0sheet.loadFromFile("resources/images/TileSheet.png");
+
 	mPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder LR-Comb v.2.1.fw.png");
+
+	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMeny.png");
@@ -51,6 +55,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case EDITORMENY:
 		return mEditorMenyTexture;
+		break;
+
+	case ACIDMONSTERTEXTURE:
+		return mAcidMonsterTexture;
 		break;
 
 	default:
