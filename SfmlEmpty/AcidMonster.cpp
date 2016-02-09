@@ -1,50 +1,51 @@
-#include "Worm.h"
+#include "AcidMonster.h"
 
 static const float ANIFramesPerFrame(0.5);
 
-Worm::Worm(sf::Vector2f pos) :
-mCurrentAnimation(Animations::getWormCrawlingLeftANI()),
+AcidMonster::AcidMonster(sf::Vector2f pos):
+mCurrentAnimation(Animations::getAcidMonster()),
 mIsOnScreen(true),
+mIsAlive(true),
 mSpeed(8),
 mMaxSpeed(8){
-	mVelocityGoal.x = -mMaxSpeed;
+	mVelocityGoal.x = mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
 }
 
-Worm::~Worm(){
+
+AcidMonster::~AcidMonster()
+{
 }
 
-Entity* Worm::createWorm(sf::Vector2f pos){
-	return new Worm(pos);
+Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
+	return new AcidMonster(pos);
 }
 
-void Worm::render(sf::RenderWindow &window){
+void AcidMonster::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 }
 
-void Worm::update(){
-
-	Worm::addSpeed();
-	Worm::lerp();
-	Worm::updateCollision();
-	Worm::updateState();
-	Worm::animate();
+void AcidMonster::update(){
+	AcidMonster::addSpeed();
+	AcidMonster::lerp();
+	AcidMonster::updateState();
+	AcidMonster::animate();
 
 	mSprite.move(mVelocity);
 }
 
-void Worm::addVector(sf::Vector2f &vector){
-	mVelocity += vector;
+void AcidMonster::addVector(sf::Vector2f &vector){
+	//mVelocity += vector;
 }
 
-void Worm::entityCollision(Entity* entity, char direction){
+void AcidMonster::entityCollision(Entity* entity, char direction){
 
 }
 
-void Worm::terrainCollision(Terrain* terrain, char direction){
-	float delta;
+void AcidMonster::terrainCollision(Terrain* terrain, char direction){
+	/*float delta;
 	switch (terrain->getType())	{
 	case Terrain::BLOCK0:
 		switch (direction){
@@ -79,12 +80,12 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 		}
 	default:
 		break;
-	}
+	}*/
 }
 
 // Privates
 
-void Worm::lerp(){
+void AcidMonster::lerp(){
 
 	bool lerpedY(false);
 	bool lerpedX(false);
@@ -126,79 +127,21 @@ void Worm::lerp(){
 		mVelocity.x = mVelocityGoal.x;
 }
 
-
-void Worm::addSpeed(){
+void AcidMonster::addSpeed(){
 	/*if (mVelocityGoal.x < mMaxSpeed && mVelocityGoal.x > 0)
-		mVelocity.x += mSpeed;
+	mVelocity.x += mSpeed;
 	if (mVelocityGoal.x > -mMaxSpeed && mVelocityGoal.x <= 0)
-		mVelocity.x -= mSpeed;*/
+	mVelocity.x -= mSpeed;*/
 }
 
-void Worm::updateState(){
-	if (mVelocity.x > 0){
-		mState = Worm::CRAWLINGRIGHT;
-		Worm::updateANI();
-	}
+void AcidMonster::updateState(){
 
-	if (mVelocity.x < 0){
-		mState = Worm::CRAWLINGLEFT;
-		Worm::updateANI();
-	}
 }
 
-
-void Worm::updateANI(){
-	switch (mState){
-	case Worm::CRAWLINGLEFT:
-		mCurrentAnimation = Animations::getWormCrawlingLeftANI();
-		break;
-	case Worm::CRAWLINGRIGHT:
-		mCurrentAnimation = Animations::getWormCrawlingRightANI();
-		break;
-	default:
-		break;
-	}
+void AcidMonster::updateANI(){
 }
 
-void Worm::updateCollision(){
-	if (mCollisionT){
-		if (!CollisionFuncs::currentCollisionT(mSprite, mCurrentCollisionT->getSprite())){
-			mCollisionT = false;
-		}
-	}
-	if (mCollisionB){
-		if (!CollisionFuncs::currentCollisionB(mSprite, mCurrentCollisionB->getSprite())){
-			mCollisionB = false;
-		}
-	}
-	if (mCollisionL){
-		if (!CollisionFuncs::currentCollisionL(mSprite, mCurrentCollisionL->getSprite())){
-			mCollisionL = false;
-		}
-		else{
-			mVelocityGoal.x = mMaxSpeed;
-		}
-	}
-	if (mCollisionR){
-		if (!CollisionFuncs::currentCollisionR(mSprite, mCurrentCollisionR->getSprite())){
-			mCollisionR = false;
-		}
-		else{
-			mVelocityGoal.x = -mMaxSpeed;
-		}
-	}
-
-	if (mCollisionT && mVelocity.y < 0)
-		mVelocity.y = 0;
-	if (mCollisionB && mVelocity.y > 0)
-		mVelocity.y = 0;
-	if (mCollisionL && mVelocity.x < 0)
-		mVelocity.x = 0;
-	if (mCollisionR && mVelocity.x > 0)
-		mVelocity.x = 0;
-}
-
-void Worm::animate(){
+void AcidMonster::animate(){
 	mTimer += ANIFramesPerFrame;
 
 	if (mTimer >= 1){
@@ -209,4 +152,8 @@ void Worm::animate(){
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	}
+}
+
+void AcidMonster::getHit(){
+
 }

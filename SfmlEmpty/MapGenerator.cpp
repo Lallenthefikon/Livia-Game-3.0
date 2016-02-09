@@ -30,6 +30,8 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mapname[15] = 'm';
 
+	mEntityhandler->addEntity(Factory::createAcidMonster(sf::Vector2f(-100,0)));
+
 }
 
 void MapGenerator::readTerrainfile(std::string &filename){
@@ -88,6 +90,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
 				default:
 					break;
+					
+				}
+			case 'A':
+				switch (line[1]){
+				case 'C':
+					MapGenerator::createAcidMonster(MapGenerator::readPosition(line));
+				default:
+					break;
 				}
 
 			default:
@@ -108,6 +118,10 @@ void MapGenerator::createWorm(sf::Vector2f pos){
 
 void MapGenerator::createPlayer(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createPlayer(pos));
+}
+
+void MapGenerator::createAcidMonster(sf::Vector2f pos){
+	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
 }
 
 

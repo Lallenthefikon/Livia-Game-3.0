@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Block0.h"
 #include "Worm.h"
+#include "AcidMonster.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -13,4 +14,8 @@ Terrain* Factory::createBlock0(sf::Vector2f pos, char type){
 
 Entity* Factory::createWorm(sf::Vector2f pos){
 	return Worm::createWorm(pos);
+}
+
+Entity* Factory::createAcidMonster(sf::Vector2f pos){
+	return AcidMonster::createAcidMonster(pos);
 }
