@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Entity.h"
 #include <SFML\System.hpp>
-#include "Toolbox.h"
-#include "Animations.h"
-#include "CollisionFuncs.h"
+#include "Entity.h"
 
 class Worm : public Entity{
 public:

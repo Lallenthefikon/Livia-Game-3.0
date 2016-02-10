@@ -18,7 +18,10 @@ mTimerANI(1),
 mJumpSpeed(-25),
 mMaxSpeed(15),
 mAcceleration(70),
-mLife(3){
+mLife(3),
+
+// Sounds
+mSoundFX(SoundFactory::getLiviaSound()){
 
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
@@ -124,6 +127,7 @@ void Player::getHit(){
 			mLife--;
 			mInvulnerable = true;
 			mInvulnerableTime.restart().asMilliseconds();
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		}
 		else
 			mIsAlive = false;
@@ -213,6 +217,7 @@ void Player::updateState(){
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
 		mState = IDLE;
 		Player::updateANI();
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 	}
 
 	if (mVelocity.y > 0 && mState != FALLING){
@@ -222,6 +227,7 @@ void Player::updateState(){
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
 		Player::updateANI();
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 	}
 	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;

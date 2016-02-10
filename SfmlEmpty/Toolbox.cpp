@@ -16,6 +16,10 @@ static sf::Vector2f mWindowSize;
 static sf::Vector2f mResolution;
 static sf::Vector2f mWindowPos;
 
+// Sounds
+static sf::SoundBuffer mPlayerSound;
+static sf::SoundBuffer mWormSound;
+
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
 	return toolbox;
@@ -92,4 +96,35 @@ void Toolbox::copyPlayerInfo(sf::Sprite &playerSprite){
 
 sf::Sprite Toolbox::getPlayerSprite(){
 	return mPlayerSprite;
+}
+
+// Sounds
+sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
+	switch (soundKey) {
+	case Toolbox::PLAYERIDLE:
+		mPlayerSound.loadFromFile("resources/sounds/Jump_03.ogg");
+		return mPlayerSound;
+		break;
+	case Toolbox::PLAYERRUN:
+		mPlayerSound.loadFromFile("resources/sounds/Jump_02.ogg");
+		return mPlayerSound;
+		break;
+	case Toolbox::PLAYERJUMP:
+		mPlayerSound.loadFromFile("resources/sounds/Jump_01.ogg");
+		return mPlayerSound;
+		break;
+	case Toolbox::PLAYERLAND:
+		break;
+	case Toolbox::WORMIDLE:
+		break;
+	case Toolbox::WORMRUN:
+		break;
+	case Toolbox::WORMJUMP:
+		break;
+	case Toolbox::WORMLAND:
+		break;
+	default:
+		return mPlayerSound;
+		break;
+	}
 }

@@ -2,9 +2,6 @@
 
 #include <SFML\System.hpp>
 #include "Entity.h"
-#include "Toolbox.h"
-#include "Animations.h"
-#include "CollisionFuncs.h"
 
 class Player : public Entity{
 
@@ -78,5 +75,8 @@ private:
 	Terrain* mCurrentCollisionT;
 	Terrain* mCurrentCollisionL;
 	Terrain* mCurrentCollisionR;
+
+	// Sounds // Niclas
+	SoundFX& mSoundFX;
 
 };

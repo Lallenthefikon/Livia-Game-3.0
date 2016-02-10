@@ -2,6 +2,11 @@
 
 #include <SFML\Graphics.hpp>
 #include "Terrain.h"
+#include "Toolbox.h"
+#include "Animations.h"
+#include "CollisionFuncs.h"
+#include "SoundFactory.h"
+#include "SoundFX.h"
 
 class Entity{
 public:

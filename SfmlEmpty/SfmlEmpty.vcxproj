@@ -89,6 +89,7 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameRun.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="LiviaSound.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="MapEditMaploader.cpp" />
@@ -96,10 +97,13 @@
     <ClCompile Include="MapEditorMeny.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SoundFactory.cpp" />
+    <ClCompile Include="SoundFX.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Terrainhandler.cpp" />
     <ClCompile Include="Toolbox.cpp" />
     <ClCompile Include="Worm.cpp" />
+    <ClCompile Include="WormSound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h" />
@@ -115,15 +119,19 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameRun.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="LiviaSound.h" />
     <ClInclude Include="MapEditMaploader.h" />
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="MapEditorMeny.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundFactory.h" />
+    <ClInclude Include="SoundFX.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Terrainhandler.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Worm.h" />
+    <ClInclude Include="WormSound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
