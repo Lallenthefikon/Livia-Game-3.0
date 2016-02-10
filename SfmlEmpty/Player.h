@@ -48,10 +48,10 @@ private:
 	// Stats 
 	float mJumpSpeed;
 	float mMaxSpeed;
-	float mSpeed;
+	float mAcceleration;
 
 	sf::Sprite mSprite;
-	sf::Clock mInvernableTime;
+	sf::Clock mInvulnerableTime;
 
 	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
@@ -65,7 +65,7 @@ private:
 
 	bool mIsOnScreen;
 	PLAYERSTATE mState;
-	bool mInvernable;
+	bool mInvulnerable;
 	bool mIsAlive;
 	int mLife;
 

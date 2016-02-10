@@ -49,7 +49,7 @@ private:
 	int mAnimationIndex;
 	float mTimer;
 
-	float mSpeed;
+	float mAcceleration;
 	float mMaxSpeed;
 
 	sf::Vector2f mSpriteOffset,

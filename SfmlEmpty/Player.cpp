@@ -1,7 +1,6 @@
 #include "Player.h"
 #include <iostream>
 
-static float FRIKTION(0.5);
 static const float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
@@ -18,7 +17,7 @@ mTimerANI(1),
 // Stats
 mJumpSpeed(-25),
 mMaxSpeed(15),
-mSpeed(70),
+mAcceleration(70),
 mLife(3){
 
 	mSprite.setTexture(*mCurrentAnimation->at(0));
@@ -61,7 +60,7 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::WORM:
 		switch (direction){
 		case 'b':
-			if (!mInvernable){
+			if (!mInvulnerable){
 				delta = entity->getPos().y - mSprite.getPosition().y;
 				mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -120,11 +119,11 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 }
 
 void Player::getHit(){
-	if (!mInvernable){
+	if (!mInvulnerable){
 		if (mLife > 0){
 			mLife--;
-			mInvernable = true;
-			mInvernableTime.restart().asMilliseconds();
+			mInvulnerable = true;
+			mInvulnerableTime.restart().asMilliseconds();
 		}
 		else
 			mIsAlive = false;
@@ -161,7 +160,7 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 *mSpeed ;
+	float delta = 0.016 *mAcceleration ;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -224,8 +223,8 @@ void Player::updateState(){
 		mState = JUMPING;
 		Player::updateANI();
 	}
-	if (mInvernableTime.getElapsedTime().asMilliseconds() > 1000){
-		mInvernable = false;
+	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
+		mInvulnerable = false;
 	}
 
 }

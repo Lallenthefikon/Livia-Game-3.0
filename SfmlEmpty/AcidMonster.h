@@ -8,7 +8,7 @@
 
 	class AcidMonster : public Entity{
 	public:
-		enum ACIDMONSTERSTATE{MOVINGRIGHT};
+		enum ACIDMONSTERSTATE { MOVINGRIGHT };
 		virtual ~AcidMonster();
 		virtual ENTITYTYPE getType(){ return ACIDMONSTER; }
 		static Entity* createAcidMonster(sf::Vector2f pos);
@@ -25,7 +25,7 @@
 		virtual void entityCollision(Entity* entity, char direction);
 		virtual void terrainCollision(Terrain* terrain, char direction);
 		virtual void getHit();
-		
+
 
 	private:
 		AcidMonster(sf::Vector2f pos);
@@ -45,7 +45,7 @@
 		int mAnimationIndex;
 		float mTimer;
 
-		float mSpeed;
+		float mAcceleration;
 		float mMaxSpeed;
 
 		sf::Vector2f mSpriteOffset,

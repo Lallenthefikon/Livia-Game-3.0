@@ -6,7 +6,7 @@ AcidMonster::AcidMonster(sf::Vector2f pos):
 mCurrentAnimation(Animations::getAcidMonster()),
 mIsOnScreen(true),
 mIsAlive(true),
-mSpeed(8),
+mAcceleration(8),
 mMaxSpeed(8){
 	mVelocityGoal.x = mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
@@ -90,7 +90,7 @@ void AcidMonster::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = 0.016 *mSpeed;
+	float delta = 0.016 *mAcceleration;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -129,9 +129,9 @@ void AcidMonster::lerp(){
 
 void AcidMonster::addSpeed(){
 	/*if (mVelocityGoal.x < mMaxSpeed && mVelocityGoal.x > 0)
-	mVelocity.x += mSpeed;
+	mVelocity.x += mAcceleration;
 	if (mVelocityGoal.x > -mMaxSpeed && mVelocityGoal.x <= 0)
-	mVelocity.x -= mSpeed;*/
+	mVelocity.x -= mAcceleration;*/
 }
 
 void AcidMonster::updateState(){

@@ -5,7 +5,7 @@ static const float ANIFramesPerFrame(0.5);
 Worm::Worm(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getWormCrawlingLeftANI()),
 mIsOnScreen(true),
-mSpeed(8),
+mAcceleration(8),
 mMaxSpeed(8),
 mIsAlive(true){
 	mVelocityGoal.x = -mMaxSpeed;
@@ -105,7 +105,7 @@ void Worm::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = 0.016 *mSpeed;
+	float delta = 0.016 *mAcceleration;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -145,9 +145,9 @@ void Worm::lerp(){
 
 void Worm::addSpeed(){
 	/*if (mVelocityGoal.x < mMaxSpeed && mVelocityGoal.x > 0)
-		mVelocity.x += mSpeed;
+		mVelocity.x += mAcceleration;
 	if (mVelocityGoal.x > -mMaxSpeed && mVelocityGoal.x <= 0)
-		mVelocity.x -= mSpeed;*/
+		mVelocity.x -= mAcceleration;*/
 }
 
 void Worm::updateState(){
