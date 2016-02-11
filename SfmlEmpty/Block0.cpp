@@ -108,3 +108,7 @@ void Block0::setTexture(char type){
 	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE),
 		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
 }
+
+void Block0::setPos(sf::Vector2f newPos){
+	mSprite.setPosition(newPos);
+}

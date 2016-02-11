@@ -157,3 +157,7 @@ void AcidMonster::animate(){
 void AcidMonster::getHit(){
 
 }
+
+void AcidMonster::setPos(sf::Vector2f newPos){
+	mSprite.setPosition(newPos);
+}

@@ -17,5 +17,7 @@ public:
 	virtual float getHeight() = 0;
 	virtual sf::Sprite getSprite() = 0;
 	virtual bool isOnScreen() = 0;
+	virtual void setPos(sf::Vector2f newPos) = 0;
+	virtual void setScale(sf::Vector2f newScale) = 0;
 };
 

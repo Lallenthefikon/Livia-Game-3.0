@@ -15,6 +15,7 @@ public:
 	void insertObjects();
 	bool menyClicked(sf::Vector2i mousepos);
 	INSERTTYPE& getInsertType(){ return mInsertType; }
+	void resetMenusPos(sf::Vector2f newPos);
 
 private:
 	MapEditorMeny();

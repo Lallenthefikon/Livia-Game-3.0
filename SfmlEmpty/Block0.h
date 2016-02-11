@@ -17,6 +17,8 @@ public:
 	virtual float getHeight(){ return mSprite.getGlobalBounds().height; }
 	virtual sf::Sprite getSprite(){ return mSprite; }
 	virtual bool isOnScreen(){ return mIsOnScreen; }
+	virtual void setPos(sf::Vector2f newPos);
+	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 
 private:
 	Block0(sf::Vector2f pos, char type);

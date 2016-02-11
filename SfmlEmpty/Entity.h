@@ -28,5 +28,8 @@ public:
 	virtual void terrainCollision(Terrain* terrain, char direction) = 0;
 	virtual void getHit() = 0;
 	virtual bool getIsAlive() = 0;
+	virtual void setPos(sf::Vector2f newPos) = 0;
+	virtual void setScale(sf::Vector2f newScale) = 0;
+
 };
 

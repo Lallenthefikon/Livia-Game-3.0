@@ -35,15 +35,14 @@ void MapEditor::update(sf::RenderWindow &window){
 			window.close();
 
 		if (gEvent.type == sf::Event::MouseButtonPressed){
+			sf::Vector2i pixel_pos = sf::Mouse::getPosition(window);
+			sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
 
-
-			if (mMeny.menyClicked(sf::Mouse::getPosition(window))){
+			if (mMeny.menyClicked(sf::Vector2i(coord_pos))){
 				MapEditor::updateInsertType();
 			}
-
 			else{
-				sf::Vector2i pixel_pos = sf::Mouse::getPosition(window);
-				sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+				
 				int i;
 
 				sf::Sprite clickedTile;
@@ -91,6 +90,9 @@ void MapEditor::update(sf::RenderWindow &window){
 		}
 		if (gEvent.type == sf::Event::MouseWheelMoved){
 			mCamera.zoomCameraEDITOR(gEvent);
+			sf::Vector2i pixel_pos = window.getPosition();
+			sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+			mMeny.resetMenusPos(coord_pos);
 		}
 
 		if (gEvent.type == sf::Event::KeyPressed){
@@ -109,14 +111,31 @@ void MapEditor::update(sf::RenderWindow &window){
 	}
 
 	// Camera movement
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	// Camera movement & following menu 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		mCamera.updateCamEDITOR(window, "Up");
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		sf::Vector2i pixel_pos = window.getPosition();
+		sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+		mMeny.resetMenusPos(coord_pos);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
 		mCamera.updateCamEDITOR(window, "Down");
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		sf::Vector2i pixel_pos = window.getPosition();
+		sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+		mMeny.resetMenusPos(coord_pos);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
 		mCamera.updateCamEDITOR(window, "Right");
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		sf::Vector2i pixel_pos = window.getPosition();
+		sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+		mMeny.resetMenusPos(coord_pos);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
 		mCamera.updateCamEDITOR(window, "Left");
+		sf::Vector2i pixel_pos = window.getPosition();
+		sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+		mMeny.resetMenusPos(coord_pos);
+	}
 
 	window.setView(mCamera.getView());
 }
@@ -492,4 +511,3 @@ bool MapEditor::isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos){
 void MapEditor::updateInsertType(){
 	mInsertType = mMeny.getInsertType();
 }
-

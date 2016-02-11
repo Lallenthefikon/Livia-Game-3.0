@@ -343,3 +343,7 @@ void Player::playSound(PLAYERSTATE state) {
 		break;
 	}
 }
+
+void Player::setPos(sf::Vector2f newPos){
+	mSprite.setPosition(newPos);
+}

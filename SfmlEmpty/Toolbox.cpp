@@ -34,7 +34,7 @@ void Toolbox::loadTextures(){
 	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
-	mEditorMenyTexture.loadFromFile("resources/images/EditorMeny.png");
+	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){

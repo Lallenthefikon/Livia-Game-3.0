@@ -1,5 +1,6 @@
 #include "MapEditorMeny.h"
-
+#include <iostream>
+int WIDTHBETWEEN = 70;
 
 MapEditorMeny::MapEditorMeny():
 mInsertType(BLOCK0){
@@ -33,11 +34,12 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 
 void MapEditorMeny::insertObjects(){
 
-	int widthBetween = 140;
-
-	mEntities.push_back(Factory::createPlayer(sf::Vector2f(widthBetween, 100)));
-	mEntities.push_back(Factory::createWorm(sf::Vector2f(widthBetween * 2, 100)));
-	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(widthBetween * 3, 100), 'a'));
+	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
+	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
+	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
+	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 2.7, 80), 'a'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -74,6 +76,27 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 		}
 		return true;
 	}
+}
+
+void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
+	mMenySprite.setPosition(newPos);
+
+	// Player
+	mEntities[0]->setPos(sf::Vector2f(newPos.x + 10, newPos.y + 10));
+	// Worm
+	mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
+	// Block0 
+	mTerrains[0]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * 1.7, newPos.y + 20));
+
+	//int nrOfEntities;
+	//for (Entities::size_type i = 0; i < mEntities.size(); i++){
+	//	nrOfEntities = i + 1;
+	//	mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * (i + nrOfEntities), newPos.y + 50));
+	//}
+	//nrOfEntities++;
+	//for (Terrains::size_type i = 0; i < mTerrains.size(); i++){
+	//	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * nrOfEntities, newPos.y + 50));
+	//}
 }
 
 bool MapEditorMeny::isSpriteClicked(sf::Sprite& spr, sf::Vector2i *mousePos){

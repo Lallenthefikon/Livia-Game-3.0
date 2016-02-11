@@ -226,3 +226,7 @@ void Worm::animate(){
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	}
 }
+
+void Worm::setPos(sf::Vector2f newPos){
+	mSprite.setPosition(newPos);
+}

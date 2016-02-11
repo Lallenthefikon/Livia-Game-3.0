@@ -26,15 +26,15 @@ void Camera::updateCamGAME(sf::Window &window){
 
 void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 	if (direction == "Up")
-		moveCameraEDITOR(window, sf::Vector2f(0.f, -1.f), 10.0f);
+		moveCameraEDITOR(window, sf::Vector2f(0.f, -1.f), 40.0f);
 	else if (direction == "Down"){
-		moveCameraEDITOR(window, sf::Vector2f(0.f, 1.f), 10.0f);
+		moveCameraEDITOR(window, sf::Vector2f(0.f, 1.f), 40.0f);
 	}
 	else if (direction == "Right"){
-		moveCameraEDITOR(window, sf::Vector2f(1.f, 0.f), 10.0f);
+		moveCameraEDITOR(window, sf::Vector2f(1.f, 0.f), 40.0f);
 	}
 	else if (direction == "Left"){
-		moveCameraEDITOR(window, sf::Vector2f(-1.f, 0.f), 10.0f);
+		moveCameraEDITOR(window, sf::Vector2f(-1.f, 0.f), 40.0f);
 	}
 }
 
