@@ -36,6 +36,7 @@ private:
 
 	void playerInput();
 	void lerp();
+	void clickOnce(sf::Keyboard::Key key);
 
 	void updateState();
 	void updateANI();
@@ -57,7 +58,9 @@ private:
 
 	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
-	int mAnimationIndex;
+	int mAnimationIndex,
+		mClickOnce,
+		mNrOfJumps;
 	float mTimerANI;
 
 	sf::Vector2f

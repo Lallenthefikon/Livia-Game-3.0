@@ -96,6 +96,7 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 			delta = mSprite.getPosition().y - terrain->getPos().y;
 			mSprite.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
 			mCurrentCollisionT = terrain;
+			mJumpTimer = 0;
 			break;
 		case 'b':
 			mCollisionB = true;
@@ -143,27 +144,29 @@ void Player::playerInput() {
 
 	// Jump
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		mJumpTimer += 0.1;
 		if (mState != JUMPING && mState != FALLING) {
+			mJumpTimer += 0.1;
 			mVelocity.y = mJumpSpeedFirst;
+			mSoundFX.playSound(SoundFX::JUMPING);
+			//Player::playSound(JUMPING);
 		}
 		else if (mJumpTimer > 0.2) {
 			mVelocity.y = mJumpSpeedSecond;
+			//Player::playSound(JUMPING);
 		}
-		//Player::playSound(JUMPING);
+	}
 
-
-		// Left and right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-				mVelocityGoal.x = -mMaxSpeed;
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-				mVelocityGoal.x = mMaxSpeed;
-			}
+	// Left and right
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			mVelocityGoal.x = -mMaxSpeed;
 		}
-		else
-			mVelocityGoal.x = 0;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			mVelocityGoal.x = mMaxSpeed;
+		}
+	}
+	else {
+		mVelocityGoal.x = 0;
 	}
 }
 
@@ -231,10 +234,12 @@ void Player::updateState(){
 		mState = FALLING;
 		Player::updateANI();
 	}
+
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
 		Player::updateANI();
 	}
+
 	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
 	}
@@ -316,10 +321,10 @@ void Player::animate(){
 }
 
 
-void Player::playSound(Player::PLAYERSTATE state) {
+void Player::playSound(PLAYERSTATE state) {
 	switch (state) {
 	case Player::JUMPING:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 		break;
 	case Player::IDLE:
 		//mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
