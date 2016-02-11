@@ -15,7 +15,7 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpSpeedFirst(-15),
+mJumpSpeedFirst(-30), // Sålänge
 mJumpSpeedSecond(-30),
 mJumpSpeedMax(-30),
 mMaxSpeed(15),
@@ -51,7 +51,6 @@ void Player::render(sf::RenderWindow &window){
 	Player::lerp();
 	Player::updateCollision();
 	Player::updateState();
-	Player::playSound(mState);
 	Player::animate();
 
 	mSprite.move(mVelocity);
@@ -193,7 +192,7 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 *mAcceleration ;
+	float delta = 0.016 * mAcceleration ;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -235,16 +234,19 @@ void Player::updateState(){
 
 	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
 		mState = RUNNINGLEFT;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
 		mState = RUNNINGRIGHT;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -255,6 +257,7 @@ void Player::updateState(){
 
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -346,16 +349,16 @@ void Player::animate(){
 void Player::playSound(PLAYERSTATE state) {
 	switch (state) {
 	case Player::JUMPING:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 		break;
 	case Player::IDLE:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
 	case Player::RUNNINGLEFT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::RUNNINGRIGHT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::FALLING:
 		break;
