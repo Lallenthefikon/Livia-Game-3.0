@@ -98,8 +98,10 @@ void MapEditor::update(sf::RenderWindow &window){
 		if (gEvent.type == sf::Event::KeyPressed){
 			switch (gEvent.key.code){
 			case sf::Keyboard::S:
-
 				MapEditor::saveMap();
+				break;
+			case sf::Keyboard::Num0:
+				MapEditor::changeInsertType();
 				break;
 			case sf::Keyboard::Delete:
 				MapEditor::internalClear();

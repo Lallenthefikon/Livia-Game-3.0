@@ -15,9 +15,12 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpSpeedFirst(-15),
-mJumpSpeedSecond(-25),
+mJumpSpeedFirst(-30), // Sålänge
+mJumpSpeedSecond(-30),
+mJumpSpeedMax(-30),
 mMaxSpeed(15),
+//mJumpTimer(0),
+
 mAcceleration(70),
 mLife(3),
 
@@ -48,7 +51,6 @@ void Player::render(sf::RenderWindow &window){
 	Player::lerp();
 	Player::updateCollision();
 	Player::updateState();
-	Player::playSound(mState);
 	Player::animate();
 
 	mSprite.move(mVelocity);
@@ -96,7 +98,7 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 			delta = mSprite.getPosition().y - terrain->getPos().y;
 			mSprite.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
 			mCurrentCollisionT = terrain;
-			mJumpTimer = 0;
+			
 			break;
 		case 'b':
 			mCollisionB = true;
@@ -142,19 +144,34 @@ void Player::getHit(){
 
 void Player::playerInput() {
 
-	// Jump
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		if (mState != JUMPING && mState != FALLING) {
-			mJumpTimer += 0.1;
-			mVelocity.y = mJumpSpeedFirst;
-			mSoundFX.playSound(SoundFX::JUMPING);
-			//Player::playSound(JUMPING);
-		}
-		else if (mJumpTimer > 0.2) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+		if (mJumpClock && mState != JUMPING && mState != FALLING){
+			
 			mVelocity.y = mJumpSpeedSecond;
-			//Player::playSound(JUMPING);
 		}
+		else if (mState != JUMPING && mState != FALLING){
+			mVelocity.y = mJumpSpeedFirst;
+		}
+		std::cout << mJumpClock << std::endl;
+		
+			//mJumpTimer += 0.1;
+
+
+		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
+		//mVelocity.y = mJumpSpeedFirst;
+		//mJumpTimer = 0;
+		//Player::playSound(JUMPING);
+		//}
+		//else if (mState != JUMPING && mState != FALLING) {
+
+		//mVelocity.y = mJumpSpeedSecond;
+		//	mJumpTimer = 0;
+		//mSoundFX.playSound(SoundFX::JUMPING);
+		//Player::playSound(JUMPING);
+		//	}
+		//std::cout << mJumpTimer << std::endl;
 	}
+
 
 	// Left and right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
@@ -175,7 +192,7 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 *mAcceleration ;
+	float delta = 0.016 * mAcceleration ;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -217,16 +234,19 @@ void Player::updateState(){
 
 	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
 		mState = RUNNINGLEFT;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
 		mState = RUNNINGRIGHT;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -237,11 +257,16 @@ void Player::updateState(){
 
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
+	}
+
+	if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
+		mJumpClock = false;
 	}
 
 }
@@ -324,16 +349,16 @@ void Player::animate(){
 void Player::playSound(PLAYERSTATE state) {
 	switch (state) {
 	case Player::JUMPING:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 		break;
 	case Player::IDLE:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
 	case Player::RUNNINGLEFT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::RUNNINGRIGHT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::FALLING:
 		break;

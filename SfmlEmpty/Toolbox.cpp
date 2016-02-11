@@ -106,14 +106,16 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerSound;
 		break;
 	case Toolbox::PLAYERRUN:
-		mPlayerSound.loadFromFile("resources/sounds/Jump_02.ogg");
-		return mPlayerSound;
 		break;
 	case Toolbox::PLAYERJUMP:
 		mPlayerSound.loadFromFile("resources/sounds/Jump_01.ogg");
 		return mPlayerSound;
 		break;
 	case Toolbox::PLAYERLAND:
+		break;
+	case Toolbox::PLAYERDAMAGED:
+		mPlayerSound.loadFromFile("resources/sounds/Jump_02.ogg");
+		return mPlayerSound;
 		break;
 	case Toolbox::WORMIDLE:
 		break;
