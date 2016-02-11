@@ -15,10 +15,12 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpSpeed(-25),
+mJumpSpeedFirst(-15),
+mJumpSpeedSecond(-25),
 mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
+
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()){
@@ -68,9 +70,9 @@ void Player::entityCollision(Entity* entity, char direction){
 				delta = entity->getPos().y - mSprite.getPosition().y;
 				mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-					mVelocity.y = mJumpSpeed * 1.5;
+					mVelocity.y = mJumpSpeedFirst * 1.5;
 				else
-					mVelocity.y = mJumpSpeed;
+					mVelocity.y = mJumpSpeedFirst;
 				entity->getHit();
 			}
 			break;
@@ -137,28 +139,32 @@ void Player::getHit(){
 
 // Privates
 
-void Player::playerInput(){
+void Player::playerInput() {
 
 	// Jump
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		if (mState != JUMPING && mState != FALLING){
-			mVelocity.y = mJumpSpeed;
-			Player::playSound(JUMPING);
+		mJumpTimer += 0.1;
+		if (mState != JUMPING && mState != FALLING) {
+			mVelocity.y = mJumpSpeedFirst;
 		}
-	}
+		else if (mJumpTimer > 0.2) {
+			mVelocity.y = mJumpSpeedSecond;
+		}
+		//Player::playSound(JUMPING);
 
-	// Left and right
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			mVelocityGoal.x = -mMaxSpeed;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			mVelocityGoal.x = mMaxSpeed;
-		}
-	}
- else
-	mVelocityGoal.x = 0;
 
+		// Left and right
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+				mVelocityGoal.x = -mMaxSpeed;
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+				mVelocityGoal.x = mMaxSpeed;
+			}
+		}
+		else
+			mVelocityGoal.x = 0;
+	}
 }
 
 void Player::lerp(){
