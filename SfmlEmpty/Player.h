@@ -43,9 +43,12 @@ private:
 	void animate();
 
 	// Stats 
-	float mJumpSpeed;
+	float mJumpSpeedFirst;
+	float mJumpSpeedSecond;
+	float mJumpTimer;
 	float mMaxSpeed;
 	float mAcceleration;
+	
 
 	sf::Sprite mSprite;
 	sf::Clock mInvulnerableTime;
