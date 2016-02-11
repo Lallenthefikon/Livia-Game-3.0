@@ -46,6 +46,7 @@ void Player::render(sf::RenderWindow &window){
 	Player::lerp();
 	Player::updateCollision();
 	Player::updateState();
+	Player::playSound(mState);
 	Player::animate();
 
 	mSprite.move(mVelocity);
@@ -127,7 +128,7 @@ void Player::getHit(){
 			mLife--;
 			mInvulnerable = true;
 			mInvulnerableTime.restart().asMilliseconds();
-			mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+			Player::playSound(Player::DAMAGED);
 		}
 		else
 			mIsAlive = false;
@@ -142,6 +143,7 @@ void Player::playerInput(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 		if (mState != JUMPING && mState != FALLING){
 			mVelocity.y = mJumpSpeed;
+			Player::playSound(JUMPING);
 		}
 	}
 
@@ -214,10 +216,9 @@ void Player::updateState(){
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
 		Player::updateANI();
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 	}
 
 	if (mVelocity.y > 0 && mState != FALLING){
@@ -227,7 +228,6 @@ void Player::updateState(){
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
 		Player::updateANI();
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 	}
 	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
@@ -306,5 +306,29 @@ void Player::animate(){
 			mAnimationIndex = 0;
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	}
+}
+
+
+void Player::playSound(Player::PLAYERSTATE state) {
+	switch (state) {
+	case Player::JUMPING:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		break;
+	case Player::IDLE:
+		//mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::RUNNINGLEFT:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::RUNNINGRIGHT:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::FALLING:
+		break;
+	case Player::DAMAGED:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+	default:
+		break;
 	}
 }

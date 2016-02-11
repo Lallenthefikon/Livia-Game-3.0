@@ -8,11 +8,9 @@ public:
 	virtual ~WormSound();
 	virtual void playSound(SOUNDTYPE type);
 	virtual void stopSound();
-	virtual SOUNDTYPE getCurrentSound();
 private:
 	WormSound();
 	sf::Sound mSound;
 	sf::SoundBuffer mSoundBuffer;
-	SOUNDTYPE mCurrentSound;
 };
 

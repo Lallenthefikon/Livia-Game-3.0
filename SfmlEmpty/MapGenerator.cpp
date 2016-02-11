@@ -30,7 +30,6 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mapname[15] = 'm';
 
-	mEntityhandler->addEntity(Factory::createAcidMonster(sf::Vector2f(-100,0)));
 
 }
 

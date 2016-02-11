@@ -2,6 +2,7 @@
 
 
 LiviaSound::LiviaSound() {
+	mSound.setVolume(25);
 }
 
 
@@ -16,12 +17,12 @@ SoundFX& LiviaSound::createLiviaSound() {
 void LiviaSound::playSound(SOUNDTYPE type) {
 	switch (type) {
 	case SoundFX::RUNNING:
-		mSound.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN));
 		break;
 	case SoundFX::JUMPING:
 		mSound.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP));
 		break;
 	case SoundFX::LANDING:
+		mSound.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN));
 		break;
 	case SoundFX::DAMAGED:
 		break;
@@ -33,13 +34,10 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 	default:
 		break;
 	}
+//	if (mSound.getPlayingOffset().asMilliseconds() < mSound.getBuffer()->getDuration().asMilliseconds())
 	mSound.play();
 }
 
 void LiviaSound::stopSound() {
 
-}
-
-SoundFX::SOUNDTYPE LiviaSound::getCurrentSound() {
-	return mCurrentSound;
 }
