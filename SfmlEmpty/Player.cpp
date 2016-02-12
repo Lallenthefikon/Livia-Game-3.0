@@ -9,7 +9,7 @@ mIsOnScreen(true),
 mState(IDLERIGHT),
 mIsAlive(true),
 
-// Animatin stuff
+// Animation stuff
 mAnimationIndex(0),
 mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
@@ -98,7 +98,6 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 			delta = mSprite.getPosition().y - terrain->getPos().y;
 			mSprite.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
 			mCurrentCollisionT = terrain;
-			
 			break;
 		case 'b':
 			mCollisionB = true;
@@ -214,25 +213,31 @@ void Player::lerp(){
 	
 void Player::updateState(){
 
-	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
-		mState = RUNNINGLEFT;
-		Player::playSound(mState);
-		Player::updateANI();
+	if (mVelocity.x < 0) {
+		mFacingDirection = FACINGLEFT;
+		if (mState != JUMPING && mState != RUNNINGLEFT) {
+			mState = RUNNINGLEFT;
+			Player::playSound(mState);
+			Player::updateANI();
+		}
 	}
 
-	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
-		mState = RUNNINGRIGHT;
-		Player::playSound(mState);
-		Player::updateANI();
+	if (mVelocity.x > 0) {
+		mFacingDirection = FACINGRIGHT;
+		if (mState != JUMPING && mState != RUNNINGRIGHT) {
+			mState = RUNNINGRIGHT;
+			Player::playSound(mState);
+			Player::updateANI();
+		}
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLELEFT && mState == RUNNINGLEFT){
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLELEFT && (mState == RUNNINGLEFT || mFacingDirection == FACINGLEFT)){
 		mState = IDLELEFT;
 		//Player::playSound(mState);
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLERIGHT && mState == RUNNINGRIGHT) {
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLERIGHT && (mState == RUNNINGRIGHT || mFacingDirection == FACINGRIGHT)) {
 		mState = IDLERIGHT;
 		//Player::playSound(mState);
 		Player::updateANI();

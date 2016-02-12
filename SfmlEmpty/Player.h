@@ -6,7 +6,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLELEFT, IDLERIGHT, RUNNINGLEFT, RUNNINGRIGHT, FALLING, DAMAGED };
+	enum PLAYERSTATE { JUMPING, IDLELEFT, IDLERIGHT, RUNNINGLEFT, RUNNINGRIGHT, FALLING, DAMAGED, FACINGLEFT, FACINGRIGHT };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }
@@ -71,12 +71,14 @@ private:
 		mVelocityGoal;
 
 	bool mIsOnScreen;
-	PLAYERSTATE mState;
+	PLAYERSTATE mState,
+		mFacingDirection;
 	bool mInvulnerable;
 	bool mJumpClock;
 	bool mIsAlive;
 	int mLife;
 
+	// Collision
 	char mCollisionT;
 	char mCollisionB;
 	char mCollisionL;
@@ -87,7 +89,7 @@ private:
 	Terrain* mCurrentCollisionL;
 	Terrain* mCurrentCollisionR;
 
-	// Sounds // Niclas
+	// Sounds
 	SoundFX& mSoundFX;
 
 };
