@@ -5,7 +5,7 @@
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
 mMapDimensionsTiles(500, 50),
-mTileDimensions(120, 120),
+mTileDimensions(100, 100),
 mInsertType(MapEditorMeny::BLOCK0),
 mCurrentLevelDirectory(levelDirectory),
 mMaploader(MapEditMaploader::getInstance()),

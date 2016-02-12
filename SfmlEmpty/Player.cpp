@@ -15,8 +15,8 @@ mCurrentAnimation(Animations::getPlayerRunningANI()),
 mTimerANI(1),
 
 // Jump
-mJumpSpeedInitial(-20), // Sålänge
-mJumpSpeedDouble(-10),
+mJumpSpeedInitial(-20),
+mJumpSpeedDouble(-20),
 mJumpSpeedMax(-30),
 mJumpStarted(false),
 mDoubleJumped(false),
@@ -166,7 +166,10 @@ void Player::playerInput() {
 			}
 		}
 		// Apply Double 
-		
+		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped){
+			mDoubleJumped = true;
+			mVelocity.y = mJumpSpeedDouble;
+		}
 
 
 

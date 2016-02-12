@@ -54,6 +54,7 @@ private:
 	
 
 	sf::Sprite mSprite;
+	sf::Sprite mCollisionBody;
 	sf::Clock mInvulnerableTime;
 	sf::Clock mJumpClockTimer;
 
