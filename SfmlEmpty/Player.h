@@ -47,9 +47,9 @@ private:
 
 	// Stats 
 	float mJumpSpeedFirst;
-	float mJumpSpeedSecond;
+	float mJumpSpeed;
 	float mJumpSpeedMax;
-	//float mJumpTimer;
+	float mJumpTimer;
 	float mMaxSpeed;
 	float mAcceleration;
 	
@@ -69,11 +69,13 @@ private:
 		mVelocity,
 		mSpriteOffset,
 		mVelocityGoal;
+	
 
 	bool mIsOnScreen;
 	PLAYERSTATE mState;
 	bool mInvulnerable;
-	bool mJumpClock;
+	bool mJumpActive;
+	//bool mJumpClock;
 	bool mIsAlive;
 	int mLife;
 

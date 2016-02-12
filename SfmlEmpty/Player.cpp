@@ -15,15 +15,17 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpSpeedFirst(-30), // Sålänge
-mJumpSpeedSecond(-30),
-mJumpSpeedMax(-30),
+mJumpActive(false),
+mJumpSpeedFirst(-15), // Sålänge
+mJumpSpeed(-20),
+mJumpSpeedMax(-22),
 mMaxSpeed(15),
-//mJumpTimer(0),
+mJumpTimer(0),
 
 mAcceleration(70),
 mLife(3),
 
+mJumpClockTimer(),
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()){
@@ -144,32 +146,37 @@ void Player::getHit(){
 
 void Player::playerInput() {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-		if (mJumpClock && mState != JUMPING && mState != FALLING){
-			
-			mVelocity.y = mJumpSpeedSecond;
-		}
-		else if (mState != JUMPING && mState != FALLING){
-			mVelocity.y = mJumpSpeedFirst;
-		}
-		std::cout << mJumpClock << std::endl;
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+	//	mClickOnce++;
+	//	mVelocity.y += mJumpSpeed;
+	//}
+	//else mClickOnce = 0;
+	//	// Makes sure button acts as if pressed once
+	//	if (mClickOnce == 1){
+	//		mJumpClockTimer.restart();
+	//	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mState != FALLING && mState != JUMPING){
+		mJumpActive = true;
+		mVelocity.y += mJumpSpeed/1;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (mState == FALLING || mState == JUMPING) && mJumpActive){
 		
-			//mJumpTimer += 0.1;
+		std::cout << "playerVelocity y: " << mVelocity.y << std::endl;
 
-
-		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
-		//mVelocity.y = mJumpSpeedFirst;
-		//mJumpTimer = 0;
-		//Player::playSound(JUMPING);
-		//}
-		//else if (mState != JUMPING && mState != FALLING) {
-
-		//mVelocity.y = mJumpSpeedSecond;
-		//	mJumpTimer = 0;
-		//mSoundFX.playSound(SoundFX::JUMPING);
-		//Player::playSound(JUMPING);
-		//	}
-		//std::cout << mJumpTimer << std::endl;
+		if (mVelocity.y >= mJumpSpeedMax){
+			mVelocity.y -= 2;
+		}
+		else{
+			mJumpActive = false;
+		}
+	}
+	else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (mState == FALLING || mState == JUMPING)){
+		mJumpActive = false;
+	}
+	// Makes sure button acts as if pressed once
+	if (mClickOnce == 1){
+		mJumpClockTimer.restart();
 	}
 
 
@@ -265,9 +272,6 @@ void Player::updateState(){
 		mInvulnerable = false;
 	}
 
-	if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
-		mJumpClock = false;
-	}
 
 }
 

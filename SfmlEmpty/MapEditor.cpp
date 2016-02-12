@@ -5,7 +5,7 @@
 
 MapEditor::MapEditor(std::string &mapName) :
 mMapDimensionsTiles(500, 50),
-mTileDimensions(120, 120),
+mTileDimensions(100, 100),
 mInsertType(MapEditorMeny::BLOCK0),
 mCurrentMap(mapName),
 mMaploader(MapEditMaploader::getInstance()),
