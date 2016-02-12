@@ -135,7 +135,7 @@ void Player::getHit(){
 			mLife--;
 			mInvulnerable = true;
 			mInvulnerableTime.restart().asMilliseconds();
-			Player::playSound(Player::DAMAGED);
+			//Player::playSound(Player::DAMAGED);
 		}
 		else
 			mIsAlive = false;
@@ -241,13 +241,13 @@ void Player::updateState(){
 
 	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
 		mState = RUNNINGLEFT;
-		Player::playSound(mState);
+		//Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
 		mState = RUNNINGRIGHT;
-		Player::playSound(mState);
+		//Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -264,7 +264,7 @@ void Player::updateState(){
 
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
-		Player::playSound(mState);
+		//Player::playSound(mState);
 		Player::updateANI();
 	}
 
