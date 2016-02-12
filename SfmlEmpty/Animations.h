@@ -7,12 +7,15 @@
 struct Animations{
 	typedef std::vector<sf::Texture*> Textures;
 	static void loadTextures();
-	static Textures* getPlayerRunningLeftANI();
-	static Textures* getPlayerRunningRightANI();
+	static Textures* getPlayerRunningANI();
+	//static Textures* getPlayerRunningLeftANI();
+	//static Textures* getPlayerRunningRightANI();
 	static Textures* getPlayerJumpingANI();
 	static Textures* getPlayerIdleANI();
-	static Textures* getWormCrawlingRightANI();
-	static Textures* getWormCrawlingLeftANI();
+	static Textures* getPlayerHurtANI();
+	static Textures* getWormCrawlingANI();
+	//static Textures* getWormCrawlingRightANI();
+	//static Textures* getWormCrawlingLeftANI();
 	static Textures* getAcidMonster();
 };
 

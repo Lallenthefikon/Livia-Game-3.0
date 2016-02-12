@@ -5,7 +5,10 @@ static sf::Sprite mPlayerSprite;
 // Textures
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
-static sf::Image mPlayersheet;
+static sf::Image mRunningPlayersheet;
+static sf::Image mIdlePlayersheet;
+static sf::Image mJumpingPlayersheet;
+static sf::Image mHurtPlayersheet;
 static sf::Image mAcidMonsterTexture;
 
 static sf::Image mTileTexture;
@@ -29,7 +32,8 @@ void Toolbox::loadTextures(std::string levelName){
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
 	mBlock0sheet.loadFromFile("resources/images/TileSheet_6.png");
 
-	mPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder LR-Comb v.2.1.fw.png");
+	mRunningPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder1.2(100,140).png");
+	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
 
@@ -49,8 +53,20 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mBlock0sheet;
 		break;
 
-	case PLAYERTEXTURE:
-		return mPlayersheet;
+	case RUNNINGPLAYERTEXTURE:
+		return mRunningPlayersheet;
+		break;
+
+	case PLAYERJUMPTEXTURE:
+		return mJumpingPlayersheet;
+		break;
+
+	case PLAYERIDLETEXTURE:
+		return mIdlePlayersheet;
+		break;
+
+	case PLAYERHURTTEXTURE:
+		return mHurtPlayersheet;
 		break;
 		
 	case TILETEXTURE:

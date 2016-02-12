@@ -11,16 +11,18 @@ mIsAlive(true),
 
 // Animatin stuff
 mAnimationIndex(0),
-mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
+mCurrentAnimation(Animations::getPlayerRunningANI()),
 mTimerANI(1),
 
-// Stats
-mJumpSpeedFirst(-30), // Sålänge
-mJumpSpeedSecond(-30),
+// Jump
+mJumpSpeedInitial(-20), // Sålänge
+mJumpSpeedDouble(-10),
 mJumpSpeedMax(-30),
-mMaxSpeed(15),
-//mJumpTimer(0),
+mJumpStarted(false),
+mDoubleJumped(false),
 
+// Stats
+mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
 
@@ -72,9 +74,9 @@ void Player::entityCollision(Entity* entity, char direction){
 				delta = entity->getPos().y - mSprite.getPosition().y;
 				mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-					mVelocity.y = mJumpSpeedFirst * 1.5;
+					mVelocity.y = mJumpSpeedInitial * 1.5;
 				else
-					mVelocity.y = mJumpSpeedFirst;
+					mVelocity.y = mJumpSpeedInitial;
 				entity->getHit();
 			}
 			break;
@@ -145,16 +147,27 @@ void Player::getHit(){
 void Player::playerInput() {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-		if (mJumpClock && mState != JUMPING && mState != FALLING){
-			
-			mVelocity.y = mJumpSpeedSecond;
+
+		// Apply min
+		if (!mJumpStarted && mState != JUMPING && mState != FALLING){
+			mJumpStarted = true;
+			mDoubleJumped = false;
+			mVelocity.y = mJumpSpeedInitial;
 		}
-		else if (mState != JUMPING && mState != FALLING){
-			mVelocity.y = mJumpSpeedFirst;
-		}
-		std::cout << mJumpClock << std::endl;
 		
-			//mJumpTimer += 0.1;
+		// Apply gradually to max
+		if (mJumpStarted && (mState == JUMPING || mState == FALLING)){
+ 			if (mVelocity.y >= mJumpSpeedMax){
+				float jumpVelocityIncrease = .6f;
+				mVelocity.y -= jumpVelocityIncrease;
+			}
+			else{
+				mJumpStarted = false;
+			}
+		}
+		// Apply Double 
+		
+
 
 
 		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
@@ -170,6 +183,9 @@ void Player::playerInput() {
 		//Player::playSound(JUMPING);
 		//	}
 		//std::cout << mJumpTimer << std::endl;
+	}
+	else{
+		mJumpStarted = false;
 	}
 
 
@@ -265,9 +281,9 @@ void Player::updateState(){
 		mInvulnerable = false;
 	}
 
-	if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
-		mJumpClock = false;
-	}
+	//if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
+	//	mJumpClock = false;
+	//}
 
 }
 
@@ -304,6 +320,7 @@ void Player::updateCollision(){
 }
 
 void Player::updateANI(){
+	float spriteWidth;
 	switch (mState){
 
 	case JUMPING:
@@ -315,11 +332,24 @@ void Player::updateANI(){
 		break;
 
 	case RUNNINGLEFT:
-		mCurrentAnimation = Animations::getPlayerRunningLeftANI();
+		mCurrentAnimation = Animations::getPlayerRunningANI();
+		//mSprite.setScale(1.f, 1.f);
+		mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+
+		//// flip X
+		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
+
+		//// unflip X
+		//sprite.setTextureRect(sf::IntRect(0, 0, width, height));
+	//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
 		break;
 
 	case RUNNINGRIGHT:
-		mCurrentAnimation = Animations::getPlayerRunningRightANI();
+		mCurrentAnimation = Animations::getPlayerRunningANI();
+		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+
+		//mSprite.setScale(-1.f, 1.f);
+		//mSprite.setPosition(sf::Vector2f(spriteWidth, mSprite.getPosition().y));
 		break;
 
 	case FALLING:

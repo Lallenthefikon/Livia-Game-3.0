@@ -46,10 +46,9 @@ private:
 	void playSound(PLAYERSTATE state);
 
 	// Stats 
-	float mJumpSpeedFirst;
-	float mJumpSpeedSecond;
+	float mJumpSpeedInitial;
+	float mJumpSpeedDouble;
 	float mJumpSpeedMax;
-	//float mJumpTimer;
 	float mMaxSpeed;
 	float mAcceleration;
 	
@@ -73,7 +72,8 @@ private:
 	bool mIsOnScreen;
 	PLAYERSTATE mState;
 	bool mInvulnerable;
-	bool mJumpClock;
+	bool mJumpStarted;
+	bool mDoubleJumped;
 	bool mIsAlive;
 	int mLife;
 

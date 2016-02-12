@@ -13,4 +13,3 @@ private:
 	sf::Sound mSound;
 	sf::SoundBuffer mSoundBuffer;
 };
-

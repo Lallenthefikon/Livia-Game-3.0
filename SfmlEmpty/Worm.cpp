@@ -3,7 +3,7 @@
 static const float ANIFramesPerFrame(0.5);
 
 Worm::Worm(sf::Vector2f pos) :
-mCurrentAnimation(Animations::getWormCrawlingLeftANI()),
+mCurrentAnimation(Animations::getWormCrawlingANI()),
 mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(8),
@@ -164,12 +164,13 @@ void Worm::updateState(){
 
 
 void Worm::updateANI(){
+	//mCurrentAnimation = Animations::getWormCrawlingANI();
 	switch (mState){
 	case Worm::CRAWLINGLEFT:
-		mCurrentAnimation = Animations::getWormCrawlingLeftANI();
+		mSprite.setScale(-1.f, 1.f);
 		break;
 	case Worm::CRAWLINGRIGHT:
-		mCurrentAnimation = Animations::getWormCrawlingRightANI();
+		mSprite.setScale(-1.f, 1.f);
 		break;
 	default:
 		break;

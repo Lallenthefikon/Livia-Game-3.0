@@ -23,8 +23,8 @@ void Block0::update(){
 }
 
 void Block0::setTexture(char type){
-	float tileWidth(120);
-	float tileHeight(120);
+	float tileWidth(100);
+	float tileHeight(100);
 	int xIndex(0);
 	int yIndex(0);
 

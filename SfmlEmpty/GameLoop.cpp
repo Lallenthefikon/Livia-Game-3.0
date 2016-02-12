@@ -56,7 +56,7 @@ void GameLoop::manualStateChange(int &i){
 }
 
 void GameLoop::run(){
-	
+	mWindow.setFramerateLimit(60);
 	mAmbienceBuffer.loadFromFile("resources/sounds/Ambient_Stomach.ogg");
 	mAmbienceSound.setBuffer(mAmbienceBuffer);
 	mAmbienceSound.setLoop(true);
@@ -64,7 +64,6 @@ void GameLoop::run(){
 
 	int clickOnce = 0;
 	
-
 	sf::Clock clock;
 
 	// Loop
