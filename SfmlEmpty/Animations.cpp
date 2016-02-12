@@ -11,7 +11,8 @@ static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTUR
 Animations::Textures mPlayerRunningLeftANI;
 Animations::Textures mPlayerRunningRightANI;
 Animations::Textures mPlayerJumpingANI;
-Animations::Textures mPlayerIdleANI;
+Animations::Textures mPlayerIdleLeftANI;
+Animations::Textures mPlayerIdleRightANI;
 	
 Animations::Textures mWormCrawlingANI;
 
@@ -36,6 +37,7 @@ void Animations::loadTextures(){
 	y = 0;
 
 	for (int i = 0; i < 16; i++){
+		
 		mPlayerRunningRightANI.push_back(new sf::Texture);
 		mPlayerRunningRightANI[i]->loadFromImage(mPlayerRunningIMG, sf::IntRect((100 * x) + 400, 140 * y, 100, 139));
 		x++;
@@ -55,6 +57,7 @@ void Animations::loadTextures(){
 			x = 0;
 			y++;
 		}
+
 	}
 	x = 0;
 	y = 0;
@@ -62,8 +65,8 @@ void Animations::loadTextures(){
 	// Player idle ANI
 	for (int i = 0; i < 16; i++) {
 
-		mPlayerIdleANI.push_back(new sf::Texture);
-		mPlayerIdleANI[i]->loadFromImage(mPlayerIdleIMG, sf::IntRect(70 * x, 140 * y, 70, 139));
+		mPlayerIdleLeftANI.push_back(new sf::Texture);
+		mPlayerIdleLeftANI[i]->loadFromImage(mPlayerIdleIMG, sf::IntRect(70 * x, 140 * y, 70, 139));
 		x++;
 		if (x == 4) {
 			x = 0;
@@ -72,6 +75,17 @@ void Animations::loadTextures(){
 	}
 	x = 0;
 	y = 0;
+
+	for (int i = 0; i < 16; i++) {
+
+		mPlayerIdleRightANI.push_back(new sf::Texture);
+		mPlayerIdleRightANI[i]->loadFromImage(mPlayerIdleIMG, sf::IntRect((70 * x) + 280, 140 * y, 70, 139));
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
 
 
 	// Worm crawling
@@ -99,8 +113,12 @@ Animations::Textures* Animations::getPlayerJumpingANI(){
 	return &mPlayerJumpingANI;
 }
 
-Animations::Textures* Animations::getPlayerIdleANI(){
-	return &mPlayerIdleANI;
+Animations::Textures* Animations::getPlayerIdleLeftANI(){
+	return &mPlayerIdleLeftANI;
+}
+
+Animations::Textures* Animations::getPlayerIdleRightANI() {
+	return &mPlayerIdleRightANI;
 }
 
 

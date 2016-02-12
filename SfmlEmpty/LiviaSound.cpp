@@ -3,7 +3,9 @@
 
 LiviaSound::LiviaSound() {
 	mSound.setVolume(25);
-	mSoundExtra.setVolume(25);
+	mSoundExtra.setVolume(50);
+	/*mSound.setPitch(0.3);
+	mSoundExtra.setPitch(0.3);*/
 }
 
 
@@ -38,21 +40,21 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 			break;
 		}
 	}
-	else {
+	else if (mSoundExtra.getStatus() == sf::Sound::Status::Stopped) {
 		switch (type) {
 		case SoundFX::RUNNING:
-			mSoundExtra.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN));
+			mSoundExtra.setBuffer(Toolbox::getSoundExtra(Toolbox::SOUNDKEY::PLAYERRUN));
 			break;
 		case SoundFX::JUMPING:
-			mSoundExtra.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP));
+			mSoundExtra.setBuffer(Toolbox::getSoundExtra(Toolbox::SOUNDKEY::PLAYERJUMP));
 			break;
 		case SoundFX::LANDING:
 			break;
 		case SoundFX::DAMAGED:
-			mSoundExtra.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED));
+			mSoundExtra.setBuffer(Toolbox::getSoundExtra(Toolbox::SOUNDKEY::PLAYERDAMAGED));
 			break;
 		case SoundFX::IDLE:
-			mSoundExtra.setBuffer(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE));
+			mSoundExtra.setBuffer(Toolbox::getSoundExtra(Toolbox::SOUNDKEY::PLAYERIDLE));
 			break;
 		case SoundFX::RANDOM:
 			break;
@@ -63,7 +65,7 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 	if (mSound.getStatus() == sf::Sound::Status::Stopped){
 		mSound.play();
 	}
-	else {
+	else if (mSoundExtra.getStatus() == sf::Sound::Status::Stopped) {
 		mSoundExtra.play();
 	}
 }

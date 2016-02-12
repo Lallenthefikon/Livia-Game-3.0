@@ -10,7 +10,8 @@ struct Animations{
 	static Textures* getPlayerRunningLeftANI();
 	static Textures* getPlayerRunningRightANI();
 	static Textures* getPlayerJumpingANI();
-	static Textures* getPlayerIdleANI();
+	static Textures* getPlayerIdleLeftANI();
+	static Textures* getPlayerIdleRightANI();
 	static Textures* getWormCrawlingRightANI();
 	static Textures* getWormCrawlingLeftANI();
 	static Textures* getAcidMonster();

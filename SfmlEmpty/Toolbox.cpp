@@ -19,7 +19,9 @@ static sf::Vector2f mWindowPos;
 
 // Sounds
 static sf::SoundBuffer mPlayerSound;
+static sf::SoundBuffer mPlayerSoundExtra;
 static sf::SoundBuffer mWormSound;
+static sf::SoundBuffer mWormSoundExtra;
 
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
@@ -31,7 +33,7 @@ void Toolbox::loadTextures(){
 	mBlock0sheet.loadFromFile("resources/images/TileSheet_6.png");
 
 	mPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder LR-Comb v.2.1.fw.png");
-	mPlayerIdlesheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
+	mPlayerIdlesheet.loadFromFile("resources/images/livia_idle_spritesheet_dubble.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
 
@@ -133,6 +135,42 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	default:
 		return mPlayerSound;
+		break;
+	}
+}
+
+sf::SoundBuffer& Toolbox::getSoundExtra(SOUNDKEY soundKey) {
+	switch (soundKey) {
+	case Toolbox::PLAYERIDLE:
+		mPlayerSoundExtra.loadFromFile("resources/sounds/Jump_03.ogg");
+		return mPlayerSoundExtra;
+		break;
+	case Toolbox::PLAYERRUN:
+		break;
+	case Toolbox::PLAYERJUMP:
+		mPlayerSoundExtra.loadFromFile("resources/sounds/Jump_01.ogg");
+		return mPlayerSoundExtra;
+		break;
+	case Toolbox::PLAYERLAND:
+		break;
+	case Toolbox::PLAYERDAMAGED:
+		mPlayerSoundExtra.loadFromFile("resources/sounds/Jump_02.ogg");
+		return mPlayerSoundExtra;
+		break;
+	case Toolbox::WORMIDLE:
+		return mWormSoundExtra;
+		break;
+	case Toolbox::WORMRUN:
+		return mWormSoundExtra;
+		break;
+	case Toolbox::WORMJUMP:
+		return mWormSoundExtra;
+		break;
+	case Toolbox::WORMLAND:
+		return mWormSoundExtra;
+		break;
+	default:
+		return mPlayerSoundExtra;
 		break;
 	}
 }

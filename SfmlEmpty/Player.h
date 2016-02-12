@@ -6,7 +6,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNINGLEFT, RUNNINGRIGHT, FALLING, DAMAGED };
+	enum PLAYERSTATE { JUMPING, IDLELEFT, IDLERIGHT, RUNNINGLEFT, RUNNINGRIGHT, FALLING, DAMAGED };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }

@@ -21,5 +21,6 @@ struct Toolbox {
 
 	// Sounds
 	static sf::SoundBuffer& getSound(SOUNDKEY soundKey);
+	static sf::SoundBuffer& getSoundExtra(SOUNDKEY soundKey);
 };
 

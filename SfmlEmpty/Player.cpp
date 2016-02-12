@@ -1,12 +1,12 @@
 #include "Player.h"
 #include <iostream>
 
-static const float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
 mVelocity(0, 0),
 mIsOnScreen(true),
-mState(IDLE),
+mState(IDLERIGHT),
 mIsAlive(true),
 
 // Animatin stuff
@@ -15,14 +15,14 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpSpeedFirst(-30), // Sålänge
+mJumpSpeedFirst(-30), // Temp
 mJumpSpeedSecond(-30),
 mJumpSpeedMax(-30),
 mMaxSpeed(15),
 //mJumpTimer(0),
 
 mAcceleration(70),
-mLife(3),
+mLife(300), // Temp
 
 
 // Sounds
@@ -133,7 +133,7 @@ void Player::getHit(){
 			mLife--;
 			mInvulnerable = true;
 			mInvulnerableTime.restart().asMilliseconds();
-			Player::playSound(Player::DAMAGED);
+			Player::playSound(DAMAGED);
 		}
 		else
 			mIsAlive = false;
@@ -152,24 +152,6 @@ void Player::playerInput() {
 		else if (mState != JUMPING && mState != FALLING){
 			mVelocity.y = mJumpSpeedFirst;
 		}
-		std::cout << mJumpClock << std::endl;
-		
-			//mJumpTimer += 0.1;
-
-
-		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
-		//mVelocity.y = mJumpSpeedFirst;
-		//mJumpTimer = 0;
-		//Player::playSound(JUMPING);
-		//}
-		//else if (mState != JUMPING && mState != FALLING) {
-
-		//mVelocity.y = mJumpSpeedSecond;
-		//	mJumpTimer = 0;
-		//mSoundFX.playSound(SoundFX::JUMPING);
-		//Player::playSound(JUMPING);
-		//	}
-		//std::cout << mJumpTimer << std::endl;
 	}
 
 
@@ -244,8 +226,14 @@ void Player::updateState(){
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
-		mState = IDLE;
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLELEFT && mState == RUNNINGLEFT){
+		mState = IDLELEFT;
+		//Player::playSound(mState);
+		Player::updateANI();
+	}
+
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLERIGHT && mState == RUNNINGRIGHT) {
+		mState = IDLERIGHT;
 		//Player::playSound(mState);
 		Player::updateANI();
 	}
@@ -308,18 +296,27 @@ void Player::updateANI(){
 
 	case JUMPING:
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
+		ANIFramesPerFrame = 0.5;
 		break;
 
-	case IDLE:
-		mCurrentAnimation = Animations::getPlayerIdleANI();
+	case IDLELEFT:
+		mCurrentAnimation = Animations::getPlayerIdleLeftANI();
+		ANIFramesPerFrame = 0.25; // Slow down idle animation
+		break;
+
+	case IDLERIGHT:
+		mCurrentAnimation = Animations::getPlayerIdleRightANI();
+		ANIFramesPerFrame = 0.25; // Slow down idle animation
 		break;
 
 	case RUNNINGLEFT:
 		mCurrentAnimation = Animations::getPlayerRunningLeftANI();
+		ANIFramesPerFrame = 0.5;
 		break;
 
 	case RUNNINGRIGHT:
 		mCurrentAnimation = Animations::getPlayerRunningRightANI();
+		ANIFramesPerFrame = 0.5;
 		break;
 
 	case FALLING:
@@ -351,7 +348,10 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::JUMPING:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
 		break;
-	case Player::IDLE:
+	case Player::IDLELEFT:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::IDLERIGHT:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
 	case Player::RUNNINGLEFT:
