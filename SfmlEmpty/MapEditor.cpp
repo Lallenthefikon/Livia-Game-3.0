@@ -3,16 +3,16 @@
 #include <fstream>
 #include <sstream>
 
-MapEditor::MapEditor(std::string &mapName) :
+MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
 mMapDimensionsTiles(500, 50),
-mTileDimensions(100, 100),
+mTileDimensions(120, 120),
 mInsertType(MapEditorMeny::BLOCK0),
-mCurrentMap(mapName),
+mCurrentLevelDirectory(levelDirectory),
 mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
 mCamera(){
 
-	Toolbox::loadTextures();
+	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
 	MapEditor::loadMap();
 	MapEditor::createGrid();
@@ -21,8 +21,8 @@ mCamera(){
 MapEditor::~MapEditor(){
 }
 
-MapEditor* MapEditor::getInstance(std::string &mapName){
-	static MapEditor mapeditor(mapName);
+MapEditor* MapEditor::getInstance(std::string &levelDirectory, std::string &levelName){
+	static MapEditor mapeditor(levelDirectory, levelName);
 	return &mapeditor;
 }
 
@@ -188,13 +188,13 @@ void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 }
 
 void MapEditor::loadMap(){
-	mCurrentMap[15] = 'E';
-	mEntities = mMaploader.getEntities(mCurrentMap);
+	mCurrentLevelDirectory[15] = 'E';
+	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
 
-	mCurrentMap[15] = 'T';
-	mTerrains = mMaploader.getTerrain(mCurrentMap);
+	mCurrentLevelDirectory[15] = 'T';
+	mTerrains = mMaploader.getTerrain(mCurrentLevelDirectory);
 
-	mCurrentMap[15] = 'm';
+	mCurrentLevelDirectory[15] = 'm';
 
 	mMaploader.clear();
 }
@@ -256,13 +256,13 @@ void MapEditor::changeInsertType(){
 
 void MapEditor::saveMap(){
 
-	mCurrentMap[15] = 'T';
-	MapEditor::writeTerrainToFile(mCurrentMap);
+	mCurrentLevelDirectory[15] = 'T';
+	MapEditor::writeTerrainToFile(mCurrentLevelDirectory);
 
-	mCurrentMap[15] = 'E';
-	MapEditor::writeEntityToFile(mCurrentMap);
+	mCurrentLevelDirectory[15] = 'E';
+	MapEditor::writeEntityToFile(mCurrentLevelDirectory);
 
-	mCurrentMap[15] = 'm';
+	mCurrentLevelDirectory[15] = 'm';
 
 }
 

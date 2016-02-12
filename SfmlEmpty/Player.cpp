@@ -15,17 +15,15 @@ mCurrentAnimation(Animations::getPlayerRunningLeftANI()),
 mTimerANI(1),
 
 // Stats
-mJumpActive(false),
-mJumpSpeedFirst(-15), // Sålänge
-mJumpSpeed(-20),
-mJumpSpeedMax(-22),
+mJumpSpeedFirst(-30), // Sålänge
+mJumpSpeedSecond(-30),
+mJumpSpeedMax(-30),
 mMaxSpeed(15),
-mJumpTimer(0),
+//mJumpTimer(0),
 
 mAcceleration(70),
 mLife(3),
 
-mJumpClockTimer(),
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()){
@@ -135,7 +133,7 @@ void Player::getHit(){
 			mLife--;
 			mInvulnerable = true;
 			mInvulnerableTime.restart().asMilliseconds();
-			//Player::playSound(Player::DAMAGED);
+			Player::playSound(Player::DAMAGED);
 		}
 		else
 			mIsAlive = false;
@@ -146,37 +144,32 @@ void Player::getHit(){
 
 void Player::playerInput() {
 
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-	//	mClickOnce++;
-	//	mVelocity.y += mJumpSpeed;
-	//}
-	//else mClickOnce = 0;
-	//	// Makes sure button acts as if pressed once
-	//	if (mClickOnce == 1){
-	//		mJumpClockTimer.restart();
-	//	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && mState != FALLING && mState != JUMPING){
-		mJumpActive = true;
-		mVelocity.y += mJumpSpeed/1;
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (mState == FALLING || mState == JUMPING) && mJumpActive){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+		if (mJumpClock && mState != JUMPING && mState != FALLING){
+			
+			mVelocity.y = mJumpSpeedSecond;
+		}
+		else if (mState != JUMPING && mState != FALLING){
+			mVelocity.y = mJumpSpeedFirst;
+		}
+		std::cout << mJumpClock << std::endl;
 		
-		std::cout << "playerVelocity y: " << mVelocity.y << std::endl;
+			//mJumpTimer += 0.1;
 
-		if (mVelocity.y >= mJumpSpeedMax){
-			mVelocity.y -= 2;
-		}
-		else{
-			mJumpActive = false;
-		}
-	}
-	else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (mState == FALLING || mState == JUMPING)){
-		mJumpActive = false;
-	}
-	// Makes sure button acts as if pressed once
-	if (mClickOnce == 1){
-		mJumpClockTimer.restart();
+
+		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
+		//mVelocity.y = mJumpSpeedFirst;
+		//mJumpTimer = 0;
+		//Player::playSound(JUMPING);
+		//}
+		//else if (mState != JUMPING && mState != FALLING) {
+
+		//mVelocity.y = mJumpSpeedSecond;
+		//	mJumpTimer = 0;
+		//mSoundFX.playSound(SoundFX::JUMPING);
+		//Player::playSound(JUMPING);
+		//	}
+		//std::cout << mJumpTimer << std::endl;
 	}
 
 
@@ -241,19 +234,19 @@ void Player::updateState(){
 
 	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
 		mState = RUNNINGLEFT;
-		//Player::playSound(mState);
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
 	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
 		mState = RUNNINGRIGHT;
-		//Player::playSound(mState);
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
-		//Player::playSound(mState);
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -264,7 +257,7 @@ void Player::updateState(){
 
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
-		//Player::playSound(mState);
+		Player::playSound(mState);
 		Player::updateANI();
 	}
 
@@ -272,6 +265,9 @@ void Player::updateState(){
 		mInvulnerable = false;
 	}
 
+	if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
+		mJumpClock = false;
+	}
 
 }
 

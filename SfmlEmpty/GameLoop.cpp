@@ -4,7 +4,8 @@
 
 
 GameLoop::GameLoop():
-mCurrentMap("resources/maps/mMap0.txt"),
+mCurrentLevelDirectory("resources/maps/mMap0.txt"),
+mCurrentLevelName("Intestine"),
 mWindow(sf::VideoMode::getDesktopMode(), "Livia 2.0.2 V.2"),
 mAmbienceBuffer(),
 mAmbienceSound() {
@@ -30,11 +31,11 @@ void GameLoop::switchState(){
 
 void GameLoop::updateState(){
 	if (gameRunning){
-		mCurrentState = GameRun::getInstance(mCurrentMap);
+		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
 		mCurrentState->loadMap();
 	}
 	else if (mapEditing){
-		mCurrentState = MapEditor::getInstance(mCurrentMap);
+		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
 		mCurrentState->loadMap();
 	}
 }

@@ -24,7 +24,8 @@ private:
 	void updateState();
 	GameState* mCurrentState;
 	sf::RenderWindow mWindow;
-	std::string mCurrentMap;
+	std::string mCurrentLevelDirectory;
+	std::string mCurrentLevelName;
 	sf::CircleShape shape;
 	sf::SoundBuffer mAmbienceBuffer;
 	sf::Sound mAmbienceSound;

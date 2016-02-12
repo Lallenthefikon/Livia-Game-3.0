@@ -12,7 +12,7 @@
 
 class MapEditor : public GameState{
 public:
-	static MapEditor* getInstance(std::string &mapName);
+	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
 
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
@@ -22,7 +22,7 @@ public:
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 
-	virtual void setCurrentMap(std::string &mapname){ mCurrentMap = mapname; }
+	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadMap();
 
 	void clearMap();
@@ -30,7 +30,7 @@ public:
 	std::vector<sf::Sprite> mGrid;
 
 private:
-	MapEditor(std::string &mapName);
+	MapEditor(std::string &mapName, std::string &levelName);
 	~MapEditor();
 
 	void insertObject(sf::Vector2f mousePos);
@@ -56,7 +56,8 @@ private:
 	MapEditMaploader &mMaploader;
 
 	MapEditorMeny::INSERTTYPE mInsertType;
-	std::string mCurrentMap;
+	std::string mCurrentLevelDirectory;
+	std::string mCurrentLevelName;
 
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
