@@ -15,7 +15,7 @@ public:
 	static GameRun* getInstance(std::string &levelDirectory, std::string &levelName);
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
-	virtual void loadLevel();
+	virtual void loadMap();
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 private:
 	GameRun(std::string &mapname, std::string &levelName);

@@ -23,7 +23,7 @@ public:
 	void createAcidMonster(sf::Vector2f mousepos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
-	virtual void loadLevel();
+	virtual void loadMap();
 
 	void clearMap();
 
