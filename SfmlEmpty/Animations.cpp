@@ -2,7 +2,7 @@
 
 static sf::Image& mPlayerRunningIMG(Toolbox::getTexture(Toolbox::PLAYERTEXTURE));
 static sf::Image& mPlayerJumpingIMG(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE));
-static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
+static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::PLAYERIDLETEXTURE));
 
 static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
@@ -60,8 +60,18 @@ void Animations::loadTextures(){
 	y = 0;
 
 	// Player idle ANI
-	mPlayerIdleANI.push_back(new sf::Texture);
-	mPlayerIdleANI[0]->loadFromImage(mPlayerIdleIMG);
+	for (int i = 0; i < 16; i++) {
+
+		mPlayerIdleANI.push_back(new sf::Texture);
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIdleIMG, sf::IntRect(70 * x, 140 * y, 70, 139));
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 
 
 	// Worm crawling

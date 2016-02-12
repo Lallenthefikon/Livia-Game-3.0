@@ -244,9 +244,9 @@ void Player::updateState(){
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
 		mState = IDLE;
-		Player::playSound(mState);
+		//Player::playSound(mState);
 		Player::updateANI();
 	}
 

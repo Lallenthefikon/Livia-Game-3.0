@@ -10,7 +10,8 @@ public:
 	virtual void stopSound();
 private:
 	LiviaSound();
-	sf::Sound mSound;
+	sf::Sound mSound,
+		mSoundExtra;
 	sf::SoundBuffer mSoundBuffer;
 };
 
