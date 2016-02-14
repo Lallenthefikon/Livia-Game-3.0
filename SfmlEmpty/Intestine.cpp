@@ -26,7 +26,6 @@ void Intestine::update(sf::RenderWindow &window){
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
-
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
 	}

@@ -112,7 +112,6 @@ void MapEditor::update(sf::RenderWindow &window){
 		}
 	}
 
-	// Camera movement
 	// Camera movement & following menu 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
 		mCamera.updateCamEDITOR(window, "Up");
@@ -202,7 +201,6 @@ void MapEditor::loadLevel(){
 void MapEditor::clearMap(){
 	MapEditor::internalClear();
 }
-
 
 // Privates
 
