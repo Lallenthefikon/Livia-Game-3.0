@@ -32,11 +32,11 @@ void GameLoop::switchState(){
 void GameLoop::updateState(){
 	if (gameRunning){
 		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->loadMap();
+		mCurrentState->loadLevel();
 	}
 	else if (mapEditing){
 		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->loadMap();
+		mCurrentState->loadLevel();
 	}
 }
 

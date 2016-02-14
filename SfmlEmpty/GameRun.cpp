@@ -48,7 +48,7 @@ void GameRun::render(sf::RenderWindow &window){
 	//window.display();
 }
 
-void GameRun::loadMap(){
+void GameRun::loadLevel(){
 	mIntestine.loadLevel();
 	//mMapGenerator.loadMap(mCurrentMap);
 }

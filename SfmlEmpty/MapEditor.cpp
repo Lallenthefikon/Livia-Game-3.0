@@ -14,7 +14,7 @@ mCamera(){
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
-	MapEditor::loadMap();
+	MapEditor::loadLevel();
 	MapEditor::createGrid();
 }
 
@@ -187,7 +187,7 @@ void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
 }
 
-void MapEditor::loadMap(){
+void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
 
