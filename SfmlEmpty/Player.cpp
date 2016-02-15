@@ -48,7 +48,7 @@ void Player::render(sf::RenderWindow &window){
 }
 
  void Player::update(){
-	
+	 std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
 	Player::updateCollision();
@@ -57,7 +57,7 @@ void Player::render(sf::RenderWindow &window){
 
 	mSprite.move(mVelocity);
 
-	Toolbox::copyPlayerInfo(mSprite);
+	Toolbox::copyPlayerSprite(mSprite);
 }
 
 void Player::addVector(sf::Vector2f &vector){
