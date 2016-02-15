@@ -2,15 +2,20 @@
 
 Intestine::Intestine() :
 // Initiate singleton classes
+mTexture(),
+mBackground(),
 mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
+mLayerHandler(LayerHandler::getInstance()),
 mCamera(),
 mMapName("Intestine"),
 mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadTextures("Intestine");
 	Animations::loadTextures();
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::TEXTUREKEY::INTESTINEBACKGROUND));
+	mBackground.setTexture(mTexture);
 	mMapGenerator.loadMap(mMapPath);
 }
 
@@ -42,6 +47,7 @@ void Intestine::render(sf::RenderWindow &window){
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
+	mLayerHandler.renderLayer(window);
 	window.display();
 }
 

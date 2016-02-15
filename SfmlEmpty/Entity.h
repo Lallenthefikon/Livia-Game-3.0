@@ -30,6 +30,7 @@ public:
 	virtual bool getIsAlive() = 0;
 	virtual void setPos(sf::Vector2f newPos) = 0;
 	virtual void setScale(sf::Vector2f newScale) = 0;
+	virtual int getLife() = 0;
 
 };
 

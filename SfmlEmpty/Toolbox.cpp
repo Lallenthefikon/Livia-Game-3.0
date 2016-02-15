@@ -11,6 +11,7 @@ static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mAcidMonsterTexture;
 static sf::Image mIntestineBackgroundTexture;
+static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
@@ -44,6 +45,8 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
+	
+	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -88,6 +91,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case INTESTINEBACKGROUND:
 		return mIntestineBackgroundTexture;
+		break;
+
+	case LIFETEXTURE:
+		return mLifeTexture;
 		break;
 
 	default:

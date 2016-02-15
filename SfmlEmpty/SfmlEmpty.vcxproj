@@ -89,6 +89,9 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameRun.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Intestine.cpp" />
+    <ClCompile Include="LayerHandler.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="LiviaSound.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameLoop.cpp" />
@@ -119,6 +122,9 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameRun.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Intestine.h" />
+    <ClInclude Include="LayerHandler.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="LiviaSound.h" />
     <ClInclude Include="MapEditMaploader.h" />
     <ClInclude Include="MapEditor.h" />

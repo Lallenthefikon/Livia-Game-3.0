@@ -64,6 +64,10 @@ void Entityhandler::gameOver(){
 	mEntities.erase(mEntities.begin());
 }
 
+int Entityhandler::getPlayerLife(){
+	return mEntities[0]->getLife();
+}
+
 // Private funcs
 
 void Entityhandler::internalClear(){
