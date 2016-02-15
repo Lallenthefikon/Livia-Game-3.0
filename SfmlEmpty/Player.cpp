@@ -48,7 +48,7 @@ void Player::render(sf::RenderWindow &window){
 }
 
  void Player::update(){
-	
+	 std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
 	Player::updateCollision();
@@ -57,7 +57,7 @@ void Player::render(sf::RenderWindow &window){
 
 	mSprite.move(mVelocity);
 
-	Toolbox::copyPlayerInfo(mSprite);
+	Toolbox::copyPlayerSprite(mSprite);
 }
 
 void Player::addVector(sf::Vector2f &vector){
@@ -380,26 +380,26 @@ void Player::animate(){
 
 
 void Player::playSound(PLAYERSTATE state) {
-	switch (state) {
-	case Player::JUMPING:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
-		break;
-	case Player::IDLE:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
-		break;
-	case Player::RUNNINGLEFT:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-		break;
-	case Player::RUNNINGRIGHT:
-		//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-		break;
-	case Player::FALLING:
-		break;
-	case Player::DAMAGED:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
-	default:
-		break;
-	}
+	//switch (state) {
+	//case Player::JUMPING:
+	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+	//	break;
+	//case Player::IDLE:
+	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+	//	break;
+	//case Player::RUNNINGLEFT:
+	//	//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+	//	break;
+	//case Player::RUNNINGRIGHT:
+	//	//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+	//	break;
+	//case Player::FALLING:
+	//	break;
+	//case Player::DAMAGED:
+	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+	//default:
+	//	break;
+	//}
 }
 
 void Player::setPos(sf::Vector2f newPos){

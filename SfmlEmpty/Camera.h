@@ -10,6 +10,8 @@ public:
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
 	void updateCamGAME(sf::Window &window);
 	void updateCamEDITOR(sf::Window &window, std::string direction);
+
+	void updateIntestineCam(sf::Window &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
 	sf::View getView(){ return mView; }
 	void zoomCameraEDITOR(sf::Event event);

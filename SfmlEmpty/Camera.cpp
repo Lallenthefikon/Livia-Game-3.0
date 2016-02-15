@@ -25,8 +25,9 @@ void Camera::updateCamGAME(sf::Window &window){
 }
 
 void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
-	if (direction == "Up")
+	if (direction == "Up"){
 		moveCameraEDITOR(window, sf::Vector2f(0.f, -1.f), 40.0f);
+	}
 	else if (direction == "Down"){
 		moveCameraEDITOR(window, sf::Vector2f(0.f, 1.f), 40.0f);
 	}
@@ -35,6 +36,36 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 	}
 	else if (direction == "Left"){
 		moveCameraEDITOR(window, sf::Vector2f(-1.f, 0.f), 40.0f);
+	}
+}
+
+void Camera::updateIntestineCam(sf::Window &window, std::string cameraState){
+	if (cameraState == "Cutscene"){
+		
+	}
+	else if (cameraState == "Standard"){
+		float yCamOffset, xCamOffset;
+		yCamOffset = 100;
+		xCamOffset = 500;
+		mView.setCenter(sf::Vector2f(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y + yCamOffset));
+	}
+	else if (cameraState == "Shake"){
+
+	}
+	else if (cameraState == "Zoom out"){
+
+	}
+	else if (cameraState == "ZoomedOutStandard"){
+
+	}
+	else if (cameraState == "SecondCutscene"){
+
+	}
+	else if (cameraState == "Rising"){
+
+	}
+	else if (cameraState == "FinalCutscene"){
+
 	}
 }
 

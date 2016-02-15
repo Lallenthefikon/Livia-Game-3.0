@@ -17,6 +17,7 @@ public:
 	virtual void addVector(sf::Vector2f &vector);
 
 	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
+	virtual sf::Vector2f getVelocity(){ return mVelocity; }
 	virtual sf::Vector2f getOffset(){ return mSpriteOffset; }
 	virtual float getWidth(){ return mSprite.getLocalBounds().width; }
 	virtual float getHeight(){ return mSprite.getLocalBounds().height; }

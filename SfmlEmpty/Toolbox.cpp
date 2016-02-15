@@ -1,6 +1,7 @@
 #include "Toolbox.h"
 
 static sf::Sprite mPlayerSprite;
+static sf::Vector2f mPlayerVelocity;
 
 // Textures
 static sf::Image mEnemy0sheet;
@@ -31,7 +32,7 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Intestine"){
-		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG");
+		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
@@ -115,13 +116,14 @@ sf::Vector2f Toolbox::getWindowPos(){
 	return mWindowPos;
 }
 
-void Toolbox::copyPlayerInfo(sf::Sprite &playerSprite){
+void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
 }
 
 sf::Sprite Toolbox::getPlayerSprite(){
 	return mPlayerSprite;
 }
+
 
 // Sounds
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {

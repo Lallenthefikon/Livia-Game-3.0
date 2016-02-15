@@ -7,6 +7,7 @@
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "LayerHandler.h"
 
 class Intestine : public Level{
 public:
@@ -25,7 +26,10 @@ private:
 	Terrainhandler& mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;
+	LayerHandler& mLayerHandler;
 
+	sf::Texture mBackgroundTexture;
+	sf::Sprite mBackgroundSprite;
 	Camera mCamera;
 	std::string mMapName;
 	std::string mMapPath;
