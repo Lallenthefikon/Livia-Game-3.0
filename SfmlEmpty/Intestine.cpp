@@ -42,13 +42,13 @@ void Intestine::update(sf::RenderWindow &window){
 	mTerrainHandler.updateTerrains();
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();
-	mCamera.updateCamGAME(window);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	mCamera.updateIntestineCam(window, "Standard");
 
-	sf::Vector2i pixel_pos = sf::Vector2i(mCamera.getView().getCenter().x, mCamera.getView().getCenter().y);
+	sf::Vector2i pixel_pos = sf::Vector2i(mCamera.getView().getCenter().x, 0);
 	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
 
-	mLayerHandler.moveBackground(sf::Vector2f(0,0), coord_pos);
-
+	mLayerHandler.moveBackground(pixel_pos, coord_pos);
 	window.setView(mCamera.getView());
 }
 

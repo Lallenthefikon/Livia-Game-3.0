@@ -127,10 +127,17 @@ void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
 }
 
+void Toolbox::copyPlayerVelocity(sf::Vector2f &playerVelocity){
+	mPlayerVelocity = playerVelocity;
+}
+
 sf::Sprite Toolbox::getPlayerSprite(){
 	return mPlayerSprite;
 }
 
+sf::Vector2f Toolbox::getPlayerVelocity(){
+	return mPlayerVelocity;
+}
 
 // Sounds
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {

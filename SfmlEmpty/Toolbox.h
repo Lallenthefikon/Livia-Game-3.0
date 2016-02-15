@@ -17,7 +17,9 @@ struct Toolbox {
 	static sf::Vector2f getResolution();
 	static sf::Vector2f getWindowPos();
 	static void copyPlayerSprite(sf::Sprite &playerSprite);
+	static void copyPlayerVelocity(sf::Vector2f &playerVelocity);
 	static sf::Sprite getPlayerSprite();
+	static sf::Vector2f getPlayerVelocity();
 
 	// Sounds
 	static sf::SoundBuffer& getSound(SOUNDKEY soundKey);

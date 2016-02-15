@@ -15,7 +15,7 @@ LayerHandler& LayerHandler::getInstance(){
 	static LayerHandler layerHandler;
 	return layerHandler;
 }
-void LayerHandler::moveBackground(sf::Vector2f &velocity, sf::Vector2f &coordPos){
+void LayerHandler::moveBackground(sf::Vector2i &pixelPos, sf::Vector2f &coordPos){
 
 	sf::Sprite furthestRightBG;
 	// Find the background furtest to the right
@@ -32,11 +32,12 @@ void LayerHandler::moveBackground(sf::Vector2f &velocity, sf::Vector2f &coordPos
 	}
 	// Move backgrounds left, pop to the right when exit screen
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
-		if (mBackgrounds[i].getPosition().x < 0){
-			mBackgrounds[i].setPosition(sf::Vector2f(mBackgrounds[i].getPosition().x - velocity.x, coordPos.y));
+		if (mBackgrounds[i].getPosition().x < coordPos.x){
+			mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x/2, coordPos.y));
+			//mBackgrounds[i].setPosition(sf::Vector2f(mBackgrounds[i].getPosition().x - velocity.x, coordPos.y));
 		}
 		else{
-			mBackgrounds[i].setPosition(sf::Vector2f(furthestRightBG.getPosition().x + mBackgrounds[i].getLocalBounds().width, coordPos.y));
+			//mBackgrounds[i].setPosition(sf::Vector2f(furthestRightBG.getPosition().x + mBackgrounds[i].getLocalBounds().width, coordPos.y));
 		}
 	}
 }
@@ -58,7 +59,7 @@ void LayerHandler::render(sf::RenderWindow &window){
 
 void LayerHandler::addBackground(sf::Sprite &background){
 	mBackgrounds.push_back(background);
-	mBackgrounds[0].setPosition(sf::Vector2f(1920 - mBackgrounds[0].getLocalBounds().width, 0.f));
+	mBackgrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
 	mBackgrounds.push_back(background);
 	mBackgrounds[1].setPosition(sf::Vector2f(mBackgrounds[0].getPosition().x - mBackgrounds[1].getLocalBounds().width, 0.f));
 	mBackgrounds.push_back(background);

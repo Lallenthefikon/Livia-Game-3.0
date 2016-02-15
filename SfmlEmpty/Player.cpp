@@ -33,7 +33,8 @@ mSoundFX(SoundFactory::getLiviaSound()){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
-	
+	Toolbox::copyPlayerSprite(mSprite);
+	Toolbox::copyPlayerVelocity(mVelocity);
 }
 
 Player::~Player(){
@@ -48,7 +49,8 @@ void Player::render(sf::RenderWindow &window){
 }
 
  void Player::update(){
-	 std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
+	 Toolbox::copyPlayerSprite(mSprite);
+	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
 	Player::updateCollision();
@@ -58,6 +60,7 @@ void Player::render(sf::RenderWindow &window){
 	mSprite.move(mVelocity);
 
 	Toolbox::copyPlayerSprite(mSprite);
+	Toolbox::copyPlayerVelocity(mVelocity);
 }
 
 void Player::addVector(sf::Vector2f &vector){
