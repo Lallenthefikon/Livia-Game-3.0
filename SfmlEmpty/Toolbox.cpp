@@ -40,7 +40,7 @@ void Toolbox::loadTextures(std::string levelName){
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
-	mBlock0sheet.loadFromFile("resources/images/TileSheet_6.png");
+	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
 	mRunningPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder1.2(100,140).png");
 	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
