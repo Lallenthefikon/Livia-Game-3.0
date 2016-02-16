@@ -4,12 +4,12 @@
 
 LiviaSound::LiviaSound() :
 mSounds(){
+	initialize();
 }
 
 
 LiviaSound::~LiviaSound() {
-	stopSound();
-	clearSoundQueue();
+	finalize();
 }
 
 SoundFX& LiviaSound::createLiviaSound() {
@@ -17,25 +17,30 @@ SoundFX& LiviaSound::createLiviaSound() {
 	return liviaSound;
 }
 
+void LiviaSound::initialize() {
+	mSounds.insert({ RUNNING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN)) });
+	mSounds.insert({ JUMPING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP)) });
+	mSounds.insert({ DAMAGED, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED)) });
+	mSounds.insert({ IDLE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE)) });
+}
+
+void LiviaSound::finalize() {
+	for (auto i = mSounds.begin(); i != mSounds.end(); i++) {
+		delete i->second;
+	}
+}
+
 void LiviaSound::playSound(SOUNDTYPE type) {
-
-	SoundQueue::iterator lastInserted;
-	sf::Sound *tempSound;
-
 	switch (type) {
 	case SoundFX::RUNNING:
-		tempSound = new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN));
-		lastInserted = mSounds.insert({ RUNNING, tempSound }).first;
-		if (!lastInserted->second) {
-			delete tempSound;
+		if (mSounds[RUNNING]->getStatus() != sf::Sound::Status::Playing) {
+			mSounds[RUNNING]->play();
 		}
 		break;
 
 	case SoundFX::JUMPING:
-		tempSound = new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP));
-		lastInserted = mSounds.insert({ JUMPING, tempSound }).first;
-		if (!lastInserted->second) {
-			delete tempSound;
+		if (mSounds[JUMPING]->getStatus() != sf::Sound::Status::Playing) {
+			mSounds[JUMPING]->play();
 		}
 		break;
 
@@ -43,18 +48,14 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 		break;
 
 	case SoundFX::DAMAGED:
-		tempSound = new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED));
-		lastInserted = mSounds.insert({ DAMAGED, tempSound }).first;
-		if (!lastInserted->second) {
-			delete tempSound;
+		if (mSounds[DAMAGED]->getStatus() != sf::Sound::Status::Playing) {
+			mSounds[DAMAGED]->play();
 		}
 		break;
 
 	case SoundFX::IDLE:
-		tempSound = new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE));
-		lastInserted = mSounds.insert({ IDLE, tempSound }).first;
-		if (!lastInserted->second) {
-			delete tempSound;
+		if (mSounds[IDLE]->getStatus() != sf::Sound::Status::Playing) {
+			mSounds[IDLE]->play();
 		}
 		break;
 
@@ -64,52 +65,10 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 	default:
 		break;
 	}
-
-	if (lastInserted->second->getStatus() != sf::Sound::Status::Playing) {
-		lastInserted->second->play();
-	}
-
-	std::cout << mSounds.size() << std::endl;
-
-	removeStopped();
-}
-
-void LiviaSound::removeStopped() {
-	/*if (!mSounds.empty()) {
-		for (SoundQueue::size_type i = 0; i < mSounds.size(); i++) {
-			
-			if (mSounds[i]->getStatus() == sf::Sound::Status::Playing)
-				std::cout << "Playing" << std::endl;
-			if (mSounds[i]->getStatus() == sf::Sound::Status::Paused)
-				std::cout << "Paused" << std::endl;
-			if (mSounds[i]->getStatus() == sf::Sound::Status::Stopped)
-				std::cout << "Stopped" << std::endl;
-
-			if (mSounds[i]->getStatus() == sf::Sound::Status::Stopped) {
-				delete mSounds[i];
-				mSounds.erase(mSounds.begin() + i);
-			}
-		}
-	}*/
-	for (SoundQueue::iterator i = mSounds.begin(); i != mSounds.end();) {
-		if (i->second->getStatus() != sf::Sound::Status::Playing) {
-			mSounds.erase(i++);
-		}
-		else
-			++i;
-	}
 }
 
 void LiviaSound::stopSound() {
-	for (SoundQueue::iterator i = mSounds.begin(); i != mSounds.end(); ++i) {
-		i->second->stop();
+	for (auto i : mSounds) {
+		i.second->stop();
 	}
-}
-
-void LiviaSound::clearSoundQueue() {
-	while (!mSounds.empty()) {
-		delete mSounds.end()->second;
-		mSounds.erase(mSounds.end());
-	}
-	mSounds.clear();
 }

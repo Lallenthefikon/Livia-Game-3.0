@@ -269,14 +269,16 @@ void Player::updateState(){
 
 	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
 		mState = RUNNINGLEFT;
-		Player::playSound(mState);
 		Player::updateANI();
+		if (!mVelocity.y > 0) // Prevents sound from playing while falling
+			Player::playSound(mState);
 	}
 
-	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
+	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT) {
 		mState = RUNNINGRIGHT;
-		Player::playSound(mState);
 		Player::updateANI();
+		if (!mVelocity.y > 0) // Prevents sound from playing while falling
+			Player::playSound(mState);
 	}
 
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mVelocity.y == 0) {

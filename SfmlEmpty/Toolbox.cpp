@@ -28,6 +28,8 @@ static sf::SoundBuffer mPlayerRunSound;
 static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mWormSound;
+static sf::Music mStomachMusic;
+static sf::Music mStomachAmbience;
 
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
@@ -55,14 +57,20 @@ void Toolbox::loadTextures(std::string levelName){
 
 void Toolbox::loadSounds(std::string levelName) {
 
-	if (levelName == "Intestine") {
+	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
+
+		// Music and ambience
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
-	mPlayerIdleSound.loadFromFile("resources/sounds/jump_02.ogg");
-	mPlayerRunSound.loadFromFile("resources/sounds/Jump_03.ogg");
-	mPlayerJumpSound.loadFromFile("resources/sounds/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/Hurt_03.aif");
+	// Global effects
+	mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Jump_03.ogg");
+	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_03.aif");
+
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -105,7 +113,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mAcidMonsterTexture;
 		break;
 
-	case StomachBACKGROUND:
+	case STOMACHBACKGROUND:
 		return mStomachBackgroundTexture;
 		break;
 
@@ -154,7 +162,7 @@ sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
 }
 
-// Sounds
+// Sound and music
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	switch (soundKey) {
 	case Toolbox::PLAYERIDLE:
@@ -178,6 +186,19 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::WORMJUMP:
 		break;
 	case Toolbox::WORMLAND:
+		break;
+	default:
+		break;
+	}
+}
+
+sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
+	switch (soundKey) {
+	case Toolbox::STOMACHAMBIENCE:
+		return mStomachAmbience;
+		break;
+	case Toolbox::STOMACHMUSIC:
+		return mStomachMusic;
 		break;
 	default:
 		break;
