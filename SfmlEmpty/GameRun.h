@@ -8,7 +8,7 @@
 #include "Toolbox.h"
 #include "Animations.h"
 #include "Camera.h"
-#include "Intestine.h"
+#include "Stomach.h"
 
 class GameRun : public GameState{
 public:
@@ -26,7 +26,7 @@ private:
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;*/
 
-	Intestine& mIntestine;
+	Stomach& mStomach;
 
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;

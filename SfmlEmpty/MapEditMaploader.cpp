@@ -43,6 +43,9 @@ void MapEditMaploader::clear(){
 				 case '0':
 					 MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2]);
 					 break;
+				 case 'W':
+					 MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2]);
+					 break;
 				 default: 
 					 break;
 				 }
@@ -115,6 +118,10 @@ void MapEditMaploader::clear(){
 
  void MapEditMaploader::createAcidMonster(sf::Vector2f &pos){
 	 mEntities.push_back(Factory::createAcidMonster(pos));
+ }
+
+ void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
+	mTerrains.push_back(Factory::createBlock0WallJump(pos, type));
  }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){

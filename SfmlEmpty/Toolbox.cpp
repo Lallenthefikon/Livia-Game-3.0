@@ -11,7 +11,7 @@ static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mAcidMonsterTexture;
-static sf::Image mIntestineBackgroundTexture;
+static sf::Image mStomachBackgroundTexture;
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -23,7 +23,10 @@ static sf::Vector2f mResolution;
 static sf::Vector2f mWindowPos;
 
 // Sounds
-static sf::SoundBuffer mPlayerSound;
+static sf::SoundBuffer mPlayerIdleSound;
+static sf::SoundBuffer mPlayerRunSound;
+static sf::SoundBuffer mPlayerJumpSound;
+static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mWormSound;
 
 Toolbox& Toolbox::getInstance(){
@@ -32,12 +35,12 @@ Toolbox& Toolbox::getInstance(){
 }
 
 void Toolbox::loadTextures(std::string levelName){
-	if (levelName == "Intestine"){
-		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
+	if (levelName == "Stomach"){
+		mStomachBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
-	mBlock0sheet.loadFromFile("resources/images/TileSheet_6.png");
+	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
 	mRunningPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder1.2(100,140).png");
 	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
@@ -48,6 +51,18 @@ void Toolbox::loadTextures(std::string levelName){
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
 	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
+}
+
+void Toolbox::loadSounds(std::string levelName) {
+
+	if (levelName == "Intestine") {
+		// Load Tummy Acid Trip
+	}
+
+	mPlayerIdleSound.loadFromFile("resources/sounds/jump_02.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/Jump_03.ogg");
+	mPlayerJumpSound.loadFromFile("resources/sounds/Jump_01.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/Hurt_03.aif");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -90,8 +105,8 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mAcidMonsterTexture;
 		break;
 
-	case INTESTINEBACKGROUND:
-		return mIntestineBackgroundTexture;
+	case StomachBACKGROUND:
+		return mStomachBackgroundTexture;
 		break;
 
 	case LIFETEXTURE:
@@ -143,20 +158,18 @@ sf::Vector2f Toolbox::getPlayerVelocity(){
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	switch (soundKey) {
 	case Toolbox::PLAYERIDLE:
-		mPlayerSound.loadFromFile("resources/sounds/Jump_03.ogg");
-		return mPlayerSound;
+		return mPlayerIdleSound;
 		break;
 	case Toolbox::PLAYERRUN:
+		return mPlayerRunSound;
 		break;
 	case Toolbox::PLAYERJUMP:
-		mPlayerSound.loadFromFile("resources/sounds/Jump_01.ogg");
-		return mPlayerSound;
+		return mPlayerJumpSound;
 		break;
 	case Toolbox::PLAYERLAND:
 		break;
 	case Toolbox::PLAYERDAMAGED:
-		mPlayerSound.loadFromFile("resources/sounds/Jump_02.ogg");
-		return mPlayerSound;
+		return mPlayerDamagedSound;
 		break;
 	case Toolbox::WORMIDLE:
 		break;
@@ -167,7 +180,6 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::WORMLAND:
 		break;
 	default:
-		return mPlayerSound;
 		break;
 	}
 }

@@ -5,7 +5,7 @@
 
 GameLoop::GameLoop():
 mCurrentLevelDirectory("resources/maps/mMap0.txt"),
-mCurrentLevelName("Intestine"),
+mCurrentLevelName("Stomach"),
 mWindow(sf::VideoMode::getDesktopMode(), "Livia 2.0.2 V.2"),
 mAmbienceBuffer(),
 mAmbienceSound() {

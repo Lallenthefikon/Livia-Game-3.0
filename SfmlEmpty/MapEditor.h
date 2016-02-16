@@ -21,6 +21,7 @@ public:
 	void createPlayer(sf::Vector2f mousePos);
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
+	void createBlock0WallJump(sf::Vector2f mousePos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
