@@ -1,9 +1,13 @@
 #include "LayerHandler.h"
+#include <iostream>
 float BACKGROUNDSPEED;
 float FOREGROUNDSPEED;
 
 
-LayerHandler::LayerHandler(){
+
+LayerHandler::LayerHandler() :
+mEntityHandler(Entityhandler::getInstance())
+{
 	
 	//mForegroundObjects.push_back(background);
 }
@@ -50,12 +54,30 @@ void LayerHandler::addForegroundObject(sf::Sprite &foregroundSprite){
 	
 }
 
-void LayerHandler::render(sf::RenderWindow &window){
+void LayerHandler::renderBackground(sf::RenderWindow &window){
 
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		window.draw(mBackgrounds[i]);
 	}
 }
+
+void LayerHandler::renderForeground(sf::RenderWindow &window){
+	
+	
+}
+
+void LayerHandler::renderHud(sf::RenderWindow &window){
+	window.draw(mLives[0]);
+}
+
+void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
+	mEntityHandler.getPlayerLife();
+	/*mLives[0].setPosition(centerScreenCoordPos.x - 1920 / 2, centerScreenCoordPos.y - 1080 / 2);*/
+	std::cout << "X: " << centerScreenCoordPos.x << std::endl << "y: "<< centerScreenCoordPos.y << std::endl;
+	mLives[0].setPosition(centerScreenCoordPos.x, centerScreenCoordPos.y);
+}
+
+
 
 void LayerHandler::addBackground(sf::Sprite &background){
 	mBackgrounds.push_back(background);
@@ -66,3 +88,7 @@ void LayerHandler::addBackground(sf::Sprite &background){
 	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x - mBackgrounds[2].getLocalBounds().width, 0.f));
 }
 
+void LayerHandler::addLifeSprite(sf::Sprite &life){
+	mLives.push_back(life);
+	mLives[0].setPosition(200, 200);
+}
