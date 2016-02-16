@@ -15,6 +15,7 @@ public:
 	void addVector();
 	void clear();
 	void gameOver();
+	int getPlayerLife();
 private:
 	Entityhandler();
 	~Entityhandler();

@@ -8,13 +8,23 @@ public:
 	Camera();
 	~Camera();
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
-	void updateCamGAME(sf::Window &window);
+	void updateCamGAME(sf::RenderWindow &window);
 	void updateCamEDITOR(sf::Window &window, std::string direction);
+
+	void updateIntestineCam(sf::RenderWindow &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
 	sf::View getView(){ return mView; }
 	void zoomCameraEDITOR(sf::Event event);
+	bool zoomOut(float totalSizeChange, int timesToZoom);
+	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
 private:
 	sf::View mView;
+	sf::Vector2f mVelocity;
+	sf::Vector2f mAcceleration;
+	// Used to keep player from moving backwards
+	sf::RectangleShape mCollisionStripe;
+	//sf::Sprite mCollisionStripe;
+	int mTimesZoomed;
 	//sf::FloatRect mMapBounds;
 	//sf::Vector2f mEditorCamCenter;
 	/*bool mIsFullscreen;*/

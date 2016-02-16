@@ -17,6 +17,7 @@ public:
 	virtual void addVector(sf::Vector2f &vector);
 
 	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
+	virtual sf::Vector2f getVelocity(){ return mVelocity; }
 	virtual sf::Vector2f getOffset(){ return mSpriteOffset; }
 	virtual float getWidth(){ return mSprite.getLocalBounds().width; }
 	virtual float getHeight(){ return mSprite.getLocalBounds().height; }
@@ -28,6 +29,7 @@ public:
 	virtual void getHit();
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
+	virtual int getLife() { return mLife; }
 
 private:
 

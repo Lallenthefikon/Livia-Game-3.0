@@ -1,6 +1,7 @@
 #include "Toolbox.h"
 
 static sf::Sprite mPlayerSprite;
+static sf::Vector2f mPlayerVelocity;
 
 // Textures
 static sf::Image mEnemy0sheet;
@@ -11,6 +12,7 @@ static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mAcidMonsterTexture;
 static sf::Image mIntestineBackgroundTexture;
+static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
@@ -31,7 +33,7 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Intestine"){
-		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG");
+		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
@@ -44,6 +46,8 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
+	
+	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -90,6 +94,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mIntestineBackgroundTexture;
 		break;
 
+	case LIFETEXTURE:
+		return mLifeTexture;
+		break;
+
 	default:
 		break;
 	}
@@ -115,12 +123,20 @@ sf::Vector2f Toolbox::getWindowPos(){
 	return mWindowPos;
 }
 
-void Toolbox::copyPlayerInfo(sf::Sprite &playerSprite){
+void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
+}
+
+void Toolbox::copyPlayerVelocity(sf::Vector2f &playerVelocity){
+	mPlayerVelocity = playerVelocity;
 }
 
 sf::Sprite Toolbox::getPlayerSprite(){
 	return mPlayerSprite;
+}
+
+sf::Vector2f Toolbox::getPlayerVelocity(){
+	return mPlayerVelocity;
 }
 
 // Sounds
