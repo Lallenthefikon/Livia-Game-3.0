@@ -38,9 +38,9 @@ void MapEditorMeny::insertObjects(){
 	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
 	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
-	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 2.7, 80), 'a'));
+	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
-	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 3.7, 80), 'p'));
+	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 }
 
@@ -92,7 +92,9 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	// Worm
 	mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
 	// Block0 
-	mTerrains[0]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * 1.7, newPos.y + 20));
+	for (int i = 0; i < mTerrains.size(); i++)
+	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i +2, newPos.y + 100));
+
 
 	//int nrOfEntities;
 	//for (Entities::size_type i = 0; i < mEntities.size(); i++){
