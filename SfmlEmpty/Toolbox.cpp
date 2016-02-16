@@ -11,7 +11,7 @@ static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mAcidMonsterTexture;
-static sf::Image mIntestineBackgroundTexture;
+static sf::Image mStomachBackgroundTexture;
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -32,8 +32,8 @@ Toolbox& Toolbox::getInstance(){
 }
 
 void Toolbox::loadTextures(std::string levelName){
-	if (levelName == "Intestine"){
-		mIntestineBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
+	if (levelName == "Stomach"){
+		mStomachBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
@@ -90,8 +90,8 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mAcidMonsterTexture;
 		break;
 
-	case INTESTINEBACKGROUND:
-		return mIntestineBackgroundTexture;
+	case StomachBACKGROUND:
+		return mStomachBackgroundTexture;
 		break;
 
 	case LIFETEXTURE:

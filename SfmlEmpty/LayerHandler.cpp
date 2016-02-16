@@ -1,5 +1,5 @@
 #include "LayerHandler.h"
-float BACKGROUNDSPEED;
+float BACKGROUNDSPEED = 0.5f;
 float FOREGROUNDSPEED;
 
 
@@ -33,11 +33,11 @@ void LayerHandler::moveBackground(sf::Vector2i &pixelPos, sf::Vector2f &coordPos
 	// Move backgrounds left, pop to the right when exit screen
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		if (mBackgrounds[i].getPosition().x < coordPos.x){
-			mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x/2, coordPos.y));
-			//mBackgrounds[i].setPosition(sf::Vector2f(mBackgrounds[i].getPosition().x - velocity.x, coordPos.y));
+			//mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x/2, coordPos.y));
+			mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x - std::abs(mBackgrounds[i].getPosition().x - coordPos.x), coordPos.y));
 		}
 		else{
-			//mBackgrounds[i].setPosition(sf::Vector2f(furthestRightBG.getPosition().x + mBackgrounds[i].getLocalBounds().width, coordPos.y));
+			mBackgrounds[i].setPosition(sf::Vector2f(furthestRightBG.getPosition().x + mBackgrounds[i].getLocalBounds().width, coordPos.y));
 		}
 	}
 }
@@ -51,7 +51,7 @@ void LayerHandler::addForegroundObject(sf::Sprite &foregroundSprite){
 }
 
 void LayerHandler::render(sf::RenderWindow &window){
-
+	
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		window.draw(mBackgrounds[i]);
 	}

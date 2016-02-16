@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-<<<<<<< HEAD
 #include "EntityHandler.h"
 
 class LayerHandler
@@ -17,5 +16,6 @@ private:
 	~LayerHandler();
 	std::vector<sf::Sprite> mForegroundObjects;
 	std::vector<sf::Sprite> mBackgrounds;
+
 };
 

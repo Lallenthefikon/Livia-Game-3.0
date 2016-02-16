@@ -9,7 +9,7 @@ GameRun::GameRun(std::string &levelDirectory, std::string &levelName):
 //mCollisionHandler(Collisionhandler::getInstance()),
 //mCurrentMap(mapname),
 //mCamera()
-mIntestine(Intestine::getInstance()){
+mStomach(Stomach::getInstance()){
 	setCurrentLevel(levelDirectory, levelName);
 	//mMapGenerator.loadMap(mapname);
 }
@@ -23,7 +23,7 @@ GameRun* GameRun::getInstance(std::string &levelDirectory, std::string &levelNam
 }
 
 void GameRun::update(sf::RenderWindow &window){
-	mIntestine.update(window);
+	mStomach.update(window);
 	//// Specific event loop for gameRun state
 	//sf::Event gEvent;
 	//while (window.pollEvent(gEvent)){
@@ -40,7 +40,7 @@ void GameRun::update(sf::RenderWindow &window){
 }
 
 void GameRun::render(sf::RenderWindow &window){
-	mIntestine.render(window);
+	mStomach.render(window);
 	//window.clear();
 	//mTerrainHandler.renderTerrains(window);
 	////mCollisionHandler.renderCollision(window);
@@ -49,6 +49,6 @@ void GameRun::render(sf::RenderWindow &window){
 }
 
 void GameRun::loadLevel(){
-	mIntestine.loadLevel();
+	mStomach.loadLevel();
 	//mMapGenerator.loadMap(mCurrentMap);
 }
