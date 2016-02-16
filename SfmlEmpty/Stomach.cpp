@@ -12,7 +12,8 @@ mLayerHandler(LayerHandler::getInstance()),
 mCamera(),
 mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"){
-	Toolbox::loadTextures("Stomach");
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
 	Animations::loadTextures();
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::StomachBACKGROUND));

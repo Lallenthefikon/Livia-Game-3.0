@@ -90,7 +90,6 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameRun.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="Intestine.cpp" />
     <ClCompile Include="LayerHandler.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LiviaSound.cpp" />
@@ -103,6 +102,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
+    <ClCompile Include="Stomach.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Terrainhandler.cpp" />
     <ClCompile Include="Toolbox.cpp" />
@@ -124,7 +124,6 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameRun.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="Intestine.h" />
     <ClInclude Include="LayerHandler.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LiviaSound.h" />
@@ -135,6 +134,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />
+    <ClInclude Include="Stomach.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Terrainhandler.h" />
     <ClInclude Include="Toolbox.h" />

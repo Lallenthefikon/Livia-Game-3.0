@@ -57,6 +57,10 @@ void LayerHandler::render(sf::RenderWindow &window){
 	}
 }
 
+void LayerHandler::renderLayer(sf::RenderWindow &window) {
+
+}
+
 void LayerHandler::addBackground(sf::Sprite &background){
 	mBackgrounds.push_back(background);
 	mBackgrounds[0].setPosition(sf::Vector2f(0.f, 0.f));

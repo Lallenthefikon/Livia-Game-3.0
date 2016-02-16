@@ -35,3 +35,7 @@ void WormSound::playSound(SOUNDTYPE type) {
 void WormSound::stopSound() {
 
 }
+
+void WormSound::clearSoundQueue() {
+
+}
