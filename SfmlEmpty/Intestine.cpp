@@ -58,7 +58,7 @@ void Intestine::render(sf::RenderWindow &window){
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
-	mLayerHandler.renderLayer(window);
+	mLayerHandler.render(window);
 	window.display();
 }
 

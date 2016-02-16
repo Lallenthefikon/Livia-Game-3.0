@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-<<<<<<< HEAD
 #include "EntityHandler.h"
 
 class LayerHandler
