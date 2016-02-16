@@ -166,7 +166,7 @@ void MapEditor::createBlock0(sf::Vector2f mousePos){
 
 void MapEditor::createPlayer(sf::Vector2f mousePos){
 	if (mEntities.empty())
-		Factory::createPlayer(mousePos);
+		mEntities.push_back(Factory::createPlayer(mousePos));
 
 	else if (mEntities[0]->getType() == Entity::PLAYER){
 		delete mEntities[0];
@@ -184,6 +184,10 @@ void MapEditor::createWorm(sf::Vector2f mousePos){
 
 void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
+}
+
+void MapEditor::createBlock0WallJump(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createBlock0WallJump(mousePos, 'p'));
 }
 
 void MapEditor::loadLevel(){
@@ -218,6 +222,8 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::ACIDMONSTER:
 		MapEditor::createAcidMonster(mousePos);
 		break;
+	case MapEditorMeny::BLOCK0WALLJUMP:
+		MapEditor::createBlock0WallJump(mousePos);
 	default:
 		break;
 	}
@@ -245,6 +251,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::BLOCK0;
 		break;
 	case MapEditorMeny::BLOCK0:
+		mInsertType = MapEditorMeny::BLOCK0WALLJUMP;
+		break;
+	case MapEditorMeny::BLOCK0WALLJUMP:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -279,6 +288,13 @@ void MapEditor::writeTerrainToFile(std::string filename){
 			case Terrain::BLOCK0:
 				output.push_back('B');
 				output.push_back('0');
+				// Push what type of block it is
+				output.push_back(blockType(mTerrains[i]));
+				break;
+
+			case Terrain::BLOCK0WALLJUMP:
+				output.push_back('B');
+				output.push_back('W');
 				// Push what type of block it is
 				output.push_back(blockType(mTerrains[i]));
 				break;

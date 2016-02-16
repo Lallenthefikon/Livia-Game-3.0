@@ -49,6 +49,9 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				case '0':
 					MapGenerator::createBlock0(MapGenerator::readPosition(line),line[2]);
 					break;
+				case 'W':
+					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2]);
+					break;
 				default:
 					break;
 				}
@@ -128,6 +131,10 @@ void MapGenerator::createAcidMonster(sf::Vector2f pos){
 
 void MapGenerator::createBlock0(sf::Vector2f pos, char type){
 	mTerrainhandler->addTerrain(Factory::createBlock0(pos, type));
+}
+
+void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
+	mTerrainhandler->addTerrain(Factory::createBlock0WallJump(pos, type));
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
