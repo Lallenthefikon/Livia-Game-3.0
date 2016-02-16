@@ -59,6 +59,7 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 	float delta;
 	switch (terrain->getType())	{
 	case Terrain::BLOCK0:
+	case Terrain::BLOCK0WALLJUMP:
 		switch (direction){
 
 		case 't':
@@ -151,12 +152,12 @@ void Worm::addSpeed(){
 }
 
 void Worm::updateState(){
-	if (mVelocity.x > 0){
+	if (mVelocity.x > 0 && mState !=CRAWLINGRIGHT){
 		mState = Worm::CRAWLINGRIGHT;
 		Worm::updateANI();
 	}
 
-	if (mVelocity.x < 0){
+	if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
 		mState = Worm::CRAWLINGLEFT;
 		Worm::updateANI();
 	}
@@ -167,10 +168,15 @@ void Worm::updateANI(){
 	//mCurrentAnimation = Animations::getWormCrawlingANI();
 	switch (mState){
 	case Worm::CRAWLINGLEFT:
-		mSprite.setScale(-1.f, 1.f);
+		mSprite.setTextureRect(sf::IntRect(0, 0, int(this->getWidth()), int(this->getHeight())));
 		break;
 	case Worm::CRAWLINGRIGHT:
-		mSprite.setScale(-1.f, 1.f);
+		
+		//mSprite.setScale(-1.f, 1.f);
+		mSprite.setTextureRect(sf::IntRect(int(this->getWidth()), 0, int(-this->getWidth()), int(this->getHeight())));
+
+		
+		
 		break;
 	default:
 		break;
@@ -213,6 +219,71 @@ void Worm::updateCollision(){
 		mVelocity.x = 0;
 	if (mCollisionR && mVelocity.x > 0)
 		mVelocity.x = 0;
+
+	if (mCollisionB){
+		switch (mCurrentCollisionB->getTileType()){
+
+		case 'p':
+			if (this->getPos().x < mCurrentCollisionB->getPos().x){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = mMaxSpeed;
+			}
+			else if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = -mMaxSpeed;
+			}
+			break;
+
+		case 'o':
+			if (this->getPos().x < mCurrentCollisionB->getPos().x){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = mMaxSpeed;
+			}
+			else if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()- this->getWidth(), this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = -mMaxSpeed;
+			}
+			break;
+
+		case 'm':
+			if (this->getPos().x < mCurrentCollisionB->getPos().x){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = mMaxSpeed;
+			}
+			break;
+
+		case 'l':	
+			if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = -mMaxSpeed;
+			}
+			break;
+
+		case 'j':
+			if (this->getPos().x < mCurrentCollisionB->getPos().x){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = mMaxSpeed;
+			}
+			break;
+
+		case 'i':
+			if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()){
+				mSprite.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
+				mVelocity.x = 0;
+				mVelocityGoal.x = -mMaxSpeed;
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Worm::animate(){

@@ -1,14 +1,13 @@
 #pragma once
-
 #include <SFML\System.hpp>
 #include "Terrain.h"
 #include "Toolbox.h"
 
-class Block0 : public Terrain{
+class Block0WallJump : public Terrain{
 public:
-	virtual ~Block0();
-	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0; }
-	static Terrain* createBlock0(sf::Vector2f pos, char type);
+	virtual ~Block0WallJump();
+	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0WALLJUMP; }
+	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
@@ -22,7 +21,7 @@ public:
 	virtual char getTileType(){ return mTileType; }
 
 private:
-	Block0(sf::Vector2f pos, char type);
+	Block0WallJump(sf::Vector2f pos, char type);
 
 	void setTexture(char type);
 
