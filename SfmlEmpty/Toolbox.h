@@ -9,6 +9,7 @@ struct Toolbox {
 	enum SOUNDKEY { PLAYERIDLE, PLAYERRUN, PLAYERJUMP, PLAYERLAND, PLAYERDAMAGED, WORMIDLE, WORMRUN, WORMJUMP, WORMLAND };
 	static Toolbox& getInstance();
 	static void loadTextures(std::string levelName);
+	static void loadSounds(std::string levelName);
 	static sf::Image& getTexture(TEXTUREKEY textureKey);
 
 	// Camera Edit
