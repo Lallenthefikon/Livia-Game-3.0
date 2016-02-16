@@ -40,6 +40,8 @@ void MapEditorMeny::insertObjects(){
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 2.7, 80), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 3.7, 80), 'p'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -67,6 +69,10 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 
 				case Terrain::BLOCK0:
 					mInsertType = BLOCK0;
+					break;
+					
+				case Terrain::BLOCK0WALLJUMP:
+					mInsertType = BLOCK0WALLJUMP;
 					break;
 
 				default:

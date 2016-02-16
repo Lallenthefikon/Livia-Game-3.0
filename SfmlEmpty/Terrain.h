@@ -5,7 +5,7 @@
 
 class Terrain{
 public:
-	enum TERRAINTYPE { BLOCK0 };
+	enum TERRAINTYPE { BLOCK0, BLOCK0WALLJUMP };
 	Terrain();
 	virtual ~Terrain();
 	virtual TERRAINTYPE getType() = 0;
@@ -19,5 +19,6 @@ public:
 	virtual bool isOnScreen() = 0;
 	virtual void setPos(sf::Vector2f newPos) = 0;
 	virtual void setScale(sf::Vector2f newScale) = 0;
+	virtual char getTileType() = 0;
 };
 
