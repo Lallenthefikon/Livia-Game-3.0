@@ -229,7 +229,7 @@ void Player::playSoundManually() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 		playSound(IDLE);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		playSound(RUNNINGLEFT);
+		playSound(RUNNING);
 }
 
 void Player::lerp(){
@@ -387,7 +387,7 @@ void Player::updateANI(){
 
 	case RUNNING:
 		mCurrentAnimation = Animations::getPlayerRunningANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 135));
 		//// flip X
 		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
 
@@ -442,10 +442,7 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::IDLE:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
-	case Player::RUNNINGLEFT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-		break;
-	case Player::RUNNINGRIGHT:
+	case Player::RUNNING:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::FALLING:
