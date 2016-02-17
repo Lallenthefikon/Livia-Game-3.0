@@ -54,6 +54,7 @@ private:
 	void updateTexturepos();
 
 	void playSound(PLAYERSTATE state);
+	void stopSound(PLAYERSTATE state);
 
 	// Stats 
 	float mJumpSpeedInitial;

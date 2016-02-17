@@ -11,6 +11,7 @@ public:
 	SoundFX();
 	virtual ~SoundFX();
 	virtual void playSound(SOUNDTYPE type) = 0;
-	virtual void stopSound() = 0;
+	virtual void stopSound(SOUNDTYPE type) = 0;
+	virtual void stopAllSound() = 0;
 };
 

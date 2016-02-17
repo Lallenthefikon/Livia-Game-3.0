@@ -1,12 +1,10 @@
 #include "LiviaSound.h"
 #include <iostream>
 
-
 LiviaSound::LiviaSound() :
 mSounds(){
 	initialize();
 }
-
 
 LiviaSound::~LiviaSound() {
 	finalize();
@@ -26,44 +24,40 @@ void LiviaSound::initialize() {
 }
 
 void LiviaSound::finalize() {
-	for (auto i = mSounds.begin(); i != mSounds.end(); i++) {
-		delete i->second;
+	stopAllSound();
+	for (auto i : mSounds) {
+		delete i.second;
 	}
 }
 
 void LiviaSound::playSound(SOUNDTYPE type) {
 	switch (type) {
 	case SoundFX::RUNNING:
-		if (mSounds[RUNNING]->getStatus() != sf::Sound::Status::Playing) {
+		if (mSounds[RUNNING]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[RUNNING]->play();
-		}
 		break;
 
 	case SoundFX::JUMPING:
-		if (mSounds[JUMPING]->getStatus() != sf::Sound::Status::Playing) {
+		if (mSounds[JUMPING]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[JUMPING]->play();
-		}
 		break;
 
 	case SoundFX::LANDING:
 		break;
 
 	case SoundFX::DAMAGED:
-		if (mSounds[DAMAGED]->getStatus() != sf::Sound::Status::Playing) {
+		if (mSounds[DAMAGED]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[DAMAGED]->play();
-		}
 		break;
 
 	case SoundFX::IDLE:
-		if (mSounds[IDLE]->getStatus() != sf::Sound::Status::Playing) {
+		if (mSounds[IDLE]->getStatus() != sf::Sound::Status::Playing) 
 			mSounds[IDLE]->play();
-		}
 		break;
 
 	case SoundFX::DEATH:
-		if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing) {
+		if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[DEATH]->play();
-		}
 		break;
 
 	default:
@@ -71,8 +65,44 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 	}
 }
 
-void LiviaSound::stopSound() {
+void LiviaSound::stopSound(SOUNDTYPE type) {
+	switch (type) {
+	case SoundFX::RUNNING:
+		if (mSounds[RUNNING]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[RUNNING]->stop();
+		break;
+
+	case SoundFX::JUMPING:
+		if (mSounds[JUMPING]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[JUMPING]->stop();
+		break;
+
+	case SoundFX::LANDING:
+		break;
+
+	case SoundFX::DAMAGED:
+		if (mSounds[DAMAGED]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[DAMAGED]->stop();
+		break;
+
+	case SoundFX::IDLE:
+		if (mSounds[IDLE]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[IDLE]->stop();
+		break;
+
+	case SoundFX::DEATH:
+		if (mSounds[DEATH]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[DEATH]->stop();
+		break;
+
+	default:
+		break;
+	}
+}
+
+void LiviaSound::stopAllSound() {
 	for (auto i : mSounds) {
 		i.second->stop();
 	}
 }
+

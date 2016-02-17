@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-static const float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
 mVelocity(0, 0),
@@ -70,6 +70,9 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
+	
+	std::cout << mInvulnerable << std::endl;
+
 }
 
 void Player::addVector(sf::Vector2f &vector){
@@ -287,9 +290,10 @@ void Player::updateState(){
 			Player::playSound(mState);
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
+	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE){
 		mState = IDLE;
 		changed = true;
+		Player::stopSound(RUNNING);
 	}
 
 	if (mVelocity.y > 0 && mState != FALLING){
@@ -378,16 +382,19 @@ void Player::updateANI(){
 	switch (mState){
 
 	case JUMPING:
+		ANIFramesPerFrame = 0.5;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
 		break;
 
 	case IDLE:
+		ANIFramesPerFrame = 0.25;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 70, 140));
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
 	case RUNNING:
+		ANIFramesPerFrame = 0.5;
 		mCurrentAnimation = Animations::getPlayerRunningANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 135));
 		//// flip X
@@ -399,6 +406,7 @@ void Player::updateANI(){
 		break;
 
 	case FALLING:
+		ANIFramesPerFrame = 0.5;
 		break;
 
 	default:
@@ -454,6 +462,30 @@ void Player::playSound(PLAYERSTATE state) {
 		break;
 	case Player::DEATH:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
+	default:
+		break;
+	}
+}
+
+void Player::stopSound(PLAYERSTATE state) {
+	switch (state) {
+	case Player::JUMPING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING);
+		break;
+	case Player::IDLE:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::RUNNING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::FALLING:
+		break;
+	case Player::DAMAGED:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DEATH);
 		break;
 	default:
 		break;

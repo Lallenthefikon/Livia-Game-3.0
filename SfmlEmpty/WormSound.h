@@ -7,7 +7,8 @@ public:
 	static SoundFX& createWormSound();
 	virtual ~WormSound();
 	virtual void playSound(SOUNDTYPE type);
-	virtual void stopSound();
+	virtual void stopSound(SOUNDTYPE type);
+	virtual void stopAllSound();
 private:
 	WormSound();
 	void initialize();
