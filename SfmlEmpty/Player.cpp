@@ -155,8 +155,10 @@ void Player::getHit(){
 			mInvulnerableTime.restart().asMilliseconds();
 			Player::playSound(Player::DAMAGED);
 		}
-		else
+		else {
 			mIsAlive = false;
+			Player::playSound(DEATH);
+		}
 	}
 }
 
@@ -227,7 +229,7 @@ void Player::playSoundManually() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		playSound(DAMAGED);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		playSound(IDLE);
+		playSound(DEATH);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
 		playSound(RUNNING);
 }
@@ -280,13 +282,13 @@ void Player::updateState(){
 
 	if (mVelocity.x != 0 && mState != JUMPING && mState != RUNNING){
 		mState = RUNNING;
-		Player::playSound(mState);
 		Player::updateANI();
+		if (!mVelocity.y > 0)
+			Player::playSound(mState);
 	}
 
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
-		Player::playSound(mState);
 		changed = true;
 	}
 
@@ -449,6 +451,10 @@ void Player::playSound(PLAYERSTATE state) {
 		break;
 	case Player::DAMAGED:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
 	default:
 		break;
 	}

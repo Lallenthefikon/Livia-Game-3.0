@@ -22,6 +22,7 @@ void LiviaSound::initialize() {
 	mSounds.insert({ JUMPING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP)) });
 	mSounds.insert({ DAMAGED, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED)) });
 	mSounds.insert({ IDLE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE)) });
+	mSounds.insert({ DEATH, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDEATH)) });
 }
 
 void LiviaSound::finalize() {
@@ -59,7 +60,10 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 		}
 		break;
 
-	case SoundFX::RANDOM:
+	case SoundFX::DEATH:
+		if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing) {
+			mSounds[DEATH]->play();
+		}
 		break;
 
 	default:

@@ -34,8 +34,6 @@ void WormSound::playSound(SOUNDTYPE type) {
 		break;
 	case SoundFX::IDLE:
 		break;
-	case SoundFX::RANDOM:
-		break;
 	default:
 		break;
 	}

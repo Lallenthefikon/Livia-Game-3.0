@@ -6,7 +6,7 @@
 
 class SoundFX {
 public:
-	enum SOUNDTYPE { RUNNING, JUMPING, LANDING, DAMAGED, IDLE, RANDOM };
+	enum SOUNDTYPE { RUNNING, JUMPING, LANDING, DAMAGED, IDLE, DEATH };
 	typedef std::map<SOUNDTYPE, sf::Sound*> SoundQueue;
 	SoundFX();
 	virtual ~SoundFX();
