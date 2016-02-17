@@ -21,7 +21,7 @@ mMapPath("resources/maps/mMap0.txt"){
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
 	mBackgroundSprite.setTexture(mBackgroundTexture);
-
+	
 	mLayerHandler.addBackground(mBackgroundSprite);
 	mMapGenerator.loadMap(mMapPath);
 	mCamera.zoomOut(0.5f, 1);

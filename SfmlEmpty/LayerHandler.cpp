@@ -4,7 +4,7 @@ float BACKGROUNDSPEED;
 float FOREGROUNDSPEED;
 
 
-	
+
 LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance())
 {
