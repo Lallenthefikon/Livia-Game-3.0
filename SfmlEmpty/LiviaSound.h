@@ -7,7 +7,8 @@ public:
 	static SoundFX& createLiviaSound();
 	virtual ~LiviaSound();
 	virtual void playSound(SOUNDTYPE type);
-	virtual void stopSound();
+	virtual void stopSound(SOUNDTYPE type);
+	virtual void stopAllSound();
 private:
 	LiviaSound();
 	void initialize();

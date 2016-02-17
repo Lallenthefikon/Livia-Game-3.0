@@ -27,7 +27,8 @@ static sf::SoundBuffer mPlayerIdleSound;
 static sf::SoundBuffer mPlayerRunSound;
 static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
-static sf::SoundBuffer mWormSound;
+static sf::SoundBuffer mPlayerDeathSound;
+static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 
@@ -66,10 +67,13 @@ void Toolbox::loadSounds(std::string levelName) {
 	}
 
 	// Global effects
-	mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
-	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Jump_03.ogg");
+	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Walkcycle_01.ogg");
 	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_03.aif");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_03.ogg");
+	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
+
+	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
 }
 
@@ -179,6 +183,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERDAMAGED:
 		return mPlayerDamagedSound;
 		break;
+	case Toolbox::PLAYERDEATH:
+		return mPlayerDeathSound;
+		break;
 	case Toolbox::WORMIDLE:
 		break;
 	case Toolbox::WORMRUN:
@@ -186,6 +193,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::WORMJUMP:
 		break;
 	case Toolbox::WORMLAND:
+		break;
+	case Toolbox::WORMDEATH:
+		return mWormDeathSound;
 		break;
 	default:
 		break;
