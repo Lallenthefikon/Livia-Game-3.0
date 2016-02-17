@@ -1,198 +1,68 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Abstractgame.cpp" />
+    <ClCompile Include="AcidMonster.cpp" />
+    <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Block0.cpp" />
+    <ClCompile Include="Block0WallJump.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionFuncs.cpp" />
+    <ClCompile Include="Collisionhandler.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Entityhandler.cpp" />
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="GameRun.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="LayerHandler.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LiviaSound.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="MapEditMaploader.cpp" />
+    <ClCompile Include="MapEditor.cpp" />
+    <ClCompile Include="MapEditorMeny.cpp" />
+    <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SoundFactory.cpp" />
+    <ClCompile Include="SoundFX.cpp" />
+    <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="Terrainhandler.cpp" />
+    <ClCompile Include="Toolbox.cpp" />
+    <ClCompile Include="Worm.cpp" />
+    <ClCompile Include="WormSound.cpp" />
+    <ClCompile Include="Stomach.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Block0.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Worm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entityhandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrainhandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Toolbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Abstractgame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameRun.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collisionhandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditMaploader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditorMeny.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionFuncs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AcidMonster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFX.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LiviaSound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WormSound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LayerHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Intestine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Block0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Worm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entityhandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrainhandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Toolbox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Abstractgame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLoop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameRun.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collisionhandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditMaploader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditorMeny.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionFuncs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AcidMonster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LiviaSound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WormSound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LayerHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Intestine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Abstractgame.h" />
+    <ClInclude Include="AcidMonster.h" />
+    <ClInclude Include="Animations.h" />
+    <ClInclude Include="Block0.h" />
+    <ClInclude Include="Block0WallJump.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionFuncs.h" />
+    <ClInclude Include="Collisionhandler.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Entityhandler.h" />
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="GameLoop.h" />
+    <ClInclude Include="GameRun.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="LayerHandler.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LiviaSound.h" />
+    <ClInclude Include="MapEditMaploader.h" />
+    <ClInclude Include="MapEditor.h" />
+    <ClInclude Include="MapEditorMeny.h" />
+    <ClInclude Include="MapGenerator.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="SoundFactory.h" />
+    <ClInclude Include="SoundFX.h" />
+    <ClInclude Include="Terrain.h" />
+    <ClInclude Include="Terrainhandler.h" />
+    <ClInclude Include="Toolbox.h" />
+    <ClInclude Include="Worm.h" />
+    <ClInclude Include="WormSound.h" />
+    <ClInclude Include="Stomach.h" />
   </ItemGroup>
 </Project>

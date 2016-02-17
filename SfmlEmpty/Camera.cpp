@@ -3,75 +3,81 @@
 
 
 Camera::Camera() :
-mView(sf::FloatRect(0.f, 0.f, 1920, 1080)),
+mTileView(sf::FloatRect(0.f, 0.f, 1920, 1080)),
+mSceneryView(sf::FloatRect(0.f, 0.f, 1920, 1080)),
 mVelocity(0,0),
 mAcceleration(0,0),
 mTimesZoomed(0), 
 mCollisionStripe(sf::Vector2f(10, 1920)) {
 	// Default view
 	mCollisionStripe.setFillColor(sf::Color::Blue);
-	mView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	mTileView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+	mSceneryView.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
 }
 
 Camera::~Camera(){
 }
 
 void Camera::moveCameraEDITOR(sf::Window &window, sf::Vector2f direction, float speed){
-	mView.move(sf::Vector2f(direction.x * speed, direction.y * speed));
+	mTileView.move(sf::Vector2f(direction.x * speed, direction.y * speed));
 }
 
 void Camera::updateCamGAME(sf::RenderWindow &window){
 	// Camera is first centered on player then these offsets are applied
 	float yCamOffset, xCamOffset;
-	float decay = 0.98f;
-	float timeStep = 1 / 60;
+
+	/*float decay = 0.98f;
+	float timeStep = 1 / 60;*/
 	yCamOffset = 100;
 	xCamOffset = 500;
 
-	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
-	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mView.getCenter()));
+	//sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
+	//sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mView.getCenter()));
 
-	if (playerCoordPos.x > viewCoordPos.x - xCamOffset){
 
-		mView.move(sf::Vector2f(Toolbox::getPlayerVelocity().x, 0.f));
+	//if (playerCoordPos.x > viewCoordPos.x - xCamOffset){
 
-	}
-	if (playerCoordPos.y < viewCoordPos.y){
-		
-		if (std::abs(playerCoordPos.y - viewCoordPos.y) <= 10){
-			mVelocity.y = 0;
-		}
-		else{
-			//mVelocity.y += Toolbox::getPlayerVelocity().y*0.4f;
-			mAcceleration.y = 0.5f;
-			mVelocity.y -= mAcceleration.y;
-		}
-		//mVelocity.y += (Toolbox::getPlayerVelocity().y /Toolbox::getPlayerVelocity().y)*0.99f;
+	//	mView.move(sf::Vector2f(Toolbox::getPlayerVelocity().x, 0.f));
 
-		mView.move(sf::Vector2f(0.f, mVelocity.y));
-		
-	}
-	if (playerCoordPos.y > viewCoordPos.y){
-					//mVelocity.y += (Toolbox::getPlayerVelocity().y / Toolbox::getPlayerVelocity().y)*0.99f;
-		if (std::abs(playerCoordPos.y - viewCoordPos.y) <= 50){
-			mVelocity.y = 0;
-		}
-		else if (playerCoordPos.y > viewCoordPos.y + yCamOffset){
-			mAcceleration.y = 4.0f;
-			mVelocity.y += mAcceleration.y;
-		}
-		else{
-			mAcceleration.y = 0.5f;
-			mVelocity.y += mAcceleration.y;
-			//mVelocity.y += Toolbox::getPlayerVelocity().y*0.4f;
-		}
 
-		mView.move(sf::Vector2f(0.f, mVelocity.y));
-	}
+	//}
+	//if (playerCoordPos.y < viewCoordPos.y){
+	//	
+	//	if (std::abs(playerCoordPos.y - viewCoordPos.y) <= 10){
+	//		mVelocity.y = 0;
+	//	}
+	//	else{
+	//		//mVelocity.y += Toolbox::getPlayerVelocity().y*0.4f;
+	//		mAcceleration.y = 0.5f;
+	//		mVelocity.y -= mAcceleration.y;
+	//	}
+	//	//mVelocity.y += (Toolbox::getPlayerVelocity().y /Toolbox::getPlayerVelocity().y)*0.99f;
 
-	mVelocity *= decay;
+	//	mView.move(sf::Vector2f(0.f, mVelocity.y));
+	//	
+	//}
+	//if (playerCoordPos.y > viewCoordPos.y){
+	//				//mVelocity.y += (Toolbox::getPlayerVelocity().y / Toolbox::getPlayerVelocity().y)*0.99f;
+	//	if (std::abs(playerCoordPos.y - viewCoordPos.y) <= 50){
+	//		mVelocity.y = 0;
+	//	}
+	//	else if (playerCoordPos.y > viewCoordPos.y + yCamOffset){
+	//		mAcceleration.y = 4.0f;
+	//		mVelocity.y += mAcceleration.y;
+	//	}
+	//	else{
+	//		mAcceleration.y = 0.5f;
+	//		mVelocity.y += mAcceleration.y;
+	//		//mVelocity.y += Toolbox::getPlayerVelocity().y*0.4f;
+	//	}
 
-	//mView.setCenter(sf::Vector2f(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y + yCamOffset));
+	//	mView.move(sf::Vector2f(0.f, mVelocity.y));
+	//}
+
+	//mVelocity *= decay;
+
+	mTileView.setCenter(sf::Vector2f(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y + yCamOffset));
+
 }
 
 void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
@@ -89,7 +95,7 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 	}
 }
 
-void Camera::updateIntestineCam(sf::RenderWindow &window, std::string cameraState){
+void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState){
 	
 	std::string currentCamState = cameraState;
 	if (currentCamState == "Cutscene"){
@@ -121,17 +127,17 @@ void Camera::updateIntestineCam(sf::RenderWindow &window, std::string cameraStat
 
 void Camera::zoomCameraEDITOR(sf::Event event){
 	if (event.mouseWheel.delta > 0){
-		mView.zoom(0.9f);
+		mTileView.zoom(0.9f);
 	}
 	else if (event.mouseWheel.delta < 0){
-		mView.zoom(1.1f);
+		mTileView.zoom(1.1f);
 	}
 }
 
 bool Camera::zoomOut(float totalSizeChange, int timesToZoom){
 	if (mTimesZoomed < timesToZoom){
 		float fractalZoom = totalSizeChange / timesToZoom;
-		mView.zoom(1.f / fractalZoom);
+		mTileView.zoom(1.f / fractalZoom);
 		mTimesZoomed++;
 		return false;
 	}
@@ -142,7 +148,7 @@ bool Camera::zoomOut(float totalSizeChange, int timesToZoom){
 }
 
 void Camera::setCollisionStripe(std::string orientation, sf::RenderWindow &window){
-	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mView.getCenter()));
+	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
 	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
 	if (orientation == "Left"){
 

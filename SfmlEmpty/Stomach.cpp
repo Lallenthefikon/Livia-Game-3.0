@@ -1,6 +1,6 @@
-#include "Intestine.h"
+#include "Stomach.h"
 
-Intestine::Intestine() :
+Stomach::Stomach() :
 // Initiate singleton classes
 mBackground(),
 mTerrainHandler(Terrainhandler::getInstance()),
@@ -9,9 +9,10 @@ mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mCamera(),
-mMapName("Intestine"),
+mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"){
-	Toolbox::loadTextures("Intestine");
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
 	Animations::loadTextures();
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
@@ -20,35 +21,37 @@ mMapPath("resources/maps/mMap0.txt"){
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
 	mBackgroundSprite.setTexture(mBackgroundTexture);
-	
+
 	mLayerHandler.addBackground(mBackgroundSprite);
 	mMapGenerator.loadMap(mMapPath);
+	mCamera.zoomOut(0.5f, 1);
 }
 
-Intestine::~Intestine(){
+Stomach::~Stomach(){
 }
 
-Intestine& Intestine::getInstance(){
-	static Intestine intestine;
-	return intestine;
+Stomach& Stomach::getInstance(){
+	static Stomach Stomach;
+	return Stomach;
 }
 
-void Intestine::update(sf::RenderWindow &window){
+void Stomach::update(sf::RenderWindow &window){
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
 	}
+	mCamera.updateStomachCam(window, "Standard");
+	window.setView(mCamera.getTileView());
 
 	mEntityHandler.updateEntities();
 	mTerrainHandler.updateTerrains();
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	mCamera.updateIntestineCam(window, "Standard");
 
-	sf::Vector2i pixel_pos = sf::Vector2i(mCamera.getView().getCenter().x, 0);
+	sf::Vector2i pixel_pos = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
 	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
 
 	mLayerHandler.moveBackground(pixel_pos, coord_pos);
@@ -62,9 +65,10 @@ void Intestine::update(sf::RenderWindow &window){
 	window.setView(mCamera.getView());
 }
 
-void Intestine::render(sf::RenderWindow &window){
+void Stomach::render(sf::RenderWindow &window){
 	window.clear();
 	mLayerHandler.renderBackground(window);
+	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
@@ -73,14 +77,14 @@ void Intestine::render(sf::RenderWindow &window){
 	window.display();
 }
 
-void Intestine::loadLevel(){
+void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
 }
 
-void Intestine::unloadLevel(){
+void Stomach::unloadLevel(){
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Intestine::setCurrentMap(std::string &mapname){
+void Stomach::setCurrentMap(std::string &mapname){
 }

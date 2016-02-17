@@ -1,29 +1,29 @@
-#include "Block0.h"
+#include "Block0WallJump.h"
 
-Block0::Block0(sf::Vector2f pos, char type):
+Block0WallJump::Block0WallJump(sf::Vector2f pos, char type) :
 mTileType(type){
-	Block0::setTexture(type);
+	Block0WallJump::setTexture(type);
 	mSprite.setTexture(mTexture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
 }
 
-Block0::~Block0(){
+Block0WallJump::~Block0WallJump(){
 }
 
-Terrain* Block0::createBlock0(sf::Vector2f pos, char type){
-	return new Block0(pos, type);
+Terrain* Block0WallJump::createBlock0WallJump(sf::Vector2f pos, char type){
+	return new Block0WallJump(pos, type);
 }
 
-void Block0::render(sf::RenderWindow &window){
+void Block0WallJump::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 }
 
-void Block0::update(){
+void Block0WallJump::update(){
 
 }
 
-void Block0::setTexture(char type){
+void Block0WallJump::setTexture(char type){
 	float tileWidth(100);
 	float tileHeight(100);
 	int xIndex(0);
@@ -43,10 +43,12 @@ void Block0::setTexture(char type){
 		break;
 
 	case 'd':
-		xIndex = 3;
+		xIndex = 6;
+		yIndex = 2;
 		break;
 
 	case 'e':
+		xIndex = 6;
 		yIndex = 1;
 		break;
 
@@ -56,51 +58,52 @@ void Block0::setTexture(char type){
 		break;
 
 	case 'g':
-		yIndex = 1;
-		xIndex = 2;
+		yIndex = 2;
+		xIndex = 7;
 		break;
 
 	case 'h':
 		yIndex = 1;
-		xIndex = 3;
+		xIndex = 7;
 		break;
 
 	case 'i':
 		yIndex = 2;
+		xIndex = 5;
 		break;
 
 	case 'j':
-		yIndex = 2;
-		xIndex = 1;
+		yIndex = 1;
+		xIndex = 5;
 		break;
 
 	case 'k':
-		yIndex = 2;
-		xIndex = 2;
+		xIndex = 6;
 		break;
 
 	case 'l':
-		yIndex = 2;
-		xIndex = 3;
+
+		xIndex = 5;
 		break;
 
 	case 'm':
-		yIndex = 3;
+		yIndex = 2;
+		xIndex = 4;
 		break;
 
 	case 'n':
-		yIndex = 3;
-		xIndex = 1;
+		yIndex = 1;
+		xIndex = 4;
 		break;
 
 	case 'o':
-		yIndex = 3;
-		xIndex = 2;
+		yIndex = 0;
+		xIndex = 4;
 		break;
 
 	case 'p':
-		yIndex = 3;
-		xIndex = 3;
+		yIndex = 0;
+		xIndex = 4;
 		break;
 
 	default:
@@ -110,6 +113,6 @@ void Block0::setTexture(char type){
 		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
 }
 
-void Block0::setPos(sf::Vector2f newPos){
+void Block0WallJump::setPos(sf::Vector2f newPos){
 	mSprite.setPosition(newPos);
 }

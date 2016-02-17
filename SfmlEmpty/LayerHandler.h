@@ -2,8 +2,7 @@
 #include <SFML\Graphics.hpp>
 #include "EntityHandler.h"
 
-class LayerHandler
-{
+class LayerHandler {
 public:
 	static LayerHandler& LayerHandler::getInstance();
 	void moveBackground(sf::Vector2i &pixelPos, sf::Vector2f &coordPos);
