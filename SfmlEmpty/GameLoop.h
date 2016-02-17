@@ -26,9 +26,7 @@ private:
 	sf::RenderWindow mWindow;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;
-	sf::CircleShape shape;
-	sf::SoundBuffer mAmbienceBuffer;
-	sf::Sound mAmbienceSound;
+	sf::Music& mStomachMusic;
 	float mTimeElapsed;
 	int FPS;
 	bool gameRunning = true, mapEditing; // States

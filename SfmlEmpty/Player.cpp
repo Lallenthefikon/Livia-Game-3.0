@@ -35,7 +35,7 @@ mSoundFX(SoundFactory::getLiviaSound()){
 	
 	
 	
-	mSprite.setTexture(*mCurrentAnimation->at(0)); 
+	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSprite.setPosition(pos - mSpriteOffset);
 
 	mCollisionBody.setTextureRect(mSprite.getTextureRect());
@@ -164,58 +164,49 @@ void Player::getHit(){
 
 void Player::playerInput() {
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+	jump();
+	move();
+	playSoundManually();
+}
+
+void Player::jump() {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 
 		// Apply min
-		if (!mJumpStarted && mState != JUMPING && mState != FALLING){
+		if (!mJumpStarted && mState != JUMPING && mState != FALLING) {
 			mJumpStarted = true;
 			mDoubleJumped = false;
 			mVelocity.y = mJumpSpeedInitial;
 			if (mState == WALLSTUCK){
 				if (mTurned == TURNEDRIGHT)
-					mVelocity.x = -mMaxSpeed;
+				mVelocity.x = -mMaxSpeed;
 				if (mTurned == TURNEDLEFT)
-					mVelocity.x = mMaxSpeed;
-			}
+				mVelocity.x = mMaxSpeed;
+		}
 		}
 		
 		// Apply gradually to max
-		if (mJumpStarted && (mState == JUMPING || mState == FALLING)){
- 			if (mVelocity.y >= mJumpSpeedMax){
+		if (mJumpStarted && (mState == JUMPING || mState == FALLING)) {
+			if (mVelocity.y >= mJumpSpeedMax) {
 				float jumpVelocityIncrease = .6f;
 				mVelocity.y -= jumpVelocityIncrease;
 			}
-			else{
+			else {
 				mJumpStarted = false;
 			}
 		}
 		// Apply Double 
-		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped){
+		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped) {
 			mDoubleJumped = true;
 			mVelocity.y = mJumpSpeedDouble;
 		}
-
-
-
-		//if (mJumpTimer < 0.5 && mState != JUMPING && mState != FALLING) {
-		//mVelocity.y = mJumpSpeedFirst;
-		//mJumpTimer = 0;
-		//Player::playSound(JUMPING);
-		//}
-		//else if (mState != JUMPING && mState != FALLING) {
-
-		//mVelocity.y = mJumpSpeedSecond;
-		//	mJumpTimer = 0;
-		//mSoundFX.playSound(SoundFX::JUMPING);
-		//Player::playSound(JUMPING);
-		//	}
-		//std::cout << mJumpTimer << std::endl;
 	}
-	else{
+	else {
 		mJumpStarted = false;
 	}
+}
 
-
+void Player::move() {
 	// Left and right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
@@ -228,6 +219,17 @@ void Player::playerInput() {
 	else {
 		mVelocityGoal.x = 0;
 	}
+}
+
+void Player::playSoundManually() {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+		playSound(JUMPING);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+		playSound(DAMAGED);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		playSound(IDLE);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+		playSound(RUNNINGLEFT);
 }
 
 void Player::lerp(){
@@ -279,7 +281,7 @@ void Player::updateState(){
 	if (mVelocity.x != 0 && mState != JUMPING && mState != RUNNING){
 		mState = RUNNING;
 		Player::playSound(mState);
-		changed = true;
+		Player::updateANI();
 	}
 
 	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
@@ -391,7 +393,7 @@ void Player::updateANI(){
 
 		//// unflip X
 		//sprite.setTextureRect(sf::IntRect(0, 0, width, height));
-		//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
+	//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
 		break;
 
 	case FALLING:
@@ -433,26 +435,26 @@ void Player::updateTexturepos(){
 }
 
 void Player::playSound(PLAYERSTATE state) {
-	//switch (state) {
-	//case Player::JUMPING:
-	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
-	//	break;
-	//case Player::IDLE:
-	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
-	//	break;
-	//case Player::RUNNINGLEFT:
-	//	//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-	//	break;
-	//case Player::RUNNINGRIGHT:
-	//	//mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-	//	break;
-	//case Player::FALLING:
-	//	break;
-	//case Player::DAMAGED:
-	//	mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
-	//default:
-	//	break;
-	//}
+	switch (state) {
+	case Player::JUMPING:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		break;
+	case Player::IDLE:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::RUNNINGLEFT:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::RUNNINGRIGHT:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::FALLING:
+		break;
+	case Player::DAMAGED:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+	default:
+		break;
+	}
 }
 
 void Player::setPos(sf::Vector2f newPos){

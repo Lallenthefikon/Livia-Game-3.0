@@ -1,7 +1,8 @@
 #include "WormSound.h"
 
 
-WormSound::WormSound() {
+WormSound::WormSound() :
+mSounds() {
 }
 
 
@@ -11,6 +12,14 @@ WormSound::~WormSound() {
 SoundFX& WormSound::createWormSound() {
 	static WormSound wormSound;
 	return wormSound;
+}
+
+void WormSound::initialize() {
+
+}
+
+void WormSound::finalize() {
+
 }
 
 void WormSound::playSound(SOUNDTYPE type) {
@@ -33,5 +42,7 @@ void WormSound::playSound(SOUNDTYPE type) {
 }
 
 void WormSound::stopSound() {
-
+	for (auto i : mSounds) {
+		i.second->stop();
+	}
 }

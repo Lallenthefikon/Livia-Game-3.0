@@ -8,17 +8,21 @@ public:
 	Camera();
 	~Camera();
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
+	//void render(sf::RenderWindow & window);
 	void updateCamGAME(sf::RenderWindow &window);
 	void updateCamEDITOR(sf::Window &window, std::string direction);
 
-	void updateIntestineCam(sf::RenderWindow &window, std::string cameraState);
+	void updateStomachCam(sf::RenderWindow &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
-	sf::View getView(){ return mView; }
+	sf::View getTileView(){ return mTileView; }
+	sf::View getSceneryView(){ return mSceneryView; }
 	void zoomCameraEDITOR(sf::Event event);
 	bool zoomOut(float totalSizeChange, int timesToZoom);
 	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
+
 private:
-	sf::View mView;
+	sf::View mTileView;
+	sf::View mSceneryView;
 	sf::Vector2f mVelocity;
 	sf::Vector2f mAcceleration;
 	// Used to keep player from moving backwards

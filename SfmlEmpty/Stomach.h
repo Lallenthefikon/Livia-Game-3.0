@@ -9,9 +9,9 @@
 #include "Level.h"
 #include "LayerHandler.h"
 
-class Intestine : public Level{
+class Stomach : public Level{
 public:
-	static Intestine& getInstance();
+	static Stomach& getInstance();
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
@@ -20,8 +20,8 @@ public:
 	virtual std::string getLevelDirectory(){ return mMapPath; }
 	void setCurrentMap(std::string &mapname);
 private:
-	Intestine();
-	~Intestine();
+	Stomach();
+	~Stomach();
 	Entityhandler& mEntityHandler;
 	Terrainhandler& mTerrainHandler;
 	MapGenerator& mMapGenerator;

@@ -1,14 +1,11 @@
 #include "GameLoop.h"
 #include <iostream>
 
-
-
 GameLoop::GameLoop():
 mCurrentLevelDirectory("resources/maps/mMap0.txt"),
-mCurrentLevelName("Intestine"),
+mCurrentLevelName("Stomach"),
 mWindow(sf::VideoMode::getDesktopMode(), "Livia 2.0.2 V.2"),
-mAmbienceBuffer(),
-mAmbienceSound() {
+mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)){
 	mWindow.setVerticalSyncEnabled(true);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
@@ -57,10 +54,9 @@ void GameLoop::manualStateChange(int &i){
 
 void GameLoop::run(){
 	mWindow.setFramerateLimit(60);
-	mAmbienceBuffer.loadFromFile("resources/sounds/Ambient_Stomach.ogg");
-	mAmbienceSound.setBuffer(mAmbienceBuffer);
-	mAmbienceSound.setLoop(true);
-	mAmbienceSound.play();
+
+	mStomachMusic.setVolume(25);
+	mStomachMusic.play();
 
 	int clickOnce = 0;
 	

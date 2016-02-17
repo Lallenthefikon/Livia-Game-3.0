@@ -138,7 +138,7 @@ void MapEditor::update(sf::RenderWindow &window){
 		mMeny.resetMenusPos(coord_pos);
 	}
 
-	window.setView(mCamera.getView());
+	window.setView(mCamera.getTileView());
 }
 
 void MapEditor::render(sf::RenderWindow &window){

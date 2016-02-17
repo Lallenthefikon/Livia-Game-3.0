@@ -55,7 +55,7 @@ void Animations::loadTextures(){
 	for (int i = 0; i < 16; i++){
 
 		mPlayerIdleANI.push_back(new sf::Texture);
-		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 70, 140));
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 68, 135));
 		x++;
 		if (x == 4){
 			x = 0;

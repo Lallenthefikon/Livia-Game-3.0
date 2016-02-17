@@ -10,6 +10,7 @@ public:
 	virtual void stopSound();
 private:
 	WormSound();
-	sf::Sound mSound;
-	sf::SoundBuffer mSoundBuffer;
+	void initialize();
+	void finalize();
+	SoundQueue mSounds;
 };

@@ -41,6 +41,10 @@ private:
 	void lerp();
 	void clickOnce(sf::Keyboard::Key key);
 
+	void jump();
+	void move();
+	void playSoundManually();
+
 	void updateState();
 	void updateANI();
 	void updateCollision();
@@ -96,7 +100,7 @@ private:
 	Terrain* mCurrentCollisionL;
 	Terrain* mCurrentCollisionR;
 
-	// Sounds // Niclas
+	// Sounds
 	SoundFX& mSoundFX;
 
 };
