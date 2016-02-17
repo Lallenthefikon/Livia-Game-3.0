@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <iostream>
 
-static const float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
 mVelocity(0, 0),
@@ -39,8 +39,10 @@ mSoundFX(SoundFactory::getLiviaSound()){
 	mSprite.setPosition(pos - mSpriteOffset);
 
 	mCollisionBody.setTextureRect(mSprite.getTextureRect());
+	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
+	Player::updateTexturepos();
 
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
@@ -55,10 +57,11 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 
 void Player::render(sf::RenderWindow &window){
 	window.draw(mSprite);
+	//window.draw(mCollisionBody);
 }
 
  void Player::update(){
-	 Toolbox::copyPlayerSprite(mCollisionBody);
+	 
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
@@ -70,6 +73,9 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
+	
+	std::cout << mInvulnerable << std::endl;
+
 }
 
 void Player::addVector(sf::Vector2f &vector){
@@ -155,8 +161,10 @@ void Player::getHit(){
 			mInvulnerableTime.restart().asMilliseconds();
 			Player::playSound(Player::DAMAGED);
 		}
-		else
+		else {
 			mIsAlive = false;
+			Player::playSound(DEATH);
+		}
 	}
 }
 
@@ -227,9 +235,9 @@ void Player::playSoundManually() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		playSound(DAMAGED);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		playSound(IDLE);
+		playSound(DEATH);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		playSound(RUNNINGLEFT);
+		playSound(RUNNING);
 }
 
 void Player::lerp(){
@@ -278,16 +286,18 @@ void Player::lerp(){
 void Player::updateState(){
 	bool changed(false);
 
-	if (mVelocity.x != 0 && mState != JUMPING && mState != RUNNING){
+	if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
 		mState = RUNNING;
-		Player::playSound(mState);
 		Player::updateANI();
+		if (!mVelocity.y > 0)
+			Player::playSound(mState);
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
+
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
 		mState = IDLE;
-		Player::playSound(mState);
 		changed = true;
+		Player::stopSound(RUNNING);
 	}
 
 	if (mVelocity.y > 0 && mState != FALLING){
@@ -331,10 +341,6 @@ void Player::updateState(){
 	if (changed)
 		Player::updateANI();
 
-	//if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
-	//	mJumpClock = false;
-	//}
-
 }
 
 void Player::updateCollision(){
@@ -376,27 +382,27 @@ void Player::updateANI(){
 	switch (mState){
 
 	case JUMPING:
+		ANIFramesPerFrame = 0.5;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
 		break;
 
 	case IDLE:
+		ANIFramesPerFrame = 0.25;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 70, 140));
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
 	case RUNNING:
+		ANIFramesPerFrame = 0.5;
 		mCurrentAnimation = Animations::getPlayerRunningANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
-		//// flip X
-		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
-
-		//// unflip X
-		//sprite.setTextureRect(sf::IntRect(0, 0, width, height));
-	//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
 		break;
 
 	case FALLING:
+		mCurrentAnimation = Animations::getPlayerFallingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
+		ANIFramesPerFrame = 0.5;
 		break;
 
 	default:
@@ -442,16 +448,41 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::IDLE:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
-	case Player::RUNNINGLEFT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-		break;
-	case Player::RUNNINGRIGHT:
+	case Player::RUNNING:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::FALLING:
 		break;
 	case Player::DAMAGED:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
+	default:
+		break;
+	}
+}
+
+void Player::stopSound(PLAYERSTATE state) {
+	switch (state) {
+	case Player::JUMPING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING);
+		break;
+	case Player::IDLE:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::RUNNING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::FALLING:
+		break;
+	case Player::DAMAGED:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
 	default:
 		break;
 	}

@@ -6,8 +6,8 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK };
-	enum PLAYERTURNED{TURNEDLEFT, TURNEDRIGHT};
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH };
+	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }
@@ -54,6 +54,7 @@ private:
 	void updateTexturepos();
 
 	void playSound(PLAYERSTATE state);
+	void stopSound(PLAYERSTATE state);
 
 	// Stats 
 	float mJumpSpeedInitial;

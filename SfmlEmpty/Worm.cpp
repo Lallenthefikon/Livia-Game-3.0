@@ -7,7 +7,8 @@ mCurrentAnimation(Animations::getWormCrawlingANI()),
 mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(8),
-mIsAlive(true){
+mIsAlive(true),
+mSoundFX(SoundFactory::getWormSound()){
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
@@ -97,6 +98,7 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 
 void Worm::getHit(){
 	mIsAlive = false;
+	Worm::playSound(DEATH);
 }
 
 // Privates
@@ -296,6 +298,20 @@ void Worm::animate(){
 			mAnimationIndex = 0;
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	}
+}
+
+void Worm::playSound(WORMSTATE state) {
+	switch (state) {
+	case Worm::CRAWLINGLEFT:
+		break;
+	case Worm::CRAWLINGRIGHT:
+		break;
+	case Worm::DEATH:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
+	default:
+		break;
 	}
 }
 

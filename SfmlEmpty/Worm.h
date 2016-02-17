@@ -5,7 +5,7 @@
 
 class Worm : public Entity{
 public:
-	enum WORMSTATE{CRAWLINGLEFT, CRAWLINGRIGHT};
+	enum WORMSTATE{CRAWLINGLEFT, CRAWLINGRIGHT, DEATH};
 	virtual ~Worm();
 	virtual ENTITYTYPE getType(){ return WORM; }
 	static Entity* createWorm(sf::Vector2f pos);
@@ -43,6 +43,9 @@ private:
 	bool currentCollisionL();
 	bool currentCollisionR();
 
+	void playSound(WORMSTATE state);
+	void stopSound(WORMSTATE state);
+
 	sf::Sprite mSprite;
 
 	// Animimations stuff
@@ -70,5 +73,8 @@ private:
 	Terrain* mCurrentCollisionT;
 	Terrain* mCurrentCollisionL;
 	Terrain* mCurrentCollisionR;
+	
+	// Sounds
+	SoundFX& mSoundFX;
 };
 
