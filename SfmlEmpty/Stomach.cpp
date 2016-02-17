@@ -19,9 +19,9 @@ mMapPath("resources/maps/mMap0.txt"){
 	mLifeSprite.setTexture(mLifeTexture);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
 	mBackgroundSprite.setTexture(mBackgroundTexture);
-	
+
 	mLayerHandler.addBackground(mBackgroundSprite);
 	mMapGenerator.loadMap(mMapPath);
 	mCamera.zoomOut(0.5f, 1);
@@ -56,17 +56,20 @@ void Stomach::update(sf::RenderWindow &window){
 
 	mLayerHandler.moveBackground(pixel_pos, coord_pos);
 
-	pixel_pos = sf::Vector2i(mCamera.getView().getCenter().x, mCamera.getView().getCenter().y);
+	pixel_pos = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
 	coord_pos = window.mapPixelToCoords(pixel_pos);
 
 	mLayerHandler.updateHud(coord_pos);
 	// Funktion som återställer hud(coord_pos)
 
-	window.setView(mCamera.getView());
+	window.setView(mCamera.getTileView());
 }
 
 void Stomach::render(sf::RenderWindow &window){
 	window.clear();
+	
+	window.setView(mCamera.getSceneryView());
+	//mLayerHandler.render(window);
 	mLayerHandler.renderBackground(window);
 	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);

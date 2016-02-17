@@ -6,7 +6,8 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNINGLEFT, RUNNINGRIGHT, FALLING, DAMAGED, WALLSTUCKRIGHT, WALLSTUCKLEFT };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH };
+	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }
@@ -16,12 +17,12 @@ public:
 	virtual void update();
 	virtual void addVector(sf::Vector2f &vector);
 
-	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
+	virtual sf::Vector2f getPos(){ return mCollisionBody.getPosition(); }
 	virtual sf::Vector2f getVelocity(){ return mVelocity; }
 	virtual sf::Vector2f getOffset(){ return mSpriteOffset; }
-	virtual float getWidth(){ return mSprite.getLocalBounds().width; }
-	virtual float getHeight(){ return mSprite.getLocalBounds().height; }
-	virtual sf::Sprite getSprite(){ return mSprite; }
+	virtual float getWidth(){ return mCollisionBody.getLocalBounds().width; }
+	virtual float getHeight(){ return mCollisionBody.getLocalBounds().height; }
+	virtual sf::Sprite getSprite(){ return mCollisionBody; }
 	virtual bool isOnScreen(){ return mIsOnScreen; }
 	virtual bool getIsAlive() { return mIsAlive; }
 	virtual void entityCollision(Entity* entity, char direction);
@@ -50,7 +51,10 @@ private:
 	//void checkTerrainTypes();
 	void animate();
 
+	void updateTexturepos();
+
 	void playSound(PLAYERSTATE state);
+	void stopSound(PLAYERSTATE state);
 
 	// Stats 
 	float mJumpSpeedInitial;
@@ -80,6 +84,7 @@ private:
 
 	bool mIsOnScreen;
 	PLAYERSTATE mState;
+	PLAYERTURNED mTurned;
 	bool mInvulnerable;
 	bool mJumpStarted;
 	bool mDoubleJumped;
