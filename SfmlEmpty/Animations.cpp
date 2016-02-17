@@ -1,9 +1,6 @@
 #include "Animations.h"
 
 static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::RUNNINGPLAYERTEXTURE));
-static sf::Image& mPlayerJumpingIMG(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE));
-static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::PLAYERIDLETEXTURE));
-static sf::Image& mPlayerHurtIMG(Toolbox::getTexture(Toolbox::PLAYERHURTTEXTURE));
 //static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
@@ -11,7 +8,7 @@ static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
 
 Animations::Textures mPlayerRunningANI;
-
+Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
 	
@@ -55,7 +52,7 @@ void Animations::loadTextures(){
 	for (int i = 0; i < 16; i++){
 
 		mPlayerIdleANI.push_back(new sf::Texture);
-		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 68, 135));
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 70, 140));
 		x++;
 		if (x == 4){
 			x = 0;
@@ -64,6 +61,21 @@ void Animations::loadTextures(){
 	}
 	x = 0;
 	y = 0;
+
+	// Player falling ANI
+	for (int i = 0; i < 8; i++){
+		mPlayerFallingANI.push_back(new sf::Texture);
+		mPlayerFallingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 400, (160* y), 100, 160));
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+
 	/*mPlayerIdleANI.push_back(new sf::Texture);
 	mPlayerIdleANI[0]->loadFromImage(mPlayerIdleIMG);*/
 	
@@ -84,10 +96,6 @@ Animations::Textures* Animations::getPlayerRunningANI(){
 	return &mPlayerRunningANI;
 }
 
-//Animations::Textures* Animations::getPlayerRunningRightANI(){
-//	return &mPlayerRunningRightANI;
-//}
-
 
 Animations::Textures* Animations::getPlayerJumpingANI(){
 	return &mPlayerJumpingANI;
@@ -97,19 +105,17 @@ Animations::Textures* Animations::getPlayerIdleANI(){
 	return &mPlayerIdleANI;
 }
 
+Animations::Textures* Animations::getPlayerFallingANI(){
+	return &mPlayerFallingANI;
+}
+
+
+
 
 // Worm ANI
 Animations::Textures* Animations::getWormCrawlingANI(){
 	return &mWormCrawlingANI;
 }
-
-//Animations::Textures* Animations::getWormCrawlingRightANI(){
-//	return &mWormCrawlingANI;
-//}
-//
-//Animations::Textures* Animations::getWormCrawlingLeftANI(){
-//	return &mWormCrawlingANI;
-//}
 
 Animations::Textures* Animations::getAcidMonster(){
 	return &mAcidMonsterANI;

@@ -39,8 +39,10 @@ mSoundFX(SoundFactory::getLiviaSound()){
 	mSprite.setPosition(pos - mSpriteOffset);
 
 	mCollisionBody.setTextureRect(mSprite.getTextureRect());
+	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
+	Player::updateTexturepos();
 
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
@@ -55,10 +57,11 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 
 void Player::render(sf::RenderWindow &window){
 	window.draw(mSprite);
+	//window.draw(mCollisionBody);
 }
 
  void Player::update(){
-	 Toolbox::copyPlayerSprite(mCollisionBody);
+	 
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
@@ -278,13 +281,13 @@ void Player::lerp(){
 void Player::updateState(){
 	bool changed(false);
 
-	if (mVelocity.x != 0 && mState != JUMPING && mState != RUNNING){
+	if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
 		mState = RUNNING;
 		Player::playSound(mState);
 		Player::updateANI();
 	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mState){
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState){
 		mState = IDLE;
 		Player::playSound(mState);
 		changed = true;
@@ -330,10 +333,6 @@ void Player::updateState(){
 	}
 	if (changed)
 		Player::updateANI();
-
-	//if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
-	//	mJumpClock = false;
-	//}
 
 }
 
@@ -387,16 +386,12 @@ void Player::updateANI(){
 
 	case RUNNING:
 		mCurrentAnimation = Animations::getPlayerRunningANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 135));
-		//// flip X
-		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
-
-		//// unflip X
-		//sprite.setTextureRect(sf::IntRect(0, 0, width, height));
-	//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
 		break;
 
 	case FALLING:
+		mCurrentAnimation = Animations::getPlayerFallingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		break;
 
 	default:

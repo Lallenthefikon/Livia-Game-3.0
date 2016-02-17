@@ -58,7 +58,7 @@ void Stomach::render(sf::RenderWindow &window){
 	window.clear();
 	
 	window.setView(mCamera.getSceneryView());
-	mLayerHandler.render(window);
+	//mLayerHandler.render(window);
 	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
