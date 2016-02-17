@@ -1,6 +1,6 @@
 #include "Animations.h"
 
-static sf::Image& mPlayerRunningIMG(Toolbox::getTexture(Toolbox::RUNNINGPLAYERTEXTURE));
+static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::RUNNINGPLAYERTEXTURE));
 static sf::Image& mPlayerJumpingIMG(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE));
 static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::PLAYERIDLETEXTURE));
 static sf::Image& mPlayerHurtIMG(Toolbox::getTexture(Toolbox::PLAYERHURTTEXTURE));
@@ -27,7 +27,7 @@ void Animations::loadTextures(){
 	for (int i = 0; i < 16; i++){
 
 		mPlayerRunningANI.push_back(new sf::Texture);
-		mPlayerRunningANI[i]->loadFromImage(mPlayerRunningIMG, sf::IntRect(100 * x, 140 * y, 100, 139));
+		mPlayerRunningANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, 140 * y, 100, 140));
 		x++;
 		if (x == 4){
 			x = 0;
@@ -38,10 +38,10 @@ void Animations::loadTextures(){
 	y = 0;
 
 	// Player jumping ANI
-	for (int i = 0; i < 16; i++){
+	for (int i = 0; i < 8; i++){
 
 		mPlayerJumpingANI.push_back(new sf::Texture);
-		mPlayerJumpingANI[i]->loadFromImage(mPlayerJumpingIMG, sf::IntRect(70 * x, 70 * y, 70, 70));
+		mPlayerJumpingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, (160 * y) + 560, 100, 160));
 		x++;
 		if (x == 4){
 			x = 0;
@@ -55,7 +55,7 @@ void Animations::loadTextures(){
 	for (int i = 0; i < 16; i++){
 
 		mPlayerIdleANI.push_back(new sf::Texture);
-		mPlayerIdleANI[i]->loadFromImage(mPlayerIdleIMG, sf::IntRect(70 * x, 140 * y, 70, 139));
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 68, 135));
 		x++;
 		if (x == 4){
 			x = 0;
@@ -66,7 +66,7 @@ void Animations::loadTextures(){
 	y = 0;
 	/*mPlayerIdleANI.push_back(new sf::Texture);
 	mPlayerIdleANI[0]->loadFromImage(mPlayerIdleIMG);*/
-
+	
 
 	// Worm crawling
 	mWormCrawlingANI.push_back(new sf::Texture);

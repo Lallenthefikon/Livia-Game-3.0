@@ -6,7 +6,7 @@ static sf::Vector2f mPlayerVelocity;
 // Textures
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
-static sf::Image mRunningPlayersheet;
+static sf::Image mPlayersheet;
 static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
@@ -44,7 +44,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
-	mRunningPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder1.2(100,140).png");
+	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
 	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
@@ -86,7 +86,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case RUNNINGPLAYERTEXTURE:
-		return mRunningPlayersheet;
+		return mPlayersheet;
 		break;
 
 	case PLAYERJUMPTEXTURE:
