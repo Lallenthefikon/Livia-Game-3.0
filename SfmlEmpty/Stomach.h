@@ -3,11 +3,12 @@
 #include "Entityhandler.h"
 #include "Terrainhandler.h"
 #include "Collisionhandler.h"
+#include "LayerHandler.h"
+#include "Texthandler.h"
 #include "MapGenerator.h"
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
-#include "LayerHandler.h"
 
 class Stomach : public Level{
 public:
@@ -22,17 +23,21 @@ public:
 private:
 	Stomach();
 	~Stomach();
+	
 	Entityhandler& mEntityHandler;
 	Terrainhandler& mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;
+	Texthandler& mTextHandler;
 
 	sf::Texture mBackgroundTexture;
 	Camera mCamera;
-	std::string mMapName;
-	std::string mMapPath;
 
+	std::string mMapName,
+				mMapPath;
 
 	sf::Texture mTexture;
+
+	bool mGameOver = false;
 };

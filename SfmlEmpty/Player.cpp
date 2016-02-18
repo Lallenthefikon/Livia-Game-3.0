@@ -28,13 +28,15 @@ mAcceleration(70),
 mLife(3),
 mWallSlideSpeed(4),
 
-
 // Sounds
-mSoundFX(SoundFactory::getLiviaSound()){
+mSoundFX(SoundFactory::getLiviaSound()),
 
+// Text
+mText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){	
 	
-	
-	
+	mText.setColor(sf::Color::Green);
+	mText.setPosition(400, 400);
+
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSprite.setPosition(pos - mSpriteOffset);
 
@@ -58,6 +60,9 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 void Player::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
+	if (mIsAlive == false) {
+		window.draw(mText);
+	}
 }
 
  void Player::update(float &frameTime){

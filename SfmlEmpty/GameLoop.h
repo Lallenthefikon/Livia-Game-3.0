@@ -22,11 +22,15 @@ private:
 	void manualStateChange(int &i);
 	void switchState();
 	void updateState();
+
 	GameState* mCurrentState;
 	sf::RenderWindow mWindow;
-	std::string mCurrentLevelDirectory;
-	std::string mCurrentLevelName;
+	
+	std::string mCurrentLevelDirectory,
+		mCurrentLevelName;
+
 	sf::Music& mStomachMusic;
+	
 	float mTimeElapsed;
 	int FPS;
 	bool gameRunning = true, mapEditing; // States

@@ -105,4 +105,7 @@ private:
 	// Sounds
 	SoundFX& mSoundFX;
 
+	// Text
+	sf::Text mText;
+
 };

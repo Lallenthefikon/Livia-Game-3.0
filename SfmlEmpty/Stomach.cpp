@@ -2,17 +2,19 @@
 
 Stomach::Stomach() :
 // Initiate singleton classes
-mTexture(),
 mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
+mTextHandler(Texthandler::getInstance()),
+mTexture(),
 mCamera(),
 mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
@@ -67,6 +69,10 @@ void Stomach::render(sf::RenderWindow &window){
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
+
+	if (!mEntityHandler.isPlayerAlive()) {
+		mTextHandler.renderText(window);
+	}
 	
 	window.display();
 }

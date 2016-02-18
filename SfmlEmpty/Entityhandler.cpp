@@ -68,6 +68,13 @@ int Entityhandler::getPlayerLife(){
 	return mEntities[0]->getLife();
 }
 
+bool Entityhandler::isPlayerAlive() {
+	if (mEntities[0]->getType() == Entity::PLAYER) {
+		return true;
+	} else
+		return false;
+}
+
 // Private funcs
 
 void Entityhandler::internalClear(){
