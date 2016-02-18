@@ -173,7 +173,7 @@ void Player::getHit(){
 			mInvulnerableTime.restart().asMilliseconds();
 			Player::playSound(Player::DAMAGED);
 		}
-		else {
+		if (mLife == 0) {
 			Player::playSound(DEATH);
 		}
 	}
