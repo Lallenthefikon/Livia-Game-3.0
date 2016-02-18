@@ -64,7 +64,7 @@ private:
 	float mMaxSpeed;
 	float mAcceleration;
 	float mWallSlideSpeed;
-	float mJumpAcc;
+	float mAirbornAcc;
 	
 
 	sf::Sprite mSprite;
