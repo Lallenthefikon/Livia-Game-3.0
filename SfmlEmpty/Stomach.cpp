@@ -2,6 +2,7 @@
 
 Stomach::Stomach() :
 // Initiate singleton classes
+mBackground(),
 mTexture(),
 mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
@@ -14,6 +15,10 @@ mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Animations::loadTextures();
+
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
 
@@ -47,7 +52,7 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	
+
 	sf::Vector2i pixel_pos_tileV = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
 	sf::Vector2f coord_pos_tileV = window.mapPixelToCoords(pixel_pos_tileV);
 
@@ -56,18 +61,28 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	sf::Vector2i pixel_pos_sceneV = sf::Vector2i(pixel_pos_tileV.x, 0);
 	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
 
-	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
+	mLayerHandler.moveBackground(pixel_pos, coord_pos);
+
+	pixel_pos = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
+	coord_pos = window.mapPixelToCoords(pixel_pos);
+
+	mLayerHandler.updateHud(coord_pos);
+	// Funktion som återställer hud(coord_pos)
+
+	window.setView(mCamera.getTileView());
 }
 
 void Stomach::render(sf::RenderWindow &window){
 	window.clear();
 	
 	window.setView(mCamera.getSceneryView());
-	mLayerHandler.render(window);
+	//mLayerHandler.render(window);
+	mLayerHandler.renderBackground(window);
 	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
+	mLayerHandler.renderHud(window);
 	
 	window.display();
 }

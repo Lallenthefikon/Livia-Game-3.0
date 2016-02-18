@@ -2,10 +2,14 @@
 #include <iostream>
 
 float BACKGROUNDSPEED = 0.5f;
+
 float FOREGROUNDSPEED;
 
 
-LayerHandler::LayerHandler(){
+
+LayerHandler::LayerHandler() :
+mEntityHandler(Entityhandler::getInstance())
+{
 	
 	//mForegroundObjects.push_back(background);
 }
@@ -100,15 +104,43 @@ void LayerHandler::addForegroundObject(sf::Sprite &foregroundSprite){
 	
 }
 
-void LayerHandler::render(sf::RenderWindow &window){
-	
+void LayerHandler::renderBackground(sf::RenderWindow &window){
+
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		window.draw(mBackgrounds[i]);
 	}
 }
 
-void LayerHandler::renderLayer(sf::RenderWindow &window) {
+void LayerHandler::renderForeground(sf::RenderWindow &window){
+	
+	
+}
 
+void LayerHandler::renderHud(sf::RenderWindow &window){
+	if (mEntityHandler.getPlayerLife() == 3){
+		window.draw(mLives[0]);
+		window.draw(mLives[1]);
+		window.draw(mLives[2]);
+	}
+	else if (mEntityHandler.getPlayerLife() == 2){
+		window.draw(mLives[0]);
+		window.draw(mLives[1]);
+	}
+	else if (mEntityHandler.getPlayerLife() == 1){
+		window.draw(mLives[0]);
+	}
+
+
+}
+
+void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
+	mEntityHandler.getPlayerLife();
+	/*mLives[0].setPosition(centerScreenCoordPos.x - 1920 / 2, centerScreenCoordPos.y - 1080 / 2);*/
+	std::cout << "X: " << centerScreenCoordPos.x << std::endl << "y: "<< centerScreenCoordPos.y << std::endl;
+	mLives[0].setPosition(centerScreenCoordPos.x, centerScreenCoordPos.y);
+	mLives[1].setPosition(centerScreenCoordPos.x + 80, centerScreenCoordPos.y);
+	mLives[2].setPosition(centerScreenCoordPos.x + 160, centerScreenCoordPos.y);
+	
 }
 
 void LayerHandler::addBackground(sf::Texture &backgroundTexture){
@@ -123,3 +155,10 @@ void LayerHandler::addBackground(sf::Texture &backgroundTexture){
 	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x + mBackgrounds[2].getLocalBounds().width, 0.f));
 }
 
+void LayerHandler::addLifeSprite(sf::Sprite &life){
+	mLives.push_back(life);
+	mLives.push_back(life);
+	mLives.push_back(life);
+	
+	
+}
