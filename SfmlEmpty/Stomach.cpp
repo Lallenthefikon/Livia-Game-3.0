@@ -18,6 +18,7 @@ mMapPath("resources/maps/mMap0.txt"){
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5,1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
@@ -61,12 +62,12 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	sf::Vector2i pixel_pos_sceneV = sf::Vector2i(pixel_pos_tileV.x, 0);
 	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
 
-	mLayerHandler.moveBackground(pixel_pos, coord_pos);
+	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
 
-	pixel_pos = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
-	coord_pos = window.mapPixelToCoords(pixel_pos);
+	pixel_pos_sceneV = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
+	coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
 
-	mLayerHandler.updateHud(coord_pos);
+	mLayerHandler.updateHud(coord_pos_sceneV);
 	// Funktion som återställer hud(coord_pos)
 
 	window.setView(mCamera.getTileView());

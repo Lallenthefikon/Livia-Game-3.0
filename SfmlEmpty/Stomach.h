@@ -37,7 +37,5 @@ private:
 	std::string mMapPath;
 
 	sf::Sprite mBackground;
-	
-
 	sf::Texture mTexture;
 };
