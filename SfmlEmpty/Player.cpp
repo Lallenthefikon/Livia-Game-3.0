@@ -60,8 +60,8 @@ void Player::render(sf::RenderWindow &window){
 	//window.draw(mCollisionBody);
 }
 
- void Player::update(){
-	 
+ void Player::update(float &frameTime){
+	 mFrameTime = frameTime;
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
@@ -74,7 +74,7 @@ void Player::render(sf::RenderWindow &window){
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
 	
-	std::cout << mInvulnerable << std::endl;
+	//std::cout << mInvulnerable << std::endl;
 
 }
 
@@ -245,7 +245,7 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 * mAcceleration ;
+	float delta = mFrameTime * mAcceleration ;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 

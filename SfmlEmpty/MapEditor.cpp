@@ -26,7 +26,7 @@ MapEditor* MapEditor::getInstance(std::string &levelDirectory, std::string &leve
 	return &mapeditor;
 }
 
-void MapEditor::update(sf::RenderWindow &window){
+void MapEditor::update(sf::RenderWindow &window, float &frameTime){
 	// Events
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){

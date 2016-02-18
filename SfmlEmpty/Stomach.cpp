@@ -31,7 +31,7 @@ Stomach& Stomach::getInstance(){
 	return Stomach;
 }
 
-void Stomach::update(sf::RenderWindow &window){
+void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
@@ -41,7 +41,7 @@ void Stomach::update(sf::RenderWindow &window){
 	mCamera.updateStomachCam(window, "Standard");
 	window.setView(mCamera.getTileView());
 
-	mEntityHandler.updateEntities();
+	mEntityHandler.updateEntities(frameTime);
 	mTerrainHandler.updateTerrains();
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();

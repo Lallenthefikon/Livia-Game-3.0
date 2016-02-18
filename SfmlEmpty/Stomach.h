@@ -12,7 +12,7 @@
 class Stomach : public Level{
 public:
 	static Stomach& getInstance();
-	virtual void update(sf::RenderWindow &window);
+	virtual void update(sf::RenderWindow &window, float &frameTime);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
 	virtual void unloadLevel();

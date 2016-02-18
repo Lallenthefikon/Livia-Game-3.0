@@ -9,7 +9,7 @@ public:
 	static Entityhandler& getInstance();
 	void addEntity(Entity* entity);
 	void renderEntities(sf::RenderWindow &window);
-	void updateEntities();
+	void updateEntities(float &frameTime);
 	void bringOutTheDead();
 	Entities& getEntities(){ return mEntities; }
 	void addVector();

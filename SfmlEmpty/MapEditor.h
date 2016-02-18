@@ -14,7 +14,7 @@ class MapEditor : public GameState{
 public:
 	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
 
-	virtual void update(sf::RenderWindow &window);
+	virtual void update(sf::RenderWindow &window, float &frameTime);
 	virtual void render(sf::RenderWindow &window);
 	
 	void createBlock0(sf::Vector2f mousePos);

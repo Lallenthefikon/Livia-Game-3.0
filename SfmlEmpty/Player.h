@@ -14,7 +14,7 @@ public:
 	static Entity* createPlayer(sf::Vector2f pos);
 
 	virtual void render(sf::RenderWindow &window);
-	virtual void update();
+	virtual void update(float &frameTime);
 	virtual void addVector(sf::Vector2f &vector);
 
 	virtual sf::Vector2f getPos(){ return mCollisionBody.getPosition(); }
@@ -75,7 +75,8 @@ private:
 	int mAnimationIndex,
 		mClickOnce,
 		mNrOfJumps;
-	float mTimerANI;
+	float mTimerANI,
+		mFrameTime;
 
 	sf::Vector2f
 		mVelocity,

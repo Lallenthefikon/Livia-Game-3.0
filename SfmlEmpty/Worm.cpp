@@ -26,7 +26,7 @@ void Worm::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 }
 
-void Worm::update(){
+void Worm::update(float &frameTime){
 
 	Worm::addSpeed();
 	Worm::lerp();
