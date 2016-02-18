@@ -19,6 +19,7 @@ public:
 	virtual std::string getLevelName(){ return mMapName; }
 	virtual std::string getLevelDirectory(){ return mMapPath; }
 	void setCurrentMap(std::string &mapname);
+	
 private:
 	Stomach();
 	~Stomach();
@@ -32,6 +33,8 @@ private:
 	Camera mCamera;
 	std::string mMapName;
 	std::string mMapPath;
+
+	std::string mLevelState;
 
 
 	sf::Texture mTexture;

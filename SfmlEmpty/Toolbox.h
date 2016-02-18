@@ -14,7 +14,6 @@ struct Toolbox {
 	static void loadSounds(std::string levelName);
 	static sf::Image& getTexture(TEXTUREKEY textureKey);
 
-	// Camera Edit
 	static void copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode);
 	static sf::Vector2f getWindowSize();
 	static sf::Vector2f getResolution();

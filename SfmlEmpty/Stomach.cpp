@@ -10,7 +10,8 @@ mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mCamera(),
 mMapName("Stomach"),
-mMapPath("resources/maps/mMap0.txt"){
+mMapPath("resources/maps/mMap0.txt"),
+mLevelState("Cutscene"){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Animations::loadTextures();
@@ -39,24 +40,26 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
 	}
-	mCamera.updateStomachCam(window, "Standard");
-	window.setView(mCamera.getTileView());
+	if (mLevelState == "Cutscene"){
+		mCamera.centerOnPlayer(window);
+		mLevelState = "ZoomedOut";
+	}
+	if (mLevelState == "ZoomedOut"){
 
-	mEntityHandler.updateEntities(frameTime);
-	mTerrainHandler.updateTerrains();
-	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
-	mEntityHandler.bringOutTheDead();
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	
-	sf::Vector2i pixel_pos_tileV = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
-	sf::Vector2f coord_pos_tileV = window.mapPixelToCoords(pixel_pos_tileV);
+		mCamera.updateStomachCam(window, mLevelState);
+		window.setView(mCamera.getTileView());
 
-	window.setView(mCamera.getSceneryView());
-	
-	sf::Vector2i pixel_pos_sceneV = sf::Vector2i(pixel_pos_tileV.x, 0);
-	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
+		mEntityHandler.updateEntities(frameTime);
+		mTerrainHandler.updateTerrains();
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mEntityHandler.bringOutTheDead();
 
-	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
+		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
+		window.setView(mCamera.getSceneryView());
+		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
+		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+	}
+
 }
 
 void Stomach::render(sf::RenderWindow &window){
@@ -75,6 +78,7 @@ void Stomach::render(sf::RenderWindow &window){
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
+	mLevelState = "Cutscene";
 }
 
 void Stomach::unloadLevel(){

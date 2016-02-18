@@ -27,6 +27,7 @@ mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
 mWallSlideSpeed(4),
+mTimeInvulnerable(sf::seconds(3)),
 
 
 // Sounds
@@ -158,7 +159,7 @@ void Player::getHit(){
 		if (mLife > 0){
 			mLife--;
 			mInvulnerable = true;
-			mInvulnerableTime.restart().asMilliseconds();
+			mInvulnerableTimer.restart().asMilliseconds();
 			Player::playSound(Player::DAMAGED);
 		}
 		else {
@@ -326,7 +327,7 @@ void Player::updateState(){
 			changed = true;
 		}
 	}
-	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
+	if (mInvulnerableTimer.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
 	}
 

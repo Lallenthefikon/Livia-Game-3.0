@@ -23,10 +23,9 @@ void Camera::moveCameraEDITOR(sf::Window &window, sf::Vector2f direction, float 
 }
 
 void Camera::updateCamGAME(sf::RenderWindow &window){
-	// Camera is first centered on player then these offsets are applied
+	
 	float yCamOffset, xCamOffset;
 
-	float decay = 0.98f;
 	float speed = 0.09;
 	yCamOffset = 100;
 	xCamOffset = 500;
@@ -39,15 +38,12 @@ void Camera::updateCamGAME(sf::RenderWindow &window){
 
 		mVelocity.x = Toolbox::getPlayerVelocity().x;
 		mTileView.move(sf::Vector2f(mVelocity.x, 0.f));
-
-
 	}
 	if (playerCoordPos.y < viewCoordPos.y){
 		
 		float deltaY = std::abs(playerCoordPos.y - viewCoordPos.y);
 		mVelocity.y = deltaY * -speed;
 		mTileView.move(sf::Vector2f(0.f, mVelocity.y));
-		
 	}
 	if (playerCoordPos.y > viewCoordPos.y){
 
@@ -56,7 +52,7 @@ void Camera::updateCamGAME(sf::RenderWindow &window){
 		mTileView.move(sf::Vector2f(0.f, mVelocity.y));
 	}
 
-	//mVelocity *= decay;
+	// Camera is first centered on player then these offsets are applied
 
 	//mTileView.setCenter(sf::Vector2f(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y + yCamOffset));
 
@@ -79,8 +75,10 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 
 void Camera::centerOnPlayer(sf::RenderWindow &window){
 //	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
-	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
-
+	int xCamOffset = 500;
+	sf::Vector2f viewCoordPos = Toolbox::findCoordPos(sf::Vector2i(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y), window);
+	//sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
+	
 	mTileView.setCenter(viewCoordPos);
 }
 
@@ -88,7 +86,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	
 	std::string currentCamState = cameraState;
 	if (currentCamState == "Cutscene"){
-		
+		centerOnPlayer(window);
 	}
 	else if (currentCamState == "Standard"){
 		setCollisionStripe("Left", window);
@@ -100,7 +98,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "Zoom out"){
 		zoomOut(10.f, 1000);
 	}
-	else if (currentCamState == "ZoomedOutStandard"){
+	else if (currentCamState == "ZoomedOut"){
 		updateCamGAME(window);
 	}
 	else if (currentCamState == "SecondCutscene"){
