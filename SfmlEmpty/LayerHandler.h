@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "EntityHandler.h"
+#include "Player.h"
 
 class LayerHandler {
 public:
