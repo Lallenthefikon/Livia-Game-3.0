@@ -10,8 +10,10 @@ public:
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
 	//void render(sf::RenderWindow & window);
 	void updateCamGAME(sf::RenderWindow &window);
+	
 	void updateCamEDITOR(sf::Window &window, std::string direction);
 
+	void centerOnPlayer(sf::RenderWindow &window);
 	void updateStomachCam(sf::RenderWindow &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
 	sf::View getTileView(){ return mTileView; }

@@ -32,10 +32,14 @@ private:
 	Texthandler& mTextHandler;
 
 	sf::Texture mBackgroundTexture;
+	sf::Texture mLifeTexture;
+	sf::Sprite mBackgroundSprite;
+	sf::Sprite mLifeSprite;
 	Camera mCamera;
 
 	std::string mMapName,
 				mMapPath;
+	sf::Sprite mBackground;
 
 	sf::Texture mTexture;
 

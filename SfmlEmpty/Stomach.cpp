@@ -2,13 +2,14 @@
 
 Stomach::Stomach() :
 // Initiate singleton classes
+mBackground(),
+mTexture(),
 mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
-mTexture(),
 mCamera(),
 mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"){
@@ -17,12 +18,17 @@ mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
 
 	mLayerHandler.addBackground(mBackgroundTexture);
 
 	mMapGenerator.loadMap(mMapPath);
 	mCamera.zoomOut(0.5f, 1);
+
 }
 
 Stomach::~Stomach(){
@@ -48,7 +54,7 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	
+
 	sf::Vector2i pixel_pos_tileV = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
 	sf::Vector2f coord_pos_tileV = window.mapPixelToCoords(pixel_pos_tileV);
 
@@ -58,6 +64,14 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
 
 	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
+
+	pixel_pos_sceneV = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
+	coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
+
+	mLayerHandler.updateHud(coord_pos_sceneV);
+	// Funktion som återställer hud(coord_pos)
+
+	window.setView(mCamera.getTileView());
 }
 
 void Stomach::render(sf::RenderWindow &window){
@@ -65,6 +79,7 @@ void Stomach::render(sf::RenderWindow &window){
 	
 	window.setView(mCamera.getSceneryView());
 	//mLayerHandler.render(window);
+	mLayerHandler.renderBackground(window);
 	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
@@ -73,6 +88,7 @@ void Stomach::render(sf::RenderWindow &window){
 	if (!mEntityHandler.isPlayerAlive()) {
 		mTextHandler.renderText(window);
 	}
+	mLayerHandler.renderHud(window);
 	
 	window.display();
 }

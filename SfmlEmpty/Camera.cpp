@@ -77,6 +77,13 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 	}
 }
 
+void Camera::centerOnPlayer(sf::RenderWindow &window){
+//	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
+	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
+
+	mTileView.setCenter(viewCoordPos);
+}
+
 void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState){
 	
 	std::string currentCamState = cameraState;
