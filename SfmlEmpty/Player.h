@@ -6,7 +6,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH};
 	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 
 	virtual ~Player();
@@ -64,6 +64,7 @@ private:
 	float mMaxSpeed;
 	float mAcceleration;
 	float mWallSlideSpeed;
+	float mJumpAcc;
 	
 
 	sf::Sprite mSprite;
@@ -105,5 +106,8 @@ private:
 
 	// Sounds
 	SoundFX& mSoundFX;
+
+	// Text
+	sf::Text mText;
 
 };

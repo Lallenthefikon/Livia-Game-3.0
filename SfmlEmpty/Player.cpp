@@ -27,20 +27,23 @@ mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
 mWallSlideSpeed(4),
-
+mJumpAcc(70),
 
 // Sounds
-mSoundFX(SoundFactory::getLiviaSound()){
+mSoundFX(SoundFactory::getLiviaSound()),
 
+// Text
+mText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){	
 	
-	
+	mText.setColor(sf::Color::Green);
+	mText.setPosition(400, 400);
 	
 	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mSprite.setPosition(pos - mSpriteOffset);
 
-	mCollisionBody.setTextureRect(mSprite.getTextureRect());
+
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 40, mSprite.getTextureRect().height));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
-	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
+	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
 	Player::updateTexturepos();
 
@@ -58,6 +61,9 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 void Player::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
+	if (mIsAlive == false) {
+		window.draw(mText);
+}
 }
 
  void Player::update(float &frameTime){
@@ -105,7 +111,10 @@ void Player::entityCollision(Entity* entity, char direction){
 		default:
 			break;
 		}
-
+		break;
+	case Entity::ACIDMONSTER:
+		mLife = 0;
+		break;
 	default:
 		break;
 	}
@@ -162,7 +171,6 @@ void Player::getHit(){
 			Player::playSound(Player::DAMAGED);
 		}
 		else {
-			mIsAlive = false;
 			Player::playSound(DEATH);
 		}
 	}
@@ -171,10 +179,15 @@ void Player::getHit(){
 // Privates
 
 void Player::playerInput() {
-
-	jump();
-	move();
-	playSoundManually();
+	if (mState != DEATH){
+		jump();
+		move();
+		playSoundManually();
+	}
+	else{
+		mVelocityGoal.x = 0;
+		mVelocityGoal.y = 0;
+	}
 }
 
 void Player::jump() {
@@ -245,7 +258,9 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = mFrameTime * mAcceleration ;
+	float delta = mFrameTime * mAcceleration;
+	float airBorneDelta = mFrameTime * mJumpAcc;
+
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -254,9 +269,17 @@ void Player::lerp(){
 	}
 
 	// Interpolates the velocity up from stationary
+	if (mState == JUMPING || mState == FALLING){
+		if (differenceX > airBorneDelta) {
+			mVelocity.x += airBorneDelta;
+			lerpedX = true;
+		}
+	}
+	else{
 	if (differenceX > delta) {
 		mVelocity.x += delta;
 		lerpedX = true;
+	}
 	}
 	// Interpolates the velocity up from stationary
 	if (differenceY > delta) {
@@ -264,9 +287,17 @@ void Player::lerp(){
 		lerpedY = true;
 	}
 	// Interpolates the velocity down to stationary
+	if (mState == JUMPING || mState == FALLING){
+		if (differenceX < -airBorneDelta) {
+			mVelocity.x += -airBorneDelta;
+			lerpedX = true;
+		}
+	}
+	else{
 	if (differenceX < -delta) {
 		mVelocity.x += -delta;
 		lerpedX = true;
+	}
 	}
 	// Interpolates the velocity down to stationary
 	if (differenceY < -delta) {
@@ -286,6 +317,11 @@ void Player::lerp(){
 void Player::updateState(){
 	bool changed(false);
 
+	if (mLife == 0 && mState != DEATH){
+		mState = DEATH;
+		changed = true;
+	}
+	if (mState != DEATH){
 	if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
 		mState = RUNNING;
 		Player::updateANI();
@@ -337,6 +373,7 @@ void Player::updateState(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDLEFT){
 		mTurned = TURNEDLEFT;
 		changed = true;
+	}
 	}
 	if (changed)
 		Player::updateANI();
@@ -405,6 +442,11 @@ void Player::updateANI(){
 		ANIFramesPerFrame = 0.5;
 		break;
 
+	case DEATH:
+		mCurrentAnimation = Animations::getPlayerDyingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 140, 140));
+		ANIFramesPerFrame = 0.25;
+		break;
 	default:
 		break;
 	}
@@ -425,8 +467,15 @@ void Player::animate(){
 	if (mTimerANI >= 1){
 		mAnimationIndex += 1;
 		mTimerANI = 0;
-		if (mAnimationIndex >= mCurrentAnimation->size())
+		if (mAnimationIndex >= mCurrentAnimation->size()){
+			if (mState == DEATH){
+				mIsAlive = false;
+				mAnimationIndex -= 1;
+			}
+			else
 			mAnimationIndex = 0;
+		}
+		
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	}

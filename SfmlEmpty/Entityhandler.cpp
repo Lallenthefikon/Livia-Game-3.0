@@ -60,12 +60,18 @@ void Entityhandler::clear(){
 }
 
 void Entityhandler::gameOver(){
-	delete mEntities[0];
-	mEntities.erase(mEntities.begin());
+	
 }
 
 int Entityhandler::getPlayerLife(){
 	return mEntities[0]->getLife();
+}
+
+bool Entityhandler::isPlayerAlive() {
+	if (mEntities[0]->getType() == Entity::PLAYER) {
+		return true;
+	} else
+		return false;
 }
 
 // Private funcs

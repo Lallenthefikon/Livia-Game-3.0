@@ -9,11 +9,13 @@ mEntityHandler(Entityhandler::getInstance()),
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
+mTextHandler(Texthandler::getInstance()),
 mCamera(),
 mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
@@ -83,6 +85,10 @@ void Stomach::render(sf::RenderWindow &window){
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
+
+	if (!mEntityHandler.isPlayerAlive()) {
+		mTextHandler.renderText(window);
+	}
 	mLayerHandler.renderHud(window);
 	
 	window.display();
