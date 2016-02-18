@@ -81,15 +81,16 @@ void Stomach::render(sf::RenderWindow &window){
 	window.setView(mCamera.getSceneryView());
 	//mLayerHandler.render(window);
 	mLayerHandler.renderBackground(window);
+	
 	window.setView(mCamera.getTileView());
+
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
 
-	if (!mEntityHandler.isPlayerAlive()) {
-		mTextHandler.renderText(window);
-	}
 	mLayerHandler.renderHud(window);
+	if (!mEntityHandler.isPlayerAlive())
+		mTextHandler.renderText(window);
 	
 	window.display();
 }

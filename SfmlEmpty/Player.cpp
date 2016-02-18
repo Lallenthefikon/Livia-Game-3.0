@@ -62,9 +62,9 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
-	if (mIsAlive == false) {
+	/*if (mIsAlive == false) {
 		window.draw(mText);
-}
+	}*/
 }
 
  void Player::update(float &frameTime){
