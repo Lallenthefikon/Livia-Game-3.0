@@ -45,7 +45,7 @@ void Toolbox::loadTextures(std::string levelName){
 		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.jpg");
 	}
 
-	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
+	mEnemy0sheet.loadFromFile("resources/images/Mask spritesheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
@@ -65,8 +65,8 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
-		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		//mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
 	// Global effects

@@ -8,6 +8,7 @@ mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(8),
 mIsAlive(true),
+mLife(1),
 mSoundFX(SoundFactory::getWormSound()){
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
