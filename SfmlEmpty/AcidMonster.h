@@ -13,7 +13,7 @@
 		virtual ENTITYTYPE getType(){ return ACIDMONSTER; }
 		static Entity* createAcidMonster(sf::Vector2f pos);
 		virtual void render(sf::RenderWindow &window);
-		virtual void update();
+		virtual void update(float &frameTime);
 		virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
 		virtual sf::Vector2f getOffset(){ return mSpriteOffset; }
 		virtual float getWidth(){ return mSprite.getGlobalBounds().width; }

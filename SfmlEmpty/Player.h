@@ -14,7 +14,7 @@ public:
 	static Entity* createPlayer(sf::Vector2f pos);
 
 	virtual void render(sf::RenderWindow &window);
-	virtual void update();
+	virtual void update(float &frameTime);
 	virtual void addVector(sf::Vector2f &vector);
 
 	virtual sf::Vector2f getPos(){ return mCollisionBody.getPosition(); }
@@ -31,6 +31,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual int getLife() { return mLife; }
+	void blink();
 
 private:
 
@@ -75,7 +76,8 @@ private:
 	int mAnimationIndex,
 		mClickOnce,
 		mNrOfJumps;
-	float mTimerANI;
+	float mTimerANI,
+		mFrameTime;
 
 	sf::Vector2f
 		mVelocity,

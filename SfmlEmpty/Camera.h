@@ -10,8 +10,10 @@ public:
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
 	//void render(sf::RenderWindow & window);
 	void updateCamGAME(sf::RenderWindow &window);
+	
 	void updateCamEDITOR(sf::Window &window, std::string direction);
 
+	void centerOnPlayer(sf::RenderWindow &window);
 	void updateStomachCam(sf::RenderWindow &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
 	sf::View getTileView(){ return mTileView; }
@@ -19,6 +21,7 @@ public:
 	void zoomCameraEDITOR(sf::Event event);
 	bool zoomOut(float totalSizeChange, int timesToZoom);
 	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
+	sf::Vector2f getVelocity(){ return mVelocity; }
 
 private:
 	sf::View mTileView;

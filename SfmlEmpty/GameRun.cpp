@@ -22,8 +22,8 @@ GameRun* GameRun::getInstance(std::string &levelDirectory, std::string &levelNam
 	return &gamerun;
 }
 
-void GameRun::update(sf::RenderWindow &window){
-	mStomach.update(window);
+void GameRun::update(sf::RenderWindow &window, float &frameTime){
+	mStomach.update(window, frameTime);
 	//// Specific event loop for gameRun state
 	//sf::Event gEvent;
 	//while (window.pollEvent(gEvent)){

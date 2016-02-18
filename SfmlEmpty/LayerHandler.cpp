@@ -1,7 +1,8 @@
 #include "LayerHandler.h"
-#include "Player.h"
 #include <iostream>
-float BACKGROUNDSPEED;
+
+float BACKGROUNDSPEED = 0.5f;
+
 float FOREGROUNDSPEED;
 
 
@@ -20,31 +21,79 @@ LayerHandler& LayerHandler::getInstance(){
 	static LayerHandler layerHandler;
 	return layerHandler;
 }
-void LayerHandler::moveBackground(sf::Vector2i &pixelPos, sf::Vector2f &coordPos){
+void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
-	sf::Sprite furthestRightBG;
-	// Find the background furtest to the right
-	if ((mBackgrounds[0].getPosition().x > mBackgrounds[1].getPosition().x)
-		&& (mBackgrounds[0].getPosition().x > mBackgrounds[2].getPosition().x)){
-		furthestRightBG = mBackgrounds[0];
+	sf::Sprite* furthestRightBG;
+	sf::Sprite* furthestLeftBG;
+	sf::Sprite* middleBG;
+
+	sf::Vector2f bg0CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[0].getPosition().x, mBackgrounds[0].getPosition().y), window);
+	sf::Vector2f bg1CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[1].getPosition().x, mBackgrounds[1].getPosition().y), window);
+	sf::Vector2f bg2CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[2].getPosition().x, mBackgrounds[2].getPosition().y), window);
+	
+	// Find the background furthest to the right
+	if ((bg0CoordPos.x > bg1CoordPos.x)
+		&& (bg0CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[0];
+		//std::cout << "Right 0" << std::endl;
 	}
-	else if ((mBackgrounds[1].getPosition().x > mBackgrounds[0].getPosition().x)
-		&& (mBackgrounds[1].getPosition().x > mBackgrounds[2].getPosition().x)){
-		furthestRightBG = mBackgrounds[1];
+	else if ((bg1CoordPos.x > bg0CoordPos.x)
+		&& (bg1CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[1];
+		//std::cout << "Right 1" << std::endl;
 	}
 	else{
-		furthestRightBG = mBackgrounds[2];
+		furthestRightBG = &mBackgrounds[2];
+		//std::cout << "Right 2" << std::endl;
 	}
-	// Move backgrounds left, pop to the right when exit screen
-	for (size_t i = 0; i < mBackgrounds.size(); i++){
-		if (mBackgrounds[i].getPosition().x < coordPos.x){
-			//mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x/2, coordPos.y));
-			mBackgrounds[i].setPosition(sf::Vector2f(coordPos.x - std::abs(mBackgrounds[i].getPosition().x - coordPos.x), coordPos.y));
-		}
-		else{
-			mBackgrounds[i].setPosition(sf::Vector2f(furthestRightBG.getPosition().x + mBackgrounds[i].getLocalBounds().width, coordPos.y));
-		}
+	// Find the background furthest to the left
+	if ((bg0CoordPos.x < bg1CoordPos.x)
+		&& (bg0CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[0];
+		//std::cout << "Left 0" << std::endl;
 	}
+	else if ((bg1CoordPos.x < bg0CoordPos.x)
+		&& (bg1CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[1];
+		//std::cout << "Left 1" << std::endl;
+	}
+	else{
+		furthestLeftBG = &mBackgrounds[2];
+		//std::cout << "Left 2" << std::endl;
+	}
+	// Find the background in the middle
+	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[1])
+		|| (furthestLeftBG == &mBackgrounds[1] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[2];
+		//std::cout << "Middle 2" << std::endl;
+	}
+	else 	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[2])
+		|| (furthestLeftBG == &mBackgrounds[2] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[1];
+		//std::cout << "Middle 1" << std::endl;
+	}
+	else{
+		middleBG = &mBackgrounds[0];
+		//std::cout << "Middle 0" << std::endl;
+	}
+
+	sf::Vector2f middleBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(middleBG->getPosition().x, middleBG->getPosition().y), window);
+	sf::Vector2f leftBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestLeftBG->getPosition().x, furthestLeftBG->getPosition().y), window);
+	sf::Vector2f rightBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestRightBG->getPosition().x, furthestRightBG->getPosition().y), window);
+	
+	// if furthest left outside screen furthest left placed on right
+	if (furthestLeftBG->getPosition().x < -furthestLeftBG->getLocalBounds().width){
+		furthestLeftBG->setPosition(furthestRightBG->getPosition().x + furthestLeftBG->getLocalBounds().width, 0);
+	}
+	// if furthest right outside screen furthest right placed on left
+	/*if (furthestRightBG->getPosition().x > 1080){
+		furthestRightBG->setPosition(furthestLeftBG->getPosition().x - 1080, 0);
+	}*/
+	float bgSpeed = 0.07;
+
+	furthestRightBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
+	middleBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
+	furthestLeftBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
 }
 
 void LayerHandler::moveForeground(sf::Vector2f &velocity){
@@ -94,15 +143,16 @@ void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
 	
 }
 
-
-
-void LayerHandler::addBackground(sf::Sprite &background){
-	mBackgrounds.push_back(background);
+void LayerHandler::addBackground(sf::Texture &backgroundTexture){
+	mBackground1.setTexture(backgroundTexture);
+	mBackgrounds.push_back(mBackground1);
 	mBackgrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
-	mBackgrounds.push_back(background);
-	mBackgrounds[1].setPosition(sf::Vector2f(mBackgrounds[0].getPosition().x - mBackgrounds[1].getLocalBounds().width, 0.f));
-	mBackgrounds.push_back(background);
-	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x - mBackgrounds[2].getLocalBounds().width, 0.f));
+	mBackground2.setTexture(backgroundTexture);
+	mBackgrounds.push_back(mBackground2);
+	mBackgrounds[1].setPosition(sf::Vector2f(mBackgrounds[0].getPosition().x + mBackgrounds[1].getLocalBounds().width, 0.f));
+	mBackground3.setTexture(backgroundTexture);
+	mBackgrounds.push_back(mBackground3);
+	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x + mBackgrounds[2].getLocalBounds().width, 0.f));
 }
 
 void LayerHandler::addLifeSprite(sf::Sprite &life){
