@@ -1,17 +1,18 @@
 #include "Player.h"
 #include <iostream>
 
-static const float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
 mVelocity(0, 0),
 mIsOnScreen(true),
 mState(IDLE),
+mTurned(TURNEDLEFT),
 mIsAlive(true),
 
 // Animatin stuff
 mAnimationIndex(0),
-mCurrentAnimation(Animations::getPlayerRunningANI()),
+mCurrentAnimation(Animations::getPlayerIdleANI()),
 mTimerANI(1),
 
 // Jump
@@ -31,10 +32,19 @@ mWallSlideSpeed(4),
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()){
 
+	
+	
+	
 	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
-	Toolbox::copyPlayerSprite(mSprite);
+
+	mCollisionBody.setTextureRect(mSprite.getTextureRect());
+	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
+	mSpriteOffset = sf::Vector2f(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
+	mCollisionBody.setPosition(pos - mSpriteOffset);
+	Player::updateTexturepos();
+
+	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
 }
 
@@ -47,10 +57,11 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 
 void Player::render(sf::RenderWindow &window){
 	window.draw(mSprite);
+	//window.draw(mCollisionBody);
 }
 
  void Player::update(){
-	 Toolbox::copyPlayerSprite(mSprite);
+	 
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
@@ -58,10 +69,13 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateState();
 	Player::animate();
 
-	mSprite.move(mVelocity);
-
-	Toolbox::copyPlayerSprite(mSprite);
+	mCollisionBody.move(mVelocity);
+	Player::updateTexturepos();
+	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
+	
+	std::cout << mInvulnerable << std::endl;
+
 }
 
 void Player::addVector(sf::Vector2f &vector){
@@ -75,8 +89,8 @@ void Player::entityCollision(Entity* entity, char direction){
 		switch (direction){
 		case 'b':
 			if (!mInvulnerable){
-				delta = entity->getPos().y - mSprite.getPosition().y;
-				mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
+				delta = entity->getPos().y - mCollisionBody.getPosition().y;
+				mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 					mJumpStarted = true;
 					mVelocity.y = mJumpSpeedInitial;
@@ -106,27 +120,27 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 
 		case 't':
 			mCollisionT = true;
-			delta = mSprite.getPosition().y - terrain->getPos().y;
-			mSprite.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
+			delta = mCollisionBody.getPosition().y - terrain->getPos().y;
+			mCollisionBody.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
 			mCurrentCollisionT = terrain;
 			
 			break;
 		case 'b':
 			mCollisionB = true;
-			delta = terrain->getPos().y - mSprite.getPosition().y;
-			mSprite.move(sf::Vector2f(0, delta - this->getHeight()- 1));
+			delta = terrain->getPos().y - mCollisionBody.getPosition().y;
+			mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 			mCurrentCollisionB = terrain;
 			break;
 		case 'l':
 			mCollisionL = true;
-			delta = mSprite.getPosition().x - terrain->getPos().x;
-			mSprite.move(sf::Vector2f(terrain->getWidth() - delta + 1, 0));
+			delta = mCollisionBody.getPosition().x - terrain->getPos().x;
+			mCollisionBody.move(sf::Vector2f(terrain->getWidth() - delta + 1, 0));
 			mCurrentCollisionL = terrain;
 			break;
 		case 'r':
 			mCollisionR = true;
-			delta = terrain->getPos().x - mSprite.getPosition().x;
-			mSprite.move(sf::Vector2f(delta - this->getWidth(), 0));
+			delta = terrain->getPos().x - mCollisionBody.getPosition().x;
+			mCollisionBody.move(sf::Vector2f(delta - this->getWidth(), 0));
 			mCurrentCollisionR = terrain;
 			break;
 
@@ -147,8 +161,10 @@ void Player::getHit(){
 			mInvulnerableTime.restart().asMilliseconds();
 			Player::playSound(Player::DAMAGED);
 		}
-		else
+		else {
 			mIsAlive = false;
+			Player::playSound(DEATH);
+		}
 	}
 }
 
@@ -169,12 +185,14 @@ void Player::jump() {
 			mJumpStarted = true;
 			mDoubleJumped = false;
 			mVelocity.y = mJumpSpeedInitial;
-			if (mState == WALLSTUCKRIGHT)
+			if (mState == WALLSTUCK){
+				if (mTurned == TURNEDRIGHT)
 				mVelocity.x = -mMaxSpeed;
-			if (mState == WALLSTUCKLEFT)
+				if (mTurned == TURNEDLEFT)
 				mVelocity.x = mMaxSpeed;
 		}
-
+		}
+		
 		// Apply gradually to max
 		if (mJumpStarted && (mState == JUMPING || mState == FALLING)) {
 			if (mVelocity.y >= mJumpSpeedMax) {
@@ -217,9 +235,9 @@ void Player::playSoundManually() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 		playSound(DAMAGED);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		playSound(IDLE);
+		playSound(DEATH);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		playSound(RUNNINGLEFT);
+		playSound(RUNNING);
 }
 
 void Player::lerp(){
@@ -266,77 +284,83 @@ void Player::lerp(){
 	
 	
 void Player::updateState(){
+	bool changed(false);
 
-	if (mVelocity.x < 0 && mState != JUMPING && mState != RUNNINGLEFT){
-		mState = RUNNINGLEFT;
-		Player::playSound(mState);
+	if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
+		mState = RUNNING;
 		Player::updateANI();
+		if (!mVelocity.y > 0)
+			Player::playSound(mState);
 	}
 
-	if (mVelocity.x > 0 && mState != JUMPING && mState != RUNNINGRIGHT){
-		mState = RUNNINGRIGHT;
-		Player::playSound(mState);
-		Player::updateANI();
-	}
 
-	if (mVelocity.x == 0 && mState != JUMPING && mState != IDLE && mVelocity.y == 0) {
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
 		mState = IDLE;
-		//Player::playSound(mState);
-		Player::updateANI();
+		changed = true;
+		Player::stopSound(RUNNING);
 	}
 
 	if (mVelocity.y > 0 && mState != FALLING){
 		mState = FALLING;
-		Player::updateANI();
+		changed = true;
 	}
 
 	if (mVelocity.y < 0 && mState != JUMPING){
 		mState = JUMPING;
 		Player::playSound(mState);
-		Player::updateANI();
+		changed = true;
 	}
 	if (mCollisionR){
-		if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-			mState = WALLSTUCKRIGHT;
+		if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK){
+			mState = WALLSTUCK;
 			mVelocity.y = mWallSlideSpeed;
 			mJumpStarted = false;
+			changed = true;
 		}
 	}
 	if (mCollisionL){
-		if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-			mState = WALLSTUCKLEFT;
+		if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK){
+			mState = WALLSTUCK;
 			mVelocity.y = mWallSlideSpeed;
 			mJumpStarted = false;
+			changed = true;
 		}
 	}
 	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
 	}
 
-	//if (mJumpClockTimer.getElapsedTime().asMilliseconds() > 1000){
-	//	mJumpClock = false;
-	//}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDRIGHT){
+		mTurned = TURNEDRIGHT;
+		changed = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDLEFT){
+		mTurned = TURNEDLEFT;
+		changed = true;
+	}
+	if (changed)
+		Player::updateANI();
 
 }
 
 void Player::updateCollision(){
 	if (mCollisionT){
-		if (!CollisionFuncs::currentCollisionT(mSprite,mCurrentCollisionT->getSprite())){
+		if (!CollisionFuncs::currentCollisionT(mCollisionBody, mCurrentCollisionT->getSprite())){
 			mCollisionT = false;
 		}
 	}
 	if (mCollisionB){
-		if (!CollisionFuncs::currentCollisionB(mSprite, mCurrentCollisionB->getSprite())){
+		if (!CollisionFuncs::currentCollisionB(mCollisionBody, mCurrentCollisionB->getSprite())){
 			mCollisionB = false;
 		}
 	}
 	if (mCollisionL){
-		if (!CollisionFuncs::currentCollisionL(mSprite, mCurrentCollisionL->getSprite())){
+		if (!CollisionFuncs::currentCollisionL(mCollisionBody, mCurrentCollisionL->getSprite())){
 			mCollisionL = false;
 		}
 	}
 	if (mCollisionR){
-		if (!CollisionFuncs::currentCollisionR(mSprite, mCurrentCollisionR->getSprite())){
+		if (!CollisionFuncs::currentCollisionR(mCollisionBody, mCurrentCollisionR->getSprite())){
 			mCollisionR = false;
 		}
 	}
@@ -352,64 +376,47 @@ void Player::updateCollision(){
 
 }
 
-//void Player::checkTerrainTypes(){
-//	if (mCollisionR){
-//		if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-//			mState = WALLSTUCKRIGHT;
-//			mVelocity.y = mWallSlideSpeed;
-//			mJumpStarted = false;
-//		}
-//	}
-//	if (mCollisionL){
-//		if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-//			mState = WALLSTUCKLEFT;
-//			mVelocity.y = mWallSlideSpeed;
-//			mJumpStarted = false;
-//		}
-//	}
-//}
 
 void Player::updateANI(){
 	float spriteWidth;
 	switch (mState){
 
 	case JUMPING:
+		ANIFramesPerFrame = 0.5;
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
 		break;
 
 	case IDLE:
+		ANIFramesPerFrame = 0.25;
+		mSprite.setTextureRect(sf::IntRect(0, 0, 70, 140));
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
-	case RUNNINGLEFT:
+	case RUNNING:
+		ANIFramesPerFrame = 0.5;
 		mCurrentAnimation = Animations::getPlayerRunningANI();
-		//mSprite.setScale(1.f, 1.f);
-		mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
-
-		//// flip X
-		//sprite.setTextureRect(sf::IntRect(width, 0, -width, height));
-
-		//// unflip X
-		//sprite.setTextureRect(sf::IntRect(0, 0, width, height));
-	//	mSprite.setPosition(sf::Vector2f(spriteWidth,mSprite.getPosition().y));
-		break;
-
-	case RUNNINGRIGHT:
-		mCurrentAnimation = Animations::getPlayerRunningANI();
-		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
-
-		//mSprite.setScale(-1.f, 1.f);
-		//mSprite.setPosition(sf::Vector2f(spriteWidth, mSprite.getPosition().y));
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
 		break;
 
 	case FALLING:
+		mCurrentAnimation = Animations::getPlayerFallingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
+		ANIFramesPerFrame = 0.5;
 		break;
 
 	default:
 		break;
 	}
+	if (mTurned == TURNEDLEFT)
+		mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+
+	if (mTurned == TURNEDRIGHT)
+		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+
 	mTimerANI = 0;
 }
+
 
 void Player::animate(){
 
@@ -425,6 +432,13 @@ void Player::animate(){
 	}
 }
 
+void Player::updateTexturepos(){
+	sf::Vector2f temp(mCollisionBody.getPosition());
+	temp += mSpriteOffset;
+	temp.x -= (mSprite.getLocalBounds().width / 2);
+	temp.y -= (mSprite.getLocalBounds().height / 2);
+	mSprite.setPosition(temp);
+}
 
 void Player::playSound(PLAYERSTATE state) {
 	switch (state) {
@@ -434,16 +448,41 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::IDLE:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
 		break;
-	case Player::RUNNINGLEFT:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
-		break;
-	case Player::RUNNINGRIGHT:
+	case Player::RUNNING:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::RUNNING);
 		break;
 	case Player::FALLING:
 		break;
 	case Player::DAMAGED:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
+	default:
+		break;
+	}
+}
+
+void Player::stopSound(PLAYERSTATE state) {
+	switch (state) {
+	case Player::JUMPING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING);
+		break;
+	case Player::IDLE:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::IDLE);
+		break;
+	case Player::RUNNING:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::RUNNING);
+		break;
+	case Player::FALLING:
+		break;
+	case Player::DAMAGED:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DAMAGED);
+		break;
+	case Player::DEATH:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
 	default:
 		break;
 	}

@@ -7,13 +7,12 @@ public:
 	static SoundFX& createLiviaSound();
 	virtual ~LiviaSound();
 	virtual void playSound(SOUNDTYPE type);
-	virtual void stopSound();
-	virtual void clearSoundQueue();
+	virtual void stopSound(SOUNDTYPE type);
+	virtual void stopAllSound();
 private:
 	LiviaSound();
-	void removeStopped();
-	sf::Sound mSound;
-	sf::SoundBuffer mSoundBuffer;
+	void initialize();
+	void finalize();
 	SoundQueue mSounds;
 };
 

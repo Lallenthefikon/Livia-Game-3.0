@@ -16,8 +16,9 @@ mMapPath("resources/maps/mMap0.txt"){
 	Animations::loadTextures();
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
+
 	mLayerHandler.addBackground(mBackgroundTexture);
-	
+
 	mMapGenerator.loadMap(mMapPath);
 	mCamera.zoomOut(0.5f, 1);
 }
@@ -59,12 +60,14 @@ void Stomach::update(sf::RenderWindow &window){
 
 void Stomach::render(sf::RenderWindow &window){
 	window.clear();
+	
 	window.setView(mCamera.getSceneryView());
-	mLayerHandler.render(window);
+	//mLayerHandler.render(window);
 	window.setView(mCamera.getTileView());
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
+	
 	window.display();
 }
 

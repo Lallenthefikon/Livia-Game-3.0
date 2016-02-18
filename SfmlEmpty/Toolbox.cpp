@@ -6,7 +6,7 @@ static sf::Vector2f mPlayerVelocity;
 // Textures
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
-static sf::Image mRunningPlayersheet;
+static sf::Image mPlayersheet;
 static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
@@ -27,7 +27,10 @@ static sf::SoundBuffer mPlayerIdleSound;
 static sf::SoundBuffer mPlayerRunSound;
 static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
-static sf::SoundBuffer mWormSound;
+static sf::SoundBuffer mPlayerDeathSound;
+static sf::SoundBuffer mWormDeathSound;
+static sf::Music mStomachMusic;
+static sf::Music mStomachAmbience;
 
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
@@ -42,7 +45,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
-	mRunningPlayersheet.loadFromFile("resources/images/Livia_spritesheet_placeholder1.2(100,140).png");
+	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
 	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/AcidMonster.png");
@@ -55,14 +58,23 @@ void Toolbox::loadTextures(std::string levelName){
 
 void Toolbox::loadSounds(std::string levelName) {
 
-	if (levelName == "Intestine") {
+	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
+
+		// Music and ambience
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
-	mPlayerIdleSound.loadFromFile("resources/sounds/jump_02.ogg");
-	mPlayerRunSound.loadFromFile("resources/sounds/Jump_03.ogg");
-	mPlayerJumpSound.loadFromFile("resources/sounds/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/Hurt_03.aif");
+	// Global effects
+	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Walkcycle_01.ogg");
+	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_03.ogg");
+	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
+
+	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
+
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -78,7 +90,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case RUNNINGPLAYERTEXTURE:
-		return mRunningPlayersheet;
+		return mPlayersheet;
 		break;
 
 	case PLAYERJUMPTEXTURE:
@@ -160,7 +172,7 @@ sf::Vector2f Toolbox::findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &win
 	return coord_pos;
 }
 
-// Sounds
+// Sound and music
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	switch (soundKey) {
 	case Toolbox::PLAYERIDLE:
@@ -177,6 +189,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERDAMAGED:
 		return mPlayerDamagedSound;
 		break;
+	case Toolbox::PLAYERDEATH:
+		return mPlayerDeathSound;
+		break;
 	case Toolbox::WORMIDLE:
 		break;
 	case Toolbox::WORMRUN:
@@ -184,6 +199,22 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::WORMJUMP:
 		break;
 	case Toolbox::WORMLAND:
+		break;
+	case Toolbox::WORMDEATH:
+		return mWormDeathSound;
+		break;
+	default:
+		break;
+	}
+}
+
+sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
+	switch (soundKey) {
+	case Toolbox::STOMACHAMBIENCE:
+		return mStomachAmbience;
+		break;
+	case Toolbox::STOMACHMUSIC:
+		return mStomachMusic;
 		break;
 	default:
 		break;
