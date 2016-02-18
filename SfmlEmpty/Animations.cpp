@@ -11,6 +11,7 @@ Animations::Textures mPlayerRunningANI;
 Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
+Animations::Textures mPlayerDyingANI;
 	
 Animations::Textures mWormCrawlingANI;
 
@@ -25,6 +26,7 @@ void Animations::loadTextures(){
 
 		mPlayerRunningANI.push_back(new sf::Texture);
 		mPlayerRunningANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, 140 * y, 100, 140));
+		mPlayerRunningANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -39,6 +41,7 @@ void Animations::loadTextures(){
 
 		mPlayerJumpingANI.push_back(new sf::Texture);
 		mPlayerJumpingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, (160 * y) + 560, 100, 160));
+		mPlayerJumpingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -52,7 +55,8 @@ void Animations::loadTextures(){
 	for (int i = 0; i < 16; i++){
 
 		mPlayerIdleANI.push_back(new sf::Texture);
-		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 640, 70, 140));
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 340, 70, 140));
+		mPlayerIdleANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -65,7 +69,22 @@ void Animations::loadTextures(){
 	// Player falling ANI
 	for (int i = 0; i < 8; i++){
 		mPlayerFallingANI.push_back(new sf::Texture);
-		mPlayerFallingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 400, (160* y), 100, 160));
+		mPlayerFallingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 400, (160 * y), 100, 160));
+		mPlayerFallingANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Player Dying ANI
+	for (int i = 0; i < 16; i++){
+		mPlayerDyingANI.push_back(new sf::Texture);
+		mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((140 * x) + 800, (140* y), 140, 140));
+		mPlayerDyingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -76,6 +95,7 @@ void Animations::loadTextures(){
 	y = 0;
 
 
+
 	/*mPlayerIdleANI.push_back(new sf::Texture);
 	mPlayerIdleANI[0]->loadFromImage(mPlayerIdleIMG);*/
 	
@@ -83,11 +103,13 @@ void Animations::loadTextures(){
 	// Worm crawling
 	mWormCrawlingANI.push_back(new sf::Texture);
 	mWormCrawlingANI[0]->loadFromImage(mWormCrawlingIMG);
+	mWormCrawlingANI[0]->setSmooth(true);
 
 	// Acidmonster
 
 	mAcidMonsterANI.push_back(new sf::Texture);
 	mAcidMonsterANI[0]->loadFromImage(mAcidMonsterIMG);
+	mAcidMonsterANI[0]->setSmooth(true);
 }
 
 // Player ANI
@@ -109,6 +131,9 @@ Animations::Textures* Animations::getPlayerFallingANI(){
 	return &mPlayerFallingANI;
 }
 
+Animations::Textures* Animations::getPlayerDyingANI(){
+	return &mPlayerDyingANI;
+}
 
 
 

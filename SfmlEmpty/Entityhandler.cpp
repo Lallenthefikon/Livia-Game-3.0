@@ -60,8 +60,7 @@ void Entityhandler::clear(){
 }
 
 void Entityhandler::gameOver(){
-	delete mEntities[0];
-	mEntities.erase(mEntities.begin());
+	
 }
 
 int Entityhandler::getPlayerLife(){
