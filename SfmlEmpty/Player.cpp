@@ -27,7 +27,7 @@ mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
 mWallSlideSpeed(4),
-mJumpAcc(70),
+mAirbornAcc(70),
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()),
@@ -41,7 +41,7 @@ mText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 
 
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 40, mSprite.getTextureRect().height));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
@@ -59,6 +59,7 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 }
 
 void Player::render(sf::RenderWindow &window){
+	Player::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
 	if (mIsAlive == false) {
@@ -75,8 +76,10 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateState();
 	Player::animate();
 
+
 	mCollisionBody.move(mVelocity);
-	Player::updateTexturepos();
+	
+	
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
 	
@@ -259,7 +262,7 @@ void Player::lerp(){
 	bool lerpedX(false);
 	
 	float delta = mFrameTime * mAcceleration;
-	float airBorneDelta = mFrameTime * mJumpAcc;
+	float airBorneDelta = mFrameTime * mAirbornAcc;
 
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
