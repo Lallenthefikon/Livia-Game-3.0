@@ -19,6 +19,7 @@ public:
 	void zoomCameraEDITOR(sf::Event event);
 	bool zoomOut(float totalSizeChange, int timesToZoom);
 	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
+	sf::Vector2f getVelocity(){ return mVelocity; }
 
 private:
 	sf::View mTileView;

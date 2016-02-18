@@ -3,7 +3,6 @@
 Stomach::Stomach() :
 // Initiate singleton classes
 mTexture(),
-mBackground(),
 mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
 mMapGenerator(MapGenerator::getInstance()),
@@ -16,10 +15,9 @@ mMapPath("resources/maps/mMap0.txt"){
 	Toolbox::loadSounds(mMapName);
 	Animations::loadTextures();
 
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::StomachBACKGROUND));
-	mBackgroundSprite.setTexture(mBackgroundTexture);
-
-	mLayerHandler.addBackground(mBackgroundSprite);
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
+	mLayerHandler.addBackground(mBackgroundTexture);
+	
 	mMapGenerator.loadMap(mMapPath);
 	mCamera.zoomOut(0.5f, 1);
 }
@@ -47,11 +45,16 @@ void Stomach::update(sf::RenderWindow &window){
 	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 	mEntityHandler.bringOutTheDead();
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	
+	sf::Vector2i pixel_pos_tileV = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
+	sf::Vector2f coord_pos_tileV = window.mapPixelToCoords(pixel_pos_tileV);
 
-	sf::Vector2i pixel_pos = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
-	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+	window.setView(mCamera.getSceneryView());
+	
+	sf::Vector2i pixel_pos_sceneV = sf::Vector2i(pixel_pos_tileV.x, 0);
+	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
 
-	mLayerHandler.moveBackground(pixel_pos, coord_pos);
+	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
 }
 
 void Stomach::render(sf::RenderWindow &window){

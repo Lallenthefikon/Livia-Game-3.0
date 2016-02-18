@@ -36,7 +36,7 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
+		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
@@ -105,7 +105,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mAcidMonsterTexture;
 		break;
 
-	case StomachBACKGROUND:
+	case STOMACHBACKGROUND:
 		return mStomachBackgroundTexture;
 		break;
 
@@ -152,6 +152,12 @@ sf::Sprite Toolbox::getPlayerSprite(){
 
 sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
+}
+
+sf::Vector2f Toolbox::findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window){
+	sf::Vector2i pixel_pos = pixelPos;
+	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+	return coord_pos;
 }
 
 // Sounds

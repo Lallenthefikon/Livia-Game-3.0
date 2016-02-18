@@ -29,11 +29,10 @@ private:
 	LayerHandler& mLayerHandler;
 
 	sf::Texture mBackgroundTexture;
-	sf::Sprite mBackgroundSprite;
 	Camera mCamera;
 	std::string mMapName;
 	std::string mMapPath;
 
-	sf::Sprite mBackground;
+
 	sf::Texture mTexture;
 };

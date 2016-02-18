@@ -5,7 +5,7 @@
 
 struct Toolbox {
 
-	enum TEXTUREKEY { WORMTEXTURE, BLOCK0TEXTURE, RUNNINGPLAYERTEXTURE, PLAYERJUMPTEXTURE, PLAYERIDLETEXTURE, PLAYERHURTTEXTURE, TILETEXTURE, EDITORMENY, ACIDMONSTERTEXTURE, StomachBACKGROUND, LIFETEXTURE};
+	enum TEXTUREKEY { WORMTEXTURE, BLOCK0TEXTURE, RUNNINGPLAYERTEXTURE, PLAYERJUMPTEXTURE, PLAYERIDLETEXTURE, PLAYERHURTTEXTURE, TILETEXTURE, EDITORMENY, ACIDMONSTERTEXTURE, STOMACHBACKGROUND, LIFETEXTURE };
 	enum SOUNDKEY { PLAYERIDLE, PLAYERRUN, PLAYERJUMP, PLAYERLAND, PLAYERDAMAGED, WORMIDLE, WORMRUN, WORMJUMP, WORMLAND };
 	static Toolbox& getInstance();
 	static void loadTextures(std::string levelName);
@@ -21,6 +21,8 @@ struct Toolbox {
 	static void copyPlayerVelocity(sf::Vector2f &playerVelocity);
 	static sf::Sprite getPlayerSprite();
 	static sf::Vector2f getPlayerVelocity();
+
+	static sf::Vector2f findCoordPos(sf::Vector2i &pixelPos,sf::RenderWindow &window);
 
 	// Sounds
 	static sf::SoundBuffer& getSound(SOUNDKEY soundKey);
