@@ -27,7 +27,7 @@ void AcidMonster::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 }
 
-void AcidMonster::update(){
+void AcidMonster::update(float &frameTime){
 	AcidMonster::addSpeed();
 	AcidMonster::lerp();
 	AcidMonster::updateState();

@@ -27,19 +27,21 @@ mMaxSpeed(15),
 mAcceleration(70),
 mLife(3),
 mWallSlideSpeed(4),
-mJumpAcc(70),
-
+mAirbornAcc(70),
 
 // Sounds
-mSoundFX(SoundFactory::getLiviaSound()){
+mSoundFX(SoundFactory::getLiviaSound()),
 
+// Text
+mText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){	
 	
-	
+	mText.setColor(sf::Color::Green);
+	mText.setPosition(400, 400);
 	
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 
 
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 40, mSprite.getTextureRect().height));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
@@ -57,12 +59,16 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 }
 
 void Player::render(sf::RenderWindow &window){
+	Player::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
+	if (mIsAlive == false) {
+		window.draw(mText);
+}
 }
 
- void Player::update(){
-	 
+ void Player::update(float &frameTime){
+	 mFrameTime = frameTime;
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
@@ -70,12 +76,14 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateState();
 	Player::animate();
 
+
 	mCollisionBody.move(mVelocity);
-	Player::updateTexturepos();
+	
+	
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
 	
-	std::cout << mInvulnerable << std::endl;
+	//std::cout << mInvulnerable << std::endl;
 
 }
 
@@ -179,6 +187,10 @@ void Player::playerInput() {
 		move();
 		playSoundManually();
 	}
+	else{
+		mVelocityGoal.x = 0;
+		mVelocityGoal.y = 0;
+	}
 }
 
 void Player::jump() {
@@ -249,8 +261,8 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 * mAcceleration;
-	float airBorneDelta = 0.016 * mJumpAcc;
+	float delta = mFrameTime * mAcceleration;
+	float airBorneDelta = mFrameTime * mAirbornAcc;
 
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
@@ -267,10 +279,10 @@ void Player::lerp(){
 		}
 	}
 	else{
-		if (differenceX > delta) {
-			mVelocity.x += delta;
-			lerpedX = true;
-		}
+	if (differenceX > delta) {
+		mVelocity.x += delta;
+		lerpedX = true;
+	}
 	}
 	// Interpolates the velocity up from stationary
 	if (differenceY > delta) {
@@ -285,10 +297,10 @@ void Player::lerp(){
 		}
 	}
 	else{
-		if (differenceX < -delta) {
-			mVelocity.x += -delta;
-			lerpedX = true;
-		}
+	if (differenceX < -delta) {
+		mVelocity.x += -delta;
+		lerpedX = true;
+	}
 	}
 	// Interpolates the velocity down to stationary
 	if (differenceY < -delta) {
@@ -313,58 +325,58 @@ void Player::updateState(){
 		changed = true;
 	}
 	if (mState != DEATH){
-		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
-			mState = RUNNING;
-			Player::updateANI();
-			if (!mVelocity.y > 0)
-				Player::playSound(mState);
-		}
-
-
-		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
-			mState = IDLE;
-			changed = true;
-			Player::stopSound(RUNNING);
-		}
-
-		if (mVelocity.y > 0 && mState != FALLING){
-			mState = FALLING;
-			changed = true;
-		}
-
-		if (mVelocity.y < 0 && mState != JUMPING){
-			mState = JUMPING;
+	if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
+		mState = RUNNING;
+		Player::updateANI();
+		if (!mVelocity.y > 0)
 			Player::playSound(mState);
-			changed = true;
-		}
-		if (mCollisionR){
-			if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK){
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
-		}
-		if (mCollisionL){
-			if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK){
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
-		}
-		if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
-			mInvulnerable = false;
-		}
+	}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDRIGHT){
-			mTurned = TURNEDRIGHT;
+
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
+		mState = IDLE;
+		changed = true;
+		Player::stopSound(RUNNING);
+	}
+
+	if (mVelocity.y > 0 && mState != FALLING){
+		mState = FALLING;
+		changed = true;
+	}
+
+	if (mVelocity.y < 0 && mState != JUMPING){
+		mState = JUMPING;
+		Player::playSound(mState);
+		changed = true;
+	}
+	if (mCollisionR){
+		if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK){
+			mState = WALLSTUCK;
+			mVelocity.y = mWallSlideSpeed;
+			mJumpStarted = false;
 			changed = true;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDLEFT){
-			mTurned = TURNEDLEFT;
+	}
+	if (mCollisionL){
+		if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK){
+			mState = WALLSTUCK;
+			mVelocity.y = mWallSlideSpeed;
+			mJumpStarted = false;
 			changed = true;
 		}
+	}
+	if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
+		mInvulnerable = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDRIGHT){
+		mTurned = TURNEDRIGHT;
+		changed = true;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDLEFT){
+		mTurned = TURNEDLEFT;
+		changed = true;
+	}
 	}
 	if (changed)
 		Player::updateANI();
@@ -432,7 +444,7 @@ void Player::updateANI(){
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		ANIFramesPerFrame = 0.5;
 		break;
-		
+
 	case DEATH:
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 140, 140));
@@ -464,7 +476,7 @@ void Player::animate(){
 				mAnimationIndex -= 1;
 			}
 			else
-				mAnimationIndex = 0;
+			mAnimationIndex = 0;
 		}
 		
 		if (mCurrentAnimation->size() > 0)
@@ -530,4 +542,9 @@ void Player::stopSound(PLAYERSTATE state) {
 
 void Player::setPos(sf::Vector2f newPos){
 	mSprite.setPosition(newPos);
+}
+
+void Player::blink(){
+	/*mSprite.s
+	sprite.SetColor(sf::Color(255, 255, 255, 128));*/
 }

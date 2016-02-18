@@ -32,6 +32,9 @@ static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 
+// Fonts
+static sf::Font mGameOverFont;
+
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
 	return toolbox;
@@ -39,7 +42,7 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/Tarm_BG.jpg");
+		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.jpg");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
@@ -70,11 +73,15 @@ void Toolbox::loadSounds(std::string levelName) {
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
 	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Walkcycle_01.ogg");
 	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_03.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
+}
+
+void Toolbox::loadFonts(std::string levelName) {
+	mGameOverFont.loadFromFile("resources/fonts/ComicSansMSRegular.ttf");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -166,6 +173,12 @@ sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
 }
 
+sf::Vector2f Toolbox::findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window){
+	sf::Vector2i pixel_pos = pixelPos;
+	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
+	return coord_pos;
+}
+
 // Sound and music
 sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	switch (soundKey) {
@@ -209,6 +222,18 @@ sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::STOMACHMUSIC:
 		return mStomachMusic;
+		break;
+	default:
+		break;
+	}
+}
+
+sf::Font & Toolbox::getFont(FONTKEY fontKey) {
+	switch (fontKey) {
+	case Toolbox::GAMEOVER:
+		return mGameOverFont;
+		break;
+	case Toolbox::DIALOGUE:
 		break;
 	default:
 		break;
