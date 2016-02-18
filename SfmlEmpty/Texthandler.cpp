@@ -1,9 +1,10 @@
 #include "Texthandler.h"
 
 Texthandler::Texthandler() :
-mGameOverText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){
-	mGameOverText.setColor(sf::Color::Green);
-	mGameOverText.setCharacterSize(90);
+mGameOverText("Game Over", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)){
+	mGameOverText.setColor(sf::Color::Black);
+	mGameOverText.setCharacterSize(600);
+	//mGameOverText.scale(0.5, 0.5);
 }
 
 Texthandler::~Texthandler() {
@@ -15,7 +16,7 @@ Texthandler & Texthandler::getInstance() {
 }
 
 void Texthandler::updateText(sf::Vector2f& centerScreenCoordPos) {
-	mGameOverText.setPosition(centerScreenCoordPos.x - mGameOverText.getLocalBounds().width / 2, centerScreenCoordPos.y - mGameOverText.getLocalBounds().height / 2);
+	mGameOverText.setPosition(centerScreenCoordPos.x - mGameOverText.getGlobalBounds().width / 2, centerScreenCoordPos.y - 540 - mGameOverText.getGlobalBounds().height / 2);
 }
 
 void Texthandler::renderText(sf::RenderWindow& window) {
