@@ -32,6 +32,7 @@
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="WormSound.cpp" />
     <ClCompile Include="Stomach.cpp" />
+    <ClCompile Include="Texthandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h" />
@@ -64,5 +65,6 @@
     <ClInclude Include="Worm.h" />
     <ClInclude Include="WormSound.h" />
     <ClInclude Include="Stomach.h" />
+    <ClInclude Include="Texthandler.h" />
   </ItemGroup>
 </Project>

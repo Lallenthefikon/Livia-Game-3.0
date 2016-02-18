@@ -180,10 +180,14 @@ void Player::getHit(){
 
 void Player::playerInput() {
 	if (mState != DEATH){
-	jump();
-	move();
-	playSoundManually();
-}
+		jump();
+		move();
+		playSoundManually();
+	}
+	else{
+		mVelocityGoal.x = 0;
+		mVelocityGoal.y = 0;
+	}
 }
 
 void Player::jump() {
@@ -254,10 +258,9 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	float delta = 0.016 * mAcceleration;
-	float airBorneDelta = 0.016 * mJumpAcc;
+	float delta = mFrameTime * mAcceleration;
+	float airBorneDelta = mFrameTime * mJumpAcc;
 
-	float delta = mFrameTime * mAcceleration ;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 

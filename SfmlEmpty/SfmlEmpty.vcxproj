@@ -105,6 +105,7 @@
     <ClCompile Include="Stomach.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Terrainhandler.cpp" />
+    <ClCompile Include="Texthandler.cpp" />
     <ClCompile Include="Toolbox.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="WormSound.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Stomach.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Terrainhandler.h" />
+    <ClInclude Include="Texthandler.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="WormSound.h" />
