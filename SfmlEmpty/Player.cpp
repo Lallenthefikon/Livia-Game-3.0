@@ -491,3 +491,8 @@ void Player::stopSound(PLAYERSTATE state) {
 void Player::setPos(sf::Vector2f newPos){
 	mSprite.setPosition(newPos);
 }
+
+void Player::blink(){
+	/*mSprite.s
+	sprite.SetColor(sf::Color(255, 255, 255, 128));*/
+}
