@@ -120,33 +120,36 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
 		//window.draw(mLives[3]);
+
 	}
 	else if (mEntityHandler.getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
-		//window.draw(mLives[2]);
+
 	}
 	else if (mEntityHandler.getPlayerLife() == 1){
 		window.draw(mLives[0]);
-		//window.draw(mLives[1]);
-	}/*
+	
+	}
+
 	else if (mEntityHandler.getPlayerLife() == 0 && mEntityHandler.isPlayerAlive()){
 		window.draw(mLives[0]);
-	}*/
+	}
 
 	if (mEntityHandler.isPlayerAlive() == false) {
 		mTextHandler.renderText(window);
 	}
 
+
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	mEntityHandler.getPlayerLife();
-	mLives[0].setPosition(viewCamCoordPos.x - 1840, tileCamCoordPos.y + 50);
-	mLives[1].setPosition(viewCamCoordPos.x - 1640, tileCamCoordPos.y + 50);
-	mLives[2].setPosition(viewCamCoordPos.x - 1440, tileCamCoordPos.y + 50);
-	mLives[3].setPosition(viewCamCoordPos.x - 1240, tileCamCoordPos.y + 50);
 	
+
+	for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
+	}
+
 	// Updates Game Over text
 	mTextHandler.updateText(viewCamCoordPos);
 }
@@ -167,7 +170,5 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	mLives.push_back(life);
 	mLives.push_back(life);
 	mLives.push_back(life);
-	mLives.push_back(life);
-	
 	
 }

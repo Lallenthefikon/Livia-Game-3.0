@@ -77,6 +77,8 @@ void Player::render(sf::RenderWindow &window){
 	Player::lerp();
 	Player::updateCollision();
 	Player::updateState();
+	Player::addForces();
+
 	Player::animate();
 
 
@@ -224,12 +226,12 @@ void Player::jump() {
 			mVelocity.y = mJumpSpeedInitial;
 			if (mState == WALLSTUCK) {
 				if (mTurned == TURNEDRIGHT)
-					mVelocity.x = -mMaxSpeed;
+				mVelocity.x = -mMaxSpeed;
 				if (mTurned == TURNEDLEFT)
-					mVelocity.x = mMaxSpeed;
-			}
+				mVelocity.x = mMaxSpeed;
 		}
-
+		}
+		
 		// Apply gradually to max
 		if (mJumpStarted && (mState == JUMPING || mState == FALLING)) {
 			if (mVelocity.y >= mJumpSpeedMax) {
@@ -341,8 +343,7 @@ void Player::lerp(){
 void Player::updateState(){
 	bool changed(false);
 
-	// Player dies
-	if (mLife == 0 && mState != DEATH) {
+	if (mLife <= 0 && mState != DEATH){
 		mState = DEATH;
 		changed = true;
 		Player::stopSound(RUNNING);
@@ -351,69 +352,82 @@ void Player::updateState(){
 	if (mState != DEATH) {
 		// Player runs in a direction
 		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
-			mState = RUNNING;
-			Player::updateANI();
-			if (!mVelocity.y > 0)
+		mState = RUNNING;
+		Player::updateANI();
+		if (!mVelocity.y > 0)
 				Player::playSound(RUNNING);
-		}
+	}
 
-		// Player stands still
-		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE) {
-			mState = IDLE;
-			changed = true;
-			Player::stopSound(RUNNING);
-		}
 
-		// Player is falling
-		if (mVelocity.y > 0 && mState != FALLING) {
-			mState = FALLING;
-			changed = true;
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK){
+		mState = IDLE;
+		changed = true;
+		Player::stopSound(RUNNING);
+	}
+
+	if (mVelocity.y > 6 && mState != FALLING){
+		bool setFalling(true);
+
+		if (mState == WALLSTUCK){
+			if (mCollisionR){
+				if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+					setFalling = false;
+				}
+			}
+			if (mCollisionL){
+				if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+					setFalling = false;
+				}
+			}
+		}
+		if (setFalling){
+		mState = FALLING;
+		changed = true;
 			//Player::stopSound(RUNNING); // Avkommentera när man inte börjar falla för varje block man springer över
-		}
+	}
+	}
 
 		// Player is jumping
 		if (mVelocity.y < 0 && mState != JUMPING) {
-			mState = JUMPING;
-			changed = true;
+		mState = JUMPING;
+		changed = true;
 			Player::playSound(JUMPING);
 			Player::stopSound(RUNNING);
-		}
+	}
 
 		// Player collides with sticky block to the right
 		if (mCollisionR) {
 			if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK) {
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
+			mState = WALLSTUCK;
+			mJumpStarted = false;
+			changed = true;
 		}
+	}
 
 		// Player collides with sticky block to the left
 		if (mCollisionL) {
 			if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK) {
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
+			mState = WALLSTUCK;
+			mJumpStarted = false;
+			changed = true;
 		}
+	}
 
 		// Player invulnerability timer
 		if (mInvulnerableTimer.getElapsedTime().asMilliseconds() > 1000) {
-			mInvulnerable = false;
-		}
+		mInvulnerable = false;
+	}
 
 		// Player direction right
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDRIGHT) {
-			mTurned = TURNEDRIGHT;
-			changed = true;
-		}
+		mTurned = TURNEDRIGHT;
+		changed = true;
+	}
 		// Player direction left
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDLEFT) {
-			mTurned = TURNEDLEFT;
-			changed = true;
-		}
+		mTurned = TURNEDLEFT;
+		changed = true;
+	}
 	}
 	if (mInvulnerableTimer.getElapsedTime().asMilliseconds() > 1000){
 		mInvulnerable = false;
@@ -489,6 +503,12 @@ void Player::updateANI(){
 		ANIFramesPerFrame = 0.5;
 		break;
 
+	case WALLSTUCK:
+		mCurrentAnimation = Animations::getPlayerSlideANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 67, 140));
+		ANIFramesPerFrame = 0.5;
+		break;
+
 	case DEATH:
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 140, 140));
@@ -503,7 +523,14 @@ void Player::updateANI(){
 	if (mTurned == TURNEDRIGHT)
 		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
 
+	mAnimationIndex = 0;
 	mTimerANI = 0;
+}
+
+void Player::addForces(){
+	if (mState == WALLSTUCK){
+		mVelocity.y = mWallSlideSpeed;
+	}
 }
 
 

@@ -13,9 +13,10 @@ Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
 Animations::Textures mPlayerDyingANI;
-	
-Animations::Textures mWormCrawlingANI;
+Animations::Textures mPlayerSlideANI;
+
 Animations::Textures mWormDyingANI;
+Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterANI;
 
@@ -96,6 +97,20 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Player Slide ANI
+	for (int i = 0; i < 8; i++){
+		mPlayerSlideANI.push_back(new sf::Texture);
+		mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 800, (140 * y) + 560, 67, 140));
+		mPlayerSlideANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
 
 
 	/*mPlayerIdleANI.push_back(new sf::Texture);
@@ -114,7 +129,10 @@ void Animations::loadTextures(){
 		}
 	}
 	x = 0;
-	x = 0;
+	y = 0;
+
+
+
 
 	// Worm Dying ANI
 	for (int i = 0; i < 8; i++){
@@ -128,8 +146,7 @@ void Animations::loadTextures(){
 		}
 	}
 	x = 0;
-	x = 0;
-	
+	y = 0;
 
 	// Acidmonster
 
@@ -143,7 +160,6 @@ void Animations::loadTextures(){
 Animations::Textures* Animations::getPlayerRunningANI(){
 	return &mPlayerRunningANI;
 }
-
 
 Animations::Textures* Animations::getPlayerJumpingANI(){
 	return &mPlayerJumpingANI;
@@ -161,7 +177,9 @@ Animations::Textures* Animations::getPlayerDyingANI(){
 	return &mPlayerDyingANI;
 }
 
-
+Animations::Textures* Animations::getPlayerSlideANI(){
+	return &mPlayerSlideANI;
+}
 
 // Worm ANI
 Animations::Textures* Animations::getWormCrawlingANI(){
@@ -175,4 +193,6 @@ Animations::Textures* Animations::getWormDyingANI(){
 Animations::Textures* Animations::getAcidMonster(){
 	return &mAcidMonsterANI;
 }
+
+
 
