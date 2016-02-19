@@ -3,10 +3,13 @@
 
 float BACKGROUNDSPEED = 0.5f;
 float FOREGROUNDSPEED;
+static float ANIFramesPerFrame(0.25);
 
 LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
-mTextHandler(Texthandler::getInstance()){
+mTextHandler(Texthandler::getInstance()),
+mHeartAnimation(Animations::getHeartANI()){
+	
 	
 	//mForegroundObjects.push_back(background);
 }
@@ -119,32 +122,26 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
-		//window.draw(mLives[3]);
-
+		ANIFramesPerFrame = 0.5;
 	}
+
 	else if (mEntityHandler.getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
-
+		ANIFramesPerFrame = 1;
 	}
+
 	else if (mEntityHandler.getPlayerLife() == 1){
 		window.draw(mLives[0]);
-	
-	}
-
-	else if (mEntityHandler.getPlayerLife() == 0 && mEntityHandler.isPlayerAlive()){
-		window.draw(mLives[0]);
+		ANIFramesPerFrame = 2;
 	}
 
 	if (mEntityHandler.isPlayerAlive() == false) {
 		mTextHandler.renderText(window);
 	}
-
-
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
 	}
@@ -169,5 +166,43 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	mLives.push_back(life);
 	mLives.push_back(life);
 	mLives.push_back(life);
-	
+
+	for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setTexture(*mHeartAnimation->at(0));
+	}
 }
+
+void LayerHandler::animate(){
+	mTimer += ANIFramesPerFrame;
+
+	if (mTimer >= 2){
+		mAnimationIndex += 1;
+		mTimer = 0;
+		if (mAnimationIndex >= mHeartAnimation->size())
+			mAnimationIndex = 0;
+		if (mHeartAnimation->size() > 0){
+			for (int i = 0; i < mLives.size(); i++){
+				mLives[i].setTexture(*mHeartAnimation->at(mAnimationIndex));
+			}
+		}
+	}
+}
+
+//
+//	if (mTimerANI >= 1){
+//		mAnimationIndex += 1;
+//		mTimerANI = 0;
+//		if (mAnimationIndex >= mCurrentAnimation->size()){
+//			if (mState == DEATH){
+//				mIsAlive = false;
+//				mAnimationIndex -= 1;
+//			}
+//			else
+//				mAnimationIndex = 0;
+//		}
+//
+//		if (mCurrentAnimation->size() > 0)
+//			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+//	}
+//}
+

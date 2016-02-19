@@ -1,8 +1,13 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include <SFML\System.hpp>
 #include "EntityHandler.h"
 #include "Camera.h"
 #include "Texthandler.h"
+#include "Animations.h"
+#include "Toolbox.h"
+#include "Entity.h"
+
 
 class LayerHandler {
 public:
@@ -24,11 +29,19 @@ public:
 private:
 	LayerHandler();
 	~LayerHandler();
+
+	Animations::Textures* mCurrentAnimation;
+	int mAnimationIndex;
+	float mTimer;
+	void animate();
+
+	void updateState();
+	void updateANI();
 	
 	sf::Texture mLifeTexture;
-	sf::Sprite mLifeSprite;
 	std::vector<sf::Sprite> mLives;
 	std::vector<sf::Sprite> mForegroundObjects;
+	Animations::Textures* mHeartAnimation;
 	
 	Camera mCamera;
 
