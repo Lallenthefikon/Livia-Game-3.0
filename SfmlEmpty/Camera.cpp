@@ -95,7 +95,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "Shake"){
 
 	}
-	else if (currentCamState == "Zoom out"){
+	else if (currentCamState == "ZoomOut"){
 		zoomOut(10.f, 1000);
 	}
 	else if (currentCamState == "ZoomedOut"){

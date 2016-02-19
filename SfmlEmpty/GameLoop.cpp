@@ -82,5 +82,5 @@ void GameLoop::render(){
 void GameLoop::calcTimeElapsedAndFPS(sf::Clock &clock){
 	mTimeElapsed = clock.restart().asSeconds();
 	FPS = 1.f / mTimeElapsed;
-	std::cout << FPS << " " << mTimeElapsed << std::endl;
+	//std::cout << FPS << " " << mTimeElapsed << std::endl;
 }

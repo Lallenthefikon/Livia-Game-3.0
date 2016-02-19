@@ -41,7 +41,6 @@ void AcidMonster::addVector(sf::Vector2f &vector){
 }
 
 void AcidMonster::entityCollision(Entity* entity, char direction){
-
 }
 
 void AcidMonster::terrainCollision(Terrain* terrain, char direction){

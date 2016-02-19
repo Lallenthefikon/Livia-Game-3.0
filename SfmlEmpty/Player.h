@@ -6,8 +6,9 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH};
 	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
+	enum BLINKSTATES { BLINKIN, BLINKOUT };
 
 	virtual ~Player();
 	virtual Entity::ENTITYTYPE getType(){ return PLAYER; }
@@ -64,13 +65,17 @@ private:
 	float mMaxSpeed;
 	float mAcceleration;
 	float mWallSlideSpeed;
+	float mAirbornAcc;
 	
 
 	sf::Sprite mSprite;
 	sf::Sprite mCollisionBody;
+	sf::Clock mJumpClockTimer;
+
+	int mPlayerTransparency;
 	sf::Clock mInvulnerableTimer;
 	sf::Time mTimeInvulnerable;
-	sf::Clock mJumpClockTimer;
+	int mTimesBlinked;
 
 	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
@@ -106,5 +111,8 @@ private:
 
 	// Sounds
 	SoundFX& mSoundFX;
+
+	// Text
+	sf::Text mText;
 
 };
