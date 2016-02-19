@@ -86,7 +86,7 @@ void Animations::loadTextures(){
 	// Player Dying ANI
 	for (int i = 0; i < 16; i++){
 		mPlayerDyingANI.push_back(new sf::Texture);
-		mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((140 * x) + 800, (140* y), 140, 140));
+		mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((188 * x) + 800, (140* y), 188, 140));
 		mPlayerDyingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
@@ -100,7 +100,7 @@ void Animations::loadTextures(){
 	// Player Slide ANI
 	for (int i = 0; i < 8; i++){
 		mPlayerSlideANI.push_back(new sf::Texture);
-		mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 800, (140 * y) + 560, 67, 140));
+		mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 700, (140 * y) + 600, 67, 140));
 		mPlayerSlideANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){

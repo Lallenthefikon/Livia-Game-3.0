@@ -75,9 +75,12 @@ void Player::render(sf::RenderWindow &window){
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	Player::playerInput();
 	Player::lerp();
-	Player::updateCollisionForce();
-	Player::updateState();
+
 	Player::updateCollision();
+	Player::updateCollisionForce();
+	
+	Player::updateState();
+	
 	Player::addForces();
 
 	Player::animate();
@@ -101,15 +104,17 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::WORM:
 		switch (direction){
 		case 'b':
-			if (!mInvulnerable){
-				delta = entity->getPos().y - mCollisionBody.getPosition().y;
-				mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-					mJumpStarted = true;
-					mVelocity.y = mJumpSpeedInitial;
-				}
-				else{
-					mVelocity.y = mJumpSpeedInitial;
+			if (mLife < 0){
+				if (!mInvulnerable){
+					delta = entity->getPos().y - mCollisionBody.getPosition().y;
+					mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+						mJumpStarted = true;
+						mVelocity.y = mJumpSpeedInitial;
+					}
+					else{
+						mVelocity.y = mJumpSpeedInitial;
+					}
 				}
 
 				entity->getHit();
@@ -356,6 +361,10 @@ void Player::updateState(){
 				changed = true;
 			}
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+			mState = FALLING;
+			changed = true;
+		}
 	}
 
 	if (mLife <= 0 && mState != DEATH){
@@ -514,7 +523,7 @@ void Player::updateANI(){
 
 	case DEATH:
 		mCurrentAnimation = Animations::getPlayerDyingANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 140, 140));
+		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		ANIFramesPerFrame = 0.25;
 		break;
 	default:
@@ -527,7 +536,7 @@ void Player::updateANI(){
 		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
 
 	mAnimationIndex = 0;
-	mTimerANI = 0;
+	mTimerANI = 1;
 }
 
 void Player::addForces(){
