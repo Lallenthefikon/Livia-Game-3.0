@@ -17,7 +17,6 @@ Animations::Textures mPlayerSlideANI;
 
 Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
-Animations::Textures mWormDyingANI;
 
 Animations::Textures mAcidMonsterANI;
 

@@ -144,14 +144,12 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	mEntityHandler.getPlayerLife();
-
-	mLives[0].setPosition(viewCamCoordPos.x - 1840, tileCamCoordPos.y + 50);
-	mLives[1].setPosition(viewCamCoordPos.x - 1640, tileCamCoordPos.y + 50);
-	mLives[2].setPosition(viewCamCoordPos.x - 1440, tileCamCoordPos.y + 50);
-	mLives[3].setPosition(viewCamCoordPos.x - 1240, tileCamCoordPos.y + 50);
-
 	
+
+	for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
+	}
+
 	// Updates Game Over text
 	mTextHandler.updateText(viewCamCoordPos);
 }
@@ -172,7 +170,5 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	mLives.push_back(life);
 	mLives.push_back(life);
 	mLives.push_back(life);
-
-	
 	
 }
