@@ -345,26 +345,6 @@ void Player::updateState(){
 	if (mLife == 0 && mState != DEATH) {
 		mState = DEATH;
 		changed = true;
-<<<<<<< HEAD
-	}
-	if (mState != DEATH){
-		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING){
-			mState = RUNNING;
-			Player::updateANI();
-			if (!mVelocity.y > 0)
-				Player::playSound(mState);
-		}
-
-
-		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
-			mState = IDLE;
-			changed = true;
-			Player::stopSound(RUNNING);
-		}
-
-		if (mVelocity.y > 2 && mState != FALLING){
-			mState = FALLING;
-=======
 		Player::stopSound(RUNNING);
 	}
 
@@ -394,48 +374,11 @@ void Player::updateState(){
 		// Player is jumping
 		if (mVelocity.y < 0 && mState != JUMPING) {
 			mState = JUMPING;
->>>>>>> refs/remotes/origin/master
 			changed = true;
 			Player::playSound(JUMPING);
 			Player::stopSound(RUNNING);
 		}
 
-<<<<<<< HEAD
-		if (mVelocity.y < 0 && mState != JUMPING){
-			mState = JUMPING;
-			Player::playSound(mState);
-			changed = true;
-		}
-		if (mCollisionR){
-			if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK){
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
-		}
-		if (mCollisionL){
-			if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK){
-				mState = WALLSTUCK;
-				mVelocity.y = mWallSlideSpeed;
-				mJumpStarted = false;
-				changed = true;
-			}
-		}
-		if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000){
-			mInvulnerable = false;
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDRIGHT){
-			mTurned = TURNEDRIGHT;
-			changed = true;
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDLEFT){
-			mTurned = TURNEDLEFT;
-			changed = true;
-		}
-	}
-=======
 		// Player collides with sticky block to the right
 		if (mCollisionR) {
 			if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK) {
@@ -477,7 +420,6 @@ void Player::updateState(){
 	}
 
 	// Updates animation if player's state has changed
->>>>>>> refs/remotes/origin/master
 	if (changed)
 		Player::updateANI();
 
