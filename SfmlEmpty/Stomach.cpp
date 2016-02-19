@@ -80,7 +80,6 @@ void Stomach::render(sf::RenderWindow &window){
 	window.clear();
 	
 	window.setView(mCamera.getSceneryView());
-	//mLayerHandler.render(window);
 	mLayerHandler.renderBackground(window);
 	
 	window.setView(mCamera.getTileView());

@@ -145,7 +145,6 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
 	
-
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
 	}

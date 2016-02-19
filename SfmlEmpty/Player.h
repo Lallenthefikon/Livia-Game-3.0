@@ -97,6 +97,7 @@ private:
 	bool mInvulnerable;
 	bool mJumpStarted;
 	bool mDoubleJumped;
+	bool mBlinkOut;
 	bool mIsAlive;
 	int mLife;
 

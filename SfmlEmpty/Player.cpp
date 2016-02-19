@@ -16,6 +16,7 @@ mCurrentAnimation(Animations::getPlayerIdleANI()),
 mTimerANI(1),
 mPlayerTransparency(255),
 mTimesBlinked(0),
+mBlinkOut(true),
 
 // Jump
 mJumpSpeedInitial(-20),
@@ -618,54 +619,31 @@ void Player::setPos(sf::Vector2f newPos){
 }
 
 void Player::blink(){
-	//if (mInvulnerable){
-	//	bool blinkOut = true;
-	//	// * time elapsed
-	//	float blinkOutSpeed = 6.f;
-	//	float blinkInSpeed = 10.f;
-
-
-	//	if (mPlayerTransparency >= 255){
-	//		blinkOut = true;
-	//	}
-	//	else if (mPlayerTransparency <= 0){
-	//		blinkOut = false;
-	//		mTimesBlinked++;
-	//	}
-	//	
-	//	
-	//	
-	//	if (blinkOut){
-	//		mPlayerTransparency -= std::floor(blinkOutSpeed);
-	//	}
-	//	else if (!blinkOut && mTimesBlinked <= 2){
-	//		mPlayerTransparency += std::floor(blinkInSpeed);
-	//	}
-
-	//	/*if (mPlayerTransparency > 255){
-	//		mPlayerTransparency = 255;
-	//	}*/
-	//	mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
-	//}
-	//else{
-	//	mTimesBlinked = 0;
-	//	if (mPlayerTransparency < 255){
-	//		mPlayerTransparency += 10;
-	//		/*if (mPlayerTransparency > 255){
-	//			mPlayerTransparency = 255;
-	//		}*/
-	//		mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
-	//	}
-	//	//else if (blinkOut && mPlayerTransparency <= 0){
-	//	//	mPlayerTransparency -= 6;
-	//	//	/*if (mPlayerTransparency > 255){
-	//	//	mPlayerTransparency = 255;
-	//	//	}*/
-	//	//	mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
-	//	//}
-	//}
-	// Hurt blink
 	
-	/*mSprite.s
-	sprite.SetColor(sf::Color(255, 255, 255, 128));*/
+	if (mInvulnerable && (mLife > 0)){
+		
+		float blinkOutSpeed = 12.f;
+
+
+		if (mPlayerTransparency >= 255){
+			mBlinkOut = true;
+		}
+		else if (mPlayerTransparency <= 0){
+			mBlinkOut = false;
+		}
+		
+		if (mBlinkOut){
+			mPlayerTransparency -= blinkOutSpeed;
+		}
+		else if (!mBlinkOut){
+			mPlayerTransparency = 255;
+		}
+		mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
+	}
+	else{
+		if (mPlayerTransparency < 255){
+			mPlayerTransparency = 255;
+			mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
+		}
+	}
 }
