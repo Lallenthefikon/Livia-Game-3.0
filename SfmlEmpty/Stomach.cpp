@@ -12,7 +12,8 @@ mLayerHandler(LayerHandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mCamera(),
 mMapName("Stomach"),
-mMapPath("resources/maps/mMap0.txt"){
+mMapPath("resources/maps/mMap0.txt"),
+mLevelState("Cutscene"){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
@@ -20,6 +21,7 @@ mMapPath("resources/maps/mMap0.txt"){
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5,1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
@@ -27,7 +29,7 @@ mMapPath("resources/maps/mMap0.txt"){
 	mLayerHandler.addBackground(mBackgroundTexture);
 
 	mMapGenerator.loadMap(mMapPath);
-	mCamera.zoomOut(0.5f, 1);
+	
 
 }
 
@@ -46,32 +48,32 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
 	}
-	mCamera.updateStomachCam(window, "Standard");
-	window.setView(mCamera.getTileView());
+	if (mLevelState == "Cutscene"){
+		mCamera.centerOnPlayer(window);
+		mLevelState = "ZoomOut";
+	}
+	if (mLevelState == "ZoomOut"){
+		mCamera.zoomOut(0.5f, 1);
+		mLevelState = "ZoomedOut";
+		/*if (mCamera.zoomOut(0.5f, 1000)){
+			mLevelState = "ZoomedOut";
+		}*/
+	}
+	if (mLevelState == "ZoomedOut"){
 
-	mEntityHandler.updateEntities(frameTime);
-	mTerrainHandler.updateTerrains();
-	mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
-	mEntityHandler.bringOutTheDead();
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		mCamera.updateStomachCam(window, mLevelState);
 
-	sf::Vector2i pixel_pos_tileV = sf::Vector2i(mCamera.getTileView().getCenter().x, 0);
-	sf::Vector2f coord_pos_tileV = window.mapPixelToCoords(pixel_pos_tileV);
-
-	window.setView(mCamera.getSceneryView());
-	
-	sf::Vector2i pixel_pos_sceneV = sf::Vector2i(pixel_pos_tileV.x, 0);
-	sf::Vector2f coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
-
-	mLayerHandler.moveBackground(window, mCamera, coord_pos_sceneV, coord_pos_tileV);
-
-	pixel_pos_sceneV = sf::Vector2i(mCamera.getTileView().getCenter().x, mCamera.getTileView().getCenter().y);
-	coord_pos_sceneV = window.mapPixelToCoords(pixel_pos_sceneV);
-
-	mLayerHandler.updateHud(coord_pos_sceneV);
-	// Funktion som återställer hud(coord_pos)
-
-	window.setView(mCamera.getTileView());
+		mEntityHandler.updateEntities(frameTime);
+		mTerrainHandler.updateTerrains();
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mEntityHandler.bringOutTheDead();
+		window.setView(mCamera.getTileView());
+		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
+		window.setView(mCamera.getSceneryView());
+		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
+		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
+	}
 }
 
 void Stomach::render(sf::RenderWindow &window){
@@ -80,15 +82,16 @@ void Stomach::render(sf::RenderWindow &window){
 	window.setView(mCamera.getSceneryView());
 	//mLayerHandler.render(window);
 	mLayerHandler.renderBackground(window);
+	
 	window.setView(mCamera.getTileView());
+
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
 
-	if (!mEntityHandler.isPlayerAlive()) {
-		mTextHandler.renderText(window);
-	}
 	mLayerHandler.renderHud(window);
+	if (!mEntityHandler.isPlayerAlive())
+		mTextHandler.renderText(window);
 	
 	window.display();
 }
@@ -96,6 +99,10 @@ void Stomach::render(sf::RenderWindow &window){
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
+	if (mLevelState != "ZoomedOut"){
+		mLevelState = "Cutscene";
+	}
+	
 }
 
 void Stomach::unloadLevel(){
