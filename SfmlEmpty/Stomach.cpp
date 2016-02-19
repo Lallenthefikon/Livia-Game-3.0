@@ -99,7 +99,10 @@ void Stomach::render(sf::RenderWindow &window){
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
-	mLevelState = "Cutscene";
+	if (mLevelState != "ZoomedOut"){
+		mLevelState = "Cutscene";
+	}
+	
 }
 
 void Stomach::unloadLevel(){

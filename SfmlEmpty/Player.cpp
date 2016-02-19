@@ -382,7 +382,7 @@ void Player::updateState(){
 		}
 
 		// Player invulnerability timer
-		if (mInvulnerableTime.getElapsedTime().asMilliseconds() > 1000) {
+		if (mInvulnerableTimer.getElapsedTime().asMilliseconds() > 1000) {
 			mInvulnerable = false;
 		}
 
