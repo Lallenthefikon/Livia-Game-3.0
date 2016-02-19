@@ -365,7 +365,7 @@ void Player::updateState(){
 		}
 
 		// Player is falling
-		if (mVelocity.y > 0 && mState != FALLING) {
+		if (mVelocity.y > 2 && mState != FALLING) {
 			mState = FALLING;
 			changed = true;
 			//Player::stopSound(RUNNING); // Avkommentera när man inte börjar falla för varje block man springer över
