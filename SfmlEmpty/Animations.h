@@ -17,6 +17,7 @@ struct Animations{
 
 	static Textures* getWormCrawlingANI();
 	static Textures* getWormDyingANI();
+
 	static Textures* getAcidMonster();
 };
 

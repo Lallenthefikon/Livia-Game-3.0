@@ -17,6 +17,7 @@ Animations::Textures mPlayerSlideANI;
 
 Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
+Animations::Textures mWormDyingANI;
 
 Animations::Textures mAcidMonsterANI;
 
@@ -131,11 +132,13 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	// Worm Dying ANI
 
+
+
+	// Worm Dying ANI
 	for (int i = 0; i < 8; i++){
 		mWormDyingANI.push_back(new sf::Texture);
-		mWormDyingANI[i]->loadFromImage(mWormDyingIMG, sf::IntRect((75 * x), (35 * y) + 145, 75, 35));
+		mWormDyingANI[i]->loadFromImage(mWormDyingIMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
 		mWormDyingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
