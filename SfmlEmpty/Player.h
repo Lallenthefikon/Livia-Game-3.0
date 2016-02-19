@@ -49,6 +49,7 @@ private:
 
 	void updateState();
 	void updateANI();
+	void updateCollisionForce();
 	void updateCollision();
 	void addForces();
 	void animate();
