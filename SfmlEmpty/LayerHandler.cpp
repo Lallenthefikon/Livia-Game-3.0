@@ -4,7 +4,6 @@
 float BACKGROUNDSPEED = 0.5f;
 float FOREGROUNDSPEED;
 
-
 LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
 mTextHandler(Texthandler::getInstance()){
@@ -115,6 +114,7 @@ void LayerHandler::renderForeground(sf::RenderWindow &window){
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
+
 	if (mEntityHandler.getPlayerLife() == 3){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);

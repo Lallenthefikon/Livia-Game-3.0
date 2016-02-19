@@ -31,7 +31,7 @@ private:
 	std::vector<sf::Sprite> mForegroundObjects;
 	
 	Camera mCamera;
-	
+
 	sf::Sprite mBackground1, mBackground2, mBackground3;
 	sf::Vector2f mlocalPos1, mlocalPos2, mLocalPos3;
 	std::vector<sf::Sprite> mBackgrounds;
