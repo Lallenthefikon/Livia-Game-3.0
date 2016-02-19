@@ -7,6 +7,7 @@ static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 static sf::Image& mWormDyingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
+static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 
 Animations::Textures mPlayerRunningANI;
 Animations::Textures mPlayerFallingANI;
@@ -17,9 +18,9 @@ Animations::Textures mPlayerSlideANI;
 
 Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
-Animations::Textures mWormDyingANI;
 
 Animations::Textures mAcidMonsterANI;
+Animations::Textures mHeartANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -87,7 +88,7 @@ void Animations::loadTextures(){
 	// Player Dying ANI
 	for (int i = 0; i < 16; i++){
 		mPlayerDyingANI.push_back(new sf::Texture);
-		mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((140 * x) + 800, (140* y), 140, 140));
+		mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((140 * x) + 800, (140 * y), 140, 140));
 		mPlayerDyingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
@@ -112,12 +113,6 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-
-
-	/*mPlayerIdleANI.push_back(new sf::Texture);
-	mPlayerIdleANI[0]->loadFromImage(mPlayerIdleIMG);*/
-	
-
 	// Worm crawling ANI
 	for (int i = 0; i < 16; i++){
 		mWormCrawlingANI.push_back(new sf::Texture);
@@ -131,9 +126,6 @@ void Animations::loadTextures(){
 	}
 	x = 0;
 	y = 0;
-
-
-
 
 	// Worm Dying ANI
 	for (int i = 0; i < 8; i++){
@@ -149,13 +141,33 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	// Acidmonster
-
-	mAcidMonsterANI.push_back(new sf::Texture);
-	mAcidMonsterANI[0]->loadFromImage(mAcidMonsterIMG);
-	mAcidMonsterANI[0]->setSmooth(true);
+	// Acidmonster ANI
+	for (int i = 0; i < 32; i++){
+		mAcidMonsterANI.push_back(new sf::Texture);
+		mAcidMonsterANI[i]->loadFromImage(mAcidMonsterIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
+		mAcidMonsterANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+	// Heart ANI
+	for (int i = 0; i < 16; i++){
+		mHeartANI.push_back(new sf::Texture);
+		mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((52 * x), (70 * y), 52, 70));
+		mHeartANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 }
-
 // Player ANI
 
 Animations::Textures* Animations::getPlayerRunningANI(){
@@ -191,8 +203,13 @@ Animations::Textures* Animations::getWormDyingANI(){
 	return &mWormDyingANI;
 }
 
+// Acid Monster ANI
 Animations::Textures* Animations::getAcidMonster(){
 	return &mAcidMonsterANI;
+}
+
+Animations::Textures* Animations::getHeartANI(){
+	return &mHeartANI;
 }
 
 

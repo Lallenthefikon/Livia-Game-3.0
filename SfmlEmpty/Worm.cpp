@@ -165,18 +165,18 @@ void Worm::updateState(){
 	if (mState != DEATH){
 
 		if (mVelocity.x > 0 && mState != CRAWLINGRIGHT){
-		mState = Worm::CRAWLINGRIGHT;
+			mState = Worm::CRAWLINGRIGHT;
 			changed = true;
-	}
+		}
 
-	if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
-		mState = Worm::CRAWLINGLEFT;
+		if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
+			mState = Worm::CRAWLINGLEFT;
 			changed = true;
 		}
 	}
 	if (changed)
 		Worm::updateANI();
-	}
+}
 
 
 void Worm::updateANI(){

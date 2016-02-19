@@ -68,7 +68,7 @@ private:
 	bool mIsAlive;
 	int mLife;
 
-	int mLife;
+	
 
 	char mCollisionT;
 	char mCollisionB;
