@@ -136,7 +136,7 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
 	mEntityHandler.getPlayerLife();
 	/*mLives[0].setPosition(centerScreenCoordPos.x - 1920 / 2, centerScreenCoordPos.y - 1080 / 2);*/
-	std::cout << "X: " << centerScreenCoordPos.x << std::endl << "y: "<< centerScreenCoordPos.y << std::endl;
+	//std::cout << "X: " << centerScreenCoordPos.x << std::endl << "y: "<< centerScreenCoordPos.y << std::endl;
 	mLives[0].setPosition(centerScreenCoordPos.x, centerScreenCoordPos.y);
 	mLives[1].setPosition(centerScreenCoordPos.x + 80, centerScreenCoordPos.y);
 	mLives[2].setPosition(centerScreenCoordPos.x + 160, centerScreenCoordPos.y);

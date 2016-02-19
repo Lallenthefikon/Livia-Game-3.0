@@ -7,6 +7,7 @@ MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
 mMapDimensionsTiles(500, 50),
 mTileDimensions(100, 100),
 mInsertType(MapEditorMeny::BLOCK0),
+mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
 mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
@@ -106,6 +107,9 @@ void MapEditor::update(sf::RenderWindow &window, float &frameTime){
 			case sf::Keyboard::Delete:
 				MapEditor::internalClear();
 				break;
+			case sf::Keyboard::R:
+				MapEditor::changeRotDirection();
+				break;
 			default:
 				break;
 			}
@@ -190,6 +194,10 @@ void MapEditor::createBlock0WallJump(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0WallJump(mousePos, 'p'));
 }
 
+void MapEditor::createSpikes(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createSpikes(mousePos, mRotDirection));
+}
+
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
@@ -224,6 +232,10 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
 		MapEditor::createBlock0WallJump(mousePos);
+		break;
+	case MapEditorMeny::SPIKES:
+		MapEditor::createSpikes(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -254,8 +266,31 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::BLOCK0WALLJUMP;
 		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
+		mInsertType = MapEditorMeny::SPIKES;
+		break;
+	case MapEditorMeny::SPIKES:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
+	default:
+		break;
+	}
+}
+
+void MapEditor::changeRotDirection(){
+	switch (mRotDirection){
+	case 't':
+		mRotDirection = 'r';
+		break;
+	case 'r':
+		mRotDirection = 'b';
+		break;
+	case 'b':
+		mRotDirection = 'l';
+		break;
+	case 'l':
+		mRotDirection = 't';
+		break;
+
 	default:
 		break;
 	}
@@ -299,6 +334,11 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back(blockType(mTerrains[i]));
 				break;
 
+			case Terrain::SPIKES:
+				output.push_back('S');
+				output.push_back('0');
+				// Push what rot is has
+				output.push_back(mTerrains[i]->getTileType());
 			default:
 				break;
 
@@ -306,7 +346,9 @@ void MapEditor::writeTerrainToFile(std::string filename){
 			output.push_back('|');
 
 			// Inserts xpos into output followed by a ','
-			posString = MapEditor::floatToString(mTerrains[i]->getPos().x + mTerrains[i]->getOffset().x);
+
+				posString = MapEditor::floatToString(mTerrains[i]->getPos().x + mTerrains[i]->getOffset().x);
+
 			for (std::string::size_type iS = 0; iS < posString.size(); iS++){
 				output.push_back(posString[iS]);
 			}
@@ -472,6 +514,15 @@ std::string MapEditor::floatToString(float f){
 	std::string pos(ss.str());
 	return pos;
 }
+
+//std::string MapEditor::spikeFloatToString(Terrain* terrain){
+//	switch (terrain->getTileType()){
+//	case 't':
+//		return MapEditor::floatToString()
+//	default:
+//		break;
+//	}
+//}
 
 void MapEditor::createGrid(){
 	sf::Vector2f lastTilePos(-mTileDimensions.x, -mTileDimensions.y);

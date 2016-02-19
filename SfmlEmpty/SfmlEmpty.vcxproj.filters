@@ -33,6 +33,7 @@
     <ClCompile Include="WormSound.cpp" />
     <ClCompile Include="Stomach.cpp" />
     <ClCompile Include="Texthandler.cpp" />
+    <ClCompile Include="Spikes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h" />
@@ -66,5 +67,6 @@
     <ClInclude Include="WormSound.h" />
     <ClInclude Include="Stomach.h" />
     <ClInclude Include="Texthandler.h" />
+    <ClInclude Include="Spikes.h" />
   </ItemGroup>
 </Project>

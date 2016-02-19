@@ -102,6 +102,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
+    <ClCompile Include="Spikes.cpp" />
     <ClCompile Include="Stomach.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Terrainhandler.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />
+    <ClInclude Include="Spikes.h" />
     <ClInclude Include="Stomach.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Terrainhandler.h" />

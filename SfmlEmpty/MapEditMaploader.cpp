@@ -27,38 +27,47 @@ void MapEditMaploader::clear(){
 	MapEditMaploader::internalClear();
 }
 
- void MapEditMaploader::readTerrainfile(std::string &filename){
-	
-	 std::string line;
-	 std::ifstream terrainfile(filename);
+void MapEditMaploader::readTerrainfile(std::string &filename){
 
-	 if (terrainfile.is_open()){
-		 while (getline(terrainfile, line)){
+	std::string line;
+	std::ifstream terrainfile(filename);
 
-			 // Reads from textdoc and creates terrain according to letter
-			 //  with position according to x/y numbers
-			 switch (line[0]){
-			 case 'B':
-				 switch (line[1]){
-				 case '0':
-					 MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2]);
-					 break;
-				 case 'W':
-					 MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2]);
-					 break;
-				 default: 
-					 break;
-				 }
-				 break;
+	if (terrainfile.is_open()){
+		while (getline(terrainfile, line)){
 
-			 default:
-				 break;
+			// Reads from textdoc and creates terrain according to letter
+			//  with position according to x/y numbers
+			switch (line[0]){
+			case 'B':
+				switch (line[1]){
+				case '0':
+					MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2]);
+					break;
+				case 'W':
+					MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2]);
+					break;
+				default:
+					break;
+				}
+				break;
 
-			 }
-		 }
-	 }
-	 terrainfile.close();
- }
+				// Spikes
+			case 'S':
+				switch (line[1]){
+				case '0':
+					MapEditMaploader::createSpikes(MapEditMaploader::readPosition(line), line[2]);
+					break;
+
+				default:
+					break;
+				}
+			default:
+				break;
+			}
+		}
+	}
+	terrainfile.close();
+}
 
  void MapEditMaploader::readEntityfile(std::string &filename){
 	 std::string line;
@@ -123,6 +132,11 @@ void MapEditMaploader::clear(){
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
 	mTerrains.push_back(Factory::createBlock0WallJump(pos, type));
  }
+
+ void MapEditMaploader::createSpikes(sf::Vector2f &pos, char type){
+	 mTerrains.push_back(Factory::createSpikes(pos, type));
+ }
+
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){
 
