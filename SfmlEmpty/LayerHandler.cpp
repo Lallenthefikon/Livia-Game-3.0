@@ -120,23 +120,16 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
-		window.draw(mLives[3]);
+		
 	}
 	else if (mEntityHandler.getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
-		window.draw(mLives[2]);
 	}
 	else if (mEntityHandler.getPlayerLife() == 1){
 		window.draw(mLives[0]);
-		window.draw(mLives[1]);
+	
 	}
-	else if (mEntityHandler.getPlayerLife() == 0){
-		window.draw(mLives[0]);
-		
-	}
-
-
 }
 
 void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
@@ -144,7 +137,7 @@ void LayerHandler::updateHud(sf::Vector2f centerScreenCoordPos){
 	mLives[0].setPosition(centerScreenCoordPos.x - 1700, centerScreenCoordPos.y - 900);
 	mLives[1].setPosition(centerScreenCoordPos.x - 1520, centerScreenCoordPos.y - 900);
 	mLives[2].setPosition(centerScreenCoordPos.x - 1340, centerScreenCoordPos.y - 900);
-	mLives[3].setPosition(centerScreenCoordPos.x - 1160, centerScreenCoordPos.y - 900);
+
 	
 }
 
@@ -164,7 +157,7 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	mLives.push_back(life);
 	mLives.push_back(life);
 	mLives.push_back(life);
-	mLives.push_back(life);
+
 	
 	
 }

@@ -74,6 +74,8 @@ void Player::render(sf::RenderWindow &window){
 	Player::lerp();
 	Player::updateCollision();
 	Player::updateState();
+	Player::addForces();
+
 	Player::animate();
 
 
@@ -320,7 +322,7 @@ void Player::lerp(){
 void Player::updateState(){
 	bool changed(false);
 
-	if (mLife == 0 && mState != DEATH){
+	if (mLife <= 0 && mState != DEATH){
 		mState = DEATH;
 		changed = true;
 	}
@@ -333,15 +335,31 @@ void Player::updateState(){
 	}
 
 
-	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE){
+	if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK){
 		mState = IDLE;
 		changed = true;
 		Player::stopSound(RUNNING);
 	}
 
-	if (mVelocity.y > 0 && mState != FALLING){
-		mState = FALLING;
-		changed = true;
+	if (mVelocity.y > 6 && mState != FALLING){
+		bool setFalling(true);
+
+		if (mState == WALLSTUCK){
+			if (mCollisionR){
+				if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+					setFalling = false;
+				}
+			}
+			if (mCollisionL){
+				if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+					setFalling = false;
+				}
+			}
+		}
+		if (setFalling){
+   			mState = FALLING;
+			changed = true;
+		}
 	}
 
 	if (mVelocity.y < 0 && mState != JUMPING){
@@ -349,18 +367,17 @@ void Player::updateState(){
 		Player::playSound(mState);
 		changed = true;
 	}
+
 	if (mCollisionR){
 		if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK){
 			mState = WALLSTUCK;
-			mVelocity.y = mWallSlideSpeed;
 			mJumpStarted = false;
 			changed = true;
 		}
 	}
 	if (mCollisionL){
 		if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK){
-			mState = WALLSTUCK;
-			mVelocity.y = mWallSlideSpeed;
+   			mState = WALLSTUCK;
 			mJumpStarted = false;
 			changed = true;
 		}
@@ -445,6 +462,12 @@ void Player::updateANI(){
 		ANIFramesPerFrame = 0.5;
 		break;
 
+	case WALLSTUCK:
+		mCurrentAnimation = Animations::getPlayerSlideANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 67, 140));
+		ANIFramesPerFrame = 0.5;
+		break;
+
 	case DEATH:
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 140, 140));
@@ -459,7 +482,14 @@ void Player::updateANI(){
 	if (mTurned == TURNEDRIGHT)
 		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
 
+	mAnimationIndex = 0;
 	mTimerANI = 0;
+}
+
+void Player::addForces(){
+	if (mState == WALLSTUCK){
+		mVelocity.y = mWallSlideSpeed;
+	}
 }
 
 

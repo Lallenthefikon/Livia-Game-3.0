@@ -8,7 +8,8 @@ mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(8),
 mIsAlive(true),
-mSoundFX(SoundFactory::getWormSound()){
+mSoundFX(SoundFactory::getWormSound()),
+mLife(1){
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
@@ -97,7 +98,7 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 }
 
 void Worm::getHit(){
-	mIsAlive = false;
+	mLife--;
 	Worm::playSound(DEATH);
 }
 
@@ -154,15 +155,27 @@ void Worm::addSpeed(){
 }
 
 void Worm::updateState(){
-	if (mVelocity.x > 0 && mState !=CRAWLINGRIGHT){
-		mState = Worm::CRAWLINGRIGHT;
-		Worm::updateANI();
+	bool changed(false);
+
+	if (mLife <= 0 && mState != DEATH){
+		mState = DEATH;
+		changed = true;
 	}
 
-	if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
-		mState = Worm::CRAWLINGLEFT;
-		Worm::updateANI();
+	if (mState != DEATH){
+
+		if (mVelocity.x > 0 && mState != CRAWLINGRIGHT){
+			mState = Worm::CRAWLINGRIGHT;
+			changed = true;
+		}
+
+		if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
+			mState = Worm::CRAWLINGLEFT;
+			changed = true;
+		}
 	}
+	if (changed)
+		Worm::updateANI();
 }
 
 
@@ -176,13 +189,18 @@ void Worm::updateANI(){
 		
 		//mSprite.setScale(-1.f, 1.f);
 		mSprite.setTextureRect(sf::IntRect(int(this->getWidth()), 0, int(-this->getWidth()), int(this->getHeight())));
-
-		
-		
 		break;
+
+	case Worm::DEATH:
+		mCurrentAnimation = Animations::getWormDyingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 78, 35));
+		break;
+
 	default:
 		break;
 	}
+	mAnimationIndex = 0;
+	mTimer = 0;
 }
 
 void Worm::updateCollision(){
@@ -294,8 +312,15 @@ void Worm::animate(){
 	if (mTimer >= 1){
 		mAnimationIndex += 1;
 		mTimer = 0;
-		if (mAnimationIndex >= mCurrentAnimation->size())
-			mAnimationIndex = 0;
+		if (mAnimationIndex >= mCurrentAnimation->size()){
+			if (mState == DEATH){
+				mAnimationIndex -= 1;
+				mIsAlive = false;
+			}
+			else
+				mAnimationIndex = 0;
+		}
+			
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	}

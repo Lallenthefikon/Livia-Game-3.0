@@ -10,6 +10,8 @@ static sf::Image mPlayersheet;
 static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
+static sf::Image mSlidePlayersheet;
+
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
 static sf::Image mLifeTexture;
@@ -45,7 +47,7 @@ void Toolbox::loadTextures(std::string levelName){
 		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.jpg");
 	}
 
-	mEnemy0sheet.loadFromFile("resources/images/Mask.png");
+	mEnemy0sheet.loadFromFile("resources/images/Mask spritesheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
@@ -110,6 +112,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case PLAYERHURTTEXTURE:
 		return mHurtPlayersheet;
+		break;
+
+	case PLAYERSLIDETEXTURE:
+		return mSlidePlayersheet;
 		break;
 		
 	case TILETEXTURE:

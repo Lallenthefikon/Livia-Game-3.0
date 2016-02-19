@@ -49,7 +49,7 @@ private:
 	void updateState();
 	void updateANI();
 	void updateCollision();
-	//void checkTerrainTypes();
+	void addForces();
 	void animate();
 
 	void updateTexturepos();

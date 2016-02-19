@@ -26,7 +26,7 @@ public:
 	virtual void getHit();
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
-	virtual int getLife(){ return -1; }
+	virtual int getLife(){ return mLife; }
 	
 	
 private:
@@ -52,6 +52,7 @@ private:
 
 	// Animimations stuff
 	Animations::Textures* mCurrentAnimation;
+	Animations::Textures* mWormDyingAnimation;
 	int mAnimationIndex;
 	float mTimer;
 
@@ -65,6 +66,8 @@ private:
 	WORMSTATE mState;
 	bool mIsOnScreen;
 	bool mIsAlive;
+
+	int mLife;
 
 	char mCollisionT;
 	char mCollisionB;
