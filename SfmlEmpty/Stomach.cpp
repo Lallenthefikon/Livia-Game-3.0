@@ -13,7 +13,8 @@ mTextHandler(Texthandler::getInstance()),
 mCamera(),
 mMapName("Stomach"),
 mMapPath("resources/maps/mMap0.txt"),
-mLevelState("Cutscene"){
+mLevelState("Cutscene"),
+mZoomedOut(false){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
@@ -53,11 +54,11 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 		mLevelState = "ZoomOut";
 	}
 	if (mLevelState == "ZoomOut"){
-		mCamera.zoomOut(0.5f, 1);
+		if (!mZoomedOut){
+			mCamera.zoomOut(0.5f, 1);
+			mZoomedOut = true;
+		}
 		mLevelState = "ZoomedOut";
-		/*if (mCamera.zoomOut(0.5f, 1000)){
-			mLevelState = "ZoomedOut";
-		}*/
 	}
 	if (mLevelState == "ZoomedOut"){
 
@@ -98,10 +99,9 @@ void Stomach::render(sf::RenderWindow &window){
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
-	if (mLevelState != "ZoomedOut"){
+	//if (mLevelState != "ZoomedOut"){
 		mLevelState = "Cutscene";
-	}
-	
+	//}
 }
 
 void Stomach::unloadLevel(){

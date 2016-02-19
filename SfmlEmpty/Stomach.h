@@ -48,4 +48,5 @@ private:
 	sf::Texture mTexture;
 
 	bool mGameOver = false;
+	bool mZoomedOut;
 };
