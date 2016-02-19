@@ -66,6 +66,7 @@ private:
 	WORMSTATE mState;
 	bool mIsOnScreen;
 	bool mIsAlive;
+	int mLife;
 
 	int mLife;
 

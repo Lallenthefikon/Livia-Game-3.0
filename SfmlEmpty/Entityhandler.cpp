@@ -69,7 +69,10 @@ int Entityhandler::getPlayerLife(){
 
 bool Entityhandler::isPlayerAlive() {
 	if (mEntities[0]->getType() == Entity::PLAYER) {
-		return true;
+		if (mEntities[0]->getLife() == 0) {
+			return false;
+		} else
+			return true;
 	} else
 		return false;
 }

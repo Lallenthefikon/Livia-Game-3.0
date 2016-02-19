@@ -67,8 +67,8 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
-		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		//mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
 	// Global effects

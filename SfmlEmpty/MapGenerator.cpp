@@ -57,6 +57,17 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				}
 				break;
 
+				// Spikes
+			case 'S':
+				switch (line[1]){
+				case '0':
+					MapGenerator::createSpikes(MapGenerator::readPosition(line), line[2]);
+					break;
+				default:
+					break;
+				}
+
+
 			default:
 				break;
 
@@ -135,6 +146,10 @@ void MapGenerator::createBlock0(sf::Vector2f pos, char type){
 
 void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 	mTerrainhandler->addTerrain(Factory::createBlock0WallJump(pos, type));
+}
+
+void MapGenerator::createSpikes(sf::Vector2f pos, char type){
+	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){

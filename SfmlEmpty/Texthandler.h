@@ -6,7 +6,7 @@
 class Texthandler {
 public:
 	static Texthandler& getInstance();
-	void updateText(sf::RenderWindow& window);
+	void updateText(sf::Vector2f& centerScreenCoordPos);
 	void renderText(sf::RenderWindow& window);
 	void loadGameOverFont();
 	void loadDialogueFont();
