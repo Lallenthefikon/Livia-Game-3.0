@@ -31,6 +31,7 @@ private:
 	void createWorm(sf::Vector2f &pos);
 	void createAcidMonster(sf::Vector2f &pos);
 	void createBlock0WallJump(sf::Vector2f &pos, char type);
+	void createSpikes(sf::Vector2f &pos, char type);
 
 	sf::Vector2f readPosition(std::string line);
 

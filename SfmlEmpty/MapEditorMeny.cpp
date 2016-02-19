@@ -42,6 +42,8 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 2.8, 150), 't'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -75,6 +77,8 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 					mInsertType = BLOCK0WALLJUMP;
 					break;
 
+				case Terrain::SPIKES:
+					mInsertType = SPIKES;
 				default:
 					break;
 				}

@@ -5,7 +5,7 @@
 
 class Terrain{
 public:
-	enum TERRAINTYPE { BLOCK0, BLOCK0WALLJUMP };
+	enum TERRAINTYPE { BLOCK0, BLOCK0WALLJUMP, SPIKES };
 	Terrain();
 	virtual ~Terrain();
 	virtual TERRAINTYPE getType() = 0;

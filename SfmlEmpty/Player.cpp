@@ -162,6 +162,25 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		default:
 			break;
 		}
+		break;
+	case Terrain::SPIKES:
+		/*switch (direction){
+		case 't':
+			mVelocity.y = -mJumpSpeedInitial;
+			break;
+		case 'b':
+			mVelocity.y = mJumpSpeedInitial;
+			break;
+		case 'l':
+			mVelocity.x = -mJumpSpeedInitial;
+			break;
+		case 'r':
+			mVelocity.x = mJumpSpeedInitial;
+			break;
+		default:
+			break;
+		}*/
+		this->getHit();
 
 	default:
 		break;
@@ -192,7 +211,6 @@ void Player::playerInput() {
 	}
 	else{
 		mVelocityGoal.x = 0;
-		mVelocityGoal.y = 0;
 	}
 }
 
@@ -236,10 +254,10 @@ void Player::jump() {
 void Player::move() {
 	// Left and right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			mVelocityGoal.x = -mMaxSpeed;
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			mVelocityGoal.x = mMaxSpeed;
 		}
 	}
@@ -511,10 +529,9 @@ void Player::animate(){
 }
 
 void Player::updateTexturepos(){
-	sf::Vector2f temp(mCollisionBody.getPosition());
-	temp += mSpriteOffset;
-	temp.x -= (mSprite.getLocalBounds().width / 2);
-	temp.y -= (mSprite.getLocalBounds().height / 2);
+	sf::Vector2f temp(mCollisionBody.getPosition() + mSpriteOffset);
+	temp.x -= (mSprite.getLocalBounds().width / 2 );
+	temp.y -= (mSprite.getLocalBounds().height /2);
 	mSprite.setPosition(temp);
 }
 
@@ -567,7 +584,7 @@ void Player::stopSound(PLAYERSTATE state) {
 }
 
 void Player::setPos(sf::Vector2f newPos){
-	mSprite.setPosition(newPos);
+	mCollisionBody.setPosition(newPos);
 }
 
 void Player::blink(){

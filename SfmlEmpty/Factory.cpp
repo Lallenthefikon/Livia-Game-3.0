@@ -4,6 +4,7 @@
 #include "Worm.h"
 #include "AcidMonster.h"
 #include "Block0WallJump.h"
+#include "Spikes.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -24,3 +25,8 @@ Entity* Factory::createAcidMonster(sf::Vector2f pos){
 Terrain* Factory::createBlock0WallJump(sf::Vector2f pos, char type){
 	return Block0WallJump::createBlock0WallJump(pos, type);
 }
+
+Terrain* Factory::createSpikes(sf::Vector2f pos, char type){
+	return Spikes::createSpikes(pos, type);
+}
+

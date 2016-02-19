@@ -8,7 +8,7 @@
 
 class MapEditorMeny{
 public:
-	enum INSERTTYPE{ BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP };
+	enum INSERTTYPE{ BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP, SPIKES };
 
 	static MapEditorMeny& getInstance();
 	void render(sf::RenderWindow &window);

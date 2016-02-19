@@ -22,6 +22,7 @@ public:
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
+	void createSpikes(sf::Vector2f mousepos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -38,6 +39,7 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void changeInsertType();
+	void changeRotDirection();
 
 	void saveMap();
 	void writeTerrainToFile(std::string filename);
@@ -46,6 +48,7 @@ private:
 	void internalClear();
 
 	std::string floatToString(float f);
+	/*sf::Vector2f spikeOriginpos(Terrain* terrain);*/
 
 	void createGrid();
 
@@ -57,6 +60,7 @@ private:
 	MapEditMaploader &mMaploader;
 
 	MapEditorMeny::INSERTTYPE mInsertType;
+	char mRotDirection;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;
 
