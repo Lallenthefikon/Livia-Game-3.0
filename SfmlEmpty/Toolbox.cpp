@@ -2,6 +2,8 @@
 
 static sf::Sprite mPlayerSprite;
 static sf::Vector2f mPlayerVelocity;
+static float mFrameTime(0);
+static sf::Vector2f mGravity(0, 125);
 
 // Textures
 static sf::Image mEnemy0sheet;
@@ -11,6 +13,7 @@ static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mSlidePlayersheet;
+static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -49,6 +52,7 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask spritesheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
+	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
 	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
@@ -58,7 +62,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
-	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -67,7 +71,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		//mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
 		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
@@ -137,6 +141,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 	case LIFETEXTURE:
 		return mLifeTexture;
 		break;
+
+	case GOALTEXTURE:
+		return mGoalTexture;
+		break;
+
 
 	default:
 		break;
@@ -245,3 +254,22 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 		break;
 	}
 }
+
+void Toolbox::copyFrameTime(float &frameTime) {
+	mFrameTime = frameTime;
+	//std::cout << "Frame time: " << mFrameTime << std::endl;
+}
+
+float& Toolbox::getFrameTime() {
+	return mFrameTime;
+}
+
+void Toolbox::copyGravity(sf::Vector2f &gravity) {
+	mGravity = gravity;
+}
+
+sf::Vector2f& Toolbox::getGravity() {
+	return mGravity;
+	//std::cout << "Gravity Y: " << mGravity.y << std::endl;
+}
+

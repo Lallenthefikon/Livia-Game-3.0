@@ -42,7 +42,7 @@ Stomach& Stomach::getInstance(){
 	return Stomach;
 }
 
-void Stomach::update(sf::RenderWindow &window, float &frameTime){
+void Stomach::update(sf::RenderWindow &window){
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
@@ -64,14 +64,16 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 
 		mCamera.updateStomachCam(window, mLevelState);
 
-		mEntityHandler.updateEntities(frameTime);
+		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 		mEntityHandler.bringOutTheDead();
+		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
+		
 		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
@@ -90,8 +92,6 @@ void Stomach::render(sf::RenderWindow &window){
 	mEntityHandler.renderEntities(window);
 
 	mLayerHandler.renderHud(window);
-	if (!mEntityHandler.isPlayerAlive())
-		mTextHandler.renderText(window);
 	
 	window.display();
 }

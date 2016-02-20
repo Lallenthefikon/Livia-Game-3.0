@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML\Graphics.hpp>
 #include <SFML\System.hpp>
 #include "EntityHandler.h"
@@ -7,7 +8,6 @@
 #include "Animations.h"
 #include "Toolbox.h"
 #include "Entity.h"
-
 
 class LayerHandler {
 public:

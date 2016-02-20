@@ -73,7 +73,7 @@ void GameLoop::run(){
 }
 
 void GameLoop::update(){
-	mCurrentState->update(mWindow, mTimeElapsed);
+	mCurrentState->update(mWindow);
 }
 
 void GameLoop::render(){
@@ -81,7 +81,8 @@ void GameLoop::render(){
 }
 
 void GameLoop::calcTimeElapsedAndFPS(sf::Clock &clock){
-	mTimeElapsed = clock.restart().asSeconds();
-	FPS = 1.f / mTimeElapsed;
+	mFrameTime = clock.restart().asSeconds();
+	FPS = 1.f / mFrameTime;
+	Toolbox::copyFrameTime(mFrameTime);
 	//std::cout << FPS << " " << mTimeElapsed << std::endl;
 }
