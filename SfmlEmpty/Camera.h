@@ -22,6 +22,7 @@ public:
 	bool zoomOut(float totalSizeChange, int timesToZoom);
 	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
 	sf::Vector2f getVelocity(){ return mVelocity; }
+	void updateStomachStandardCam(sf::RenderWindow &window, sf::Vector2f direction);
 
 private:
 	sf::View mTileView;

@@ -75,11 +75,29 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 
 void Camera::centerOnPlayer(sf::RenderWindow &window){
 //	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
-	int xCamOffset = 500;
-	sf::Vector2f viewCoordPos = Toolbox::findCoordPos(sf::Vector2i(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y), window);
-	//sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
-	
-	mTileView.setCenter(viewCoordPos);
+	//int xCamOffset = 500;
+	//
+	//sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
+
+	//sf::Vector2f viewCoordPos = Toolbox::findCoordPos(sf::Vector2i(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y), window);
+	////sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
+	//std::cout << "X:" << viewCoordPos.x << std::endl << "Y:" << viewCoordPos.y << std::endl;
+	//mTileView.setCenter(playerCoordPos);
+	//window.setView(mTileView);
+
+
+	float yCamOffset, xCamOffset;
+
+	float speed = 0.09;
+	yCamOffset = 100;
+	xCamOffset = 500;
+
+	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
+	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
+
+	std::cout << "X:" << playerCoordPos.x << std::endl << "Y:" << playerCoordPos.y << std::endl;
+	mTileView.setCenter(playerCoordPos.x, playerCoordPos.y);
+
 }
 
 void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState){
@@ -96,16 +114,17 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 
 	}
 	else if (currentCamState == "ZoomOut"){
-		zoomOut(10.f, 1000);
+		zoomOut(0.5f, 1);
+	//	centerOnPlayer(window);
 	}
 	else if (currentCamState == "ZoomedOut"){
-		updateCamGAME(window);
+		updateStomachStandardCam(window, sf::Vector2f(1.f, 0.f));
 	}
 	else if (currentCamState == "SecondCutscene"){
 
 	}
 	else if (currentCamState == "Rising"){
-
+		updateStomachStandardCam(window, sf::Vector2f(0.f, 1.f));
 	}
 	else if (currentCamState == "FinalCutscene"){
 
@@ -149,4 +168,40 @@ void Camera::setCollisionStripe(std::string orientation, sf::RenderWindow &windo
 	//	mCollisionStripe.setTextureRect(sf::IntRect(viewCoordPos.x - 1920 / 2 - 10, viewCoordPos.y - 1080 / 2, 10, 1920));
 	//	//(T rectLeft, T rectTop, T rectWidth, T rectHeight)
 	//}
+}
+
+void Camera::updateStomachStandardCam(sf::RenderWindow &window, sf::Vector2f direction){
+
+	float yCamOffset, xCamOffset;
+
+	float speed = 0.09;
+	yCamOffset = 100;
+	xCamOffset = 500;
+
+	sf::Vector2f playerCoordPos = window.mapPixelToCoords(sf::Vector2i(Toolbox::getPlayerSprite().getPosition()));
+	sf::Vector2f viewCoordPos = window.mapPixelToCoords(sf::Vector2i(mTileView.getCenter()));
+
+
+	if (playerCoordPos.x > viewCoordPos.x - xCamOffset){
+
+		mVelocity.x = Toolbox::getPlayerVelocity().x;
+		mTileView.move(sf::Vector2f(mVelocity.x * direction.x, 0.f));
+	}
+	if (playerCoordPos.y < viewCoordPos.y){
+
+		float deltaY = std::abs(playerCoordPos.y - viewCoordPos.y);
+		mVelocity.y = deltaY * -speed;
+		mTileView.move(sf::Vector2f(0.f, mVelocity.y * direction.y));
+	}
+	//if (playerCoordPos.y > viewCoordPos.y){
+
+	//	float deltaY = std::abs(playerCoordPos.y - viewCoordPos.y);
+	//	mVelocity.y = deltaY * speed;
+	//	mTileView.move(sf::Vector2f(0.f, mVelocity.y));
+	//}
+
+	// Camera is first centered on player then these offsets are applied
+
+	//mTileView.setCenter(sf::Vector2f(Toolbox::getPlayerSprite().getPosition().x + xCamOffset, Toolbox::getPlayerSprite().getPosition().y + yCamOffset));
+
 }

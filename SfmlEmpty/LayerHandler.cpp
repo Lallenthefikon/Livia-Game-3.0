@@ -21,6 +21,9 @@ LayerHandler& LayerHandler::getInstance(){
 	static LayerHandler layerHandler;
 	return layerHandler;
 }
+
+
+
 void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
 	sf::Sprite* furthestRightBG;
@@ -94,6 +97,58 @@ void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vec
 	furthestRightBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
 	middleBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
 	furthestLeftBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
+}
+
+void LayerHandler::moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
+
+	sf::Sprite* furthestRightBG;
+	sf::Sprite* furthestLeftBG;
+	sf::Sprite* middleBG;
+
+	sf::Vector2f bg0CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[0].getPosition().x, mBackgrounds[0].getPosition().y), window);
+	sf::Vector2f bg1CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[1].getPosition().x, mBackgrounds[1].getPosition().y), window);
+	sf::Vector2f bg2CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[2].getPosition().x, mBackgrounds[2].getPosition().y), window);
+
+	// Find the background furthest to the right
+	if ((bg0CoordPos.x > bg1CoordPos.x)
+		&& (bg0CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[0];
+	}
+	else if ((bg1CoordPos.x > bg0CoordPos.x)
+		&& (bg1CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[1];
+	}
+	else{
+		furthestRightBG = &mBackgrounds[2];
+	}
+	// Find the background furthest to the left
+	if ((bg0CoordPos.x < bg1CoordPos.x)
+		&& (bg0CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[0];
+	}
+	else if ((bg1CoordPos.x < bg0CoordPos.x)
+		&& (bg1CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[1];
+	}
+	else{
+		furthestLeftBG = &mBackgrounds[2];
+	}
+	// Find the background in the middle
+	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[1])
+		|| (furthestLeftBG == &mBackgrounds[1] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[2];
+	}
+	else 	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[2])
+		|| (furthestLeftBG == &mBackgrounds[2] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[1];
+	}
+	else{
+		middleBG = &mBackgrounds[0];
+	}
+
+	furthestRightBG->setPosition(cam.getSceneryView().getCenter().x, cam.getSceneryView().getCenter().y - furthestRightBG->getLocalBounds().height/2);
+	middleBG->setPosition(cam.getSceneryView().getCenter().x - middleBG->getLocalBounds().width, cam.getSceneryView().getCenter().y - furthestRightBG->getLocalBounds().height / 2);
+
 }
 
 void LayerHandler::moveForeground(sf::Vector2f &velocity){

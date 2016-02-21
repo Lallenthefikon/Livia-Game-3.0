@@ -51,7 +51,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
-	mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
+	//mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/Acid Monster.png");
 

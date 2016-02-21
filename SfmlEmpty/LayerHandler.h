@@ -13,6 +13,7 @@ class LayerHandler {
 public:
 	static LayerHandler& LayerHandler::getInstance();
 	void moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
 	void moveForeground(sf::Vector2f &velocity);
 	
 	void addForegroundObject(sf::Sprite &foregroundSprite);

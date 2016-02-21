@@ -1,4 +1,5 @@
 #include "Stomach.h"
+#include <iostream>
 
 Stomach::Stomach() :
 // Initiate singleton classes
@@ -50,12 +51,13 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 			window.close();
 	}
 	if (mLevelState == "Cutscene"){
-		mCamera.centerOnPlayer(window);
+		//mCamera.updateStomachCam(window,mLevelState);
+		mCamera.updateStomachCam(window, mLevelState);
 		mLevelState = "ZoomOut";
 	}
 	if (mLevelState == "ZoomOut"){
 		if (!mZoomedOut){
-			mCamera.zoomOut(0.5f, 1);
+			mCamera.updateStomachCam(window, mLevelState);
 			mZoomedOut = true;
 		}
 		mLevelState = "ZoomedOut";
@@ -72,7 +74,24 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
+	}
+	if (mLevelState == "Rising"){
+
+		mCamera.updateStomachCam(window, mLevelState);
+
+		mEntityHandler.updateEntities(frameTime);
+		mTerrainHandler.updateTerrains();
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mEntityHandler.bringOutTheDead();
+		window.setView(mCamera.getTileView());
+		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
+		window.setView(mCamera.getSceneryView());
+		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
+		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 }
@@ -100,7 +119,8 @@ void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
 	//if (mLevelState != "ZoomedOut"){
-		mLevelState = "Cutscene";
+	mLevelState = "Cutscene";
+		//std::cout << "Loaded" << std::endl;
 	//}
 }
 

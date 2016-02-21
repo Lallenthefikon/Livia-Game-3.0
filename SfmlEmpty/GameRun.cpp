@@ -50,5 +50,6 @@ void GameRun::render(sf::RenderWindow &window){
 
 void GameRun::loadLevel(){
 	mStomach.loadLevel();
+
 	//mMapGenerator.loadMap(mCurrentMap);
 }
