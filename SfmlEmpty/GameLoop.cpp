@@ -58,7 +58,7 @@ void GameLoop::run(){
 
 	mStomachMusic.setVolume(25);
 	mStomachMusic.setLoop(true);
-	mStomachMusic.play();
+	//mStomachMusic.play();
 
 	int clickOnce = 0;
 	

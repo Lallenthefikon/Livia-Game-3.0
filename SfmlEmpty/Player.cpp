@@ -385,6 +385,8 @@ void Player::updateState() {
 			changed = true;
 		}
 	}
+	else
+		Player::stopSound(WALLSTUCK);
 
 	if (mState != DEATH) {
 		// Player runs in a direction
@@ -405,15 +407,15 @@ void Player::updateState() {
 		if (mVelocity.y > 2 && mState != FALLING && mState != WALLSTUCK) {
 			mState = FALLING;
 			changed = true;
-			//Player::stopSound(RUNNING); // Avkommentera när man inte börjar falla för varje block man springer öve
+			Player::stopSound(RUNNING);
 		}
 
 		// Player is jumping
 		if (mVelocity.y < 0 && mState != JUMPING) {
 			mState = JUMPING;
 			changed = true;
-			Player::playSound(JUMPING);
 			Player::stopSound(RUNNING);
+			Player::playSound(JUMPING);
 		}
 
 		// Player collides with sticky block to the right
@@ -422,6 +424,7 @@ void Player::updateState() {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;
+				Player::playSound(WALLSTUCK);
 			}
 		}
 
@@ -431,6 +434,7 @@ void Player::updateState() {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;
+				Player::playSound(WALLSTUCK);
 			}
 		}
 
@@ -457,9 +461,6 @@ void Player::updateState() {
 	// Updates animation if player's state has changed
 	if (changed)
 		Player::updateANI();
-
-
-
 }
 
 void Player::updateCollisionForce(){
@@ -604,6 +605,9 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::DEATH:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
 		break;
+	case Player::WALLSTUCK:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::WALLSLIDE);
+		break;
 	default:
 		break;
 	}
@@ -627,6 +631,9 @@ void Player::stopSound(PLAYERSTATE state) {
 		break;
 	case Player::DEATH:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DEATH);
+		break;
+	case Player::WALLSTUCK:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::WALLSLIDE);
 		break;
 	default:
 		break;
