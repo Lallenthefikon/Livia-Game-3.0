@@ -43,13 +43,19 @@ Stomach& Stomach::getInstance(){
 	return Stomach;
 }
 
-void Stomach::update(sf::RenderWindow &window, float &frameTime){
+void Stomach::update(sf::RenderWindow &window){
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
 	}
+	// Updates independent of state
+	
+	if (!Toolbox::getPlayerIsAlive()){
+		resetLevel(window);
+	}
+	// Updates depending on state
 	if (mLevelState == "Cutscene"){
 		//mCamera.updateStomachCam(window,mLevelState);
 		mCamera.updateStomachCam(window, mLevelState);
@@ -66,10 +72,11 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 
 		mCamera.updateStomachCam(window, mLevelState);
 
-		mEntityHandler.updateEntities(frameTime);
+		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 		mEntityHandler.bringOutTheDead();
+		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
@@ -82,7 +89,7 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 
 		mCamera.updateStomachCam(window, mLevelState);
 
-		mEntityHandler.updateEntities(frameTime);
+		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
 		mEntityHandler.bringOutTheDead();
@@ -93,6 +100,9 @@ void Stomach::update(sf::RenderWindow &window, float &frameTime){
 		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
+	}
+	if (mLevelState == "Reset"){
+		resetLevel(window);
 	}
 }
 
@@ -109,8 +119,6 @@ void Stomach::render(sf::RenderWindow &window){
 	mEntityHandler.renderEntities(window);
 
 	mLayerHandler.renderHud(window);
-	if (!mEntityHandler.isPlayerAlive())
-		mTextHandler.renderText(window);
 	
 	window.display();
 }
@@ -129,4 +137,10 @@ void Stomach::unloadLevel(){
 }
 
 void Stomach::setCurrentMap(std::string &mapname){
+}
+
+void Stomach::resetLevel(sf::RenderWindow &window){
+	mCamera.centerOnPlayer(window);
+	mMapGenerator.loadMap(mMapPath);
+	mLevelState = "Cutscene";
 }

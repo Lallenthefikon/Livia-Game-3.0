@@ -13,7 +13,7 @@
 class GameRun : public GameState{
 public:
 	static GameRun* getInstance(std::string &levelDirectory, std::string &levelName);
-	virtual void update(sf::RenderWindow &window, float &frameTime);
+	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }

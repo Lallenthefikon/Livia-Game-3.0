@@ -177,28 +177,24 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
-		ANIFramesPerFrame = 0.5;
+		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
 	}
 
 	else if (mEntityHandler.getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
-		ANIFramesPerFrame = 1;
+		ANIFramesPerFrame = 62.5 * Toolbox::getFrameTime();
 	}
 
 	else if (mEntityHandler.getPlayerLife() == 1){
 		window.draw(mLives[0]);
-		ANIFramesPerFrame = 2;
-	}
-
-	if (mEntityHandler.isPlayerAlive() == false) {
-		mTextHandler.renderText(window);
+		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
 	}
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
 	for (int i = 0; i < mLives.size(); i++){
-		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
+		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
 	}
 
 	// Updates Game Over text

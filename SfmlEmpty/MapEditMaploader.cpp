@@ -27,19 +27,19 @@ void MapEditMaploader::clear(){
 	MapEditMaploader::internalClear();
 }
 
-void MapEditMaploader::readTerrainfile(std::string &filename){
+void MapEditMaploader::readTerrainfile(std::string &filename) {
 
 	std::string line;
 	std::ifstream terrainfile(filename);
 
-	if (terrainfile.is_open()){
-		while (getline(terrainfile, line)){
+	if (terrainfile.is_open()) {
+		while (getline(terrainfile, line)) {
 
 			// Reads from textdoc and creates terrain according to letter
 			//  with position according to x/y numbers
-			switch (line[0]){
+			switch (line[0]) {
 			case 'B':
-				switch (line[1]){
+				switch (line[1]) {
 				case '0':
 					MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2]);
 					break;
@@ -53,14 +53,25 @@ void MapEditMaploader::readTerrainfile(std::string &filename){
 
 				// Spikes
 			case 'S':
-				switch (line[1]){
+				switch (line[1]) {
 				case '0':
 					MapEditMaploader::createSpikes(MapEditMaploader::readPosition(line), line[2]);
 					break;
-
 				default:
 					break;
 				}
+				break;
+
+				// Goal
+			case 'G':
+				switch (line[1]) {
+				case '0':
+					MapEditMaploader::createGoal(MapEditMaploader::readPosition(line));
+					break;
+				default:
+					break;
+				}
+
 			default:
 				break;
 			}
@@ -135,6 +146,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename){
 
  void MapEditMaploader::createSpikes(sf::Vector2f &pos, char type){
 	 mTerrains.push_back(Factory::createSpikes(pos, type));
+ }
+ 
+ void MapEditMaploader::createGoal(sf::Vector2f &pos) {
+	 mTerrains.push_back(Factory::createGoal(pos));
  }
 
 

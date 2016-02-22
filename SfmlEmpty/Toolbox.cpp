@@ -1,7 +1,13 @@
 #include "Toolbox.h"
 
+// Player Info
 static sf::Sprite mPlayerSprite;
 static sf::Vector2f mPlayerVelocity;
+static bool mPlayerAlive;
+
+static float mFrameTime(0);
+static sf::Vector2f mGravity(0, 125);
+
 
 // Textures
 static sf::Image mEnemy0sheet;
@@ -11,6 +17,7 @@ static sf::Image mIdlePlayersheet;
 static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mSlidePlayersheet;
+static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -19,10 +26,11 @@ static sf::Image mLifeTexture;
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
-// Camera edit
+// Camera
 static sf::Vector2f mWindowSize;
 static sf::Vector2f mResolution;
 static sf::Vector2f mWindowPos;
+static sf::FloatRect mGlobalCameraBounds;
 
 // Sounds
 static sf::SoundBuffer mPlayerIdleSound;
@@ -49,6 +57,7 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mEnemy0sheet.loadFromFile("resources/images/Mask spritesheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
+	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
 	//mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
@@ -58,7 +67,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
-	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -67,7 +76,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		//mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
 		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
@@ -138,6 +147,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mLifeTexture;
 		break;
 
+	case GOALTEXTURE:
+		return mGoalTexture;
+		break;
+
+
 	default:
 		break;
 	}
@@ -163,6 +177,17 @@ sf::Vector2f Toolbox::getWindowPos(){
 	return mWindowPos;
 }
 
+void Toolbox::copyCameraInfo(sf::Vector2f &globalCameraCenter, sf::Vector2f &localCameraBounds){
+	mGlobalCameraBounds.left = globalCameraCenter.x - mWindowSize.x/2;
+	mGlobalCameraBounds.width = globalCameraCenter.x + mWindowSize.x/2;
+	mGlobalCameraBounds.top = globalCameraCenter.y - mWindowSize.x/2;
+	mGlobalCameraBounds.height = globalCameraCenter.y + mWindowSize.y/2;
+}
+
+sf::FloatRect Toolbox::getGlobalCameraBounds(){
+	return mGlobalCameraBounds;
+}
+
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
 }
@@ -171,12 +196,20 @@ void Toolbox::copyPlayerVelocity(sf::Vector2f &playerVelocity){
 	mPlayerVelocity = playerVelocity;
 }
 
+void Toolbox::copyPlayerIsAlive(bool isAlive){
+	mPlayerAlive = isAlive;
+}
+
 sf::Sprite Toolbox::getPlayerSprite(){
 	return mPlayerSprite;
 }
 
 sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
+}
+
+bool Toolbox::getPlayerIsAlive(){
+	return mPlayerAlive;
 }
 
 sf::Vector2f Toolbox::findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window){
@@ -244,4 +277,22 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 	default:
 		break;
 	}
+}
+
+void Toolbox::copyFrameTime(float &frameTime) {
+	mFrameTime = frameTime;
+	//std::cout << "Frame time: " << mFrameTime << std::endl;
+}
+
+float& Toolbox::getFrameTime() {
+	return mFrameTime;
+}
+
+void Toolbox::copyGravity(sf::Vector2f &gravity) {
+	mGravity = gravity;
+}
+
+sf::Vector2f& Toolbox::getGravity() {
+	return mGravity;
+	//std::cout << "Gravity Y: " << mGravity.y << std::endl;
 }

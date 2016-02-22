@@ -10,7 +10,7 @@ public:
 
 	void addEntity(Entity* entity);
 	void renderEntities(sf::RenderWindow &window);
-	void updateEntities(float &frameTime);
+	void updateEntities();
 	
 	void bringOutTheDead();
 	Entities& getEntities(){ return mEntities; }
