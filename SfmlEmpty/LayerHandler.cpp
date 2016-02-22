@@ -197,6 +197,8 @@ void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamC
 		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
 	}
 
+	LayerHandler::animate();
+
 	// Updates Game Over text
 	mTextHandler.updateText(viewCamCoordPos);
 }

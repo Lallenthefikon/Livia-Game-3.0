@@ -62,12 +62,12 @@ void Toolbox::loadTextures(std::string levelName){
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
 	//mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
-	mAcidMonsterTexture.loadFromFile("resources/images/Acid Monster.png");
+	mAcidMonsterTexture.loadFromFile("resources/images/Tummy jagar spritesheet.png");
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
-	mLifeTexture.loadFromFile("resources/images/Livia_life.png");
+	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {

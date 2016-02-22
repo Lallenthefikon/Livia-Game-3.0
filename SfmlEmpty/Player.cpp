@@ -110,7 +110,7 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::WORM:
 		switch (direction){
 		case 'b':
-			if (mLife < 0){
+			if (mLife > 0){
 				if (!mInvulnerable){
 					delta = entity->getPos().y - mCollisionBody.getPosition().y;
 					mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
