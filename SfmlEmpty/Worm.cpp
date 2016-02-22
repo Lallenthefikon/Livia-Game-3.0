@@ -6,7 +6,7 @@ Worm::Worm(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getWormCrawlingANI()),
 mIsOnScreen(true),
 mAcceleration(8),
-mMaxSpeed(8),
+mMaxSpeed(4),
 mIsAlive(true),
 mLife(1),
 mSoundFX(SoundFactory::getWormSound()){

@@ -3,8 +3,7 @@
 static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::RUNNINGPLAYERTEXTURE));
 //static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
-static sf::Image& mWormCrawlingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
-static sf::Image& mWormDyingIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
+static sf::Image& mEnemy0IMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
 static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
@@ -21,6 +20,8 @@ Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterANI;
 Animations::Textures mHeartANI;
+
+Animations::Textures mSpikesANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -116,7 +117,7 @@ void Animations::loadTextures(){
 	// Worm crawling ANI
 	for (int i = 0; i < 16; i++){
 		mWormCrawlingANI.push_back(new sf::Texture);
-		mWormCrawlingANI[i]->loadFromImage(mWormCrawlingIMG, sf::IntRect((75 * x), (35 * y), 75, 35));
+		mWormCrawlingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y), 75, 35));
 		mWormCrawlingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
@@ -130,7 +131,7 @@ void Animations::loadTextures(){
 	// Worm Dying ANI
 	for (int i = 0; i < 8; i++){
 		mWormDyingANI.push_back(new sf::Texture);
-		mWormDyingANI[i]->loadFromImage(mWormDyingIMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
+		mWormDyingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
 		mWormDyingANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
@@ -159,6 +160,20 @@ void Animations::loadTextures(){
 		mHeartANI.push_back(new sf::Texture);
 		mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((52 * x), (70 * y), 52, 70));
 		mHeartANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Spikes ANI
+	for (int i = 0; i < 16; i++){
+		mSpikesANI.push_back(new sf::Texture);
+		mSpikesANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((96 * x) + 300, (50 * y), 96, 50));
+		mSpikesANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -212,5 +227,7 @@ Animations::Textures* Animations::getHeartANI(){
 	return &mHeartANI;
 }
 
-
+Animations::Textures* Animations::getSpikesANI(){
+	return &mSpikesANI;
+}
 

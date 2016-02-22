@@ -117,12 +117,12 @@ void Player::entityCollision(Entity* entity, char direction){
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 						mJumpStarted = true;
 						mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
-					} else {
+					}
+					else {
 						mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 					}
+					entity->getHit();
 				}
-
-				entity->getHit();
 			}
 			break;
 		default:
@@ -230,7 +230,6 @@ void Player::playerInput() {
 	}
 	else{
 		mVelocityGoal.x = 0;
-		mVelocityGoal.y = 0;
 	}
 }
 

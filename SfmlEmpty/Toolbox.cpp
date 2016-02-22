@@ -56,7 +56,7 @@ void Toolbox::loadTextures(std::string levelName){
 		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.jpg");
 	}
 
-	mEnemy0sheet.loadFromFile("resources/images/Mask spritesheet.png");
+	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 

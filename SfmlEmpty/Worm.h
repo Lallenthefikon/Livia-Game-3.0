@@ -52,7 +52,6 @@ private:
 
 	// Animimations stuff
 	Animations::Textures* mCurrentAnimation;
-	Animations::Textures* mWormDyingAnimation;
 	int mAnimationIndex;
 	float mTimer;
 

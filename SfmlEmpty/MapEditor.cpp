@@ -308,6 +308,8 @@ void MapEditor::changeRotDirection(){
 
 void MapEditor::saveMap(){
 
+	MapEditor::sortVectors();
+
 	mCurrentLevelDirectory[15] = 'T';
 	MapEditor::writeTerrainToFile(mCurrentLevelDirectory);
 
@@ -316,6 +318,17 @@ void MapEditor::saveMap(){
 
 	mCurrentLevelDirectory[15] = 'm';
 
+}
+
+void MapEditor::sortVectors(){
+	// Put acid monster at back
+	for (Entities::size_type i = 0; i < mEntities.size(); i++){
+		if (mEntities[i]->getType() == Entity::ACIDMONSTER){
+			Entity* temp(mEntities[i]);
+			mEntities[i] = mEntities.back();
+			mEntities.back() = temp;
+		}
+	}
 }
 
 void MapEditor::writeTerrainToFile(std::string filename){
@@ -389,6 +402,9 @@ void MapEditor::writeTerrainToFile(std::string filename){
 }
 
 void MapEditor::writeEntityToFile(std::string filename){
+
+	
+
 
 	std::string posString;
 	std::string output;

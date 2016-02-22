@@ -81,6 +81,7 @@ void MapGenerator::readTerrainfile(std::string &filename){
 }
 
 void MapGenerator::readEntityfile(std::string &filename){
+	bool playerLoaded(false);
 	std::string line;
 	std::ifstream entityfile(filename);
 
@@ -94,6 +95,7 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case '0':
 					MapGenerator::createPlayer(MapGenerator::readPosition(line));
+					playerLoaded = true;
 					break;
 				default:
 					break;
@@ -123,6 +125,8 @@ void MapGenerator::readEntityfile(std::string &filename){
 		}
 	}
 	entityfile.close();
+	if (!playerLoaded)
+		MapGenerator::createPlayer(sf::Vector2f(0,0));
 }
 
 

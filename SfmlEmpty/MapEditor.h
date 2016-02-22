@@ -43,6 +43,7 @@ private:
 	void changeRotDirection();
 
 	void saveMap();
+	void sortVectors();
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	char blockType(Terrain* terrain);
