@@ -108,16 +108,17 @@ void Stomach::update(sf::RenderWindow &window){
 
 void Stomach::render(sf::RenderWindow &window){
 	window.clear();
-	
+
+	// Change view to sceneryView containing background, HUD and other estetic scene objects
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 	
+	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 	mEntityHandler.renderEntities(window);
-
 	mLayerHandler.renderHud(window);
 	
 	window.display();
