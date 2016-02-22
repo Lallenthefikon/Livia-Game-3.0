@@ -31,7 +31,7 @@ private:
 
 	sf::Music& mStomachMusic;
 	
-	float mTimeElapsed;
+	float mFrameTime;
 	int FPS;
 	bool gameRunning = true, mapEditing; // States
 };

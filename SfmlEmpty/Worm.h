@@ -11,7 +11,7 @@ public:
 	static Entity* createWorm(sf::Vector2f pos);
 	
 	virtual void render(sf::RenderWindow &window);
-	virtual void update(float &frameTime);
+	virtual void update();
 
 	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
 	virtual sf::Vector2f getOffset(){ return mSpriteOffset; }
@@ -52,7 +52,6 @@ private:
 
 	// Animimations stuff
 	Animations::Textures* mCurrentAnimation;
-	Animations::Textures* mWormDyingAnimation;
 	int mAnimationIndex;
 	float mTimer;
 
@@ -67,6 +66,8 @@ private:
 	bool mIsOnScreen;
 	bool mIsAlive;
 	int mLife;
+
+	
 
 	char mCollisionT;
 	char mCollisionB;

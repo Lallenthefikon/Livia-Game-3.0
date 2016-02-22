@@ -27,6 +27,7 @@ private:
 	void createAcidMonster(sf::Vector2f pos);
 	void createBlock0WallJump(sf::Vector2f pos, char type);
 	void createSpikes(sf::Vector2f pos, char type);
+	void createGoal(sf::Vector2f pos);
 
 	// Pekare till singeltonklasser
 	Terrainhandler *mTerrainhandler;

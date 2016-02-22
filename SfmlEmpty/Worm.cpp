@@ -6,7 +6,7 @@ Worm::Worm(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getWormCrawlingANI()),
 mIsOnScreen(true),
 mAcceleration(8),
-mMaxSpeed(8),
+mMaxSpeed(4),
 mIsAlive(true),
 mLife(1),
 mSoundFX(SoundFactory::getWormSound()){
@@ -27,7 +27,7 @@ void Worm::render(sf::RenderWindow &window){
 	window.draw(mSprite);
 }
 
-void Worm::update(float &frameTime){
+void Worm::update(){
 
 	Worm::addSpeed();
 	Worm::lerp();
@@ -165,18 +165,18 @@ void Worm::updateState(){
 	if (mState != DEATH){
 
 		if (mVelocity.x > 0 && mState != CRAWLINGRIGHT){
-		mState = Worm::CRAWLINGRIGHT;
+			mState = Worm::CRAWLINGRIGHT;
 			changed = true;
-	}
+		}
 
-	if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
-		mState = Worm::CRAWLINGLEFT;
+		if (mVelocity.x < 0 && mState != CRAWLINGLEFT){
+			mState = Worm::CRAWLINGLEFT;
 			changed = true;
 		}
 	}
 	if (changed)
 		Worm::updateANI();
-	}
+}
 
 
 void Worm::updateANI(){

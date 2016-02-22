@@ -30,6 +30,7 @@ void GameLoop::updateState(){
 	if (gameRunning){
 		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
 		mCurrentState->loadLevel();
+		
 	}
 	else if (mapEditing){
 		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
@@ -57,7 +58,7 @@ void GameLoop::run(){
 
 	mStomachMusic.setVolume(25);
 	mStomachMusic.setLoop(true);
-	mStomachMusic.play();
+	//mStomachMusic.play();
 
 	int clickOnce = 0;
 	
@@ -73,7 +74,7 @@ void GameLoop::run(){
 }
 
 void GameLoop::update(){
-	mCurrentState->update(mWindow, mTimeElapsed);
+	mCurrentState->update(mWindow);
 }
 
 void GameLoop::render(){
@@ -81,7 +82,8 @@ void GameLoop::render(){
 }
 
 void GameLoop::calcTimeElapsedAndFPS(sf::Clock &clock){
-	mTimeElapsed = clock.restart().asSeconds();
-	FPS = 1.f / mTimeElapsed;
+	mFrameTime = clock.restart().asSeconds();
+	FPS = 1.f / mFrameTime;
+	Toolbox::copyFrameTime(mFrameTime);
 	//std::cout << FPS << " " << mTimeElapsed << std::endl;
 }

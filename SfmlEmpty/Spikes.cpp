@@ -1,11 +1,15 @@
 #include "Spikes.h"
 
 
+static float ANIFramesPerFrame(0.4);
+
 Spikes::Spikes(sf::Vector2f pos, char type):
-mTileType(type){
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE), sf::IntRect(400,300,100,50));
-	mSprite.setTexture(mTexture);
-	
+mCurrentAnimation(Animations::getSpikesANI()),
+mIsOnScreen(true),
+mTileType(type),
+mAnimationIndex(std::rand() % 16){
+	mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+
 	
 	mSprite.setPosition(pos);
 	Spikes::setRotation(type);
@@ -26,7 +30,7 @@ void Spikes::render(sf::RenderWindow &window){
 }
 
 void Spikes::update(){
-
+	Spikes::animate();
 }
 
 void Spikes::setPos(sf::Vector2f newPos){
@@ -60,4 +64,19 @@ void Spikes::setRotation(char type){
 		break;
 	}
 	mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+}
+
+void Spikes::animate(){
+	mTimer += ANIFramesPerFrame;
+
+	if (mTimer >= 1){
+		mAnimationIndex += 1;
+		mTimer = 0;
+		if (mAnimationIndex >= mCurrentAnimation->size()){
+				mAnimationIndex = 0;
+		}
+
+		if (mCurrentAnimation->size() > 0)
+			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	}
 }

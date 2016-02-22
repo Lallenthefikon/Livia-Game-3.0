@@ -12,4 +12,5 @@ struct Factory{
 	static Entity* createAcidMonster(sf::Vector2f pos);
 	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
+	static Terrain* createGoal(sf::Vector2f pos);
 };

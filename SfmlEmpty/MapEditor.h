@@ -14,7 +14,7 @@ class MapEditor : public GameState{
 public:
 	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
 
-	virtual void update(sf::RenderWindow &window, float &frameTime);
+	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	
 	void createBlock0(sf::Vector2f mousePos);
@@ -23,6 +23,7 @@ public:
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
+	void createGoal(sf::Vector2f mousePos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -42,6 +43,7 @@ private:
 	void changeRotDirection();
 
 	void saveMap();
+	void sortVectors();
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	char blockType(Terrain* terrain);

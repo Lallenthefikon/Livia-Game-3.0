@@ -3,10 +3,13 @@
 
 float BACKGROUNDSPEED = 0.5f;
 float FOREGROUNDSPEED;
+static float ANIFramesPerFrame(0.25);
 
 LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
-mTextHandler(Texthandler::getInstance()){
+mTextHandler(Texthandler::getInstance()),
+mHeartAnimation(Animations::getHeartANI()){
+	
 	
 	//mForegroundObjects.push_back(background);
 }
@@ -18,6 +21,9 @@ LayerHandler& LayerHandler::getInstance(){
 	static LayerHandler layerHandler;
 	return layerHandler;
 }
+
+
+
 void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
 	sf::Sprite* furthestRightBG;
@@ -93,6 +99,58 @@ void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vec
 	furthestLeftBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
 }
 
+void LayerHandler::moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
+
+	sf::Sprite* furthestRightBG;
+	sf::Sprite* furthestLeftBG;
+	sf::Sprite* middleBG;
+
+	sf::Vector2f bg0CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[0].getPosition().x, mBackgrounds[0].getPosition().y), window);
+	sf::Vector2f bg1CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[1].getPosition().x, mBackgrounds[1].getPosition().y), window);
+	sf::Vector2f bg2CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[2].getPosition().x, mBackgrounds[2].getPosition().y), window);
+
+	// Find the background furthest to the right
+	if ((bg0CoordPos.x > bg1CoordPos.x)
+		&& (bg0CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[0];
+	}
+	else if ((bg1CoordPos.x > bg0CoordPos.x)
+		&& (bg1CoordPos.x > bg2CoordPos.x)){
+		furthestRightBG = &mBackgrounds[1];
+	}
+	else{
+		furthestRightBG = &mBackgrounds[2];
+	}
+	// Find the background furthest to the left
+	if ((bg0CoordPos.x < bg1CoordPos.x)
+		&& (bg0CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[0];
+	}
+	else if ((bg1CoordPos.x < bg0CoordPos.x)
+		&& (bg1CoordPos.x < bg2CoordPos.x)){
+		furthestLeftBG = &mBackgrounds[1];
+	}
+	else{
+		furthestLeftBG = &mBackgrounds[2];
+	}
+	// Find the background in the middle
+	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[1])
+		|| (furthestLeftBG == &mBackgrounds[1] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[2];
+	}
+	else 	if ((furthestLeftBG == &mBackgrounds[0] && furthestRightBG == &mBackgrounds[2])
+		|| (furthestLeftBG == &mBackgrounds[2] && furthestRightBG == &mBackgrounds[0])){
+		middleBG = &mBackgrounds[1];
+	}
+	else{
+		middleBG = &mBackgrounds[0];
+	}
+
+	furthestRightBG->setPosition(cam.getSceneryView().getCenter().x, cam.getSceneryView().getCenter().y - furthestRightBG->getLocalBounds().height/2);
+	middleBG->setPosition(cam.getSceneryView().getCenter().x - middleBG->getLocalBounds().width, cam.getSceneryView().getCenter().y - furthestRightBG->getLocalBounds().height / 2);
+
+}
+
 void LayerHandler::moveForeground(sf::Vector2f &velocity){
 
 }
@@ -119,36 +177,27 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
-		//window.draw(mLives[3]);
-
+		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
 	}
+
 	else if (mEntityHandler.getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
-
+		ANIFramesPerFrame = 62.5 * Toolbox::getFrameTime();
 	}
+
 	else if (mEntityHandler.getPlayerLife() == 1){
 		window.draw(mLives[0]);
-	
+		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
 	}
-
-	else if (mEntityHandler.getPlayerLife() == 0 && mEntityHandler.isPlayerAlive()){
-		window.draw(mLives[0]);
-	}
-
-	if (mEntityHandler.isPlayerAlive() == false) {
-		mTextHandler.renderText(window);
-	}
-
-
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	
-
 	for (int i = 0; i < mLives.size(); i++){
-		mLives[i].setPosition(viewCamCoordPos.x - 1840 - (i*200), tileCamCoordPos.y + 50);
+		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
 	}
+
+	LayerHandler::animate();
 
 	// Updates Game Over text
 	mTextHandler.updateText(viewCamCoordPos);
@@ -170,5 +219,43 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	mLives.push_back(life);
 	mLives.push_back(life);
 	mLives.push_back(life);
-	
+
+	for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setTexture(*mHeartAnimation->at(0));
+	}
 }
+
+void LayerHandler::animate(){
+	mTimer += ANIFramesPerFrame;
+
+	if (mTimer >= 2){
+		mAnimationIndex += 1;
+		mTimer = 0;
+		if (mAnimationIndex >= mHeartAnimation->size())
+			mAnimationIndex = 0;
+		if (mHeartAnimation->size() > 0){
+			for (int i = 0; i < mLives.size(); i++){
+				mLives[i].setTexture(*mHeartAnimation->at(mAnimationIndex));
+			}
+		}
+	}
+}
+
+//
+//	if (mTimerANI >= 1){
+//		mAnimationIndex += 1;
+//		mTimerANI = 0;
+//		if (mAnimationIndex >= mCurrentAnimation->size()){
+//			if (mState == DEATH){
+//				mIsAlive = false;
+//				mAnimationIndex -= 1;
+//			}
+//			else
+//				mAnimationIndex = 0;
+//		}
+//
+//		if (mCurrentAnimation->size() > 0)
+//			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+//	}
+//}
+

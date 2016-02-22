@@ -27,7 +27,7 @@ MapEditor* MapEditor::getInstance(std::string &levelDirectory, std::string &leve
 	return &mapeditor;
 }
 
-void MapEditor::update(sf::RenderWindow &window, float &frameTime){
+void MapEditor::update(sf::RenderWindow &window){
 	// Events
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)){
@@ -198,6 +198,10 @@ void MapEditor::createSpikes(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createSpikes(mousePos, mRotDirection));
 }
 
+void MapEditor::createGoal(sf::Vector2f mousepos) {
+	mTerrains.push_back(Factory::createGoal(mousepos));
+}
+
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
@@ -236,6 +240,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::SPIKES:
 		MapEditor::createSpikes(mousePos);
 		break;
+	case MapEditorMeny::BLOCKGOAL:
+		MapEditor::createGoal(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -269,6 +276,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::SPIKES;
 		break;
 	case MapEditorMeny::SPIKES:
+		mInsertType = MapEditorMeny::BLOCKGOAL;
+		break;
+	case MapEditorMeny::BLOCKGOAL:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -298,6 +308,8 @@ void MapEditor::changeRotDirection(){
 
 void MapEditor::saveMap(){
 
+	MapEditor::sortVectors();
+
 	mCurrentLevelDirectory[15] = 'T';
 	MapEditor::writeTerrainToFile(mCurrentLevelDirectory);
 
@@ -306,6 +318,17 @@ void MapEditor::saveMap(){
 
 	mCurrentLevelDirectory[15] = 'm';
 
+}
+
+void MapEditor::sortVectors(){
+	// Put acid monster at back
+	for (Entities::size_type i = 0; i < mEntities.size(); i++){
+		if (mEntities[i]->getType() == Entity::ACIDMONSTER){
+			Entity* temp(mEntities[i]);
+			mEntities[i] = mEntities.back();
+			mEntities.back() = temp;
+		}
+	}
 }
 
 void MapEditor::writeTerrainToFile(std::string filename){
@@ -339,6 +362,13 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back('0');
 				// Push what rot is has
 				output.push_back(mTerrains[i]->getTileType());
+				break;
+
+			case Terrain::BLOCKGOAL:
+				output.push_back('G');
+				output.push_back(blockType(mTerrains[i]));
+				break;
+
 			default:
 				break;
 
@@ -373,6 +403,9 @@ void MapEditor::writeTerrainToFile(std::string filename){
 
 void MapEditor::writeEntityToFile(std::string filename){
 
+	
+
+
 	std::string posString;
 	std::string output;
 	std::ofstream entityFile(filename);
@@ -395,6 +428,7 @@ void MapEditor::writeEntityToFile(std::string filename){
 			case Entity::ACIDMONSTER:
 				output.push_back('A');
 				output.push_back('C');
+				break;
 
 			default:
 				break;

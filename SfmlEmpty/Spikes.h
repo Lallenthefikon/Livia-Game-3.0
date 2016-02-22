@@ -3,6 +3,7 @@
 #include <SFML\System.hpp>
 #include "Terrain.h"
 #include "Toolbox.h"
+#include "Animations.h"
 
 class Spikes : public Terrain{
 public:
@@ -25,10 +26,16 @@ private:
 	Spikes(sf::Vector2f pos, char type);
 
 	void setRotation(char type);
+	void animate();
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
 
 	sf::Texture mTexture;
+
+	Animations::Textures* mCurrentAnimation;
+	int mAnimationIndex;
+	float mTimer;
+
 
 	char mTileType;
 

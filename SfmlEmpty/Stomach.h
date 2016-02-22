@@ -13,13 +13,14 @@
 class Stomach : public Level{
 public:
 	static Stomach& getInstance();
-	virtual void update(sf::RenderWindow &window, float &frameTime);
+	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
 	virtual void unloadLevel();
 	virtual std::string getLevelName(){ return mMapName; }
 	virtual std::string getLevelDirectory(){ return mMapPath; }
 	void setCurrentMap(std::string &mapname);
+	void resetLevel(sf::RenderWindow &window);
 	
 private:
 	Stomach();
@@ -36,16 +37,17 @@ private:
 	sf::Texture mLifeTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
+	
 	Camera mCamera;
 
-	std::string mMapName;
-	std::string mMapPath;
-
-	std::string mLevelState;
+	std::string mMapName,
+		mMapPath,
+		mLevelState;
 
 
 	sf::Sprite mBackground;
 	sf::Texture mTexture;
 
 	bool mGameOver = false;
+	bool mZoomedOut;
 };

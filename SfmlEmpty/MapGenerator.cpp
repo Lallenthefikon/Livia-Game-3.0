@@ -29,8 +29,6 @@ void MapGenerator::loadMap(std::string &mapname){
 	MapGenerator::readEntityfile(mapname);
 
 	mapname[15] = 'm';
-
-
 }
 
 void MapGenerator::readTerrainfile(std::string &filename){
@@ -57,7 +55,7 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				}
 				break;
 
-				// Spikes
+			// Spikes
 			case 'S':
 				switch (line[1]){
 				case '0':
@@ -66,7 +64,12 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				default:
 					break;
 				}
+				break;
 
+			// Goal
+			case 'G':
+				MapGenerator::createGoal(MapGenerator::readPosition(line));
+				break;
 
 			default:
 				break;
@@ -78,6 +81,7 @@ void MapGenerator::readTerrainfile(std::string &filename){
 }
 
 void MapGenerator::readEntityfile(std::string &filename){
+	bool playerLoaded(false);
 	std::string line;
 	std::ifstream entityfile(filename);
 
@@ -91,6 +95,7 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case '0':
 					MapGenerator::createPlayer(MapGenerator::readPosition(line));
+					playerLoaded = true;
 					break;
 				default:
 					break;
@@ -120,6 +125,8 @@ void MapGenerator::readEntityfile(std::string &filename){
 		}
 	}
 	entityfile.close();
+	if (!playerLoaded)
+		MapGenerator::createPlayer(sf::Vector2f(0,0));
 }
 
 
@@ -150,6 +157,10 @@ void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
 	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
+}
+
+void MapGenerator::createGoal(sf::Vector2f pos) {
+	mTerrainhandler->addTerrain(Factory::createGoal(pos));
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){

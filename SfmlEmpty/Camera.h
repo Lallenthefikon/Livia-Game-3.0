@@ -9,7 +9,8 @@ public:
 	~Camera();
 	void resetCamera(float xStart, float yStart, float xStop, float yStop);
 	//void render(sf::RenderWindow & window);
-	void updateCamGAME(sf::RenderWindow &window);
+	void updateGameCam(sf::RenderWindow &window
+	, bool followingLeft, bool followingRight, bool followingDown, bool followingUp);
 	
 	void updateCamEDITOR(sf::Window &window, std::string direction);
 
@@ -22,12 +23,14 @@ public:
 	bool zoomOut(float totalSizeChange, int timesToZoom);
 	void setCollisionStripe(std::string orientation, sf::RenderWindow &window);
 	sf::Vector2f getVelocity(){ return mVelocity; }
+	void setLevelBounds(sf::FloatRect levelBounds);
 
 private:
 	sf::View mTileView;
 	sf::View mSceneryView;
 	sf::Vector2f mVelocity;
 	sf::Vector2f mAcceleration;
+	sf::FloatRect mLevelBounds;
 	// Used to keep player from moving backwards
 	sf::RectangleShape mCollisionStripe;
 	//sf::Sprite mCollisionStripe;
