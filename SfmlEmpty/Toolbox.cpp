@@ -39,6 +39,7 @@ static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mPlayerDeathSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
+static sf::SoundBuffer mPlayerLandSound;
 static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
@@ -77,7 +78,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/SML - ex4.ogg");
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
@@ -88,6 +89,7 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
+	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_01.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
@@ -152,7 +154,6 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 	case GOALTEXTURE:
 		return mGoalTexture;
 		break;
-
 
 	default:
 		break;
@@ -233,6 +234,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerJumpSound;
 		break;
 	case Toolbox::PLAYERLAND:
+		return mPlayerLandSound;
 		break;
 	case Toolbox::PLAYERDAMAGED:
 		return mPlayerDamagedSound;
