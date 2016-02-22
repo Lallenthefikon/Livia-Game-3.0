@@ -29,7 +29,6 @@
 		virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 		virtual int getLife(){ return 0; }
 
-
 	private:
 		AcidMonster(sf::Vector2f pos);
 

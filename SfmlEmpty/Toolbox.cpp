@@ -53,7 +53,7 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck mörkare större.png");
+		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -61,7 +61,6 @@ void Toolbox::loadTextures(std::string levelName){
 	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
-	//mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/Tummy jagar spritesheet.png");
 

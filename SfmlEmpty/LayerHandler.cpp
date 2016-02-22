@@ -190,6 +190,8 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[0]);
 		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
 	}
+
+	
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){

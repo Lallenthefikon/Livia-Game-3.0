@@ -68,12 +68,12 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
-	if (!mIsAlive) {
-		mTextHandler.renderGameOver(window);
-	}
-	if (mWin) {
-		mTextHandler.renderWin(window);
-	}
+//	if (!mIsAlive) {
+//		mTextHandler.renderGameOver(window);
+//	}
+//	if (mWin) {
+//		mTextHandler.renderWin(window);
+//	}
 }
 
  void Player::update(){

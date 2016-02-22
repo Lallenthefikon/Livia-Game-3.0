@@ -66,6 +66,7 @@ void Stomach::update(sf::RenderWindow &window){
 			mCamera.updateStomachCam(window, mLevelState);
 			mZoomedOut = true;
 		}
+		mEntityHandler.getEntities().back()->setScale(sf::Vector2f(2.f, 2.f));
 		mLevelState = "ZoomedOut";
 	}
 	if (mLevelState == "ZoomedOut"){
@@ -127,10 +128,7 @@ void Stomach::render(sf::RenderWindow &window){
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
-	//if (mLevelState != "ZoomedOut"){
 	mLevelState = "Cutscene";
-		//std::cout << "Loaded" << std::endl;
-	//}
 }
 
 void Stomach::unloadLevel(){
