@@ -68,12 +68,23 @@ void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
+
+
+
+	// FLYTTA TILL LAYER HANDLER, SKA INTE RITAS HÄR
 //	if (!mIsAlive) {
 //		mTextHandler.renderGameOver(window);
 //	}
 //	if (mWin) {
 //		mTextHandler.renderWin(window);
 //	}
+
+	//if (mState == DEATH) {
+	//	mTextHandler.renderGameOver(window);
+	//}
+	//if (mWin) {
+	//	mTextHandler.renderWin(window);
+	//}
 }
 
  void Player::update(){
@@ -214,8 +225,7 @@ void Player::getHit() {
 			mInvulnerableTimer.restart().asMilliseconds();
 			if (!mLife <= 0) {
 				Player::playSound(Player::DAMAGED);
-			} else
-				Player::playSound(DEATH);
+			}
 		}
 	}
 }
@@ -364,6 +374,7 @@ void Player::updateState() {
 		mState = DEATH;
 		changed = true;
 		Player::stopSound(RUNNING);
+		Player::playSound(DEATH);
 	}
 
 	if (mState == WALLSTUCK) {
@@ -388,12 +399,18 @@ void Player::updateState() {
 		Player::stopSound(WALLSTUCK);
 
 	if (mState != DEATH) {
+		if (mState == FALLING && mVelocity.y == 0) {
+			mState = LANDED;
+			Player::playSound(LANDED);
+		}
+
 		// Player runs in a direction
 		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
 			mState = RUNNING;
 			Player::updateANI();
-			if (!mVelocity.y > 0)
+			if (!mVelocity.y > 0) {
 				Player::playSound(RUNNING);
+			}
 		}
 
 
@@ -607,6 +624,9 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::WALLSTUCK:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::WALLSLIDE);
 		break;
+	case Player::LANDED:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::LANDING);
+		break;
 	default:
 		break;
 	}
@@ -633,6 +653,9 @@ void Player::stopSound(PLAYERSTATE state) {
 		break;
 	case Player::WALLSTUCK:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::WALLSLIDE);
+		break;
+	case Player::LANDED:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::LANDING);
 		break;
 	default:
 		break;

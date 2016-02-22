@@ -1,7 +1,7 @@
 #include "Entityhandler.h"
+#include <iostream>
 
-Entityhandler::Entityhandler():
-mGravity(sf::Vector2f(0, 2)){
+Entityhandler::Entityhandler(){
 }
 
 Entityhandler::~Entityhandler(){
@@ -51,8 +51,9 @@ void Entityhandler::addEntity(Entity* entity){
 
 void Entityhandler::addVector(){
 	for (Entities::size_type i = 0; i < mEntities.size(); i++){
-		mEntities[i]->addVector(mGravity);
+		mEntities[i]->addVector(Toolbox::getGravity() * Toolbox::getFrameTime());
 	}
+	std::cout << "Gravity: " << Toolbox::getGravity().y * Toolbox::getFrameTime() << " Frame time: " << Toolbox::getFrameTime() << std::endl;
 }
 
 void Entityhandler::clear(){

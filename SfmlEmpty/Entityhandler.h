@@ -28,5 +28,4 @@ private:
 	void internalClear();
 	
 	Entities mEntities;
-	sf::Vector2f mGravity;
 };

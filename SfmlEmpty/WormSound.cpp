@@ -38,7 +38,7 @@ void WormSound::playSound(SOUNDTYPE type) {
 	case SoundFX::IDLE:
 		break;
 	case SoundFX::DEATH:
-		if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing)
+		//if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[DEATH]->play();
 		break;
 	default:
