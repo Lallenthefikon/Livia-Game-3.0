@@ -89,7 +89,7 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
-	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_01.ogg");
+	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
