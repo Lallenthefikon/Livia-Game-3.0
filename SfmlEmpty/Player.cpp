@@ -155,14 +155,13 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		mWin = false;
 	case Terrain::BLOCK0WALLJUMP:
 		mWin = false;
-		switch (direction){
+		switch (direction) {
 
 		case 't':
 			mCollisionT = true;
 			delta = mCollisionBody.getPosition().y - terrain->getPos().y;
 			mCollisionBody.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
 			mCurrentCollisionT = terrain;
-			
 			break;
 		case 'b':
 			mCollisionB = true;

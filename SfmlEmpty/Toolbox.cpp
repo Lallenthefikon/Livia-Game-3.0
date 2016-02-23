@@ -21,6 +21,7 @@ static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
+static sf::Image mAcidBottom;
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -55,6 +56,7 @@ Toolbox& Toolbox::getInstance(){
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.png");
+		mAcidBottom.loadFromFile("resources/images/Magsyra suddig.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -152,6 +154,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case GOALTEXTURE:
 		return mGoalTexture;
+		break;
+
+	case STOMACHACID:
+		return mAcidBottom;
 		break;
 
 	default:

@@ -10,7 +10,6 @@ mEntityHandler(Entityhandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mHeartAnimation(Animations::getHeartANI()){
 	
-	
 	//mForegroundObjects.push_back(background);
 }
 
@@ -94,9 +93,9 @@ void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vec
 	}*/
 	float bgSpeed = 0.07;
 
-	furthestRightBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
-	middleBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
-	furthestLeftBG->move(-cam.getVelocity().x*bgSpeed, 0.f);
+	furthestRightBG->move(-cam.getVelocity().x * bgSpeed, 0.f);
+	middleBG->move(-cam.getVelocity().x * bgSpeed, 0.f);
+	furthestLeftBG->move(-cam.getVelocity().x * bgSpeed, 0.f);
 }
 
 void LayerHandler::moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
@@ -151,6 +150,10 @@ void LayerHandler::moveStationaryBackground(sf::RenderWindow &window, Camera &ca
 
 }
 
+void LayerHandler::moveStationaryForeground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView) {
+	mForegroundObjects[0].setPosition(cam.getTileView().getCenter().x, cam.getTileView().getCenter().y);
+}
+
 void LayerHandler::moveForeground(sf::Vector2f &velocity){
 
 }
@@ -167,8 +170,9 @@ void LayerHandler::renderBackground(sf::RenderWindow &window){
 }
 
 void LayerHandler::renderForeground(sf::RenderWindow &window){
-	
-	
+	for (size_t i = 0; i < mForegroundObjects.size(); i++) {
+		window.draw(mForegroundObjects[i]);
+	}
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
@@ -227,6 +231,12 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 	}
 }
 
+void LayerHandler::addAcid(sf::Texture &acidTexture) {
+	mForeground1.setTexture(acidTexture);
+	mForegroundObjects.push_back(mForeground1);
+	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
+}
+
 void LayerHandler::animate(){
 	mTimer += ANIFramesPerFrame;
 
@@ -242,6 +252,7 @@ void LayerHandler::animate(){
 		}
 	}
 }
+
 
 //
 //	if (mTimerANI >= 1){
