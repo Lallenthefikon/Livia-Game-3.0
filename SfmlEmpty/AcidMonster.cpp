@@ -33,7 +33,10 @@ void AcidMonster::update(){
 	AcidMonster::updateState();
 	AcidMonster::animate();
 
-	mSprite.move(mVelocity);
+	if (Toolbox::getPlayerIsAlive()){
+		mSprite.move(mVelocity);
+	}
+
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){

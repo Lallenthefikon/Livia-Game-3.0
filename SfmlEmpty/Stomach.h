@@ -9,6 +9,7 @@
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "AcidMonster.h"
 
 class Stomach : public Level{
 public:
@@ -35,15 +36,16 @@ private:
 
 	sf::Texture mBackgroundTexture;
 	sf::Texture mLifeTexture;
+	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
+	sf::Sprite mAcidSprite;
 	
 	Camera mCamera;
 
 	std::string mMapName,
-		mMapPath,
-		mLevelState;
-
+				mMapPath,
+				mLevelState;
 
 	sf::Sprite mBackground;
 	sf::Texture mTexture;

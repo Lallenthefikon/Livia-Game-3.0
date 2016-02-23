@@ -17,6 +17,7 @@ static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
+static sf::Image mAcidBottom;
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -50,7 +51,8 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck mörkare större.png");
+		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.png");
+		mAcidBottom.loadFromFile("resources/images/Magsyra suddig.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -58,7 +60,6 @@ void Toolbox::loadTextures(std::string levelName){
 	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
-	//mIdlePlayersheet.loadFromFile("resources/images/Livia_idle_spritesheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/Tummy jagar spritesheet.png");
 
@@ -85,7 +86,7 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
-	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_01.ogg");
+	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
@@ -133,6 +134,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case GOALTEXTURE:
 		return mGoalTexture;
+		break;
+
+	case STOMACHACID:
+		return mAcidBottom;
 		break;
 
 	default:
