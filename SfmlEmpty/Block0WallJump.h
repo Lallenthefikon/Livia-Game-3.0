@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML\System.hpp>
-#include "Terrain.h"
+#include "BlockTerrain.h"
 #include "Toolbox.h"
 
-class Block0WallJump : public Terrain{
+class Block0WallJump : public BlockTerrain {
 public:
 	virtual ~Block0WallJump();
 	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0WALLJUMP; }

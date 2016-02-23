@@ -1,11 +1,11 @@
 #pragma once
 
 #include <SFML\System.hpp>
-#include "Terrain.h"
+#include "InteractiveTerrain.h"
 #include "Toolbox.h"
 #include "Animations.h"
 
-class Spikes : public Terrain{
+class Spikes : public InteractiveTerrain{
 public:
 	virtual ~Spikes();
 	virtual Terrain::TERRAINTYPE getType(){ return Terrain::SPIKES; }

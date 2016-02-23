@@ -103,6 +103,16 @@
     <ClCompile Include="BlockGoal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BlockTerrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractiveTerrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBlockTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h">
@@ -204,6 +214,16 @@
     <ClInclude Include="BlockGoal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlockTerrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBlock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractiveTerrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBlockTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

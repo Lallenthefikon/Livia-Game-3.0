@@ -31,6 +31,10 @@ void Terrainhandler::clear(){
 	Terrainhandler::internalClear();
 }
 
+void Terrainhandler::createCollisionBlocks(){
+
+}
+
 // Private funcs
 
 void Terrainhandler::internalClear(){

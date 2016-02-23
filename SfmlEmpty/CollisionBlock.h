@@ -1,15 +1,19 @@
 #pragma once
-
-#include "InteractiveTerrain.h"
+#include "BlockTerrain.h"
+#include <SFML\System.hpp>
 #include "Toolbox.h"
 
-class BlockGoal : public InteractiveTerrain {
+
+class CollisionBlock : public BlockTerrain
+{
 public:
-	virtual ~BlockGoal();
-	virtual TERRAINTYPE getType() { return Terrain::BLOCKGOAL; }
-	static Terrain* createGoal(sf::Vector2f pos);
+
+	virtual ~CollisionBlock();
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0; }
+	static Terrain* createBlock0(sf::Vector2f pos, char type);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
+	virtual void addBlockTerrain(BlockTerrain *blockterrain);
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
 	virtual sf::Vector2f getOffset() { return mSpriteOffset; }
 	virtual float getWidth() { return mSprite.getGlobalBounds().width; }
@@ -19,17 +23,21 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
+
 private:
-	BlockGoal(sf::Vector2f pos);
+	CollisionBlock(sf::Vector2f pos, char type);
 
-	void setTexture();
-
-	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
+
+	typedef std::vector<BlockTerrain*> BlockTerrains;
+	typedef std::vector<BlockTerrains*> BlockTerrains2D;
+
+	BlockTerrains2D mBlockTerrains2D;
 
 	char mTileType;
 
 	bool mIsOnScreen = true;
+
 };
 

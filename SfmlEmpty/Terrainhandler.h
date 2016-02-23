@@ -12,6 +12,7 @@ public:
 	void updateTerrains();
 	Terrains& getTerrains(){ return mTerrains; }
 	void clear();
+	void createCollisionBlocks();
 private:
 	Terrainhandler();
 	~Terrainhandler();
