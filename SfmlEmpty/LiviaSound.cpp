@@ -25,8 +25,11 @@ void LiviaSound::initialize() {
 	mSounds.insert({ LANDING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERLAND)) });
 	mSounds[RUNNING]->setLoop(true);
 	mSounds[WALLSLIDE]->setLoop(true);
+	
 	mSounds[LANDING]->setVolume(15);
 	mSounds[RUNNING]->setVolume(33);
+	mSounds[JUMPING]->setVolume(33);
+	mSounds[DEATH]->setVolume(75);
 }
 
 void LiviaSound::finalize() {
