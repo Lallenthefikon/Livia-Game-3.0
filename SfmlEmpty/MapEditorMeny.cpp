@@ -94,6 +94,7 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 		}
 		return true;
 	}
+	return false;
 }
 
 void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
