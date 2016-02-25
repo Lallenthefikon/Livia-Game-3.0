@@ -5,7 +5,8 @@ GameLoop::GameLoop():
 mCurrentLevelDirectory("resources/maps/mMap0.txt"),
 mCurrentLevelName("Stomach"),
 mWindow(sf::VideoMode::getDesktopMode(), "Livia 2.0.2 V.2"),
-mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)){
+mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),
+mStomachAmbience(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHAMBIENCE)){
 	mWindow.setVerticalSyncEnabled(false);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
@@ -57,8 +58,12 @@ void GameLoop::run(){
 	mWindow.setFramerateLimit(60);
 
 	mStomachMusic.setVolume(25);
-	mStomachMusic.setLoop(true);
-	//mStomachMusic.play();
+	mStomachMusic.setLoop(false);
+	mStomachAmbience.setVolume(80);
+	mStomachAmbience.setLoop(true);
+	
+	mStomachMusic.play();
+	mStomachAmbience.play();
 
 	int clickOnce = 0;
 	
@@ -83,7 +88,6 @@ void GameLoop::render(){
 
 void GameLoop::calcTimeElapsedAndFPS(sf::Clock &clock){
 	mFrameTime = clock.restart().asSeconds();
-	FPS = 1.f / mFrameTime;
 	Toolbox::copyFrameTime(mFrameTime);
 	//std::cout << FPS << " " << mTimeElapsed << std::endl;
 }

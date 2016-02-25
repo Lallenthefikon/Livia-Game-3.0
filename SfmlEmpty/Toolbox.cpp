@@ -24,6 +24,7 @@ static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
+static sf::Image mAcidBottom;
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -58,7 +59,8 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.png");
+		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
+		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -82,7 +84,7 @@ void Toolbox::loadSounds(std::string levelName) {
 
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
-		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
 	// Global effects
@@ -157,6 +159,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case GOALTEXTURE:
 		return mGoalTexture;
+		break;
+
+	case STOMACHACID:
+		return mAcidBottom;
 		break;
 
 	default:
@@ -303,6 +309,9 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 
 void Toolbox::copyFrameTime(float &frameTime) {
 	mFrameTime = frameTime;
+	if (mFrameTime > 0.032) {
+		mFrameTime = 0.032;
+	}
 	//std::cout << "Frame time: " << mFrameTime << std::endl;
 }
 

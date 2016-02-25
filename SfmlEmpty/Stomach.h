@@ -36,17 +36,19 @@ private:
 	// Specific level graphics
 	sf::Texture mBackgroundTexture;
 	sf::Texture mLifeTexture;
+	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
 
 	// Level Info
 	sf::FloatRect mLevelBounds;
-
+	sf::Sprite mAcidSprite;
+	
 	Camera mCamera;
 
 	std::string mMapName,
-		mMapPath,
-		mLevelState;
+				mMapPath,
+				mLevelState;
 
 	sf::Sprite mBackground;
 	sf::Texture mTexture;

@@ -30,6 +30,7 @@ private:
 		mCurrentLevelName;
 
 	sf::Music& mStomachMusic;
+	sf::Music& mStomachAmbience;
 	
 	float mFrameTime;
 	int FPS;
