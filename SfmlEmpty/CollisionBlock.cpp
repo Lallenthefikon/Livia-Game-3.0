@@ -23,3 +23,7 @@ void CollisionBlock::update() {
 
 void CollisionBlock::addBlockTerrain(BlockTerrain  *blockterrain){
 }
+
+void CollisionBlock::setPos(sf::Vector2f newPos) {
+	mSprite.setPosition(newPos);
+}

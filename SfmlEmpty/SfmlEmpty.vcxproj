@@ -86,7 +86,6 @@
     <ClCompile Include="BlockTerrain.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CollisionBlock.cpp" />
-    <ClCompile Include="CollisionBlockTerrain.cpp" />
     <ClCompile Include="CollisionFuncs.cpp" />
     <ClCompile Include="Collisionhandler.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -126,7 +125,6 @@
     <ClInclude Include="BlockTerrain.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CollisionBlock.h" />
-    <ClInclude Include="CollisionBlockTerrain.h" />
     <ClInclude Include="CollisionFuncs.h" />
     <ClInclude Include="Collisionhandler.h" />
     <ClInclude Include="Entity.h" />

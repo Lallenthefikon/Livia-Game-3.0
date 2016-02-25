@@ -5,7 +5,7 @@
 
 
 
-class CollisionBlockTerrain : public CollisionBlockTerrain{
+class CollisionBlockTerrain : public BlockTerrain{
 public:
 	CollisionBlockTerrain();
 	virtual ~CollisionBlockTerrain();

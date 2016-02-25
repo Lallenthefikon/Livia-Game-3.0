@@ -112,7 +112,6 @@
     <ClCompile Include="InteractiveTerrain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionBlockTerrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h">
@@ -223,7 +222,6 @@
     <ClInclude Include="InteractiveTerrain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionBlockTerrain.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
