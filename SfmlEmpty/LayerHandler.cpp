@@ -22,8 +22,6 @@ LayerHandler& LayerHandler::getInstance(){
 	return layerHandler;
 }
 
-
-
 void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
 	sf::Sprite* furthestRightBG;

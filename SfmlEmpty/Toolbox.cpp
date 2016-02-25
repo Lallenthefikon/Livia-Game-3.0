@@ -6,7 +6,10 @@ static sf::Vector2f mPlayerVelocity;
 static bool mPlayerAlive;
 
 static float mFrameTime(0);
+
+// Level Info
 static sf::Vector2f mGravity(0, 125);
+static sf::FloatRect mLevelBounds;
 
 
 // Textures
@@ -38,6 +41,7 @@ static sf::SoundBuffer mPlayerRunSound;
 static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mPlayerDeathSound;
+static sf::SoundBuffer mPlayerFallDeathSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 static sf::SoundBuffer mWormDeathSound;
@@ -87,6 +91,7 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
 	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
+	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/Death_Fall_01.ogg");
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
 	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_03.ogg");
 
@@ -190,6 +195,14 @@ sf::FloatRect Toolbox::getGlobalCameraBounds(){
 	return mGlobalCameraBounds;
 }
 
+void Toolbox::copyLevelBounds(sf::FloatRect &levelBounds){
+	mLevelBounds = levelBounds;
+}
+
+sf::FloatRect Toolbox::getLevelBounds(){
+	 return mLevelBounds;
+}
+
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
 }
@@ -240,6 +253,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::PLAYERDEATH:
 		return mPlayerDeathSound;
+		break;
+	case Toolbox::PLAYERFALLDEATH:
+		return mPlayerFallDeathSound;
 		break;
 	case Toolbox::PLAYERWALLSLIDE:
 		return mPlayerWallSlideSound;

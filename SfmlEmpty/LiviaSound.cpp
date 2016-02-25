@@ -21,6 +21,7 @@ void LiviaSound::initialize() {
 	mSounds.insert({ DAMAGED, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED)) });
 	mSounds.insert({ IDLE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE)) });
 	mSounds.insert({ DEATH, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDEATH)) });
+	mSounds.insert({ FALLDEATH, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERFALLDEATH)) });
 	mSounds.insert({ WALLSLIDE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERWALLSLIDE)) });
 	mSounds.insert({ LANDING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERLAND)) });
 	mSounds[RUNNING]->setLoop(true);
@@ -66,6 +67,11 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 	case SoundFX::DEATH:
 		if (mSounds[DEATH]->getStatus() != sf::Sound::Status::Playing)
 			mSounds[DEATH]->play();
+		break;
+
+	case SoundFX::FALLDEATH:
+		if (mSounds[FALLDEATH]->getStatus() != sf::Sound::Status::Playing)
+			mSounds[FALLDEATH]->play();
 		break;
 
 	case SoundFX::WALLSLIDE:
