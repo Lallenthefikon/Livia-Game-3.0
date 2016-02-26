@@ -29,9 +29,9 @@ public:
 	
 	void updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f sceneCamCoordPos);
 
+	~LayerHandler();
 private:
 	LayerHandler();
-	~LayerHandler();
 
 	Animations::Textures* mCurrentAnimation;
 	int mAnimationIndex;

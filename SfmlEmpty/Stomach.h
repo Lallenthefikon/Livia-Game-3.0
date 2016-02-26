@@ -5,6 +5,7 @@
 #include "Collisionhandler.h"
 #include "LayerHandler.h"
 #include "Texthandler.h"
+#include "Decorationhandler.h"
 #include "MapGenerator.h"
 #include "Toolbox.h"
 #include "Camera.h"
@@ -32,6 +33,7 @@ private:
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;
 	Texthandler& mTextHandler;
+	Decorationhandler& mDecorationhandler;
 
 	// Specific level graphics
 	sf::Texture mBackgroundTexture;

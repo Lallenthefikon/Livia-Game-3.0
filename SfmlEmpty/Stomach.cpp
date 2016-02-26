@@ -2,7 +2,7 @@
 #include <iostream>
 
 Stomach::Stomach() :
-// Initiate singleton classes
+	// Initiate singleton classes
 mBackground(),
 mTexture(),
 mTerrainHandler(Terrainhandler::getInstance()),
@@ -11,8 +11,9 @@ mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
-mCamera(),
+mDecorationhandler(Decorationhandler::getInstance()),
 mMapName("Stomach"),
+mCamera(),
 mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 mZoomedOut(false),
@@ -125,12 +126,20 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
+	// Terrains
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
+
+	// Decorations
+	mDecorationhandler.renderDecoration(window);
+
+	// Entities
 	mEntityHandler.renderEntities(window);
 
+	// Hud
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);
+
 	
 	window.display();
 }

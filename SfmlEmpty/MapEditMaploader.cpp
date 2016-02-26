@@ -23,6 +23,11 @@ MapEditMaploader::Entities MapEditMaploader::getEntities(std::string &filename){
 	return mEntities;
 }
 
+MapEditMaploader::Decorations MapEditMaploader::getDecorations(std::string &filename) {
+	MapEditMaploader::readDecorationfile(filename);
+	return mDecorations;
+}
+
 void MapEditMaploader::clear(){
 	MapEditMaploader::internalClear();
 }
@@ -124,6 +129,24 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 entityfile.close();
  }
 
+ void MapEditMaploader::readDecorationfile(std::string &filename) {
+	 std::string line;
+	 std::ifstream decorationFile(filename);
+
+	 if (decorationFile.is_open()) {
+		 while (getline(decorationFile, line)) {
+			 switch (line[0]) {
+			 case 'D':
+				 MapEditMaploader::createDecoration(MapEditMaploader::readPosition(line), line[1]);
+				 break;
+			 default:
+				 break;
+			 }
+		 }
+	 }
+	 decorationFile.close();
+ }
+
  void MapEditMaploader::createBlock0(sf::Vector2f &pos, char type){
 	 mTerrains.push_back(Factory::createBlock0(pos, type));
  }
@@ -152,6 +175,9 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mTerrains.push_back(Factory::createGoal(pos));
  }
 
+ void MapEditMaploader::createDecoration(sf::Vector2f &pos, char id) {
+	 mDecorations.push_back(Factory::createDecoration(pos, id));
+ }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){
 

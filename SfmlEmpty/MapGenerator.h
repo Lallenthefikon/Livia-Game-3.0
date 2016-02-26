@@ -3,6 +3,7 @@
 #include "Factory.h"
 #include "Entityhandler.h"
 #include "Terrainhandler.h"
+#include "Decorationhandler.h"
 
 class MapGenerator{
 public:
@@ -20,6 +21,7 @@ private:
 
 	void readTerrainfile(std::string &filename);
 	void readEntityfile(std::string &filename);
+	void readDecorationfile(std::string &filename);
 
 	void createWorm(sf::Vector2f pos);
 	void createPlayer(sf::Vector2f pos);
@@ -28,10 +30,12 @@ private:
 	void createBlock0WallJump(sf::Vector2f pos, char type);
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
+	void createDecoration(sf::Vector2f pos, char id);
 
 	// Pekare till singeltonklasser
 	Terrainhandler *mTerrainhandler;
 	Entityhandler *mEntityhandler;
+	Decorationhandler *mDecorationhandler;
 
 };
 

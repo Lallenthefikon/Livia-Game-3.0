@@ -5,6 +5,7 @@
 #include "Factory.h"
 #include "Entity.h"
 #include "Terrain.h"
+#include "Decoration.h"
 #include "Toolbox.h"
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
@@ -24,6 +25,7 @@ public:
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
+	void createDecoration(sf::Vector2f mousePos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -39,6 +41,7 @@ private:
 	void insertObject(sf::Vector2f mousePos);
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
+	void eraseDecoration(int index);
 	void changeInsertType();
 	void changeRotDirection();
 
@@ -46,6 +49,7 @@ private:
 	void sortVectors();
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
+	void writeDecorationToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -68,9 +72,11 @@ private:
 
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<Decoration*> Decorations;
 
 	Entities mEntities;
 	Terrains mTerrains;
+	Decorations mDecorations;
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;

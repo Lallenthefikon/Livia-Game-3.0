@@ -2,13 +2,14 @@
 
 #include "Entity.h"
 #include "Terrain.h"
+#include "Decoration.h"
 #include "Toolbox.h"
 #include <vector>
 #include "Factory.h"
 
 class MapEditorMeny{
 public:
-	enum INSERTTYPE { BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP, SPIKES, BLOCKGOAL };
+	enum INSERTTYPE { BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP, SPIKES, BLOCKGOAL, DECORATION0 };
 
 	static MapEditorMeny& getInstance();
 	void render(sf::RenderWindow &window);
@@ -25,9 +26,11 @@ private:
 
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<Decoration*> Decorations;
 
 	Entities mEntities;
 	Terrains mTerrains;
+	Decorations mDecorations;
 	
 	INSERTTYPE mInsertType;
 

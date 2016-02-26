@@ -8,6 +8,8 @@ static sf::Image& mEnemy0IMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
 static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 
+static sf::Image& mDecorationIMG(Toolbox::getTexture(Toolbox::DECORATIONTEXTURE));
+
 Animations::Textures mPlayerRunningANI;
 Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
@@ -22,6 +24,8 @@ Animations::Textures mAcidMonsterANI;
 Animations::Textures mHeartANI;
 
 Animations::Textures mSpikesANI;
+
+Animations::Textures mDecorationANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -182,6 +186,9 @@ void Animations::loadTextures(){
 	}
 	x = 0;
 	y = 0;
+
+	mDecorationANI.push_back(new sf::Texture);
+	mDecorationANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
 }
 // Player ANI
 
@@ -231,3 +238,6 @@ Animations::Textures* Animations::getSpikesANI(){
 	return &mSpikesANI;
 }
 
+Animations::Textures* Animations::getDecorationANI(){
+	return &mDecorationANI;
+}

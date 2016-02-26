@@ -30,6 +30,8 @@ static sf::Image mLifeTexture;
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
+static sf::Image mDecorationTexture;
+
 // Camera
 static sf::Vector2f mWindowSize;
 static sf::Vector2f mResolution;
@@ -61,6 +63,7 @@ void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
 		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/dank illuminati.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -163,6 +166,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case STOMACHACID:
 		return mAcidBottom;
+		break;
+
+	case DECORATIONTEXTURE:
+		return mDecorationTexture;
 		break;
 
 	default:

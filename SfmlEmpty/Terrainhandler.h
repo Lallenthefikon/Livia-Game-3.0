@@ -12,9 +12,9 @@ public:
 	void updateTerrains();
 	Terrains& getTerrains(){ return mTerrains; }
 	void clear();
+	~Terrainhandler();
 private:
 	Terrainhandler();
-	~Terrainhandler();
 
 	void internalClear();
 

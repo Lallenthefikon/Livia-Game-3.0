@@ -78,6 +78,12 @@ void MapEditor::update(sf::RenderWindow &window){
 							break;
 						}
 					}
+					for (i = mDecorations.size() - 1; i > -1; i--) {
+						if (MapEditor::isSpriteClicked(mDecorations[i]->getSprite(), &coord_pos)) {
+							MapEditor::eraseDecoration(i);
+							break;
+						}
+					}
 					break;
 
 				case sf::Mouse::Middle:
@@ -159,13 +165,14 @@ void MapEditor::render(sf::RenderWindow &window){
 	for (Entities::size_type i = 0; i < mEntities.size(); i++){
 		mEntities[i]->render(window);
 	}
+
+	for (Decorations::size_type i = 0;  i < mDecorations.size();  i++) {
+		mDecorations[i]->render(window);
+	}
+
 	mMeny.render(window);
 
 	window.display();
-}
-
-void MapEditor::createBlock0(sf::Vector2f mousePos){
-	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
 }
 
 void MapEditor::createPlayer(sf::Vector2f mousePos){
@@ -180,6 +187,10 @@ void MapEditor::createPlayer(sf::Vector2f mousePos){
 		mEntities.push_back(mEntities[0]);
 		mEntities[0] = Factory::createPlayer(mousePos);
 	}
+}
+
+void MapEditor::createBlock0(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
 }
 
 void MapEditor::createWorm(sf::Vector2f mousePos){
@@ -202,12 +213,19 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
+void MapEditor::createDecoration(sf::Vector2f mousepos) {
+	mDecorations.push_back(Factory::createDecoration(mousepos, '0'));
+}
+
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'T';
 	mTerrains = mMaploader.getTerrain(mCurrentLevelDirectory);
+
+	mCurrentLevelDirectory[15] = 'D';
+	mDecorations = mMaploader.getDecorations(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'm';
 
@@ -243,6 +261,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::BLOCKGOAL:
 		MapEditor::createGoal(mousePos);
 		break;
+	case MapEditorMeny::DECORATION0:
+		MapEditor::createDecoration(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -256,6 +277,11 @@ void MapEditor::eraseEntity(int index){
 void MapEditor::eraseTerrain(int index){
 	delete mTerrains[index];
 	mTerrains.erase(mTerrains.begin() + index);
+}
+
+void MapEditor::eraseDecoration(int index) {
+	delete mDecorations[index];
+	mDecorations.erase(mDecorations.begin() + index);
 }
 
 void MapEditor::changeInsertType(){
@@ -279,6 +305,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::BLOCKGOAL;
 		break;
 	case MapEditorMeny::BLOCKGOAL:
+		mInsertType = MapEditorMeny::DECORATION0;
+		break;
+	case MapEditorMeny::DECORATION0:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -315,6 +344,9 @@ void MapEditor::saveMap(){
 
 	mCurrentLevelDirectory[15] = 'E';
 	MapEditor::writeEntityToFile(mCurrentLevelDirectory);
+
+	mCurrentLevelDirectory[15] = 'D';
+	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'm';
 
@@ -403,9 +435,6 @@ void MapEditor::writeTerrainToFile(std::string filename){
 
 void MapEditor::writeEntityToFile(std::string filename){
 
-	
-
-
 	std::string posString;
 	std::string output;
 	std::ofstream entityFile(filename);
@@ -419,7 +448,7 @@ void MapEditor::writeEntityToFile(std::string filename){
 				output.push_back('P');
 				output.push_back('0');
 				break;
-
+		
 			case Entity::WORM:
 				output.push_back('W');
 				output.push_back('0');
@@ -457,6 +486,46 @@ void MapEditor::writeEntityToFile(std::string filename){
 		}
 	}
 	entityFile.close();
+}
+
+void MapEditor::writeDecorationToFile(std::string filename) {
+	std::string posString;
+	std::string output;
+	std::ofstream decorationFile(filename);
+
+	if (decorationFile.is_open()) {
+		for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
+
+			switch (mDecorations[i]->getDecorationID()) {
+			case Decoration::FLOWER:
+				output.push_back('D');
+				output.push_back('0');
+			default:
+				break;
+			}
+			output.push_back('|');
+
+			// Inserts xpos into output followed by a ','
+			posString = MapEditor::floatToString(mDecorations[i]->getPos().x + mDecorations[i]->getOffset().x);
+			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+				output.push_back(posString[iS]);
+			}
+			output.push_back(',');
+
+			// Inserts ypos into output
+			posString = MapEditor::floatToString(mDecorations[i]->getPos().y + mDecorations[i]->getOffset().y);
+			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+				output.push_back(posString[iS]);
+			}
+
+			// Writes output into file
+			decorationFile << output << std::endl;
+
+			output.clear();
+			posString.clear();
+		}
+	}
+	decorationFile.close();
 }
 
 char MapEditor::blockType(Terrain* terrain){
@@ -539,6 +608,11 @@ void MapEditor::internalClear(){
 	while (!mTerrains.empty()){
 		delete mTerrains.back();
 		mTerrains.pop_back();
+	}
+
+	while (!mDecorations.empty()) {
+		delete mDecorations.back();
+		mDecorations.pop_back();
 	}
 }
 

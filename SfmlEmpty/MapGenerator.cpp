@@ -3,7 +3,8 @@
 
 MapGenerator::MapGenerator() :
 mTerrainhandler(&Terrainhandler::getInstance()),
-mEntityhandler(&Entityhandler::getInstance()){
+mEntityhandler(&Entityhandler::getInstance()),
+mDecorationhandler(&Decorationhandler::getInstance()){
 }
 
 MapGenerator::~MapGenerator(){
@@ -20,6 +21,7 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mEntityhandler->clear();
 	mTerrainhandler->clear();
+	mDecorationhandler->clear();
 
 	mapname[15] = 'T';
 	MapGenerator::readTerrainfile(mapname);
@@ -27,6 +29,11 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mapname[15] = 'E';
 	MapGenerator::readEntityfile(mapname);
+
+
+	mapname[15] = 'D';
+	MapGenerator::readDecorationfile(mapname);
+
 
 	mapname[15] = 'm';
 }
@@ -129,6 +136,23 @@ void MapGenerator::readEntityfile(std::string &filename){
 		MapGenerator::createPlayer(sf::Vector2f(0,0));
 }
 
+void MapGenerator::readDecorationfile(std::string &filename) {
+	std::string line;
+	std::ifstream decorationFile(filename);
+
+	if (decorationFile.is_open()) {
+		while (getline(decorationFile, line)) {
+			switch (line[0]) {
+			case 'D':
+				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1]);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	decorationFile.close();
+}
 
 // Create entities
 
@@ -162,6 +186,14 @@ void MapGenerator::createSpikes(sf::Vector2f pos, char type){
 void MapGenerator::createGoal(sf::Vector2f pos) {
 	mTerrainhandler->addTerrain(Factory::createGoal(pos));
 }
+
+
+// Create decoration
+
+void MapGenerator::createDecoration(sf::Vector2f pos, char id) {
+	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id));
+}
+
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
 

@@ -30,6 +30,11 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 	for (Entities::size_type i = 0; i < mEntities.size(); i++){
 		mEntities[i]->render(window);
 	}
+
+	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
+		mDecorations[i]->render(window);
+	}
+
 }
 
 void MapEditorMeny::insertObjects(){
@@ -46,6 +51,8 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6)); 
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 2.8, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), '0'));
+	mDecorations.back()->setScale(sf::Vector2f(0.6, 0.6));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -92,6 +99,17 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				}
 			}
 		}
+		for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
+			if (MapEditorMeny::isSpriteClicked(mDecorations[i]->getSprite(), &mousepos)) {
+				switch (mDecorations[i]->getDecorationID()) {
+				case Decoration::FLOWER:
+					mInsertType = DECORATION0;
+					break;
+				default:
+					break;
+				}
+			}
+		}
 		return true;
 	}
 	return false;
@@ -106,7 +124,12 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
 	// Block0 
 	for (int i = 0; i < mTerrains.size(); i++)
-	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i +2, newPos.y + 100));
+	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 100));
+
+	// Decorations
+	for (int i = 0; i < mDecorations.size(); i++) {
+		mDecorations[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 10, newPos.y + 180));
+	}
 
 
 	//int nrOfEntities;
