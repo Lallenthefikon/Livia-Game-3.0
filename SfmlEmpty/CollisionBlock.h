@@ -7,13 +7,13 @@
 class CollisionBlock : public BlockTerrain
 {
 public:
-
+	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<Terrains*> Terrains2D;
 	virtual ~CollisionBlock();
-	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0; }
-	static Terrain* createBlock0(sf::Vector2f pos, char type);
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::COLLISIONBLOCK; }
+	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
-	virtual void addBlockTerrain(BlockTerrain *blockterrain);
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
 	virtual sf::Vector2f getOffset() { return mSpriteOffset; }
 	virtual float getWidth() { return mSprite.getGlobalBounds().width; }
@@ -24,17 +24,31 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
 
+	// BlockTerrain specific
+	virtual void addBlockTerrain(Terrain* blockTerrain, bool newX);
+	virtual Terrain* getBlock(int xIndex, int yIndex);
+	virtual Terrains2D& getBlocks();
+	virtual Terrain::TERRAINTYPE getType(sf::Vector2f pos, float length, char direction);
+	virtual char getTileType(sf::Vector2f pos, float length, char direction);
 private:
-	CollisionBlock(sf::Vector2f pos, char type);
+	CollisionBlock(sf::Vector2f pos);
 
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
 
-	typedef std::vector<BlockTerrain*> BlockTerrains;
-	typedef std::vector<BlockTerrains*> BlockTerrains2D;
+	void updateRect();
 
-	BlockTerrains2D mBlockTerrains2D;
+	void checkCollisionR(sf::Vector2f pos, float length);
+	void checkCollisionL(sf::Vector2f pos, float length);
+	void checkCollisionT(sf::Vector2f pos, float length);
+	void checkCollisionB(sf::Vector2f pos, float length);
 
+	void prioritizeBlockTypes(Terrain::TERRAINTYPE blockType);
+
+	Terrains2D mBlockTerrains2D;
+	sf::Texture mTexture;
+
+	Terrain::TERRAINTYPE mHighestPrio;
 	char mTileType;
 
 	bool mIsOnScreen = true;

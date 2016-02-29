@@ -33,9 +33,6 @@ mZoomedOut(false){
 	//mAcidSprite.setTexture(mAcidTexture);
 	mLayerHandler.addAcid(mAcidTexture);
 
-	mMapGenerator.loadMap(mMapPath);
-	
-
 }
 
 Stomach::~Stomach(){
@@ -78,7 +75,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		
 		window.setView(mCamera.getTileView());
@@ -96,7 +93,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);

@@ -6,6 +6,7 @@
 #include "Block0WallJump.h"
 #include "Spikes.h"
 #include "BlockGoal.h"
+#include "CollisionBlock.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -33,4 +34,8 @@ Terrain* Factory::createSpikes(sf::Vector2f pos, char type){
 
 Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
+}
+
+BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
+	return CollisionBlock::createCollisionBlock(pos);
 }

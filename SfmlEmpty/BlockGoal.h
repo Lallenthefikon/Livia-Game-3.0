@@ -1,9 +1,9 @@
 #pragma once
 
-#include "InteractiveTerrain.h"
+#include "Terrain.h"
 #include "Toolbox.h"
 
-class BlockGoal : public InteractiveTerrain {
+class BlockGoal : public Terrain {
 public:
 	virtual ~BlockGoal();
 	virtual TERRAINTYPE getType() { return Terrain::BLOCKGOAL; }

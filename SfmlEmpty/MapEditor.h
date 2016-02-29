@@ -44,7 +44,6 @@ private:
 
 	void saveMap();
 	void sortVectors();
-	void createCollisionBlocks();
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	char blockType(Terrain* terrain);

@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML\System.hpp>
-#include "BlockTerrain.h"
+#include "Terrain.h"
 #include "Toolbox.h"
 
-class Block0WallJump : public BlockTerrain {
+class Block0WallJump : public Terrain {
 public:
 	virtual ~Block0WallJump();
 	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0WALLJUMP; }
@@ -19,6 +19,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual char getTileType(){ return mTileType; }
+
 
 private:
 	Block0WallJump(sf::Vector2f pos, char type);

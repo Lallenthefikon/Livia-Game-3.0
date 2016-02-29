@@ -21,8 +21,11 @@ public:
 	virtual bool isOnScreen(){ return mIsOnScreen; }
 	virtual bool getIsAlive(){ return mIsAlive; }
 	virtual void addVector(sf::Vector2f &vector);
+
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);
+	virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction);
+
 	virtual void getHit();
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
@@ -40,10 +43,6 @@ private:
 	void updateCollision();
 	void animate();
 
-	bool currentCollisionT();
-	bool currentCollisionB();
-	bool currentCollisionL();
-	bool currentCollisionR();
 
 	void playSound(WORMSTATE state);
 	void stopSound(WORMSTATE state);
@@ -74,10 +73,10 @@ private:
 	char mCollisionL;
 	char mCollisionR;
 
-	Terrain* mCurrentCollisionB;
-	Terrain* mCurrentCollisionT;
-	Terrain* mCurrentCollisionL;
-	Terrain* mCurrentCollisionR;
+	BlockTerrain* mCurrentCollisionB;
+	BlockTerrain* mCurrentCollisionT;
+	BlockTerrain* mCurrentCollisionL;
+	BlockTerrain* mCurrentCollisionR;
 	
 	// Sounds
 	SoundFX& mSoundFX;

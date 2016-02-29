@@ -338,17 +338,13 @@ void MapEditor::sortVectors(){
 				mTerrains[j] = mTerrains[j + 1];
 				mTerrains[j + 1] = temp;
 			}
-			else if ((mTerrains[j]->getPos().x == mTerrains[j + 1]->getPos().x && mTerrains[j]->getPos().y == mTerrains[j + 1]->getPos().y)) {
+			else if ((mTerrains[j]->getPos().x == mTerrains[j + 1]->getPos().x && mTerrains[j]->getPos().y > mTerrains[j + 1]->getPos().y)) {
 				Terrain* temp(mTerrains[j]);
 				mTerrains[j] = mTerrains[j + 1];
 				mTerrains[j + 1] = temp;
 			}
 		}
 	}
-}
-
-void MapEditor::createCollisionBlocks() {
-
 }
 
 void MapEditor::writeTerrainToFile(std::string filename){

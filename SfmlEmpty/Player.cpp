@@ -149,43 +149,8 @@ void Player::entityCollision(Entity* entity, char direction){
 }
 
 void Player::terrainCollision(Terrain* terrain, char direction){
-	float delta;
+	
 	switch (terrain->getType())	{
-	case Terrain::BLOCK0:
-		mWin = false;
-	case Terrain::BLOCK0WALLJUMP:
-		mWin = false;
-		switch (direction) {
-
-		case 't':
-			mCollisionT = true;
-			delta = mCollisionBody.getPosition().y - terrain->getPos().y;
-			mCollisionBody.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
-			mCurrentCollisionT = terrain;
-			break;
-		case 'b':
-			mCollisionB = true;
-			delta = terrain->getPos().y - mCollisionBody.getPosition().y;
-			mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
-			mCurrentCollisionB = terrain;
-			break;
-		case 'l':
-			mCollisionL = true;
-			delta = mCollisionBody.getPosition().x - terrain->getPos().x;
-			mCollisionBody.move(sf::Vector2f(terrain->getWidth() - delta + 1, 0));
-			mCurrentCollisionL = terrain;
-			break;
-		case 'r':
-			mCollisionR = true;
-			delta = terrain->getPos().x - mCollisionBody.getPosition().x;
-			mCollisionBody.move(sf::Vector2f(delta - this->getWidth(), 0));
-			mCurrentCollisionR = terrain;
-			break;
-
-		default:
-			break;
-		}
-		break;
 	case Terrain::SPIKES:
 		mWin = false;
 		/*switch (direction){
@@ -213,6 +178,46 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 
 	default:
 		break;
+	}
+}
+
+void Player::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
+	float delta;
+	switch (blockterrain->getType()) {
+	case Terrain::BLOCK0:
+	case Terrain::BLOCK0WALLJUMP:
+	case BlockTerrain::COLLISIONBLOCK:
+		mWin = false;
+		switch (direction) {
+
+		case 't':
+			mCollisionT = true;
+			delta = mCollisionBody.getPosition().y - blockterrain->getPos().y;
+			mCollisionBody.move(sf::Vector2f(0, blockterrain->getHeight() - delta + 1));
+			mCurrentCollisionT = blockterrain;
+			break;
+		case 'b':
+			mCollisionB = true;
+			delta = blockterrain->getPos().y - mCollisionBody.getPosition().y;
+			mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
+			mCurrentCollisionB = blockterrain;
+			break;
+		case 'l':
+			mCollisionL = true;
+			delta = mCollisionBody.getPosition().x - blockterrain->getPos().x;
+			mCollisionBody.move(sf::Vector2f(blockterrain->getWidth() - delta + 1, 0));
+			mCurrentCollisionL = blockterrain;
+			break;
+		case 'r':
+			mCollisionR = true;
+			delta = blockterrain->getPos().x - mCollisionBody.getPosition().x;
+			mCollisionBody.move(sf::Vector2f(delta - this->getWidth(), 0));
+			mCurrentCollisionR = blockterrain;
+			break;
+
+		default:
+			break;
+		}
 	}
 }
 
@@ -378,18 +383,22 @@ void Player::updateState() {
 
 	if (mState == WALLSTUCK) {
 		if (mCollisionR) {
-			if (mCurrentCollisionR->getType() != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				mState = FALLING;
 				changed = true;
 			}
 		}
 		if (mCollisionL) {
-			if (mCurrentCollisionL->getType() != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				mState = FALLING;
 				changed = true;
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			mState = FALLING;
+			changed = true;
+		}
+		if (!(mCollisionL || mCollisionR)) {
 			mState = FALLING;
 			changed = true;
 		}
@@ -435,7 +444,7 @@ void Player::updateState() {
 
 		// Player collides with sticky block to the right
 		if (mCollisionR) {
-			if (mCurrentCollisionR->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK) {
+			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK) {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;
@@ -445,7 +454,7 @@ void Player::updateState() {
 
 		// Player collides with sticky block to the left
 		if (mCollisionL) {
-			if (mCurrentCollisionL->getType() == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK) {
+			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK) {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;

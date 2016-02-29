@@ -4,6 +4,7 @@
 
 class Entity;
 class Terrain;
+class BlockTerrain;
 
 struct Factory{
 	static Entity* createPlayer(sf::Vector2f pos);
@@ -13,4 +14,5 @@ struct Factory{
 	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
 	static Terrain* createGoal(sf::Vector2f pos);
+	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 };

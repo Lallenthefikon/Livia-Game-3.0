@@ -53,7 +53,7 @@ void Entityhandler::addVector(){
 	for (Entities::size_type i = 0; i < mEntities.size(); i++){
 		mEntities[i]->addVector(Toolbox::getGravity());
 	}
-	std::cout << "Gravity: " << Toolbox::getGravity().y * Toolbox::getFrameTime() << " Frame time: " << Toolbox::getFrameTime() << std::endl;
+	//std::cout << "Gravity: " << Toolbox::getGravity().y * Toolbox::getFrameTime() << " Frame time: " << Toolbox::getFrameTime() << std::endl;
 }
 
 void Entityhandler::clear(){

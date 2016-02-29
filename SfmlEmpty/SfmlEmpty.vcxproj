@@ -93,7 +93,6 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameRun.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="InteractiveTerrain.cpp" />
     <ClCompile Include="LayerHandler.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LiviaSound.cpp" />
@@ -133,7 +132,6 @@
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameRun.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="InteractiveTerrain.h" />
     <ClInclude Include="LayerHandler.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LiviaSound.h" />

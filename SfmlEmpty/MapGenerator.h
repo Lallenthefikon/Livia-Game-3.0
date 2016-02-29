@@ -6,7 +6,8 @@
 
 class MapGenerator{
 public:
-
+	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<BlockTerrain*> BlockTerrains;
 	static MapGenerator& getInstance();
 
 	void loadMap(std::string &mapname);
@@ -28,10 +29,13 @@ private:
 	void createBlock0WallJump(sf::Vector2f pos, char type);
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
+	void createCollisionBlocks();
+	void mergeCollisionblocks(BlockTerrains& blockterrains);
 
 	// Pekare till singeltonklasser
 	Terrainhandler *mTerrainhandler;
 	Entityhandler *mEntityhandler;
 
+	Terrains mTempBlocks;
 };
 

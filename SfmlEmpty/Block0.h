@@ -1,10 +1,10 @@
 #pragma once
 
 #include <SFML\System.hpp>
-#include "BlockTerrain.h"
+#include "Terrain.h"
 #include "Toolbox.h"
 
-class Block0 : public BlockTerrain{
+class Block0 : public Terrain{
 public:
 	virtual ~Block0();
 	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0; }
@@ -20,6 +20,9 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual char getTileType(){ return mTileType; }
+
+
+	
 
 private:
 	Block0(sf::Vector2f pos, char type);
