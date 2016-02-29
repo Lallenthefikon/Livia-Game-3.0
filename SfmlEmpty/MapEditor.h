@@ -25,7 +25,7 @@ public:
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-	void createDecoration(sf::Vector2f mousePos);
+	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -44,6 +44,7 @@ private:
 	void eraseDecoration(int index);
 	void changeInsertType();
 	void changeRotDirection();
+	void changeLayer();
 
 	void saveMap();
 	void sortVectors();
@@ -87,5 +88,7 @@ private:
 
 	// Camera Edit
 	Camera mCamera;
+
+	char mDecorationLayer;
 };
 

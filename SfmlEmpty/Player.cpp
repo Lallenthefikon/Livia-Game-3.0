@@ -92,9 +92,9 @@ void Player::render(sf::RenderWindow &window){
 }
 
  void Player::update(){
-	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
-	 std::cout << "mState: " << mState << std::endl;
-	 Player::playerInput();
+	//std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
+	//std::cout << "mState: " << mState << std::endl;
+	Player::playerInput();
 	Player::lerp();
 
 	Player::updateCollision();

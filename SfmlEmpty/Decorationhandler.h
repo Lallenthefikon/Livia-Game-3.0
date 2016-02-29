@@ -9,11 +9,11 @@ public:
 	static Decorationhandler& getInstance();
 
 	void addDecoration(Decoration* decoration);
-	void renderDecoration(sf::RenderWindow &window);
+	void renderDecoration(sf::RenderWindow &window, char layer);
 	void updateDecoration();
 	void clear();
 
-	Decorations& getDecorations() { return mDecorations; }
+	//Decorations& getDecorations() { return mDecorations; }
 	~Decorationhandler();
 private:
 	Decorationhandler();

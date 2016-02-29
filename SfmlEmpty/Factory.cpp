@@ -36,6 +36,6 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Decoration* Factory::createDecoration(sf::Vector2f pos, char id) {
-	return Decoration::createDecoration(pos, id);
+Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
+	return Decoration::createDecoration(pos, id, layer);
 }

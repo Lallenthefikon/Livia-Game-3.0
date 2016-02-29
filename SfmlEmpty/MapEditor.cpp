@@ -11,7 +11,8 @@ mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
 mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
-mCamera(){
+mCamera(),
+mDecorationLayer('b'){
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
@@ -109,6 +110,9 @@ void MapEditor::update(sf::RenderWindow &window){
 				break;
 			case sf::Keyboard::Num0:
 				MapEditor::changeInsertType();
+				break;
+			case sf::Keyboard::L:
+				MapEditor::changeLayer();
 				break;
 			case sf::Keyboard::Delete:
 				MapEditor::internalClear();
@@ -213,8 +217,8 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
-void MapEditor::createDecoration(sf::Vector2f mousepos) {
-	mDecorations.push_back(Factory::createDecoration(mousepos, '0'));
+void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
+	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
 
 void MapEditor::loadLevel(){
@@ -262,7 +266,10 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		MapEditor::createGoal(mousePos);
 		break;
 	case MapEditorMeny::DECORATION0:
-		MapEditor::createDecoration(mousePos);
+		MapEditor::createDecoration(mousePos, '0', mDecorationLayer);
+		break;
+	case MapEditorMeny::DECORATION1:
+		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
 	default:
 		break;
@@ -308,11 +315,15 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
+		mInsertType = MapEditorMeny::DECORATION1;
+		break;
+	case MapEditorMeny::DECORATION1:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
 		break;
 	}
+	std::cout << std::to_string(mInsertType)<< std::endl;
 }
 
 void MapEditor::changeRotDirection(){
@@ -333,6 +344,20 @@ void MapEditor::changeRotDirection(){
 	default:
 		break;
 	}
+}
+
+void MapEditor::changeLayer() {
+	switch (mDecorationLayer) {
+	case 'b':
+		mDecorationLayer = 'f';
+		break;
+	case 'f':
+		mDecorationLayer = 'b';
+		break;
+	default:
+		break;
+	}
+	std::cout << "'MapEditor' Current layer: " << mDecorationLayer << std::endl;
 }
 
 void MapEditor::saveMap(){
@@ -495,11 +520,24 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 
 	if (decorationFile.is_open()) {
 		for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
-
+			output.push_back('D');
 			switch (mDecorations[i]->getDecorationID()) {
 			case Decoration::FLOWER:
-				output.push_back('D');
 				output.push_back('0');
+				break;
+			case Decoration::SAYS:
+				output.push_back('1');
+				break;
+			default:
+				break;
+			}
+			switch (mDecorations[i]->getDecorationLayer()) {
+			case Decoration::FRONT:
+				output.push_back('f');
+				break;
+			case Decoration::BACK:
+				output.push_back('b');
+				break;
 			default:
 				break;
 			}

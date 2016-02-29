@@ -63,7 +63,7 @@ void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
 		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
-		mDecorationTexture.loadFromFile("resources/images/decoration/dank illuminati.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -86,7 +86,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+		//mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 

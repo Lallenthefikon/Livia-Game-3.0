@@ -126,16 +126,19 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
+	// Decorations back
+	mDecorationhandler.renderDecoration(window, 'b');
+
 	// Terrains
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 
-	// Decorations
-	mDecorationhandler.renderDecoration(window);
-
 	// Entities
 	mEntityHandler.renderEntities(window);
 
+	// Decorations front
+	mDecorationhandler.renderDecoration(window, 'f');
+	
 	// Hud
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);
