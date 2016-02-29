@@ -92,13 +92,13 @@ void Toolbox::loadSounds(std::string levelName) {
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
-	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Walkcycle_01.ogg");
-	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
-	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
-	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/Death_Fall_01.ogg");
-	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
-	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_03.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/walking/Walkcycle_01.ogg");
+	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/damage/Hurt_02.ogg");
+	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_01.ogg");
+	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Fall_01.ogg");
+	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall jump/wall_01.ogg");
+	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
