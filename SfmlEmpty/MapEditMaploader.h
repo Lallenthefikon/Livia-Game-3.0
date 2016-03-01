@@ -41,8 +41,10 @@ private:
 	void createBlock0WallJump(sf::Vector2f &pos, char type);
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
-	void createDecoration(sf::Vector2f &pos, char id);
 	void createDialogue(sf::Vector2f &pos, char type);
+
+	void createDecoration(sf::Vector2f &pos, char id, char layer);
+
 
 	sf::Vector2f readPosition(std::string line);
 

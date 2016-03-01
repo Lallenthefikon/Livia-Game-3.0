@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
-#include "Terrain.h"
+#include "BlockTerrain.h"
 #include "Toolbox.h"
 #include "Animations.h"
 #include "CollisionFuncs.h"
@@ -11,7 +11,7 @@
 
 class Entity{
 public:
-	enum ENTITYTYPE {PLAYER, WORM, ACIDMONSTER};
+	enum ENTITYTYPE {PLAYER, WORM, ACIDMONSTER, MEATBALL };
 	
 	Entity();
 	virtual ~Entity();
@@ -22,6 +22,7 @@ public:
 	
 	virtual void entityCollision(Entity* entity, char direction) = 0;
 	virtual void terrainCollision(Terrain* terrain, char direction) = 0;
+	virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction) = 0;
 	
 	virtual void addVector(sf::Vector2f &vector) = 0;
 	

@@ -24,6 +24,7 @@
 		virtual void addVector(sf::Vector2f &vector);
 		virtual void entityCollision(Entity* entity, char direction);
 		virtual void terrainCollision(Terrain* terrain, char direction);
+		virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction);
 		virtual void getHit();
 		virtual void setPos(sf::Vector2f newPos);
 		virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }

@@ -41,6 +41,8 @@ void MapGenerator::loadMap(std::string &mapname){
 
 
 	mapname[15] = 'm';
+
+	createCollisionBlocks();
 }
 
 void MapGenerator::readTerrainfile(std::string &filename){
@@ -113,15 +115,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
-
 			case 'W':
 				switch (line[1]){
 				case '0':
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
 				default:
 					break;
-					
 				}
+				break;
 			case 'A':
 				switch (line[1]){
 				case 'C':
@@ -129,7 +130,15 @@ void MapGenerator::readEntityfile(std::string &filename){
 				default:
 					break;
 				}
-
+				break;
+			case 'M':
+				switch (line[1]) {
+				case 'B':
+					MapGenerator::createMeatball(MapGenerator::readPosition(line));
+				default:
+					break;
+				}
+				break;
 			default:
 				break;
 
@@ -149,7 +158,7 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 		while (getline(decorationFile, line)) {
 			switch (line[0]) {
 			case 'D':
-				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1]);
+				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1], line[2]);
 				break;
 			default:
 				break;
@@ -191,15 +200,19 @@ void MapGenerator::createAcidMonster(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
 }
 
+void MapGenerator::createMeatball(sf::Vector2f pos) {
+	mEntityhandler->addEntity(Factory::createMeatball(pos));
+}
+
 
 // Create terrains
 
 void MapGenerator::createBlock0(sf::Vector2f pos, char type){
-	mTerrainhandler->addTerrain(Factory::createBlock0(pos, type));
+	mTempBlocks.push_back(Factory::createBlock0(pos, type));
 }
 
 void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
-	mTerrainhandler->addTerrain(Factory::createBlock0WallJump(pos, type));
+	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type));
 }
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
@@ -213,14 +226,66 @@ void MapGenerator::createGoal(sf::Vector2f pos) {
 
 // Create decoration
 
-void MapGenerator::createDecoration(sf::Vector2f pos, char id) {
-	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id));
+void MapGenerator::createDecoration(sf::Vector2f pos, char id, char layer) {
+	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id, layer));
 }
+
+void MapGenerator::createCollisionBlocks() {
+	BlockTerrains collisionBlocks;
+	for (Terrains::size_type i = 0; i < mTempBlocks.size(); i++) {
+		if (collisionBlocks.empty()) {
+			collisionBlocks.push_back(Factory::createCollisionBlock(mTempBlocks[i]->getPos()));
+			collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], true);
+		}
+		else {
+			if (mTempBlocks[i]->getPos().x == collisionBlocks.back()->getPos().x) {
+				if (mTempBlocks[i]->getPos().y <= collisionBlocks.back()->getPos().y + collisionBlocks.back()->getHeight()) {
+					collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], false);
+				}
+				else {
+					collisionBlocks.push_back(Factory::createCollisionBlock(mTempBlocks[i]->getPos()));
+					collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], true);
+				}
+			}
+			else {
+				collisionBlocks.push_back(Factory::createCollisionBlock(mTempBlocks[i]->getPos()));
+				collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], true);
+			}
+		}
+	}
+	MapGenerator::mergeCollisionblocks(collisionBlocks);
+	for (BlockTerrains::size_type i = 0; i < collisionBlocks.size(); i++) {
+		mTerrainhandler->addCollisionblock(collisionBlocks[i]);
+	}
+	mTempBlocks.clear();
+}
+
 
 // Create  Dialogue
 
 void MapGenerator::createDialogue(sf::Vector2f pos) {
 	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
+}
+void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
+	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
+		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
+			if (blockterrains[i]->getPos().x == (blockterrains[j]->getPos().x - blockterrains[i]->getWidth())
+				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y) {
+				bool Xnew;
+				for (BlockTerrain::Terrains2D::size_type BI = 0; BI < blockterrains[j]->getBlocks().size(); BI++) {
+					Xnew = true;
+					for (BlockTerrain::Terrains::size_type BJ = 0; BJ < blockterrains[j]->getBlocks()[BI]->size(); BJ++) {
+						blockterrains[i]->addBlockTerrain(blockterrains[j]->getBlocks()[BI]->at(BJ), Xnew);
+						Xnew = false;
+					}
+				}
+				delete blockterrains[j];
+				blockterrains.erase(blockterrains.begin() + j);
+				j--;
+			}
+		}
+	}
+
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){

@@ -16,12 +16,9 @@ static sf::FloatRect mLevelBounds;
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
 static sf::Image mPlayersheet;
-static sf::Image mIdlePlayersheet;
-static sf::Image mJumpingPlayersheet;
-static sf::Image mHurtPlayersheet;
-static sf::Image mSlidePlayersheet;
 static sf::Image mGoalTexture;
 static sf::Image mDialogueTexture;
+static sf::Image mMeatballTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -51,6 +48,7 @@ static sf::SoundBuffer mPlayerLandSound;
 static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
+static sf::SoundBuffer mAirHorn;
 
 // Fonts
 static sf::Font mGameOverFont;
@@ -64,21 +62,23 @@ void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
 		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
-		mDecorationTexture.loadFromFile("resources/images/decoration/dank illuminati.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 	}
 
-	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
+	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
-	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
+	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterTexture.loadFromFile("resources/images/Tummy jagar spritesheet.png");
+	mAcidMonsterTexture.loadFromFile("resources/images/entities/Tummy jagar spritesheet.png");
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
 	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+
+	mMeatballTexture.loadFromFile("resources/images/entities/meatball.png");
 	mDialogueTexture.loadFromFile("resources/images/Dialogue-bubble.png");
 }
 
@@ -88,7 +88,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+		//mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
@@ -103,6 +103,8 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
+
+	mAirHorn.loadFromFile("resources/sounds/effects/Air_Horn_Sound_Effect.ogg");
 
 }
 
@@ -122,26 +124,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mBlock0sheet;
 		break;
 
-	case RUNNINGPLAYERTEXTURE:
+	case PLAYERRUNNINGTEXTURE:
 		return mPlayersheet;
 		break;
 
-	case PLAYERJUMPTEXTURE:
-		return mJumpingPlayersheet;
-		break;
-
-	case PLAYERIDLETEXTURE:
-		return mIdlePlayersheet;
-		break;
-
-	case PLAYERHURTTEXTURE:
-		return mHurtPlayersheet;
-		break;
-
-	case PLAYERSLIDETEXTURE:
-		return mSlidePlayersheet;
-		break;
-		
 	case TILETEXTURE:
 		return mTileTexture;
 		break;
@@ -176,6 +162,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case DIALOGUETEXTURE:
 		return mDialogueTexture;
+		break;
+
+	case MEATBALLTEXTURE:
+		return mMeatballTexture;
 		break;
 
 	default:
@@ -280,6 +270,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerWallSlideSound;
 		break;
 	case Toolbox::WORMIDLE:
+		return mAirHorn;		// Temporary lol
 		break;
 	case Toolbox::WORMRUN:
 		break;

@@ -4,6 +4,7 @@
 
 class Entity;
 class Terrain;
+class BlockTerrain;
 class Decoration;
 class Dialogue;
 
@@ -15,6 +16,10 @@ struct Factory{
 	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
 	static Terrain* createGoal(sf::Vector2f pos);
+
 	static Dialogue* createDialogue(sf::Vector2f pos);
-	static Decoration* createDecoration(sf::Vector2f pos, char id);
+	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
+	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
+	static Entity* createMeatball(sf::Vector2f pos);
+
 };

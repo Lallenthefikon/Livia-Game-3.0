@@ -6,7 +6,8 @@
 class Decoration {
 public:
 	enum DECORATIONID { FLOWER, SAYS, HIGH, FIVE, FOURTWENTYBLAZEITFAGGOT };
-	static Decoration* createDecoration(sf::Vector2f pos, char id);
+	enum DECORATIONLAYER { FRONT, BACK };
+	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
 	~Decoration();
 
 	void render(sf::RenderWindow &window);
@@ -23,10 +24,12 @@ public:
 	void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	
 	DECORATIONID getDecorationID() { return mDecorationID; }
+	DECORATIONLAYER getDecorationLayer() { return mDecorationLayer; }
 
 private:
-	Decoration(sf::Vector2f pos, char id);
+	Decoration(sf::Vector2f pos, char id, char layer);
 	void setID(char &id);
+	void setLayer(char &layer);
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
 
@@ -37,6 +40,7 @@ private:
 	float mTimer;
 
 	DECORATIONID mDecorationID;
+	DECORATIONLAYER mDecorationLayer;
 
 	bool mIsOnScreen = true;
 

@@ -15,9 +15,24 @@ void Decorationhandler::addDecoration(Decoration* decoration) {
 	mDecorations.push_back(decoration);
 }
 
-void Decorationhandler::renderDecoration(sf::RenderWindow &window) {
-	for (auto i : mDecorations) {
-		i->render(window);
+void Decorationhandler::renderDecoration(sf::RenderWindow &window, char layer) {
+	switch (layer) {
+	case 'f':
+		for (auto i : mDecorations) {
+			if (i->getDecorationLayer() == Decoration::FRONT) {
+				i->render(window);
+			}
+		}
+		break;
+	case 'b':
+		for (auto i : mDecorations) {
+			if (i->getDecorationLayer() == Decoration::BACK) {
+				i->render(window);
+			}
+		}
+		break;
+	default:
+		break;
 	}
 }
 

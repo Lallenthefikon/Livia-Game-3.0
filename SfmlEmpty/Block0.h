@@ -21,6 +21,9 @@ public:
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual char getTileType(){ return mTileType; }
 
+
+	
+
 private:
 	Block0(sf::Vector2f pos, char type);
 

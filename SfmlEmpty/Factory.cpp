@@ -3,11 +3,13 @@
 #include "Block0.h"
 #include "Worm.h"
 #include "AcidMonster.h"
+#include "Meatball.h"
 #include "Block0WallJump.h"
 #include "Spikes.h"
 #include "BlockGoal.h"
 #include "Decoration.h"
 #include "Dialogue.h"
+#include "CollisionBlock.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -37,10 +39,18 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Decoration* Factory::createDecoration(sf::Vector2f pos, char id) {
-	return Decoration::createDecoration(pos, id);
-}
-
 Dialogue* Factory::createDialogue(sf::Vector2f pos) {
 	return Dialogue::createDialogue(pos);
+}
+Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
+	return Decoration::createDecoration(pos, id, layer);
+}
+
+BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
+	return CollisionBlock::createCollisionBlock(pos);
+}
+
+Entity* Factory::createMeatball(sf::Vector2f pos) {
+	return Meatball::createMeatball(pos);
+
 }

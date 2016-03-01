@@ -37,9 +37,6 @@ mLevelBounds(0.f,0.f,10000.f,2300.f){
 	//mAcidSprite.setTexture(mAcidTexture);
 	mLayerHandler.addAcid(mAcidTexture);
 
-	mMapGenerator.loadMap(mMapPath);
-	
-
 }
 
 Stomach::~Stomach(){
@@ -82,7 +79,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		
 		window.setView(mCamera.getTileView());
@@ -100,7 +97,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -126,19 +123,19 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
+	// Decorations back
+	mDecorationhandler.renderDecoration(window, 'b');
+
 	// Terrains
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 
-	// Decorations
-	mDecorationhandler.renderDecoration(window);
-
-	// Dialogues
-	
-
 	// Entities
 	mEntityHandler.renderEntities(window);
 
+	// Decorations front
+	mDecorationhandler.renderDecoration(window, 'f');
+	
 	// Hud
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);

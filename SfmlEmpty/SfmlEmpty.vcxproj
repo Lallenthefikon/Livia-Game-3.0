@@ -83,7 +83,9 @@
     <ClCompile Include="Block0.cpp" />
     <ClCompile Include="Block0WallJump.cpp" />
     <ClCompile Include="BlockGoal.cpp" />
+    <ClCompile Include="BlockTerrain.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionBlock.cpp" />
     <ClCompile Include="CollisionFuncs.cpp" />
     <ClCompile Include="Collisionhandler.cpp" />
     <ClCompile Include="Decoration.cpp" />
@@ -104,6 +106,7 @@
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="MapEditorMeny.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="Meatball.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
@@ -123,7 +126,9 @@
     <ClInclude Include="Block0.h" />
     <ClInclude Include="Block0WallJump.h" />
     <ClInclude Include="BlockGoal.h" />
+    <ClInclude Include="BlockTerrain.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionBlock.h" />
     <ClInclude Include="CollisionFuncs.h" />
     <ClInclude Include="Collisionhandler.h" />
     <ClInclude Include="Decoration.h" />
@@ -143,6 +148,7 @@
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="MapEditorMeny.h" />
     <ClInclude Include="MapGenerator.h" />
+    <ClInclude Include="Meatball.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />

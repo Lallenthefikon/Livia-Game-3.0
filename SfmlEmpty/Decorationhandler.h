@@ -9,7 +9,7 @@ public:
 	static Decorationhandler& getInstance();
 
 	void addDecoration(Decoration* decoration);
-	void renderDecoration(sf::RenderWindow &window);
+	void renderDecoration(sf::RenderWindow &window, char layer);
 	void updateDecoration();
 	void clear();
 
