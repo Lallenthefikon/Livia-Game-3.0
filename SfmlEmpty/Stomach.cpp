@@ -21,6 +21,7 @@ mLevelBounds(0.f,0.f,10000.f,2300.f){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
+	Toolbox::copyGravity(sf::Vector2f(0,2));
 	Animations::loadTextures();
 
 	Toolbox::copyLevelBounds(mLevelBounds);
@@ -36,9 +37,6 @@ mLevelBounds(0.f,0.f,10000.f,2300.f){
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	//mAcidSprite.setTexture(mAcidTexture);
 	mLayerHandler.addAcid(mAcidTexture);
-
-	mMapGenerator.loadMap(mMapPath);
-	
 
 }
 
@@ -82,7 +80,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		
 		window.setView(mCamera.getTileView());
@@ -100,7 +98,7 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mEntityHandler.updateEntities();
 		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(), mTerrainHandler.getTerrains());
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);

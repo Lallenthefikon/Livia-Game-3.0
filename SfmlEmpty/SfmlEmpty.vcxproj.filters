@@ -109,6 +109,12 @@
     <ClCompile Include="Decorationhandler.cpp">
       <Filter>Source Files\Decoration</Filter>
     </ClCompile>
+    <ClCompile Include="BlockTerrain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBlock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Abstractgame.h">
@@ -215,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="Decoration.h">
       <Filter>Header Files\Decoration</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockTerrain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBlock.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

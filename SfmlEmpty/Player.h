@@ -20,6 +20,7 @@ public:
 
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);
+	virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction);
 	
 	virtual sf::Vector2f getPos(){ return mCollisionBody.getPosition(); }
 	virtual sf::Vector2f getVelocity(){ return mVelocity; }
@@ -115,10 +116,10 @@ private:
 	char mCollisionL;
 	char mCollisionR;
 
-	Terrain* mCurrentCollisionB;
-	Terrain* mCurrentCollisionT;
-	Terrain* mCurrentCollisionL;
-	Terrain* mCurrentCollisionR;
+	BlockTerrain* mCurrentCollisionB;
+	BlockTerrain* mCurrentCollisionT;
+	BlockTerrain* mCurrentCollisionL;
+	BlockTerrain* mCurrentCollisionR;
 
 	// Sounds
 	SoundFX& mSoundFX;

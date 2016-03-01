@@ -58,35 +58,38 @@ void Worm::entityCollision(Entity* entity, char direction){
 }
 
 void Worm::terrainCollision(Terrain* terrain, char direction){
+	
+}
+
+void Worm::blockterrainCollision(BlockTerrain * blockterrain, char direction){
 	float delta;
-	switch (terrain->getType())	{
-	case Terrain::BLOCK0:
-	case Terrain::BLOCK0WALLJUMP:
-		switch (direction){
+	switch (blockterrain->getType()) {
+	case Terrain::COLLISIONBLOCK:
+		switch (direction) {
 
 		case 't':
 			mCollisionT = true;
-			delta = mSprite.getPosition().y - terrain->getPos().y;
-			mSprite.move(sf::Vector2f(0, terrain->getHeight() - delta + 1));
-			mCurrentCollisionT = terrain;
+			delta = mSprite.getPosition().y - blockterrain->getPos().y;
+			mSprite.move(sf::Vector2f(0, blockterrain->getHeight() - delta + 1));
+			mCurrentCollisionT = blockterrain;
 			break;
 		case 'b':
 			mCollisionB = true;
-			delta = terrain->getPos().y - mSprite.getPosition().y;
+			delta = blockterrain->getPos().y - mSprite.getPosition().y;
 			mSprite.move(sf::Vector2f(0, delta - this->getHeight() - 1));
-			mCurrentCollisionB = terrain;
+			mCurrentCollisionB = blockterrain;
 			break;
 		case 'l':
 			mCollisionL = true;
-			delta = mSprite.getPosition().x - terrain->getPos().x;
-			mSprite.move(sf::Vector2f(terrain->getWidth() - delta + 1, 0));
-			mCurrentCollisionL = terrain;
+			delta = mSprite.getPosition().x - blockterrain->getPos().x;
+			mSprite.move(sf::Vector2f(blockterrain->getWidth() - delta + 1, 0));
+			mCurrentCollisionL = blockterrain;
 			break;
 		case 'r':
 			mCollisionR = true;
-			delta = terrain->getPos().x - mSprite.getPosition().x;
+			delta = blockterrain->getPos().x - mSprite.getPosition().x;
 			mSprite.move(sf::Vector2f(delta - this->getWidth(), 0));
-			mCurrentCollisionR = terrain;
+			mCurrentCollisionR = blockterrain;
 			break;
 
 		default:
@@ -96,6 +99,7 @@ void Worm::terrainCollision(Terrain* terrain, char direction){
 		break;
 	}
 }
+
 
 void Worm::getHit(){
 	mLife--;
@@ -241,7 +245,7 @@ void Worm::updateCollision(){
 		mVelocity.x = 0;
 
 	if (mCollisionB){
-		switch (mCurrentCollisionB->getTileType()){
+		switch (mCurrentCollisionB->getTileType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b')){
 
 		case 'p':
 			if (this->getPos().x < mCurrentCollisionB->getPos().x){

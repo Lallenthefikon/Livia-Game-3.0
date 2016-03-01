@@ -16,10 +16,6 @@ static sf::FloatRect mLevelBounds;
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
 static sf::Image mPlayersheet;
-static sf::Image mIdlePlayersheet;
-static sf::Image mJumpingPlayersheet;
-static sf::Image mHurtPlayersheet;
-static sf::Image mSlidePlayersheet;
 static sf::Image mGoalTexture;
 
 static sf::Image mAcidMonsterTexture;
@@ -122,22 +118,6 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case RUNNINGPLAYERTEXTURE:
 		return mPlayersheet;
-		break;
-
-	case PLAYERJUMPTEXTURE:
-		return mJumpingPlayersheet;
-		break;
-
-	case PLAYERIDLETEXTURE:
-		return mIdlePlayersheet;
-		break;
-
-	case PLAYERHURTTEXTURE:
-		return mHurtPlayersheet;
-		break;
-
-	case PLAYERSLIDETEXTURE:
-		return mSlidePlayersheet;
 		break;
 		
 	case TILETEXTURE:
