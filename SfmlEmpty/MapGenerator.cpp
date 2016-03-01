@@ -110,15 +110,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
-
 			case 'W':
 				switch (line[1]){
 				case '0':
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
 				default:
 					break;
-					
 				}
+				break;
 			case 'A':
 				switch (line[1]){
 				case 'C':
@@ -126,7 +125,15 @@ void MapGenerator::readEntityfile(std::string &filename){
 				default:
 					break;
 				}
-
+				break;
+			case 'M':
+				switch (line[1]) {
+				case 'B':
+					MapGenerator::createMeatball(MapGenerator::readPosition(line));
+				default:
+					break;
+				}
+				break;
 			default:
 				break;
 
@@ -168,6 +175,10 @@ void MapGenerator::createPlayer(sf::Vector2f pos){
 
 void MapGenerator::createAcidMonster(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
+}
+
+void MapGenerator::createMeatball(sf::Vector2f pos) {
+	mEntityhandler->addEntity(Factory::createMeatball(pos));
 }
 
 

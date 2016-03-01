@@ -104,6 +104,7 @@
     <ClCompile Include="MapEditor.cpp" />
     <ClCompile Include="MapEditorMeny.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
+    <ClCompile Include="Meatball.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="MapEditor.h" />
     <ClInclude Include="MapEditorMeny.h" />
     <ClInclude Include="MapGenerator.h" />
+    <ClInclude Include="Meatball.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />

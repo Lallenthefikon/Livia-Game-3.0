@@ -17,6 +17,7 @@ static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
 static sf::Image mPlayersheet;
 static sf::Image mGoalTexture;
+static sf::Image mMeatballTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -63,18 +64,20 @@ void Toolbox::loadTextures(std::string levelName){
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 	}
 
-	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
+	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
 	mGoalTexture.loadFromFile("resources/images/goal.jpg");
 
-	mPlayersheet.loadFromFile("resources/images/Current_livia_sheet.png");
+	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterTexture.loadFromFile("resources/images/Tummy jagar spritesheet.png");
+	mAcidMonsterTexture.loadFromFile("resources/images/entities/Tummy jagar spritesheet.png");
 
 	mTileTexture.loadFromFile("resources/images/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
 	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+
+	mMeatballTexture.loadFromFile("resources/images/entities/meatball.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -119,7 +122,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mBlock0sheet;
 		break;
 
-	case RUNNINGPLAYERTEXTURE:
+	case PLAYERRUNNINGTEXTURE:
 		return mPlayersheet;
 		break;
 		
@@ -153,6 +156,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case DECORATIONTEXTURE:
 		return mDecorationTexture;
+		break;
+
+	case MEATBALLTEXTURE:
+		return mMeatballTexture;
 		break;
 
 	default:
@@ -257,7 +264,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerWallSlideSound;
 		break;
 	case Toolbox::WORMIDLE:
-		return mAirHorn;
+		return mAirHorn;		// Temporary lol
 		break;
 	case Toolbox::WORMRUN:
 		break;

@@ -49,7 +49,7 @@ private:
 
 	sf::Sprite mSprite;
 
-	// Animimations stuff
+	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
 	int mAnimationIndex;
 	float mTimer;

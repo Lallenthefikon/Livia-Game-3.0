@@ -205,6 +205,7 @@ void MapEditor::render(sf::RenderWindow &window){
 	window.display();
 }
 
+// Entities
 void MapEditor::createPlayer(sf::Vector2f mousePos){
 	if (mEntities.empty())
 		mEntities.push_back(Factory::createPlayer(mousePos));
@@ -219,16 +220,17 @@ void MapEditor::createPlayer(sf::Vector2f mousePos){
 	}
 }
 
-void MapEditor::createBlock0(sf::Vector2f mousePos){
-	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
-}
-
 void MapEditor::createWorm(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createWorm(mousePos));
 }
 
 void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
+}
+
+// Terrains
+void MapEditor::createBlock0(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
 }
 
 void MapEditor::createBlock0WallJump(sf::Vector2f mousePos){
@@ -243,11 +245,16 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
+// Decorations
 void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
-	if (layer == '0') {	// Lol
+	if (id == '0') {	// Lol
 		mAirHorn.play();
 	}
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
+}
+
+void MapEditor::createMeatball(sf::Vector2f mousepos) {
+	mEntities.push_back(Factory::createMeatball(mousepos));
 }
 
 void MapEditor::loadLevel(){
@@ -300,6 +307,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION1:
 		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
+	case MapEditorMeny::MEATBALL:
+		MapEditor::createMeatball(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -347,6 +357,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
+		mInsertType = MapEditorMeny::MEATBALL;
+		break;
+	case MapEditorMeny::MEATBALL:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -540,6 +553,11 @@ void MapEditor::writeEntityToFile(std::string filename){
 			case Entity::ACIDMONSTER:
 				output.push_back('A');
 				output.push_back('C');
+				break;
+
+			case Entity::MEATBALL:
+				output.push_back('M');
+				output.push_back('B');
 				break;
 
 			default:

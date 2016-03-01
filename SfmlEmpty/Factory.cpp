@@ -3,6 +3,7 @@
 #include "Block0.h"
 #include "Worm.h"
 #include "AcidMonster.h"
+#include "Meatball.h"
 #include "Block0WallJump.h"
 #include "Spikes.h"
 #include "BlockGoal.h"
@@ -43,4 +44,8 @@ Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
 
 BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 	return CollisionBlock::createCollisionBlock(pos);
+}
+
+Entity* Factory::createMeatball(sf::Vector2f pos) {
+	return Meatball::createMeatball(pos);
 }

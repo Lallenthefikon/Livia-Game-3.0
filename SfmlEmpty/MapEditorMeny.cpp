@@ -38,11 +38,12 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 }
 
 void MapEditorMeny::insertObjects(){
-
 	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8f, 80.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
 	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7f, 70.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8f, 150.f), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
 	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8f, 150.f), 'p'));
@@ -69,6 +70,10 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 
 				case Entity::WORM:
 					mInsertType = WORM;
+					break;
+
+				case Entity::MEATBALL:
+					mInsertType = MEATBALL;
 					break;
 
 				default:
@@ -124,18 +129,21 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	mMenySprite.setPosition(newPos);
 
-	// Player
-	mEntities[0]->setPos(sf::Vector2f(newPos.x + 10, newPos.y + 10));
-	// Worm
-	mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
+	//// Player
+	//mEntities[0]->setPos(sf::Vector2f(newPos.x + 10, newPos.y + 10));
+	//// Worm
+	//mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
+
+	for (size_t i = 0; i < mEntities.size(); i++)
+		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 30));
+
 	// Block0 
 	for (size_t i = 0; i < mTerrains.size(); i++)
 	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 100));
 
 	// Decorations
-	for (size_t i = 0; i < mDecorations.size(); i++) {
+	for (size_t i = 0; i < mDecorations.size(); i++)
 		mDecorations[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 10, newPos.y + 180));
-	}
 
 
 	//int nrOfEntities;
