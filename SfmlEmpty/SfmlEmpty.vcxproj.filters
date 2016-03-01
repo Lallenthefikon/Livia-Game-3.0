@@ -4,16 +4,7 @@
     <ClCompile Include="Abstractgame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AcidMonster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Block0.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Block0WallJump.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -23,12 +14,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collisionhandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Entityhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Factory.cpp">
@@ -46,46 +31,10 @@
     <ClCompile Include="LayerHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LiviaSound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MapEditMaploader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapEditorMeny.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MapGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFX.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Spikes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stomach.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrainhandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Texthandler.cpp">
@@ -94,14 +43,71 @@
     <ClCompile Include="Toolbox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Worm.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Block0.cpp">
+      <Filter>Source Files\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="WormSound.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Block0WallJump.cpp">
+      <Filter>Source Files\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="BlockGoal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Spikes.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrainhandler.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="AcidMonster.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Entityhandler.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Stomach.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFX.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="WormSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFactory.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="LiviaSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditorMeny.cpp">
+      <Filter>Source Files\Map editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditor.cpp">
+      <Filter>Source Files\Map editor</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditMaploader.cpp">
+      <Filter>Source Files\Map editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Decoration.cpp">
+      <Filter>Source Files\Decoration</Filter>
+    </ClCompile>
+    <ClCompile Include="Decorationhandler.cpp">
+      <Filter>Source Files\Decoration</Filter>
     </ClCompile>
     <ClCompile Include="BlockTerrain.cpp">
       <Filter>Source Files</Filter>
@@ -114,16 +120,7 @@
     <ClInclude Include="Abstractgame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AcidMonster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Block0.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Block0WallJump.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -133,12 +130,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Collisionhandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entityhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Factory.h">
@@ -156,43 +147,7 @@
     <ClInclude Include="LayerHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LiviaSound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditMaploader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapEditorMeny.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MapGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Spikes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Stomach.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrainhandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Texthandler.h">
@@ -202,13 +157,70 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Worm.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="WormSound.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="AcidMonster.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Entityhandler.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Block0.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Block0WallJump.h">
+      <Filter>Header Files\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="BlockGoal.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Spikes.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrainhandler.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="WormSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFX.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFactory.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="LiviaSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditorMeny.h">
+      <Filter>Header Files\Map editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditor.h">
+      <Filter>Header Files\Map editor</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditMaploader.h">
+      <Filter>Header Files\Map editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Stomach.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Decorationhandler.h">
+      <Filter>Header Files\Decoration</Filter>
+    </ClInclude>
+    <ClInclude Include="Decoration.h">
+      <Filter>Header Files\Decoration</Filter>
     </ClInclude>
     <ClInclude Include="BlockTerrain.h">
       <Filter>Header Files</Filter>
@@ -223,6 +235,42 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{9f741086-f8e7-43cd-a39c-a7d009b782a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity">
+      <UniqueIdentifier>{f7b8a9c8-a8e9-4423-82d3-68173db1c551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Terrain">
+      <UniqueIdentifier>{6e04174b-1468-4e84-99aa-6f7f21e99e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{8d99bad3-82d0-45c0-a3ac-c5e9b2e55961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Map editor">
+      <UniqueIdentifier>{4657a5b2-dd54-4142-bb15-51706a9a6182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Level">
+      <UniqueIdentifier>{051876a5-5641-47e1-8c1a-648e61325f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{865873ef-5d92-421e-ab35-782bd0201329}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Level">
+      <UniqueIdentifier>{5d335e67-9e97-4710-b899-e0f7bdcfa08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map editor">
+      <UniqueIdentifier>{d8971d45-5251-4338-b989-5a186f472771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain">
+      <UniqueIdentifier>{c4d4ab9f-ad7d-4814-bda5-0fa4791606c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{e83eb98b-e2e4-4d5b-8c1f-4efe87000edf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Decoration">
+      <UniqueIdentifier>{e4fb0261-22fc-4141-a918-a2b7fc916685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Decoration">
+      <UniqueIdentifier>{3c60dd6c-63b0-4255-8606-4480e136d2c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

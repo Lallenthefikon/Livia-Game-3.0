@@ -22,9 +22,9 @@ public:
 
 	bool isPlayerAlive();
 
+	~Entityhandler();
 private:
 	Entityhandler();
-	~Entityhandler();
 	void internalClear();
 	
 	Entities mEntities;

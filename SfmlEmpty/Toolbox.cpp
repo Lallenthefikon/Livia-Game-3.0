@@ -6,7 +6,10 @@ static sf::Vector2f mPlayerVelocity;
 static bool mPlayerAlive;
 
 static float mFrameTime(0);
+
+// Level Info
 static sf::Vector2f mGravity(0, 125);
+static sf::FloatRect mLevelBounds;
 
 
 // Textures
@@ -23,6 +26,8 @@ static sf::Image mLifeTexture;
 static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
+static sf::Image mDecorationTexture;
+
 // Camera
 static sf::Vector2f mWindowSize;
 static sf::Vector2f mResolution;
@@ -35,6 +40,7 @@ static sf::SoundBuffer mPlayerRunSound;
 static sf::SoundBuffer mPlayerJumpSound;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mPlayerDeathSound;
+static sf::SoundBuffer mPlayerFallDeathSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 static sf::SoundBuffer mWormDeathSound;
@@ -51,8 +57,9 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/magsäck.png");
-		mAcidBottom.loadFromFile("resources/images/Magsyra suddig.png");
+		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
+		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/dank illuminati.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/Current_Enemy0_sheet.png");
@@ -76,17 +83,18 @@ void Toolbox::loadSounds(std::string levelName) {
 
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
-		//mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 	}
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
-	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/Walkcycle_01.ogg");
-	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/Jump_01.ogg");
-	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/Hurt_02.ogg");
-	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/Death_01.ogg");
-	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall_01.ogg");
-	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/Landing_03.ogg");
+	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/walking/Walkcycle_01.ogg");
+	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
+	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/damage/Hurt_02.ogg");
+	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_01.ogg");
+	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Fall_01.ogg");
+	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall jump/wall_01.ogg");
+	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
@@ -140,6 +148,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mAcidBottom;
 		break;
 
+	case DECORATIONTEXTURE:
+		return mDecorationTexture;
+		break;
+
 	default:
 		break;
 	}
@@ -174,6 +186,14 @@ void Toolbox::copyCameraInfo(sf::Vector2f &globalCameraCenter, sf::Vector2f &loc
 
 sf::FloatRect Toolbox::getGlobalCameraBounds(){
 	return mGlobalCameraBounds;
+}
+
+void Toolbox::copyLevelBounds(sf::FloatRect &levelBounds){
+	mLevelBounds = levelBounds;
+}
+
+sf::FloatRect Toolbox::getLevelBounds(){
+	 return mLevelBounds;
 }
 
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
@@ -227,6 +247,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERDEATH:
 		return mPlayerDeathSound;
 		break;
+	case Toolbox::PLAYERFALLDEATH:
+		return mPlayerFallDeathSound;
+		break;
 	case Toolbox::PLAYERWALLSLIDE:
 		return mPlayerWallSlideSound;
 		break;
@@ -273,6 +296,9 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 
 void Toolbox::copyFrameTime(float &frameTime) {
 	mFrameTime = frameTime;
+	if (mFrameTime > 0.032) {
+		mFrameTime = 0.032;
+	}
 	//std::cout << "Frame time: " << mFrameTime << std::endl;
 }
 

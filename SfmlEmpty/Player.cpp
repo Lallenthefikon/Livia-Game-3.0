@@ -38,8 +38,11 @@ mSoundFX(SoundFactory::getLiviaSound()),
 
 // Text
 mText("Game Over!", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)),
+mFallenOutsideBounds(false),
+mAtRightBorder(false),
+mAtLeftBorder(false),
 
-mTextHandler(Texthandler::getInstance()) {
+mTextHandler(Texthandler::getInstance()){
 	
 	mText.setColor(sf::Color::Green);
 	mText.setPosition(400, 400);
@@ -67,6 +70,7 @@ Entity* Player::createPlayer(sf::Vector2f pos){
 void Player::render(sf::RenderWindow &window){
 	Player::updateTexturepos();
 	window.draw(mSprite);
+
 	//window.draw(mCollisionBody);
 
 
@@ -89,7 +93,8 @@ void Player::render(sf::RenderWindow &window){
 
  void Player::update(){
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
-	Player::playerInput();
+	 std::cout << "mState: " << mState << std::endl;
+	 Player::playerInput();
 	Player::lerp();
 
 	Player::updateCollision();
@@ -107,8 +112,8 @@ void Player::render(sf::RenderWindow &window){
 	Toolbox::copyPlayerVelocity(mVelocity);
 	Toolbox::copyPlayerIsAlive(mIsAlive);
 	
-	//std::cout << mInvulnerable << std::endl;
-	blink();
+	checkPlayerWithinBounds();
+	invulnerableBlink();
 }
 
 void Player::addVector(sf::Vector2f &vector){
@@ -237,10 +242,10 @@ void Player::getHit() {
 // Privates
 
 void Player::playerInput() {
-	if (mState != DEATH){
+	if (mState != DEATH && mState != FALLDEATH){
 		jump();
 		move();
-		playSoundManually();
+	//	playSoundManually();
 	}
 	else{
 		mVelocityGoal.x = 0;
@@ -287,7 +292,7 @@ void Player::jump() {
 void Player::move() {
 	bool changed(false);
 
-	// Left and right
+		// Left and right
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			mVelocityGoal.x = -mMaxSpeed * Toolbox::getFrameTime();
 			changed = true;
@@ -301,14 +306,14 @@ void Player::move() {
 }
 
 void Player::playSoundManually() {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
-		playSound(JUMPING);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
-		playSound(DAMAGED);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
-		playSound(DEATH);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
-		playSound(RUNNING);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	//	playSound(JUMPING);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	//	playSound(DAMAGED);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	//	playSound(DEATH);
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+	//	playSound(RUNNING);
 }
 
 void Player::lerp(){
@@ -373,12 +378,19 @@ void Player::lerp(){
 void Player::updateState() {
 	bool changed(false);
 
-	// Player dies
-	if (mLife <= 0 && mState != DEATH) {
+	// Player dies from damage
+	if (mLife <= 0 && mState != DEATH && mState != FALLDEATH) {
 		mState = DEATH;
 		changed = true;
 		Player::stopSound(RUNNING);
 		Player::playSound(DEATH);
+	}
+	// Player falls to death
+	else if (mFallenOutsideBounds && mState != FALLDEATH) {
+		mState = FALLDEATH;
+		changed = true;
+		Player::stopSound(RUNNING);
+		Player::playSound(FALLDEATH);
 	}
 
 	if (mState == WALLSTUCK) {
@@ -406,7 +418,7 @@ void Player::updateState() {
 	else
 		Player::stopSound(WALLSTUCK);
 
-	if (mState != DEATH) {
+	if (mState != DEATH && mState != FALLDEATH) {
 		if (mState == FALLING && mVelocity.y == 0) {
 			mState = LANDED;
 			Player::playSound(LANDED);
@@ -561,6 +573,12 @@ void Player::updateANI(){
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		break;
+		
+	case FALLDEATH:
+		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimation = Animations::getPlayerDyingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
+		break;
 
 	default:
 		break;
@@ -590,7 +608,7 @@ void Player::animate(){
 		mAnimationIndex += 1;
 		mTimerANI = 0;
 		if (mAnimationIndex >= mCurrentAnimation->size()){
-			if (mState == DEATH){
+			if (mState == DEATH || mState == FALLDEATH){
 				mIsAlive = false;
 				mAnimationIndex -= 1;
 			}
@@ -629,6 +647,9 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::DEATH:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
 		break;
+	case Player::FALLDEATH:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::FALLDEATH);
+		break;
 	case Player::WALLSTUCK:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::WALLSLIDE);
 		break;
@@ -659,6 +680,9 @@ void Player::stopSound(PLAYERSTATE state) {
 	case Player::DEATH:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::DEATH);
 		break;
+	case Player::FALLDEATH:
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::FALLDEATH);
+		break;
 	case Player::WALLSTUCK:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::WALLSLIDE);
 		break;
@@ -674,7 +698,7 @@ void Player::setPos(sf::Vector2f newPos){
 	mCollisionBody.setPosition(newPos);
 }
 
-void Player::blink(){
+void Player::invulnerableBlink(){
 	
 	if (mInvulnerable && (mLife > 0)){
 		
@@ -702,4 +726,14 @@ void Player::blink(){
 			mSprite.setColor(sf::Color(255, 255, 255, mPlayerTransparency));
 		}
 	}
+}
+
+void Player::checkPlayerWithinBounds(){
+	if (mSprite.getPosition().y >= Toolbox::getLevelBounds().height){
+		mFallenOutsideBounds = true;
+	}
+
+	/*if (mPlayerCoordPos.y >= Toolbox::getLevelBounds().height){
+		mLife = 0;
+	}*/
 }

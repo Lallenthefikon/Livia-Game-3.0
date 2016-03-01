@@ -5,11 +5,11 @@
 #include "Collisionhandler.h"
 #include "LayerHandler.h"
 #include "Texthandler.h"
+#include "Decorationhandler.h"
 #include "MapGenerator.h"
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
-#include "AcidMonster.h"
 
 class Stomach : public Level{
 public:
@@ -33,12 +33,17 @@ private:
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;
 	Texthandler& mTextHandler;
+	Decorationhandler& mDecorationhandler;
 
+	// Specific level graphics
 	sf::Texture mBackgroundTexture;
 	sf::Texture mLifeTexture;
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
+
+	// Level Info
+	sf::FloatRect mLevelBounds;
 	sf::Sprite mAcidSprite;
 	
 	Camera mCamera;

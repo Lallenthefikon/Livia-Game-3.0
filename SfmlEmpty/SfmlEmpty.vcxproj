@@ -88,6 +88,8 @@
     <ClCompile Include="CollisionBlock.cpp" />
     <ClCompile Include="CollisionFuncs.cpp" />
     <ClCompile Include="Collisionhandler.cpp" />
+    <ClCompile Include="Decoration.cpp" />
+    <ClCompile Include="Decorationhandler.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Entityhandler.cpp" />
     <ClCompile Include="Factory.cpp" />
@@ -126,6 +128,8 @@
     <ClInclude Include="CollisionBlock.h" />
     <ClInclude Include="CollisionFuncs.h" />
     <ClInclude Include="Collisionhandler.h" />
+    <ClInclude Include="Decoration.h" />
+    <ClInclude Include="Decorationhandler.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Entityhandler.h" />
     <ClInclude Include="Factory.h" />

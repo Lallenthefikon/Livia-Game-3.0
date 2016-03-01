@@ -21,8 +21,6 @@ LayerHandler& LayerHandler::getInstance(){
 	return layerHandler;
 }
 
-
-
 void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
 	sf::Sprite* furthestRightBG;
@@ -151,7 +149,7 @@ void LayerHandler::moveStationaryBackground(sf::RenderWindow &window, Camera &ca
 }
 
 void LayerHandler::moveStationaryForeground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView) {
-	mForegroundObjects[0].setPosition(cam.getTileView().getCenter().x, cam.getTileView().getCenter().y);
+	mForegroundObjects[0].setPosition(cam.getTileView().getCenter().x - 1920, cam.getTileView().getCenter().y + 800);
 }
 
 void LayerHandler::moveForeground(sf::Vector2f &velocity){
@@ -233,6 +231,7 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 
 void LayerHandler::addAcid(sf::Texture &acidTexture) {
 	mForeground1.setTexture(acidTexture);
+	mForeground1.setScale(4, 1);
 	mForegroundObjects.push_back(mForeground1);
 	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
 }

@@ -6,7 +6,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, LANDED };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, FALLDEATH, LANDED };
 	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 	enum BLINKSTATES { BLINKIN, BLINKOUT };
 
@@ -34,7 +34,8 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual int getLife() { return mLife; }
-	void blink();
+	void invulnerableBlink();
+	void checkPlayerWithinBounds();
 
 private:
 
@@ -100,6 +101,11 @@ private:
 	bool mJumpStarted;
 	bool mDoubleJumped;
 	bool mBlinkOut;
+
+	// outside Bounds
+	bool mAtLeftBorder;
+	bool mAtRightBorder;
+	bool mFallenOutsideBounds;
 	
 	bool mIsAlive;
 	bool mWin;

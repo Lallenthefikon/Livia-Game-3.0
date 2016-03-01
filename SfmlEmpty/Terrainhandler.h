@@ -19,10 +19,9 @@ public:
 
 private:
 	Terrainhandler();
-	~Terrainhandler();
 
 	void internalClear();
-	
+
 	BlockTerrains mCollisionBlocks;
 	Terrains mTerrains;
 };
