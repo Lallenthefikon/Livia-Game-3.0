@@ -137,7 +137,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 		 while (getline(decorationFile, line)) {
 			 switch (line[0]) {
 			 case 'D':
-				 MapEditMaploader::createDecoration(MapEditMaploader::readPosition(line), line[1]);
+				 MapEditMaploader::createDecoration(MapEditMaploader::readPosition(line), line[1], line[2]);
 				 break;
 			 default:
 				 break;
@@ -175,8 +175,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mTerrains.push_back(Factory::createGoal(pos));
  }
 
- void MapEditMaploader::createDecoration(sf::Vector2f &pos, char id) {
-	 mDecorations.push_back(Factory::createDecoration(pos, id));
+ void MapEditMaploader::createDecoration(sf::Vector2f &pos, char id, char layer) {
+	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
  }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){
@@ -366,4 +366,5 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  void MapEditMaploader::internalClear(){
 	 mEntities.clear();
 	 mTerrains.clear();
+	 mDecorations.clear();
  }

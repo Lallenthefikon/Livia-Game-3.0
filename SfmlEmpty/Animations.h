@@ -23,6 +23,7 @@ struct Animations{
 
 	static Textures* getSpikesANI();
 
-	static Textures* getDecorationANI();
+	static Textures* getDecoration0ANI();
+	static Textures* getDecoration1ANI();
 };
 

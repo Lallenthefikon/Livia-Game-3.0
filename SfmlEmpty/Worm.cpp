@@ -113,7 +113,7 @@ void Worm::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = 0.016 *mAcceleration;
+	float delta = Toolbox::getFrameTime() * mAcceleration;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 

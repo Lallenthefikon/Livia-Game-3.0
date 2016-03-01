@@ -10,6 +10,8 @@
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
 #include "Camera.h"
+#include "Texthandler.h"
+#include "LayerHandler.h"
 
 class MapEditor : public GameState{
 public:
@@ -25,7 +27,7 @@ public:
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-	void createDecoration(sf::Vector2f mousePos);
+	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -44,6 +46,10 @@ private:
 	void eraseDecoration(int index);
 	void changeInsertType();
 	void changeRotDirection();
+	void changeLayer();
+
+	void displayCurrentLayer(sf::RenderWindow &window);
+	std::string layerToString() const;
 
 	void saveMap();
 	void sortVectors();
@@ -87,5 +93,13 @@ private:
 
 	// Camera Edit
 	Camera mCamera;
+
+	// Decoration
+	char mDecorationLayer;
+
+	Texthandler& mTextHandler;
+	LayerHandler& mLayerHandler;
+
+	sf::Sound mAirHorn;
 };
 

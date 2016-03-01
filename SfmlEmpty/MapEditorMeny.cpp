@@ -39,20 +39,22 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 
 void MapEditorMeny::insertObjects(){
 
-	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
-	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
-	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
-	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
-	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
-	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
-	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 2.8, 150), 't'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6)); 
-	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 2.8, 150)));
-	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), '0'));
-	mDecorations.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8f, 80.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
+	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7f, 70.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8f, 150.f), 'a'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8f, 150.f), 'p'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150.f), 't'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f)); 
+	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150.f)));
+	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '0', 'b'));
+	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '1', 'b'));
+	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -105,11 +107,15 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				case Decoration::FLOWER:
 					mInsertType = DECORATION0;
 					break;
+				case Decoration::DECORATIONID::SAYS:
+					mInsertType = DECORATION1;
+					break;
 				default:
 					break;
 				}
 			}
 		}
+		std::cout << std::to_string(mInsertType) << std::endl;
 		return true;
 	}
 	return false;
@@ -123,11 +129,11 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	// Worm
 	mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
 	// Block0 
-	for (int i = 0; i < mTerrains.size(); i++)
+	for (size_t i = 0; i < mTerrains.size(); i++)
 	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 100));
 
 	// Decorations
-	for (int i = 0; i < mDecorations.size(); i++) {
+	for (size_t i = 0; i < mDecorations.size(); i++) {
 		mDecorations[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 10, newPos.y + 180));
 	}
 

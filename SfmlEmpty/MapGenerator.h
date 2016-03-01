@@ -33,7 +33,7 @@ private:
 	void createGoal(sf::Vector2f pos);
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);
-	void createDecoration(sf::Vector2f pos, char id);
+	void createDecoration(sf::Vector2f pos, char id, char layer);
 
 	// Pekare till singeltonklasser
 	Terrainhandler *mTerrainhandler;
