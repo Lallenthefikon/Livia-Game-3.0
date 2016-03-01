@@ -46,6 +46,7 @@ static sf::SoundBuffer mPlayerLandSound;
 static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
+static sf::SoundBuffer mAirHorn;
 
 // Fonts
 static sf::Font mGameOverFont;
@@ -97,6 +98,8 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
+
+	mAirHorn.loadFromFile("resources/sounds/effects/Air_Horn_Sound_Effect.ogg");
 
 }
 
@@ -254,6 +257,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerWallSlideSound;
 		break;
 	case Toolbox::WORMIDLE:
+		return mAirHorn;
 		break;
 	case Toolbox::WORMRUN:
 		break;

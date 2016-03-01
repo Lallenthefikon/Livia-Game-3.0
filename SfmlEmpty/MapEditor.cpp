@@ -19,7 +19,9 @@ mLayerHandler(LayerHandler::getInstance()),
 
 mCamera(),
 
-mDecorationLayer('b') {
+mDecorationLayer('b'),
+
+mAirHorn(Toolbox::getSound(Toolbox::WORMIDLE)) {
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
@@ -242,6 +244,9 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 }
 
 void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
+	if (layer == '0') {	// Lol
+		mAirHorn.play();
+	}
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
 
@@ -476,7 +481,7 @@ void MapEditor::writeTerrainToFile(std::string filename){
 
 			case Terrain::BLOCKGOAL:
 				output.push_back('G');
-				output.push_back(blockType(mTerrains[i]));
+				output.push_back('0');
 				break;
 
 			default:

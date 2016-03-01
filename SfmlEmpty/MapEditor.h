@@ -99,5 +99,7 @@ private:
 
 	Texthandler& mTextHandler;
 	LayerHandler& mLayerHandler;
+
+	sf::Sound mAirHorn;
 };
 
