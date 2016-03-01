@@ -6,13 +6,20 @@
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
 mMapDimensionsTiles(500, 50),
 mTileDimensions(100, 100),
+
 mInsertType(MapEditorMeny::BLOCK0),
+
 mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
+
 mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
+mTextHandler(Texthandler::getInstance()),
+mLayerHandler(LayerHandler::getInstance()),
+
 mCamera(),
-mDecorationLayer('b'){
+
+mDecorationLayer('b') {
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
@@ -153,28 +160,45 @@ void MapEditor::update(sf::RenderWindow &window){
 	}
 
 	window.setView(mCamera.getTileView());
+
+	sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
+	mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 }
 
 void MapEditor::render(sf::RenderWindow &window){
 	window.clear();
 
-	for (size_t i = 0; i < mGrid.size(); i++){
+	for (size_t i = 0; i < mGrid.size(); i++) {
 		window.draw(mGrid[i]);
 	}
 
-	for (Terrains::size_type i = 0; i < mTerrains.size(); i++){
+	// Decoration back
+	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
+		if (mDecorations[i]->getDecorationLayer() == Decoration::BACK) {
+			mDecorations[i]->render(window);
+		}
+	}
+
+	// Terrain
+	for (Terrains::size_type i = 0; i < mTerrains.size(); i++) {
 		mTerrains[i]->render(window);
 	}
 
-	for (Entities::size_type i = 0; i < mEntities.size(); i++){
+	// Entities
+	for (Entities::size_type i = 0; i < mEntities.size(); i++) {
 		mEntities[i]->render(window);
 	}
 
-	for (Decorations::size_type i = 0;  i < mDecorations.size();  i++) {
-		mDecorations[i]->render(window);
+	// Decoration front
+	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
+		if (mDecorations[i]->getDecorationLayer() == Decoration::FRONT) {
+			mDecorations[i]->render(window);
+		}
 	}
 
 	mMeny.render(window);
+
+	displayCurrentLayer(window);
 
 	window.display();
 }
@@ -323,7 +347,7 @@ void MapEditor::changeInsertType(){
 	default:
 		break;
 	}
-	std::cout << std::to_string(mInsertType)<< std::endl;
+	//std::cout << std::to_string(mInsertType)<< std::endl;
 }
 
 void MapEditor::changeRotDirection(){
@@ -357,7 +381,20 @@ void MapEditor::changeLayer() {
 	default:
 		break;
 	}
-	std::cout << "'MapEditor' Current layer: " << mDecorationLayer << std::endl;
+	//std::cout << "'MapEditor' Current layer: " << mDecorationLayer << std::endl;
+}
+
+void MapEditor::displayCurrentLayer(sf::RenderWindow & window) {
+	std::string textToRender = "Current layer: ";
+	mTextHandler.renderText(window, textToRender + layerToString());
+}
+
+std::string MapEditor::layerToString() const {
+	switch (mDecorationLayer) {
+	case 'b':	return "Back";
+	case 'f':	return "Front";
+	default:	return "Unknown";
+	}
 }
 
 void MapEditor::saveMap(){

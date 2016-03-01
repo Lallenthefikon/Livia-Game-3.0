@@ -10,6 +10,8 @@
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
 #include "Camera.h"
+#include "Texthandler.h"
+#include "LayerHandler.h"
 
 class MapEditor : public GameState{
 public:
@@ -45,6 +47,9 @@ private:
 	void changeInsertType();
 	void changeRotDirection();
 	void changeLayer();
+
+	void displayCurrentLayer(sf::RenderWindow &window);
+	std::string layerToString() const;
 
 	void saveMap();
 	void sortVectors();
@@ -89,6 +94,10 @@ private:
 	// Camera Edit
 	Camera mCamera;
 
+	// Decoration
 	char mDecorationLayer;
+
+	Texthandler& mTextHandler;
+	LayerHandler& mLayerHandler;
 };
 

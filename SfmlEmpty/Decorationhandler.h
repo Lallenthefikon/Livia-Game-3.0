@@ -13,7 +13,7 @@ public:
 	void updateDecoration();
 	void clear();
 
-	//Decorations& getDecorations() { return mDecorations; }
+	Decorations& getDecorations() { return mDecorations; }
 	~Decorationhandler();
 private:
 	Decorationhandler();
