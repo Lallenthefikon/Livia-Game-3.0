@@ -19,6 +19,7 @@ mZoomedOut(false){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
+	Toolbox::copyGravity(sf::Vector2f(0,2));
 	Animations::loadTextures();
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));

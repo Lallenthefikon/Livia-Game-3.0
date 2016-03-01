@@ -46,6 +46,7 @@ CollisionBlock::Terrains2D& CollisionBlock::getBlocks() {
 }
 
 Terrain::TERRAINTYPE CollisionBlock::getType(sf::Vector2f pos, float length, char direction) {
+	mHighestPrio = BLOCK0;
 	switch (direction){
 	case 'r':
 		 checkCollisionR(pos, length);
@@ -128,7 +129,7 @@ void CollisionBlock::checkCollisionT(sf::Vector2f pos, float length){
 		if (!((mBlockTerrains2D[i]->at(0)->getPos().x < pos.x && mBlockTerrains2D[i]->at(0)->getPos().x + mBlockTerrains2D[i]->at(0)->getWidth() < pos.x)
 			|| (mBlockTerrains2D[i]->at(0)->getPos().x > pos.x + length && mBlockTerrains2D[i]->at(0)->getPos().x + mBlockTerrains2D[i]->at(0)->getWidth() > pos.x + length))) {
 			CollisionBlock::prioritizeBlockTypes(mBlockTerrains2D[i]->at(0)->getType());
-			mTileType = mBlockTerrains2D[i]->at(0)->getType();
+			mTileType = mBlockTerrains2D[i]->at(0)->getTileType();
 		}
 	}
 }
@@ -138,7 +139,7 @@ void CollisionBlock::checkCollisionB(sf::Vector2f pos, float length) {
 		if (!((mBlockTerrains2D[i]->back()->getPos().x < pos.x && mBlockTerrains2D[i]->back()->getPos().x + mBlockTerrains2D[i]->back()->getWidth() < pos.x)
 			|| (mBlockTerrains2D[i]->back()->getPos().x > pos.x + length && mBlockTerrains2D[i]->back()->getPos().x + mBlockTerrains2D[i]->back()->getWidth() > pos.x + length))) {
 			CollisionBlock::prioritizeBlockTypes(mBlockTerrains2D[i]->back()->getType());
-			mTileType = mBlockTerrains2D[i]->back()->getType();
+			mTileType = mBlockTerrains2D[i]->back()->getTileType();
 		}
 	}
 }
