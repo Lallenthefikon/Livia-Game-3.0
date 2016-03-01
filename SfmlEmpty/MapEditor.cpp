@@ -114,6 +114,7 @@ void MapEditor::update(sf::RenderWindow &window){
 			switch (gEvent.key.code){
 			case sf::Keyboard::S:
 				MapEditor::saveMap();
+				std::cout << "Saved..." << std::endl;
 				break;
 			case sf::Keyboard::Num0:
 				MapEditor::changeInsertType();
@@ -168,15 +169,15 @@ void MapEditor::update(sf::RenderWindow &window){
 void MapEditor::render(sf::RenderWindow &window){
 	window.clear();
 
+	// Grid
 	for (size_t i = 0; i < mGrid.size(); i++) {
 		window.draw(mGrid[i]);
 	}
 
 	// Decoration back
 	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
-		if (mDecorations[i]->getDecorationLayer() == Decoration::BACK) {
+		if (mDecorations[i]->getDecorationLayer() == Decoration::BACK)
 			mDecorations[i]->render(window);
-		}
 	}
 
 	// Terrain
@@ -191,9 +192,8 @@ void MapEditor::render(sf::RenderWindow &window){
 
 	// Decoration front
 	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
-		if (mDecorations[i]->getDecorationLayer() == Decoration::FRONT) {
+		if (mDecorations[i]->getDecorationLayer() == Decoration::FRONT)
 			mDecorations[i]->render(window);
-		}
 	}
 
 	mMeny.render(window);

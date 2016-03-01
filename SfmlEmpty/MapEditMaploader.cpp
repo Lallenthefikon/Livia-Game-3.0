@@ -366,4 +366,5 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  void MapEditMaploader::internalClear(){
 	 mEntities.clear();
 	 mTerrains.clear();
+	 mDecorations.clear();
  }
