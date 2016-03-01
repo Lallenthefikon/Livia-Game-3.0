@@ -71,12 +71,10 @@ void GameLoop::run(){
 
 	// Loop
 	while (mWindow.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-		if (mWindow.hasFocus()) {
 			manualStateChange(clickOnce);
 			update();
 			render();
 			calcTimeElapsedAndFPS(clock);
-		}
 	}
 }
 

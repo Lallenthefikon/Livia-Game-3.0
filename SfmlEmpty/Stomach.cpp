@@ -21,7 +21,6 @@ mLevelBounds(0.f,0.f,10000.f,2300.f){
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
-	Toolbox::copyGravity(sf::Vector2f(0,2));
 	Animations::loadTextures();
 
 	Toolbox::copyLevelBounds(mLevelBounds);

@@ -105,8 +105,8 @@ void Player::render(sf::RenderWindow &window){
 	Player::addForces();
 
 	Player::animate();
+
 	mCollisionBody.move(mVelocity);
-	
 	
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
@@ -281,7 +281,7 @@ void Player::jump() {
 		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped) {
 			mDoubleJumped = true;
 			mVelocity.y = mJumpSpeedDouble * Toolbox::getFrameTime();
-			Player::stopSound(JUMPING );
+			Player::stopSound(JUMPING);
 			Player::playSound(JUMPING);
 		}
 	} else {
