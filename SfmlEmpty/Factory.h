@@ -17,4 +17,5 @@ struct Factory{
 	static Terrain* createGoal(sf::Vector2f pos);
 	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 	static Decoration* createDecoration(sf::Vector2f pos, char id);
+	static Terrain* createBlock0Icy(sf::Vector2f pos, char id);
 };

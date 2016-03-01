@@ -8,6 +8,7 @@
 #include "BlockGoal.h"
 #include "Decoration.h"
 #include "CollisionBlock.h"
+#include "Block0Icy.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -43,4 +44,8 @@ Decoration* Factory::createDecoration(sf::Vector2f pos, char id) {
 
 BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 	return CollisionBlock::createCollisionBlock(pos);
+}
+
+Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {
+	return Block0Icy::createBlock0Icy(pos, type);
 }

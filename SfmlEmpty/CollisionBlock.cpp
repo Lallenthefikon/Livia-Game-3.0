@@ -145,12 +145,8 @@ void CollisionBlock::checkCollisionB(sf::Vector2f pos, float length) {
 }
 
 void CollisionBlock::prioritizeBlockTypes(Terrain::TERRAINTYPE blockType){
-	switch (mHighestPrio){
-	case Terrain::BLOCK0WALLJUMP:
-		break;
-	default:
+	if (blockType > mHighestPrio) {
 		mHighestPrio = blockType;
-		break;
 	}
 }
 

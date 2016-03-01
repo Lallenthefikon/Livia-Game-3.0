@@ -23,6 +23,7 @@ public:
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
+	void createBlock0Icy(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
 	void createDecoration(sf::Vector2f mousePos);

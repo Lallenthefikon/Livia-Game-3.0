@@ -78,6 +78,16 @@ bool Entityhandler::isPlayerAlive() {
 		return false;
 }
 
+void Entityhandler::keyReleased(sf::Keyboard::Key key){
+	switch (key) {
+	case sf::Keyboard::Space:
+		mEntities[0]->keyReleased(key);
+		break;
+	default:
+		break;
+	}
+}
+
 // Private funcs
 
 void Entityhandler::internalClear(){

@@ -59,6 +59,9 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				case 'W':
 					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2]);
 					break;
+				case 'I':
+					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2]);
+					break;
 				default:
 					break;
 				}
@@ -179,6 +182,10 @@ void MapGenerator::createBlock0(sf::Vector2f pos, char type){
 
 void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type));
+}
+
+void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type){
+	mTempBlocks.push_back(Factory::createBlock0Icy(pos, type));
 }
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){

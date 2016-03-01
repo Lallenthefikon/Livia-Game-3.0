@@ -21,6 +21,7 @@ public:
 	virtual bool isOnScreen(){ return mIsOnScreen; }
 	virtual bool getIsAlive(){ return mIsAlive; }
 	virtual void addVector(sf::Vector2f &vector);
+	virtual void keyReleased(sf::Keyboard::Key key) {};
 
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);

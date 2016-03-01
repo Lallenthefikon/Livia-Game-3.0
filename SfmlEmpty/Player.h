@@ -17,6 +17,7 @@ public:
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual void addVector(sf::Vector2f &vector);
+	virtual void keyReleased(sf::Keyboard::Key key);
 
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);
@@ -66,7 +67,7 @@ private:
 	float mJumpSpeedDouble;
 	float mJumpSpeedMax;
 	float mMaxSpeed;
-	sf::Vector2f mAcceleration;
+	sf::Vector2f mAcceleration, mIcyAcceleration;
 	float mWallSlideSpeed;
 	float mAirbornAcc;
 	
@@ -100,6 +101,7 @@ private:
 	bool mInvulnerable;
 	bool mJumpStarted;
 	bool mDoubleJumped;
+	bool mJumpReleased;
 	bool mBlinkOut;
 
 	// outside Bounds
@@ -110,6 +112,7 @@ private:
 	bool mIsAlive;
 	bool mWin;
 	int mLife;
+	bool jumpReleased;
 
 	char mCollisionT;
 	char mCollisionB;

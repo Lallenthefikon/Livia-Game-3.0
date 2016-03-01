@@ -205,6 +205,10 @@ void MapEditor::createBlock0WallJump(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0WallJump(mousePos, 'p'));
 }
 
+void MapEditor::createBlock0Icy(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createBlock0Icy(mousePos, 'a'));
+}
+
 void MapEditor::createSpikes(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createSpikes(mousePos, mRotDirection));
 }
@@ -255,6 +259,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::BLOCK0WALLJUMP:
 		MapEditor::createBlock0WallJump(mousePos);
 		break;
+	case MapEditorMeny::BLOCK0ICY:
+		MapEditor::createBlock0Icy(mousePos);
+		break;
 	case MapEditorMeny::SPIKES:
 		MapEditor::createSpikes(mousePos);
 		break;
@@ -299,6 +306,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::BLOCK0WALLJUMP;
 		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
+		mInsertType = MapEditorMeny::BLOCK0ICY;
+		break;
+	case MapEditorMeny::BLOCK0ICY:
 		mInsertType = MapEditorMeny::SPIKES;
 		break;
 	case MapEditorMeny::SPIKES:
@@ -401,6 +411,13 @@ void MapEditor::writeTerrainToFile(std::string filename){
 			case Terrain::BLOCK0WALLJUMP:
 				output.push_back('B');
 				output.push_back('W');
+				// Push what type of block it is
+				output.push_back(blockType(mTerrains[i]));
+				break;
+
+			case Terrain::BLOCK0ICY:
+				output.push_back('B');
+				output.push_back('I');
 				// Push what type of block it is
 				output.push_back(blockType(mTerrains[i]));
 				break;

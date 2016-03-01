@@ -110,10 +110,13 @@
       <Filter>Source Files\Decoration</Filter>
     </ClCompile>
     <ClCompile Include="BlockTerrain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Terrain\BlockTerrain</Filter>
     </ClCompile>
     <ClCompile Include="CollisionBlock.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Terrain\BlockTerrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Block0Icy.cpp">
+      <Filter>Source Files\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,10 +226,13 @@
       <Filter>Header Files\Decoration</Filter>
     </ClInclude>
     <ClInclude Include="BlockTerrain.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Terrain\BlockTerrain</Filter>
     </ClInclude>
     <ClInclude Include="CollisionBlock.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Terrain\BlockTerrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Block0Icy.h">
+      <Filter>Header Files\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -271,6 +277,12 @@
     </Filter>
     <Filter Include="Header Files\Decoration">
       <UniqueIdentifier>{3c60dd6c-63b0-4255-8606-4480e136d2c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Terrain\BlockTerrain">
+      <UniqueIdentifier>{8b708340-4d34-4f49-af05-ab303bf8d9f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain\BlockTerrain">
+      <UniqueIdentifier>{3efbf8c7-82fb-4282-9f14-ca5067b0a3ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

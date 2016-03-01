@@ -25,6 +25,7 @@ public:
 	virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction) = 0;
 	
 	virtual void addVector(sf::Vector2f &vector) = 0;
+	virtual void keyReleased(sf::Keyboard::Key key) = 0;
 	
 	virtual sf::Vector2f getPos() = 0;
 	virtual sf::Vector2f getOffset() = 0;
