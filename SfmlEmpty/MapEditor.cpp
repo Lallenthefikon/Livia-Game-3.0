@@ -361,6 +361,22 @@ void MapEditor::sortVectors(){
 			mEntities.back() = temp;
 		}
 	}
+
+	// Sort terrain after x-pos, then y-pos
+	for (Terrains::size_type i = 0; i < mTerrains.size(); i++) {
+		for (Terrains::size_type j = 0; j < mTerrains.size() - 1; j++) {
+			if (mTerrains[j]->getPos().x > mTerrains[j + 1]->getPos().x) {
+				Terrain* temp(mTerrains[j]);
+				mTerrains[j] = mTerrains[j + 1];
+				mTerrains[j + 1] = temp;
+			}
+			else if ((mTerrains[j]->getPos().x == mTerrains[j + 1]->getPos().x && mTerrains[j]->getPos().y > mTerrains[j + 1]->getPos().y)) {
+				Terrain* temp(mTerrains[j]);
+				mTerrains[j] = mTerrains[j + 1];
+				mTerrains[j + 1] = temp;
+			}
+		}
+	}
 }
 
 void MapEditor::writeTerrainToFile(std::string filename){

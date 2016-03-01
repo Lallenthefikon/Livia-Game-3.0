@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML\System.hpp>
-#include "Terrain.h"
 #include "Toolbox.h"
 #include "Animations.h"
+#include "Terrain.h"
 
 class Spikes : public Terrain{
 public:

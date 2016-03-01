@@ -85,6 +85,10 @@ void AcidMonster::terrainCollision(Terrain* terrain, char direction){
 	}*/
 }
 
+void AcidMonster::blockterrainCollision(BlockTerrain * blockterrain, char direction){
+
+}
+
 // Privates
 
 void AcidMonster::lerp(){

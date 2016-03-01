@@ -15,9 +15,16 @@ void Terrainhandler::addTerrain(Terrain* terrain){
 	mTerrains.push_back(terrain);
 }
 
+void Terrainhandler::addCollisionblock(BlockTerrain* blockterrain){
+	mCollisionBlocks.push_back(blockterrain);
+}
+
 void Terrainhandler::renderTerrains(sf::RenderWindow &window){
 	for (Terrains::size_type i = 0; i < mTerrains.size(); i++){
 		mTerrains[i]->render(window);
+	}
+	for (BlockTerrains::size_type i = 0; i < mCollisionBlocks.size(); i++) {
+		mCollisionBlocks[i]->render(window);
 	}
 }
 
@@ -31,11 +38,18 @@ void Terrainhandler::clear(){
 	Terrainhandler::internalClear();
 }
 
+
+
+
 // Private funcs
 
 void Terrainhandler::internalClear(){
 	while (!mTerrains.empty()){
 		delete mTerrains.back();
 		mTerrains.pop_back();
+	}
+	while (!mCollisionBlocks.empty()) {
+		delete mCollisionBlocks.back();
+		mCollisionBlocks.pop_back();
 	}
 }
