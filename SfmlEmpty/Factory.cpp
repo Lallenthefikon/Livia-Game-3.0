@@ -7,6 +7,7 @@
 #include "Spikes.h"
 #include "BlockGoal.h"
 #include "Decoration.h"
+#include "Dialogue.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -38,4 +39,8 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 
 Decoration* Factory::createDecoration(sf::Vector2f pos, char id) {
 	return Decoration::createDecoration(pos, id);
+}
+
+Dialogue* Factory::createDialogue(sf::Vector2f pos) {
+	return Dialogue::createDialogue(pos);
 }

@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Level.h"
 
+
 class Stomach : public Level{
 public:
 	static Stomach& getInstance();

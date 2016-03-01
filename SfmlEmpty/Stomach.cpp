@@ -133,6 +133,9 @@ void Stomach::render(sf::RenderWindow &window){
 	// Decorations
 	mDecorationhandler.renderDecoration(window);
 
+	// Dialogues
+	
+
 	// Entities
 	mEntityHandler.renderEntities(window);
 

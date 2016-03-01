@@ -84,6 +84,12 @@ void MapEditor::update(sf::RenderWindow &window){
 							break;
 						}
 					}
+					for (i = mDialogues.size() - 1; i > -1; i--) {
+						if (MapEditor::isSpriteClicked(mDialogues[i]->getSprite(), &coord_pos)) {
+							MapEditor::eraseDialogue(i);
+							break;
+						}
+					}
 					break;
 
 				case sf::Mouse::Middle:
@@ -170,6 +176,10 @@ void MapEditor::render(sf::RenderWindow &window){
 		mDecorations[i]->render(window);
 	}
 
+	for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
+		mDialogues[i]->render(window);
+	}
+
 	mMeny.render(window);
 
 	window.display();
@@ -217,6 +227,10 @@ void MapEditor::createDecoration(sf::Vector2f mousepos) {
 	mDecorations.push_back(Factory::createDecoration(mousepos, '0'));
 }
 
+void MapEditor::createDialogue(sf::Vector2f mousePos) {
+	mDialogues.push_back(Factory::createDialogue(mousePos));
+}
+
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
@@ -239,7 +253,7 @@ void MapEditor::clearMap(){
 // Privates
 
 void MapEditor::insertObject(sf::Vector2f mousePos) {
-	switch (mInsertType){
+	switch (mInsertType) {
 	case MapEditorMeny::BLOCK0:
 		MapEditor::createBlock0(mousePos);
 		break;
@@ -264,6 +278,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION0:
 		MapEditor::createDecoration(mousePos);
 		break;
+	case MapEditorMeny::DIALOGUE:
+		MapEditor::createDialogue(mousePos);
+		break;
 	default:
 		break;
 	}
@@ -283,6 +300,13 @@ void MapEditor::eraseDecoration(int index) {
 	delete mDecorations[index];
 	mDecorations.erase(mDecorations.begin() + index);
 }
+
+void MapEditor::eraseDialogue(int index) {
+	delete mDialogues[index];
+	mDialogues.erase(mDialogues.begin() + index);
+}
+
+
 
 void MapEditor::changeInsertType(){
 	switch (mInsertType){
@@ -308,6 +332,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
+		mInsertType = MapEditorMeny::DIALOGUE;
+		break;
+	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -347,6 +374,9 @@ void MapEditor::saveMap(){
 
 	mCurrentLevelDirectory[15] = 'D';
 	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
+
+	mCurrentLevelDirectory[15] = 'Q';
+	MapEditor::writeDialoguesToFile(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'm';
 
@@ -398,7 +428,12 @@ void MapEditor::writeTerrainToFile(std::string filename){
 
 			case Terrain::BLOCKGOAL:
 				output.push_back('G');
-				output.push_back(blockType(mTerrains[i]));
+				output.push_back('0');
+				break;
+
+			case Terrain::DIALOGUE:
+				output.push_back('Q');
+				output.push_back('0');
 				break;
 
 			default:
@@ -528,6 +563,46 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 	decorationFile.close();
 }
 
+void MapEditor::writeDialoguesToFile(std::string filename) {
+	std::string posString;
+	std::string output;
+	std::ofstream dialogueFile(filename);
+
+	if (dialogueFile.is_open()) {
+		for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
+
+			switch (mDialogues[i]->getType()) {
+			case Terrain::DIALOGUE:
+				output.push_back('Q');
+				output.push_back('0');
+			default:
+				break;
+			}
+			output.push_back('|');
+
+			// Inserts xpos into output followed by a ','
+			posString = MapEditor::floatToString(mDialogues[i]->getPos().x + mDialogues[i]->getOffset().x);
+			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+				output.push_back(posString[iS]);
+			}
+			output.push_back(',');
+
+			// Inserts ypos into output
+			posString = MapEditor::floatToString(mDialogues[i]->getPos().y + mDialogues[i]->getOffset().y);
+			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+				output.push_back(posString[iS]);
+			}
+
+			// Writes output into file
+			dialogueFile << output << std::endl;
+
+			output.clear();
+			posString.clear();
+		}
+	}
+	dialogueFile.close();
+}
+
 char MapEditor::blockType(Terrain* terrain){
 
 	bool leftOccupied(false);
@@ -613,6 +688,10 @@ void MapEditor::internalClear(){
 	while (!mDecorations.empty()) {
 		delete mDecorations.back();
 		mDecorations.pop_back();
+	}
+	while (!mDialogues.empty()) {
+		delete mDialogues.back();
+		mDialogues.pop_back();
 	}
 }
 

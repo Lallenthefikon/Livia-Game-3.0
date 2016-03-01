@@ -6,7 +6,6 @@ Decorationhandler::Decorationhandler(){
 Decorationhandler::~Decorationhandler() {
 }
 
-
 Decorationhandler& Decorationhandler::getInstance() {
 	static Decorationhandler decorationHandler;
 	return decorationHandler;

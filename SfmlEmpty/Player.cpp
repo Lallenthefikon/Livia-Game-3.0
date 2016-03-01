@@ -93,7 +93,7 @@ void Player::render(sf::RenderWindow &window){
 
  void Player::update(){
 	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
-	 std::cout << "mState: " << mState << std::endl;
+	 //std::cout << "mState: " << mState << std::endl;
 	 Player::playerInput();
 	Player::lerp();
 
@@ -617,6 +617,8 @@ void Player::updateTexturepos(){
 	temp.x -= (mSprite.getLocalBounds().width / 2 );
 	temp.y -= (mSprite.getLocalBounds().height /2);
 	mSprite.setPosition(temp);
+	std::cout << " X: " << mCollisionBody.getPosition().x << std::endl;
+	std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
 }
 
 void Player::playSound(PLAYERSTATE state) {

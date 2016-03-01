@@ -21,6 +21,7 @@ static sf::Image mJumpingPlayersheet;
 static sf::Image mHurtPlayersheet;
 static sf::Image mSlidePlayersheet;
 static sf::Image mGoalTexture;
+static sf::Image mDialogueTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -78,6 +79,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
 	
 	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+	mDialogueTexture.loadFromFile("resources/images/Dialogue-bubble.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -170,6 +172,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case DECORATIONTEXTURE:
 		return mDecorationTexture;
+		break;
+
+	case DIALOGUETEXTURE:
+		return mDialogueTexture;
 		break;
 
 	default:

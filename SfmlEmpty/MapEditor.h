@@ -10,6 +10,7 @@
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
 #include "Camera.h"
+#include "Dialogue.h"
 
 class MapEditor : public GameState{
 public:
@@ -26,6 +27,7 @@ public:
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
 	void createDecoration(sf::Vector2f mousePos);
+	void createDialogue(sf::Vector2f mousePos);
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -42,6 +44,7 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void eraseDecoration(int index);
+	void eraseDialogue(int index);
 	void changeInsertType();
 	void changeRotDirection();
 
@@ -50,6 +53,7 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
+	void writeDialoguesToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -73,10 +77,12 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
+	typedef std::vector<Dialogue*> Dialogues;
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
+	Dialogues mDialogues;
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;

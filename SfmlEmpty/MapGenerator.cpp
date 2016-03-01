@@ -4,7 +4,8 @@
 MapGenerator::MapGenerator() :
 mTerrainhandler(&Terrainhandler::getInstance()),
 mEntityhandler(&Entityhandler::getInstance()),
-mDecorationhandler(&Decorationhandler::getInstance()){
+mDecorationhandler(&Decorationhandler::getInstance()),
+mDialoguehandler(&Dialoguehandler::getInstance()){
 }
 
 MapGenerator::~MapGenerator(){
@@ -22,6 +23,7 @@ void MapGenerator::loadMap(std::string &mapname){
 	mEntityhandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
+	mDialoguehandler->clear();
 
 	mapname[15] = 'T';
 	MapGenerator::readTerrainfile(mapname);
@@ -33,6 +35,9 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mapname[15] = 'D';
 	MapGenerator::readDecorationfile(mapname);
+
+	mapname[15] = 'Q';
+	MapGenerator::readDialoguefile(mapname);
 
 
 	mapname[15] = 'm';
@@ -154,6 +159,24 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 	decorationFile.close();
 }
 
+void MapGenerator::readDialoguefile(std::string &filename) {
+	std::string line;
+	std::ifstream dialoguefile(filename);
+
+	if (dialoguefile.is_open()) {
+		while (getline(dialoguefile, line)) {
+			switch (line[0]) {
+			case 'E':
+				MapGenerator::createDialogue(MapGenerator::readPosition(line));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	dialoguefile.close();
+}
+
 // Create entities
 
 void MapGenerator::createWorm(sf::Vector2f pos){
@@ -194,6 +217,11 @@ void MapGenerator::createDecoration(sf::Vector2f pos, char id) {
 	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id));
 }
 
+// Create  Dialogue
+
+void MapGenerator::createDialogue(sf::Vector2f pos) {
+	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
+}
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
 
