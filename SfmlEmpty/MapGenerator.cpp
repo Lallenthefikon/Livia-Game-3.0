@@ -187,7 +187,6 @@ void MapGenerator::readDialoguefile(std::string &filename) {
 }
 
 // Create entities
-
 void MapGenerator::createWorm(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createWorm(pos));
 }
@@ -206,7 +205,6 @@ void MapGenerator::createMeatball(sf::Vector2f pos) {
 
 
 // Create terrains
-
 void MapGenerator::createBlock0(sf::Vector2f pos, char type){
 	mTempBlocks.push_back(Factory::createBlock0(pos, type));
 }
@@ -225,11 +223,12 @@ void MapGenerator::createGoal(sf::Vector2f pos) {
 
 
 // Create decoration
-
 void MapGenerator::createDecoration(sf::Vector2f pos, char id, char layer) {
 	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id, layer));
 }
 
+
+// Create collision blocks
 void MapGenerator::createCollisionBlocks() {
 	BlockTerrains collisionBlocks;
 	for (Terrains::size_type i = 0; i < mTempBlocks.size(); i++) {
@@ -261,11 +260,6 @@ void MapGenerator::createCollisionBlocks() {
 }
 
 
-// Create  Dialogue
-
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
-}
 void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
 		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
@@ -286,6 +280,12 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 		}
 	}
 
+}
+
+
+// Create  Dialogue
+void MapGenerator::createDialogue(sf::Vector2f pos) {
+	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
