@@ -126,9 +126,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Abstractgame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractgame.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

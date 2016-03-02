@@ -60,26 +60,26 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
-		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
+		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
+		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
-	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
-	mGoalTexture.loadFromFile("resources/images/goal.jpg");
+	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet.png");
+	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/entities/Tummy jagar spritesheet.png");
 
-	mTileTexture.loadFromFile("resources/images/Tile.png");
-	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
+	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
-	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
 	mMeatballTexture.loadFromFile("resources/images/entities/meatball.png");
-	mDialogueTexture.loadFromFile("resources/images/Dialogue-bubble.png");
+	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
