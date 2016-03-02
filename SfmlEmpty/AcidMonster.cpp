@@ -7,7 +7,7 @@ mCurrentAnimation(Animations::getAcidMonster()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(8),
-mMaxSpeed(8){
+mMaxSpeed(4.5){
 	mVelocityGoal.x = mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
@@ -36,7 +36,6 @@ void AcidMonster::update(){
 	if (Toolbox::getPlayerIsAlive()){
 		mSprite.move(mVelocity);
 	}
-
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){

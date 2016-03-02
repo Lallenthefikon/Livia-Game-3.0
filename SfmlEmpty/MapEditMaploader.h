@@ -42,7 +42,7 @@ private:
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
 	void createDialogue(sf::Vector2f &pos, char type);
-
+	void createMeatballSpawner(sf::Vector2f &pos, float spawnRate);
 	void createDecoration(sf::Vector2f &pos, char id, char layer);
 
 

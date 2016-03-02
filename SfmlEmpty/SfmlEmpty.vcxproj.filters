@@ -124,6 +124,9 @@
     <ClCompile Include="MapEditorMeny.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
+    <ClCompile Include="MeatballSpawner.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -245,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="Abstractgame.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeatballSpawner.h">
+      <Filter>Header Files\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

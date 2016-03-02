@@ -21,5 +21,6 @@ struct Factory{
 	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
 	static Entity* createMeatball(sf::Vector2f pos);
+	static Terrain* createMeatballSpawner(sf::Vector2f pos, float spawnRate);
 
 };

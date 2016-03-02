@@ -10,6 +10,7 @@
 #include "Decoration.h"
 #include "Dialogue.h"
 #include "CollisionBlock.h"
+#include "MeatballSpawner.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -53,4 +54,8 @@ BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 Entity* Factory::createMeatball(sf::Vector2f pos) {
 	return Meatball::createMeatball(pos);
 
+}
+
+Terrain* Factory::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
+	return MeatballSpawner::createMeatballSpawner(pos, spawnRate);
 }

@@ -36,6 +36,7 @@ private:
 	void updateANI();
 	void updateCollision();
 	void animate();
+	void checkOutOfBounds();
 
 	void playSound();
 	void stopSound();

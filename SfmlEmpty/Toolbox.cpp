@@ -1,4 +1,5 @@
 #include "Toolbox.h"
+#include <iostream>
 
 // Player Info
 static sf::Sprite mPlayerSprite;
@@ -19,6 +20,7 @@ static sf::Image mPlayersheet;
 static sf::Image mGoalTexture;
 static sf::Image mDialogueTexture;
 static sf::Image mMeatballTexture;
+static sf::Image mMeatballSpawnerTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
@@ -78,7 +80,8 @@ void Toolbox::loadTextures(std::string levelName){
 	
 	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
-	mMeatballTexture.loadFromFile("resources/images/entities/meatball.png");
+	mMeatballTexture.loadFromFile("resources/images/entities/meatball_projectile.png");
+	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 }
 
@@ -166,6 +169,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
+		break;
+
+	case MEATBALLSPAWNERTEXTURE:
+		return mMeatballSpawnerTexture;
 		break;
 
 	default:

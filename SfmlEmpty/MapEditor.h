@@ -31,12 +31,11 @@ public:
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-
+	void createMeatballSpawner(sf::Vector2f mousePos, float spawnRate);
 
 	void createDialogue(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
-	void createMeatball(sf::Vector2f mousePos);
 
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }

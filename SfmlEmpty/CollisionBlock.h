@@ -1,7 +1,7 @@
 #pragma once
+
 #include "BlockTerrain.h"
 #include <SFML\System.hpp>
-#include "Toolbox.h"
 
 
 class CollisionBlock : public BlockTerrain

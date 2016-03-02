@@ -85,9 +85,13 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				MapGenerator::createGoal(MapGenerator::readPosition(line));
 				break;
 
-			default:
+			// Meatball spawner
+			case 'M':
+				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line), 0.01);
 				break;
 
+			default:
+				break;
 			}
 		}
 	}
@@ -219,6 +223,10 @@ void MapGenerator::createSpikes(sf::Vector2f pos, char type){
 
 void MapGenerator::createGoal(sf::Vector2f pos) {
 	mTerrainhandler->addTerrain(Factory::createGoal(pos));
+}
+
+void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
+	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
 }
 
 

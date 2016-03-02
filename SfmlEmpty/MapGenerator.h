@@ -33,12 +33,13 @@ private:
 	void createBlock0WallJump(sf::Vector2f pos, char type);
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
+	void createMeatball(sf::Vector2f pos);
+	void createMeatballSpawner(sf::Vector2f pos, float spawnRate);
+	void createDecoration(sf::Vector2f pos, char id, char layer);
 
 	void createDialogue(sf::Vector2f pos);
-
+	
 	void createCollisionBlocks();
-	void createDecoration(sf::Vector2f pos, char id, char layer);
-	void createMeatball(sf::Vector2f pos);
 	void mergeCollisionblocks(BlockTerrains& blockterrains);
 
 

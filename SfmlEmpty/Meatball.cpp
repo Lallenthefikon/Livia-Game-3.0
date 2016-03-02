@@ -36,6 +36,7 @@ void Meatball::update() {
 	
 	mSprite.move(mVelocity);
 
+	checkOutOfBounds();
 
 }
 
@@ -76,8 +77,8 @@ void Meatball::lerp() {
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
+	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
@@ -130,5 +131,12 @@ void Meatball::animate() {
 
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	}
+}
+
+
+void Meatball::checkOutOfBounds() {
+	if (this->getPos().y > Toolbox::getLevelBounds().top + Toolbox::getLevelBounds().height + this->getHeight()) {
+		mIsAlive = false;
 	}
 }

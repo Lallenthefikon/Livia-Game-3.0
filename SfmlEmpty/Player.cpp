@@ -327,13 +327,13 @@ void Player::lerp(){
 	sf::Vector2f delta = sf::Vector2f(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
 	float airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
 
-	std::cout << "Delta X: " << delta.x << " Delta Y: " << delta.y << std::endl;
+	//std::cout << "Delta X: " << delta.x << " Delta Y: " << delta.y << std::endl;
 
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
- 	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
+	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
@@ -456,6 +456,7 @@ void Player::updateState() {
 			mState = JUMPING;
 			changed = true;
 			Player::stopSound(RUNNING);
+			Player::stopSound(JUMPING);
 			Player::playSound(JUMPING);
 		}
 
@@ -631,8 +632,8 @@ void Player::updateTexturepos(){
 	temp.x -= (mSprite.getLocalBounds().width / 2 );
 	temp.y -= (mSprite.getLocalBounds().height /2);
 	mSprite.setPosition(temp);
-	std::cout << " X: " << mCollisionBody.getPosition().x << std::endl;
-	std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
+	//std::cout << "X: " << mCollisionBody.getPosition().x << std::endl;
+	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
 }
 
 void Player::playSound(PLAYERSTATE state) {
