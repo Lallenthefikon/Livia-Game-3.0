@@ -54,11 +54,6 @@ void Stomach::update(sf::RenderWindow &window){
 	while (window.pollEvent(gEvent)){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
-		if (gEvent.type == sf::Event::KeyReleased) {
-			if (gEvent.key.code == sf::Keyboard::Space) {
-				mEntityHandler.keyReleased(sf::Keyboard::Space);
-			}
-		}
 	}
 	// Updates independent of state
 	

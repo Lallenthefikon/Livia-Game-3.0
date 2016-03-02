@@ -17,7 +17,6 @@ public:
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual void addVector(sf::Vector2f &vector);
-	virtual void keyReleased(sf::Keyboard::Key key);
 
 	virtual void entityCollision(Entity* entity, char direction);
 	virtual void terrainCollision(Terrain* terrain, char direction);
@@ -103,6 +102,7 @@ private:
 	bool mDoubleJumped;
 	bool mJumpReleased;
 	bool mBlinkOut;
+	Terrain::TERRAINTYPE mLastBlockToched;
 
 	// outside Bounds
 	bool mAtLeftBorder;

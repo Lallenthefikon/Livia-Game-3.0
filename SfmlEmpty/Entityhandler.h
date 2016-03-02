@@ -22,8 +22,6 @@ public:
 
 	bool isPlayerAlive();
 
-	void keyReleased(sf::Keyboard::Key key);
-
 	~Entityhandler();
 private:
 	Entityhandler();
