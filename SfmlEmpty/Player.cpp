@@ -4,38 +4,40 @@
 static float ANIFramesPerFrame(0.5);
 
 Player::Player(sf::Vector2f pos) :
-mVelocity(0, 0),
-mIsOnScreen(true),
-mState(IDLE),
-mTurned(TURNEDLEFT),
-mIsAlive(true),
+	mVelocity(0, 0),
+	mIsOnScreen(true),
+	mState(IDLE),
+	mTurned(TURNEDLEFT),
+	mIsAlive(true),
 
-// Animation stuff
-mAnimationIndex(0),
-mCurrentAnimation(Animations::getPlayerIdleANI()),
-mTimerANI(1),
-mPlayerTransparency(255),
-mTimesBlinked(0),
-mBlinkOut(true),
+	// Animation stuff
+	mAnimationIndex(0),
+	mCurrentAnimation(Animations::getPlayerIdleANI()),
+	mTimerANI(1),
+	mPlayerTransparency(255),
+	mTimesBlinked(0),
+	mBlinkOut(true),
 
-// Jump
-mJumpSpeedInitial(-1250),
-mJumpSpeedDouble(-1250),
-mJumpSpeedMax(-2000),
-mJumpStarted(false),
-mDoubleJumped(false),
-mJumpReleased(true),
-mLastBlockToched(Terrain::BLOCK0),
+	// Jump
+	mJumpSpeedInitial(-1250),
+	mJumpSpeedDouble(-1250),
+	mJumpSpeedMax(-2000),
+	mJumpStarted(false),
+	mDoubleJumped(false),
+	mJumpReleased(true),
+	mLastBlockToched(Terrain::BLOCK0),
 
 
-// Stats
-mMaxSpeed(800),
+	// Stats
+	mMaxSpeed(800),
+	mIcyMaxSpeed(1600),
 mAcceleration(70, 70),
 mIcyAcceleration(10,70),
 mLife(3),
 mWallSlideSpeed(4),
 mTimeInvulnerable(sf::seconds(3)),
 mAirbornAcc(70),
+mIcyAirborn(4000),
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()),
@@ -54,7 +56,7 @@ mTextHandler(Texthandler::getInstance()){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 
 
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height- 10));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
@@ -79,7 +81,7 @@ void Player::render(sf::RenderWindow &window){
 
 
 
-	// FLYTTA TILL LAYER HANDLER, SKA INTE RITAS HÄR
+	// FLYTTA TILL LAYER HANDLER, SKA INTE RITAS HÄR FÖR I HELVETE!!!
 	if (!mIsAlive) {
 		mTextHandler.renderGameOver(window);
 	}
@@ -308,11 +310,19 @@ void Player::move() {
 
 		// Left and right
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			mVelocityGoal.x = -mMaxSpeed * Toolbox::getFrameTime();
+			if (mLastBlockToched == Terrain::BLOCK0ICY)
+				mVelocityGoal.x = -mIcyMaxSpeed * Toolbox::getFrameTime();
+			else
+				mVelocityGoal.x = -mMaxSpeed * Toolbox::getFrameTime();
+
 			changed = true;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			mVelocityGoal.x = mMaxSpeed * Toolbox::getFrameTime();
+			if (mLastBlockToched == Terrain::BLOCK0ICY)
+				mVelocityGoal.x = mIcyMaxSpeed * Toolbox::getFrameTime();
+			else
+				mVelocityGoal.x = mMaxSpeed * Toolbox::getFrameTime();
+
 			changed = true;
 		}
 		if (!changed) {
@@ -348,7 +358,7 @@ void Player::lerp(){
 	float airBorneDelta;
 
 	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
-		airBorneDelta = Toolbox::getFrameTime() * mIcyAcceleration.x;
+		airBorneDelta = Toolbox::getFrameTime() * mIcyAirborn;
 	}
 	else {
 		airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
