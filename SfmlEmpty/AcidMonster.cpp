@@ -6,9 +6,9 @@ AcidMonster::AcidMonster(sf::Vector2f pos):
 mCurrentAnimation(Animations::getAcidMonster()),
 mIsOnScreen(true),
 mIsAlive(true),
-mAcceleration(8),
-mMaxSpeed(4.5){
-	mVelocityGoal.x = mMaxSpeed;
+mAcceleration(4.3),
+mMaxSpeed(4.3){
+	mVelocityGoal.y = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);

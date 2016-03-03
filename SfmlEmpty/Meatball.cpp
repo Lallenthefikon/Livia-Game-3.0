@@ -6,7 +6,7 @@ Meatball::Meatball(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getMeatballANI()),
 mIsOnScreen(true),
 mAcceleration(8),
-mMaxSpeed(4),
+mMaxSpeed(8),
 mIsAlive(true),
 mLife(1) {
 	mSprite.setTexture(*mCurrentAnimation->at(0));
@@ -28,6 +28,7 @@ void Meatball::render(sf::RenderWindow & window) {
 }
 
 void Meatball::update() {
+	mVelocityGoal.y = mMaxSpeed;
 	Meatball::lerp();
 
 	Meatball::updateCollision();
