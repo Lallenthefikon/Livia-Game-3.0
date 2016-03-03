@@ -15,8 +15,7 @@ mMaxSpeed(4.3){
 }
 
 
-AcidMonster::~AcidMonster()
-{
+AcidMonster::~AcidMonster(){
 }
 
 Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
