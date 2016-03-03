@@ -4,6 +4,7 @@
 // Player Info
 static sf::Sprite mPlayerSprite;
 static sf::Vector2f mPlayerVelocity;
+static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 
 static float mFrameTime(0);
@@ -227,6 +228,10 @@ void Toolbox::copyPlayerVelocity(sf::Vector2f &playerVelocity){
 	mPlayerVelocity = playerVelocity;
 }
 
+void Toolbox::copyPlayerPosition(sf::Vector2f playerPosition) {
+	mPlayerPosition = playerPosition;
+}
+
 void Toolbox::copyPlayerIsAlive(bool isAlive){
 	mPlayerAlive = isAlive;
 }
@@ -237,6 +242,10 @@ sf::Sprite Toolbox::getPlayerSprite(){
 
 sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
+}
+
+sf::Vector2f Toolbox::getPlayerPosition() {
+	return mPlayerPosition;
 }
 
 bool Toolbox::getPlayerIsAlive(){
