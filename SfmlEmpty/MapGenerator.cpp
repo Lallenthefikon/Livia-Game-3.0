@@ -4,7 +4,8 @@
 MapGenerator::MapGenerator() :
 mTerrainhandler(&Terrainhandler::getInstance()),
 mEntityhandler(&Entityhandler::getInstance()),
-mDecorationhandler(&Decorationhandler::getInstance()){
+mDecorationhandler(&Decorationhandler::getInstance()),
+mDialoguehandler(&Dialoguehandler::getInstance()){
 }
 
 MapGenerator::~MapGenerator(){
@@ -22,6 +23,7 @@ void MapGenerator::loadMap(std::string &mapname){
 	mEntityhandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
+	mDialoguehandler->clear();
 
 	mapname[15] = 'T';
 	MapGenerator::readTerrainfile(mapname);
@@ -33,6 +35,9 @@ void MapGenerator::loadMap(std::string &mapname){
 
 	mapname[15] = 'D';
 	MapGenerator::readDecorationfile(mapname);
+
+	mapname[15] = 'Q';
+	MapGenerator::readDialoguefile(mapname);
 
 
 	mapname[15] = 'm';
@@ -83,9 +88,13 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				MapGenerator::createGoal(MapGenerator::readPosition(line));
 				break;
 
-			default:
+			// Meatball spawner
+			case 'M':
+				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line), 0.01);
 				break;
 
+			default:
+				break;
 			}
 		}
 	}
@@ -113,15 +122,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
-
 			case 'W':
 				switch (line[1]){
 				case '0':
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
 				default:
 					break;
-					
 				}
+				break;
 			case 'A':
 				switch (line[1]){
 				case 'C':
@@ -129,7 +137,15 @@ void MapGenerator::readEntityfile(std::string &filename){
 				default:
 					break;
 				}
-
+				break;
+			case 'M':
+				switch (line[1]) {
+				case 'B':
+					MapGenerator::createMeatball(MapGenerator::readPosition(line));
+				default:
+					break;
+				}
+				break;
 			default:
 				break;
 
@@ -149,7 +165,7 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 		while (getline(decorationFile, line)) {
 			switch (line[0]) {
 			case 'D':
-				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1]);
+				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1], line[2]);
 				break;
 			default:
 				break;
@@ -159,8 +175,25 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 	decorationFile.close();
 }
 
-// Create entities
+void MapGenerator::readDialoguefile(std::string &filename) {
+	std::string line;
+	std::ifstream dialoguefile(filename);
 
+	if (dialoguefile.is_open()) {
+		while (getline(dialoguefile, line)) {
+			switch (line[0]) {
+			case 'E':
+				MapGenerator::createDialogue(MapGenerator::readPosition(line));
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	dialoguefile.close();
+}
+
+// Create entities
 void MapGenerator::createWorm(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createWorm(pos));
 }
@@ -173,9 +206,12 @@ void MapGenerator::createAcidMonster(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
 }
 
+void MapGenerator::createMeatball(sf::Vector2f pos) {
+	mEntityhandler->addEntity(Factory::createMeatball(pos));
+}
+
 
 // Create terrains
-
 void MapGenerator::createBlock0(sf::Vector2f pos, char type){
 	mTempBlocks.push_back(Factory::createBlock0(pos, type));
 }
@@ -196,13 +232,18 @@ void MapGenerator::createGoal(sf::Vector2f pos) {
 	mTerrainhandler->addTerrain(Factory::createGoal(pos));
 }
 
-
-// Create decoration
-
-void MapGenerator::createDecoration(sf::Vector2f pos, char id) {
-	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id));
+void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
+	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
 }
 
+
+// Create decoration
+void MapGenerator::createDecoration(sf::Vector2f pos, char id, char layer) {
+	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id, layer));
+}
+
+
+// Create collision blocks
 void MapGenerator::createCollisionBlocks() {
 	BlockTerrains collisionBlocks;
 	for (Terrains::size_type i = 0; i < mTempBlocks.size(); i++) {
@@ -233,6 +274,7 @@ void MapGenerator::createCollisionBlocks() {
 	mTempBlocks.clear();
 }
 
+
 void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
 		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
@@ -253,6 +295,13 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 			}
 		}
 	}
+
+}
+
+
+// Create  Dialogue
+void MapGenerator::createDialogue(sf::Vector2f pos) {
+	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
 }
 
 sf::Vector2f MapGenerator::readPosition(std::string line){

@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Terrain.h"
+#include "Toolbox.h"
 
-class BlockGoal : public Terrain {
+class Dialogue : public Terrain {
 public:
-	virtual ~BlockGoal();
-	virtual TERRAINTYPE getType() { return Terrain::BLOCKGOAL; }
-	static Terrain* createGoal(sf::Vector2f pos);
+	virtual ~Dialogue();
+	virtual TERRAINTYPE getType() { return Terrain::DIALOGUE; }
+	static Dialogue* createDialogue(sf::Vector2f pos);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -19,7 +20,7 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
 private:
-	BlockGoal(sf::Vector2f pos);
+	Dialogue(sf::Vector2f pos);
 
 	void setTexture();
 

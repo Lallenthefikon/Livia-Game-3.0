@@ -4,7 +4,7 @@
 GameLoop::GameLoop():
 mCurrentLevelDirectory("resources/maps/mMap0.txt"),
 mCurrentLevelName("Stomach"),
-mWindow(sf::VideoMode::getDesktopMode(), "Livia 2.0.2 V.2"),
+mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK"),
 mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),
 mStomachAmbience(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHAMBIENCE)){
 	mWindow.setVerticalSyncEnabled(false);
@@ -71,10 +71,10 @@ void GameLoop::run(){
 
 	// Loop
 	while (mWindow.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
-		manualStateChange(clickOnce);
-		update();
-		render();
-		calcTimeElapsedAndFPS(clock);
+			manualStateChange(clickOnce);
+			update();
+			render();
+			calcTimeElapsedAndFPS(clock);
 	}
 }
 

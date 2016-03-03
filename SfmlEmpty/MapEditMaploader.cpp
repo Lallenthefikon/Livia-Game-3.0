@@ -28,6 +28,11 @@ MapEditMaploader::Decorations MapEditMaploader::getDecorations(std::string &file
 	return mDecorations;
 }
 
+MapEditMaploader::Dialogue MapEditMaploader::getDialogue(std::string &filename) {
+	MapEditMaploader::readDialoguefile(filename);
+	return mDialogue;
+}
+
 void MapEditMaploader::clear(){
 	MapEditMaploader::internalClear();
 }
@@ -79,6 +84,11 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				default:
 					break;
 				}
+
+				// Meatball spawner
+			case 'M':
+				MapEditMaploader::createMeatballSpawner(MapEditMaploader::readPosition(line), 0.01f);
+				break;
 
 			default:
 				break;
@@ -140,7 +150,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 		 while (getline(decorationFile, line)) {
 			 switch (line[0]) {
 			 case 'D':
-				 MapEditMaploader::createDecoration(MapEditMaploader::readPosition(line), line[1]);
+				 MapEditMaploader::createDecoration(MapEditMaploader::readPosition(line), line[1], line[2]);
 				 break;
 			 default:
 				 break;
@@ -148,6 +158,29 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 		 }
 	 }
 	 decorationFile.close();
+ }
+
+ void MapEditMaploader::readDialoguefile(std::string &filename) {
+
+	 std::string line;
+	 std::ifstream dialoguefile(filename);
+
+	 if (dialoguefile.is_open()) {
+		 while (getline(dialoguefile, line)) {
+			 switch (line[0]) {
+			 case 'Q':
+				 switch (line[1]){
+				 case '0':
+					 MapEditMaploader::createDialogue(MapEditMaploader::readPosition(line), line[1]);
+					 break;
+				 }
+				 
+			 default:
+				 break;
+			 }
+		 }
+	 }
+	 dialoguefile.close();
  }
 
  void MapEditMaploader::createBlock0(sf::Vector2f &pos, char type){
@@ -182,8 +215,16 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mTerrains.push_back(Factory::createGoal(pos));
  }
 
- void MapEditMaploader::createDecoration(sf::Vector2f &pos, char id) {
-	 mDecorations.push_back(Factory::createDecoration(pos, id));
+ void MapEditMaploader::createDecoration(sf::Vector2f &pos, char id, char layer) {
+	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
+ }
+
+ void MapEditMaploader::createDialogue(sf::Vector2f &pos, char type) {
+	 mDialogue.push_back(Factory::createDialogue(pos));
+ }
+
+ void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos, float spawnRate) {
+	 mTerrains.push_back(Factory::createMeatballSpawner(pos, spawnRate));
  }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){
@@ -373,4 +414,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  void MapEditMaploader::internalClear(){
 	 mEntities.clear();
 	 mTerrains.clear();
+	 mDialogue.clear();
+	 mDecorations.clear();
+
  }

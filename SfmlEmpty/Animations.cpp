@@ -1,11 +1,14 @@
 #include "Animations.h"
 
-static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::RUNNINGPLAYERTEXTURE));
+static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::PLAYERRUNNINGTEXTURE));
 //static sf::Image& mPlayerIdleIMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mEnemy0IMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
 static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
+
+static sf::Image& mMeatballIMG(Toolbox::getTexture(Toolbox::MEATBALLTEXTURE));
+
 static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 
 static sf::Image& mDecorationIMG(Toolbox::getTexture(Toolbox::DECORATIONTEXTURE));
@@ -21,11 +24,15 @@ Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterANI;
+
+Animations::Textures mMeatballANI;
+
 Animations::Textures mHeartANI;
 
 Animations::Textures mSpikesANI;
 
-Animations::Textures mDecorationANI;
+Animations::Textures mDecoration0ANI;
+Animations::Textures mDecoration1ANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -187,8 +194,16 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	mDecorationANI.push_back(new sf::Texture);
-	mDecorationANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
+
+	// Decoration sprite
+	mDecoration0ANI.push_back(new sf::Texture);
+	mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
+
+	mDecoration1ANI.push_back(new sf::Texture);
+	mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(100, 0, 100, 200));
+
+	mMeatballANI.push_back(new sf::Texture);
+	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));
 }
 // Player ANI
 
@@ -230,6 +245,11 @@ Animations::Textures* Animations::getAcidMonster(){
 	return &mAcidMonsterANI;
 }
 
+// Meatball ANI
+Animations::Textures* Animations::getMeatballANI() {
+	return &mMeatballANI;
+}
+
 Animations::Textures* Animations::getHeartANI(){
 	return &mHeartANI;
 }
@@ -238,6 +258,11 @@ Animations::Textures* Animations::getSpikesANI(){
 	return &mSpikesANI;
 }
 
-Animations::Textures* Animations::getDecorationANI(){
-	return &mDecorationANI;
+// Decoration ANI
+Animations::Textures* Animations::getDecoration0ANI(){
+	return &mDecoration0ANI;
+}
+
+Animations::Textures* Animations::getDecoration1ANI() {
+	return &mDecoration1ANI;
 }

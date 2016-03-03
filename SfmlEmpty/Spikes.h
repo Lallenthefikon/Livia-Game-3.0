@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML\System.hpp>
-#include "Toolbox.h"
 #include "Animations.h"
 #include "Terrain.h"
 

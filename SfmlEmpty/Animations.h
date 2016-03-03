@@ -19,10 +19,14 @@ struct Animations{
 	static Textures* getWormDyingANI();
 
 	static Textures* getAcidMonster();
+
+	static Textures* getMeatballANI();
+
 	static Textures* getHeartANI();
 
 	static Textures* getSpikesANI();
 
-	static Textures* getDecorationANI();
+	static Textures* getDecoration0ANI();
+	static Textures* getDecoration1ANI();
 };
 

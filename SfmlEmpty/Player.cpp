@@ -96,9 +96,12 @@ void Player::render(sf::RenderWindow &window){
 }
 
  void Player::update(){
-	// std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
-	 std::cout << "mState: " << mState << std::endl;
+
+
+	//std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
+	//std::cout << "mState: " << mState << std::endl;
 	 Player::playerInput();
+	
 	Player::lerp();
 
 	Player::updateCollision();
@@ -109,8 +112,9 @@ void Player::render(sf::RenderWindow &window){
 	Player::addForces();
 
 	Player::animate();
-	mCollisionBody.move(mVelocity);
 
+	mCollisionBody.move(mVelocity);
+	
 
 	
 	
@@ -259,7 +263,7 @@ void Player::playerInput() {
 void Player::jump() {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-		
+
 		// Apply min
          if (!mJumpStarted && mState != JUMPING && mState != FALLING && mJumpReleased) {
 			mJumpStarted = true;
@@ -267,7 +271,7 @@ void Player::jump() {
 			mJumpReleased = false;
 			mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 			if (mState == WALLSTUCK) {
-   				if (mTurned == TURNEDRIGHT)
+				if (mTurned == TURNEDRIGHT)
 					mVelocity.x = -mMaxSpeed * Toolbox::getFrameTime();
 				if (mTurned == TURNEDLEFT)
 					mVelocity.x = mMaxSpeed * Toolbox::getFrameTime();
@@ -288,7 +292,7 @@ void Player::jump() {
 			mDoubleJumped = true;
 			mJumpReleased = false;
 			mVelocity.y = mJumpSpeedDouble * Toolbox::getFrameTime();
-			Player::stopSound(JUMPING );
+			Player::stopSound(JUMPING);
 			Player::playSound(JUMPING);
 		}
 	} 
@@ -311,8 +315,8 @@ void Player::move() {
 			changed = true;
 		}
 		if (!changed) {
-			mVelocityGoal.x = 0;
-		}
+		mVelocityGoal.x = 0;
+}
 }
 
 void Player::playSoundManually() {
@@ -330,7 +334,7 @@ void Player::lerp(){
 
 	bool lerpedY(false);
 	bool lerpedX(false);
-
+	
 	sf::Vector2f delta;
 
 	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
@@ -351,8 +355,8 @@ void Player::lerp(){
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
- 	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
+	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
@@ -478,6 +482,7 @@ void Player::updateState() {
 			mState = JUMPING;
 			changed = true;
 			Player::stopSound(RUNNING);
+			Player::stopSound(JUMPING);
 			Player::playSound(JUMPING);
 		}
 
@@ -658,6 +663,8 @@ void Player::updateTexturepos(){
 	temp.x -= (mSprite.getLocalBounds().width / 2 );
 	temp.y -= (mSprite.getLocalBounds().height /2);
 	mSprite.setPosition(temp);
+	//std::cout << "X: " << mCollisionBody.getPosition().x << std::endl;
+	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
 }
 
 void Player::playSound(PLAYERSTATE state) {

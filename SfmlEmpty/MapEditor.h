@@ -11,6 +11,12 @@
 #include "MapEditorMeny.h"
 #include "Camera.h"
 
+#include "Dialogue.h"
+
+#include "Texthandler.h"
+#include "LayerHandler.h"
+
+
 class MapEditor : public GameState{
 public:
 	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
@@ -26,7 +32,12 @@ public:
 	void createBlock0Icy(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-	void createDecoration(sf::Vector2f mousePos);
+	void createMeatballSpawner(sf::Vector2f mousePos, float spawnRate);
+
+	void createDialogue(sf::Vector2f mousePos);
+
+	void createDecoration(sf::Vector2f mousePos, char id, char layer);
+
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
 	virtual void loadLevel();
@@ -43,14 +54,20 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void eraseDecoration(int index);
+	void eraseDialogue(int index);
 	void changeInsertType();
 	void changeRotDirection();
+	void changeLayer();
+
+	void displayCurrentLayer(sf::RenderWindow &window);
+	std::string layerToString() const;
 
 	void saveMap();
 	void sortVectors();
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
+	void writeDialoguesToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -74,10 +91,12 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
+	typedef std::vector<Dialogue*> Dialogues;
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
+	Dialogues mDialogues;
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;
@@ -88,5 +107,13 @@ private:
 
 	// Camera Edit
 	Camera mCamera;
+
+	// Decoration
+	char mDecorationLayer;
+
+	Texthandler& mTextHandler;
+	LayerHandler& mLayerHandler;
+
+	sf::Sound mAirHorn;
 };
 

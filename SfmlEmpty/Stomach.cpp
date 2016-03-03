@@ -17,11 +17,10 @@ mCamera(),
 mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 mZoomedOut(false),
-mLevelBounds(0.f,0.f,10000.f,2300.f){
+mLevelBounds(0.f, 0.f, 10000.f, 2300.f) {
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
-	Toolbox::copyGravity(sf::Vector2f(0,2));
 	Animations::loadTextures();
 
 	Toolbox::copyLevelBounds(mLevelBounds);
@@ -124,16 +123,19 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
+	// Decorations back
+	mDecorationhandler.renderDecoration(window, 'b');
+
 	// Terrains
 	mTerrainHandler.renderTerrains(window);
 	mCollisionHandler.renderCollision(window);
 
-	// Decorations
-	mDecorationhandler.renderDecoration(window);
-
 	// Entities
 	mEntityHandler.renderEntities(window);
 
+	// Decorations front
+	mDecorationhandler.renderDecoration(window, 'f');
+	
 	// Hud
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);
