@@ -6,7 +6,7 @@
 #include "Entity.h"
 #include "Terrain.h"
 #include "Decoration.h"
-#include "Dialogue.h"
+
 
 class MapEditMaploader{
 public:
@@ -14,14 +14,14 @@ public:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogue;
+	
 
 	static MapEditMaploader& getInstance();
 
 	Terrains getTerrain(std::string &filename);
 	Entities getEntities(std::string &filename);
 	Decorations getDecorations(std::string &filename);
-	Dialogue getDialogue(std::string &filename);
+
 
 	void clear();
 
@@ -32,7 +32,7 @@ private:
 	void readTerrainfile(std::string &mapname);
 	void readEntityfile(std::string &mapname);
 	void readDecorationfile(std::string &mapname);
-	void readDialoguefile(std::string &mapname);
+
 
 	void createBlock0(sf::Vector2f &pos, char type);
 	void createPlayer(sf::Vector2f &pos);
@@ -42,7 +42,7 @@ private:
 	void createBlock0Icy(sf::Vector2f &pos, char type);
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
-	void createDialogue(sf::Vector2f &pos, char type);
+	void createDialogue(sf::Vector2f &pos);
 	void createMeatballSpawner(sf::Vector2f &pos, float spawnRate);
 	void createDecoration(sf::Vector2f &pos, char id, char layer);
 
@@ -54,6 +54,6 @@ private:
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogue mDialogue;
+
 };
 

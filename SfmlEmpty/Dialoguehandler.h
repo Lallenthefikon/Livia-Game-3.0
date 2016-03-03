@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Dialogue.h"
+#include "Texthandler.h"
 
 class Dialoguehandler {
 public:
@@ -18,6 +19,7 @@ public:
 private:
 	Dialoguehandler();
 	void internalClear();
+
 	size_t current;
 	size_t page;
 	bool isInDialogue = false;

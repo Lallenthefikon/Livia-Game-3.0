@@ -1,11 +1,11 @@
 #include "Dialoguehandler.h"
 
 Dialoguehandler::Dialoguehandler(){
-	Dialogue* d = Dialogue::createDialogue();
-	d->bounds = sf::FloatRect(1000, 500, 1000, 1000);
+	/*Dialogue* d = Dialogue::createDialogue(sf::Vector2f (100,100));
+	d->bounds
 	d->pages.push_back("asdlkjasd\n");
 	mDialogue.push_back(d);
-
+*/
 }
 
 Dialoguehandler::~Dialoguehandler(){
@@ -21,9 +21,12 @@ void Dialoguehandler::addDialogue(Dialogue* dialogue){
 }
 
 void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
-	if (isInDialogue) {
-		printf("derp\n");
-		printf(mDialogue[current]->pages[page].data());
+	for (size_t i = 0; i < mDialogue.size(); i++){
+		mDialogue[i]->render(window);
+		//if (isInDialogue) {
+	
+		//	/*printf(mDialogue[current]->pages[page].data());*/
+		//}
 	}
 }
 
@@ -37,6 +40,7 @@ void Dialoguehandler::updateDialogue(const sf::Vector2f & pos){
 			if (!isInDialogue) {
 				// Player triggered a dialogue
 				isInDialogue = true;
+				mDialogue[i]->setIsInDialogue(true);
 				current = i;
 				page = 0;
 				break;
