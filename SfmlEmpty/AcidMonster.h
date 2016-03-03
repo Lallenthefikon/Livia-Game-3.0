@@ -22,6 +22,7 @@
 		virtual bool isOnScreen(){ return mIsOnScreen; }
 		virtual bool getIsAlive(){ return mIsAlive; }
 		virtual void addVector(sf::Vector2f &vector);
+
 		virtual void entityCollision(Entity* entity, char direction);
 		virtual void terrainCollision(Terrain* terrain, char direction);
 		virtual void blockterrainCollision(BlockTerrain* blockterrain, char direction);

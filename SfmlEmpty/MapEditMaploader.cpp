@@ -56,6 +56,9 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				case 'W':
 					MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2]);
 					break;
+				case 'I':
+					MapEditMaploader::createBlock0Icy(MapEditMaploader::readPosition(line), line[2]);
+					break;
 				default:
 					break;
 				}
@@ -198,6 +201,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
 	mTerrains.push_back(Factory::createBlock0WallJump(pos, type));
+ }
+
+ void MapEditMaploader::createBlock0Icy(sf::Vector2f & pos, char type){
+	 mTerrains.push_back(Factory::createBlock0Icy(pos, type));
  }
 
  void MapEditMaploader::createSpikes(sf::Vector2f &pos, char type){

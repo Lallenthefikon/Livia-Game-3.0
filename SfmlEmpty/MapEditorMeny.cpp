@@ -37,45 +37,48 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 
 	for (Dialogue::size_type i = 0; i < mDialogue.size(); i++) {
 		mDialogue[i]->render(window);
-	}
-	
+}
+
 
 }
 
 void MapEditorMeny::insertObjects(){
 
-	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8f, 80.f)));
-	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
-	
-	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7f, 70.f)));
-	mEntities.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	// Entities
+	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
+	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
+	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
+	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
 	/*mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));*/
-	
-	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8f, 150.f), 'a'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	
-	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8f, 150.f), 'p'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	
-	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150.f), 't'));
-	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f)); 
-	
-	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150.f)));
-	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
-	
+
+
+	// Terrains
+	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createBlock0Icy(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), 'a'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 3.8, 150), 't'));
+	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6)); 
+	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 4.8, 150)));
+	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150), 0));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
-	
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '0', 'b'));
-	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '1', 'b'));
-	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	
+
+	// Dialog
 	mDialogue.push_back(Factory::createDialogue(sf::Vector2f(WIDTHBETWEEN * 2.8, 80)));
 	mDialogue.back()->setScale(sf::Vector2f(0.2, 0.2));
 
+	// Decorations
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '1', 'b'));
+	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '0', 'b'));
+	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+
+
+	
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -107,6 +110,10 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 					
 				case Terrain::BLOCK0WALLJUMP:
 					mInsertType = BLOCK0WALLJUMP;
+					break;
+
+				case Terrain::BLOCK0ICY:
+					mInsertType = BLOCK0ICY;
 					break;
 
 				case Terrain::SPIKES:

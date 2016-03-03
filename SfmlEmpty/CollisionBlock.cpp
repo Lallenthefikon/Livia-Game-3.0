@@ -23,6 +23,7 @@ void CollisionBlock::render(sf::RenderWindow &window) {
 			mBlockTerrains2D[i]->at(j)->render(window);
 		}
 	}
+	//window.draw(mSprite);
 }
 
 void CollisionBlock::update() {
@@ -46,7 +47,7 @@ CollisionBlock::Terrains2D& CollisionBlock::getBlocks() {
 }
 
 Terrain::TERRAINTYPE CollisionBlock::getType(sf::Vector2f pos, float length, char direction) {
-	mHighestPrio = BLOCK0;
+	mHighestPrio = BLOCK0ICY;
 	switch (direction){
 	case 'r':
 		 checkCollisionR(pos, length);
@@ -145,12 +146,8 @@ void CollisionBlock::checkCollisionB(sf::Vector2f pos, float length) {
 }
 
 void CollisionBlock::prioritizeBlockTypes(Terrain::TERRAINTYPE blockType){
-	switch (mHighestPrio){
-	case Terrain::BLOCK0WALLJUMP:
-		break;
-	default:
+	if (blockType > mHighestPrio) {
 		mHighestPrio = blockType;
-		break;
 	}
 }
 

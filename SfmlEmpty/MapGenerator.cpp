@@ -64,6 +64,9 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				case 'W':
 					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2]);
 					break;
+				case 'I':
+					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2]);
+					break;
 				default:
 					break;
 				}
@@ -217,6 +220,10 @@ void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type));
 }
 
+void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type){
+	mTempBlocks.push_back(Factory::createBlock0Icy(pos, type));
+}
+
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
 	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
 }
@@ -246,7 +253,7 @@ void MapGenerator::createCollisionBlocks() {
 		}
 		else {
 			if (mTempBlocks[i]->getPos().x == collisionBlocks.back()->getPos().x) {
-				if (mTempBlocks[i]->getPos().y <= collisionBlocks.back()->getPos().y + collisionBlocks.back()->getHeight()) {
+				if (mTempBlocks[i]->getPos().y == collisionBlocks.back()->getPos().y + collisionBlocks.back()->getHeight()) {
 					collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], false);
 				}
 				else {
@@ -272,7 +279,8 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
 		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
 			if (blockterrains[i]->getPos().x == (blockterrains[j]->getPos().x - blockterrains[i]->getWidth())
-				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y) {
+				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y 
+				&& blockterrains[i]->getHeight() == blockterrains[j]->getHeight()) {
 				bool Xnew;
 				for (BlockTerrain::Terrains2D::size_type BI = 0; BI < blockterrains[j]->getBlocks().size(); BI++) {
 					Xnew = true;

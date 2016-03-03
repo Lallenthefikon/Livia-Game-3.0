@@ -78,6 +78,7 @@ bool Entityhandler::isPlayerAlive() {
 		return false;
 }
 
+
 // Private funcs
 
 void Entityhandler::internalClear(){

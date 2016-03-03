@@ -23,4 +23,5 @@ struct Factory{
 	static Entity* createMeatball(sf::Vector2f pos);
 	static Terrain* createMeatballSpawner(sf::Vector2f pos, float spawnRate);
 
+	static Terrain* createBlock0Icy(sf::Vector2f pos, char id);
 };

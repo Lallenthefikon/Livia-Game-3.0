@@ -24,10 +24,14 @@ mJumpSpeedDouble(-1250),
 mJumpSpeedMax(-2000),
 mJumpStarted(false),
 mDoubleJumped(false),
+mJumpReleased(true),
+mLastBlockToched(Terrain::BLOCK0),
+
 
 // Stats
 mMaxSpeed(800),
 mAcceleration(70, 70),
+mIcyAcceleration(10,70),
 mLife(3),
 mWallSlideSpeed(4),
 mTimeInvulnerable(sf::seconds(3)),
@@ -96,7 +100,7 @@ void Player::render(sf::RenderWindow &window){
 
 	//std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	//std::cout << "mState: " << mState << std::endl;
-	Player::playerInput();
+	 Player::playerInput();
 	
 	Player::lerp();
 
@@ -110,6 +114,9 @@ void Player::render(sf::RenderWindow &window){
 	Player::animate();
 
 	mCollisionBody.move(mVelocity);
+	
+
+	
 	
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
@@ -193,8 +200,6 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 void Player::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
 	float delta;
 	switch (blockterrain->getType()) {
-	case Terrain::BLOCK0:
-	case Terrain::BLOCK0WALLJUMP:
 	case BlockTerrain::COLLISIONBLOCK:
 		mWin = false;
 		switch (direction) {
@@ -257,12 +262,14 @@ void Player::playerInput() {
 }
 
 void Player::jump() {
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 
 		// Apply min
-		if (!mJumpStarted && mState != JUMPING && mState != FALLING) {
+         if (!mJumpStarted && mState != JUMPING && mState != FALLING && mJumpReleased) {
 			mJumpStarted = true;
 			mDoubleJumped = false;
+			mJumpReleased = false;
 			mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 			if (mState == WALLSTUCK) {
 				if (mTurned == TURNEDRIGHT)
@@ -282,13 +289,16 @@ void Player::jump() {
 			}
 		}
 		// Apply Double 
-		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped) {
+		if (!mJumpStarted && (mState == JUMPING || mState == FALLING) && !mDoubleJumped && mJumpReleased) {
 			mDoubleJumped = true;
+			mJumpReleased = false;
 			mVelocity.y = mJumpSpeedDouble * Toolbox::getFrameTime();
 			Player::stopSound(JUMPING);
 			Player::playSound(JUMPING);
 		}
-	} else {
+	} 
+	else {
+		mJumpReleased = true;
 		mJumpStarted = false;
 	}
 }
@@ -305,8 +315,9 @@ void Player::move() {
 			mVelocityGoal.x = mMaxSpeed * Toolbox::getFrameTime();
 			changed = true;
 		}
-	if (!changed)
+		if (!changed) {
 		mVelocityGoal.x = 0;
+}
 }
 
 void Player::playSoundManually() {
@@ -325,11 +336,23 @@ void Player::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 	
-	sf::Vector2f delta = sf::Vector2f(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
-	float airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
+	sf::Vector2f delta;
 
-	//std::cout << "Delta X: " << delta.x << " Delta Y: " << delta.y << std::endl;
+	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
+			delta = sf::Vector2f(Toolbox::getFrameTime() * mIcyAcceleration.x, Toolbox::getFrameTime() * mIcyAcceleration.y);
+		}
+	else {
+		delta = sf::Vector2f(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
+	}
 
+	float airBorneDelta;
+
+	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
+		airBorneDelta = Toolbox::getFrameTime() * mIcyAcceleration.x;
+	}
+	else {
+		airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
+	}
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -401,20 +424,18 @@ void Player::updateState() {
 
 	if (mState == WALLSTUCK) {
 		if (mCollisionR) {
+			mLastBlockToched = mCurrentCollisionR->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
 			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				mState = FALLING;
 				changed = true;
 			}
 		}
 		if (mCollisionL) {
+			mLastBlockToched = mCurrentCollisionL->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
 			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				mState = FALLING;
 				changed = true;
 			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			mState = FALLING;
-			changed = true;
 		}
 		if (!(mCollisionL || mCollisionR)) {
 			mState = FALLING;
@@ -423,6 +444,11 @@ void Player::updateState() {
 	}
 	else
 		Player::stopSound(WALLSTUCK);
+
+	if (mCollisionB) {
+		mLastBlockToched = mCurrentCollisionB->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
+	}
+
 
 	if (mState != DEATH && mState != FALLDEATH) {
 		if (mState == FALLING && mVelocity.y == 0) {
@@ -518,23 +544,27 @@ void Player::updateCollisionForce(){
 }
 
 void Player::updateCollision() {
+	sf::Sprite tempSprite(mCollisionBody);
+
+	tempSprite.move(mVelocity);
+
 	if (mCollisionT) {
-		if (!CollisionFuncs::currentCollisionT(mCollisionBody, mCurrentCollisionT->getSprite())) {
+		if (!CollisionFuncs::currentCollisionT(tempSprite, mCurrentCollisionT->getSprite())) {
 			mCollisionT = false;
 		}
 	}
 	if (mCollisionB) {
-		if (!CollisionFuncs::currentCollisionB(mCollisionBody, mCurrentCollisionB->getSprite())) {
+		if (!CollisionFuncs::currentCollisionB(tempSprite, mCurrentCollisionB->getSprite())) {
 			mCollisionB = false;
 		}
 	}
 	if (mCollisionL) {
-		if (!CollisionFuncs::currentCollisionL(mCollisionBody, mCurrentCollisionL->getSprite())) {
+		if (!CollisionFuncs::currentCollisionL(tempSprite, mCurrentCollisionL->getSprite())) {
 			mCollisionL = false;
 		}
 	}
 	if (mCollisionR) {
-		if (!CollisionFuncs::currentCollisionR(mCollisionBody, mCurrentCollisionR->getSprite())) {
+		if (!CollisionFuncs::currentCollisionR(tempSprite, mCurrentCollisionR->getSprite())) {
 			mCollisionR = false;
 		}
 	}
@@ -604,6 +634,7 @@ void Player::addForces(){
 	if (mState == WALLSTUCK){
 		mVelocity.y = mWallSlideSpeed;
 	}
+
 }
 
 

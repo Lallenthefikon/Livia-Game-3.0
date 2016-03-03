@@ -66,7 +66,7 @@ private:
 	float mJumpSpeedDouble;
 	float mJumpSpeedMax;
 	float mMaxSpeed;
-	sf::Vector2f mAcceleration;
+	sf::Vector2f mAcceleration, mIcyAcceleration;
 	float mWallSlideSpeed;
 	float mAirbornAcc;
 	
@@ -100,7 +100,9 @@ private:
 	bool mInvulnerable;
 	bool mJumpStarted;
 	bool mDoubleJumped;
+	bool mJumpReleased;
 	bool mBlinkOut;
+	Terrain::TERRAINTYPE mLastBlockToched;
 
 	// outside Bounds
 	bool mAtLeftBorder;
@@ -110,6 +112,7 @@ private:
 	bool mIsAlive;
 	bool mWin;
 	int mLife;
+	bool jumpReleased;
 
 	char mCollisionT;
 	char mCollisionB;
