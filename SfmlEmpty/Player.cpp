@@ -80,19 +80,19 @@ void Player::render(sf::RenderWindow &window){
 
 
 	// FLYTTA TILL LAYER HANDLER, SKA INTE RITAS HÄR
-//	if (!mIsAlive) {
-//		mTextHandler.renderGameOver(window);
-//	}
-//	if (mWin) {
-//		mTextHandler.renderWin(window);
-//	}
+	if (!mIsAlive) {
+		mTextHandler.renderGameOver(window);
+	}
+	if (mWin) {
+		mTextHandler.renderWin(window);
+	}
 
-	//if (mState == DEATH) {
-	//	mTextHandler.renderGameOver(window);
-	//}
-	//if (mWin) {
-	//	mTextHandler.renderWin(window);
-	//}
+	if (mState == DEATH) {
+		mTextHandler.renderGameOver(window);
+	}
+	if (mWin) {
+		mTextHandler.renderWin(window);
+	}
 }
 
  void Player::update(){
@@ -120,6 +120,7 @@ void Player::render(sf::RenderWindow &window){
 	
 	Toolbox::copyPlayerSprite(mCollisionBody);
 	Toolbox::copyPlayerVelocity(mVelocity);
+	Toolbox::copyPlayerPosition(mCollisionBody.getPosition());
 	Toolbox::copyPlayerIsAlive(mIsAlive);
 	
 	checkPlayerWithinBounds();

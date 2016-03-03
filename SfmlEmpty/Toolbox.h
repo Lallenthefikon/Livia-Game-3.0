@@ -49,8 +49,11 @@ struct Toolbox {
 	static void copyPlayerSprite(sf::Sprite &playerSprite);
 	static void copyPlayerVelocity(sf::Vector2f &playerVelocity);
 	static void copyPlayerIsAlive(bool isAlive);
+	static void copyPlayerPosition(sf::Vector2f playerPosition);
+	
 	static sf::Sprite getPlayerSprite();
 	static sf::Vector2f getPlayerVelocity();
+	static sf::Vector2f getPlayerPosition();
 	static bool getPlayerIsAlive();
 
 	static sf::Vector2f findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window);

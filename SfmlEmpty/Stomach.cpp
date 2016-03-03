@@ -12,6 +12,7 @@ mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mDecorationhandler(Decorationhandler::getInstance()),
+mDialoguehandler(Dialoguehandler::getInstance()),
 mMapName("Stomach"),
 mCamera(),
 mMapPath("resources/maps/mMap0.txt"),
@@ -81,6 +82,7 @@ void Stomach::update(sf::RenderWindow &window){
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
+		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
 		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -139,6 +141,9 @@ void Stomach::render(sf::RenderWindow &window){
 	// Hud
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);
+
+	// Dialogue
+	mDialoguehandler.renderDialogue(window);
 
 	
 	window.display();
