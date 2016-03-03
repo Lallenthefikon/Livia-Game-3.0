@@ -2,7 +2,7 @@
 #include <fstream>
 
 MapGenerator::MapGenerator() :
-mTerrainhandler(&Terrainhandler::getInstance()),
+mTerrainhandler(Terrainhandler::getInstance()),
 mEntityhandler(&Entityhandler::getInstance()),
 mDecorationhandler(&Decorationhandler::getInstance()),
 mDialoguehandler(&Dialoguehandler::getInstance()){
@@ -87,7 +87,7 @@ void MapGenerator::readTerrainfile(std::string &filename){
 
 			// Meatball spawner
 			case 'M':
-				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line), 0.01);
+				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line));
 				break;
 
 			default:
@@ -191,20 +191,20 @@ void MapGenerator::readDialoguefile(std::string &filename) {
 }
 
 // Create entities
-void MapGenerator::createWorm(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createWorm(pos));
+void MapGenerator::createPlayer(sf::Vector2f pos){
+	mEntityhandler->add(pos, '0');
 }
 
-void MapGenerator::createPlayer(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createPlayer(pos));
+void MapGenerator::createWorm(sf::Vector2f pos){
+	mEntityhandler->add(pos, '1');
 }
 
 void MapGenerator::createAcidMonster(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
+	mEntityhandler->add(pos, '2');
 }
 
 void MapGenerator::createMeatball(sf::Vector2f pos) {
-	mEntityhandler->addEntity(Factory::createMeatball(pos));
+	mEntityhandler->add(pos, '3');
 }
 
 
@@ -218,15 +218,15 @@ void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 }
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
-	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
+	mTerrainhandler->add(pos, '2', type);
 }
 
 void MapGenerator::createGoal(sf::Vector2f pos) {
-	mTerrainhandler->addTerrain(Factory::createGoal(pos));
+	mTerrainhandler->add(pos, '3');
 }
 
-void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
-	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
+void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
+	mTerrainhandler->add(pos, '4');
 }
 
 

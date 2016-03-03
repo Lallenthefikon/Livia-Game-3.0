@@ -78,9 +78,9 @@ void Stomach::update(sf::RenderWindow &window){
 
 		mCamera.updateStomachCam(window, mLevelState);
 
-		mEntityHandler.updateEntities();
-		mTerrainHandler.updateTerrains();
-		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
+		mEntityHandler.update();
+		mTerrainHandler.update();
+		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getVector('c'));
 		mEntityHandler.bringOutTheDead();
 		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
 		

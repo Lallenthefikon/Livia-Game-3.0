@@ -84,7 +84,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
 				// Meatball spawner
 			case 'M':
-				MapEditMaploader::createMeatballSpawner(MapEditMaploader::readPosition(line), 0.01f);
+				MapEditMaploader::createMeatballSpawner(MapEditMaploader::readPosition(line));
 				break;
 
 			default:
@@ -216,8 +216,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mDialogue.push_back(Factory::createDialogue(pos));
  }
 
- void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos, float spawnRate) {
-	 mTerrains.push_back(Factory::createMeatballSpawner(pos, spawnRate));
+ void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {
+	 mTerrains.push_back(Factory::createMeatballSpawner(pos));
  }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){

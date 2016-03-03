@@ -31,7 +31,7 @@ public:
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-	void createMeatballSpawner(sf::Vector2f mousePos, float spawnRate);
+	void createMeatballSpawner(sf::Vector2f mousePos);
 
 	void createDialogue(sf::Vector2f mousePos);
 

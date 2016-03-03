@@ -263,8 +263,8 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
 
-void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
-	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
+void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
+	mTerrains.push_back(Factory::createMeatballSpawner(mousepos));
 }
 
 void MapEditor::createDialogue(sf::Vector2f mousePos) {
@@ -322,7 +322,7 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
-		MapEditor::createMeatballSpawner(mousePos, 0.01f);
+		MapEditor::createMeatballSpawner(mousePos);
 		break;
 	case MapEditorMeny::DIALOGUE:
 		MapEditor::createDialogue(mousePos);

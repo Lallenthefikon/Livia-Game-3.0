@@ -29,7 +29,6 @@ struct Toolbox {
 	static void loadTextures(std::string levelName);
 	static void loadSounds(std::string levelName);
 	static void loadFonts(std::string levelName);
-	static sf::Image& getTexture(TEXTUREKEY textureKey);
 
 	// Screen Info
 	static void copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode);
@@ -57,6 +56,9 @@ struct Toolbox {
 	static bool getPlayerIsAlive();
 
 	static sf::Vector2f findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window);
+
+	// Textures
+	static sf::Image& getTexture(TEXTUREKEY textureKey);
 
 	// Sounds
 	static sf::SoundBuffer& getSound(SOUNDKEY soundKey);

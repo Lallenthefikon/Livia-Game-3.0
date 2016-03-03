@@ -127,6 +127,8 @@
     <ClCompile Include="MeatballSpawner.cpp">
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="AddObjectsDuringGame.cpp" />
+    <ClCompile Include="Abstracthandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -252,6 +254,8 @@
     <ClInclude Include="MeatballSpawner.h">
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="AddObjectsDuringGame.h" />
+    <ClInclude Include="Abstracthandler.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

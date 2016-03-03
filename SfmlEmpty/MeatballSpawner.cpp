@@ -2,8 +2,8 @@
 #include <iostream>
 
 
-MeatballSpawner::MeatballSpawner(sf::Vector2f pos, float &spawnRate) :
-mSpawnRate(spawnRate),
+MeatballSpawner::MeatballSpawner(sf::Vector2f pos) :
+mSpawnRate(0.01f),
 mClock(),
 mEntityHandler(Entityhandler::getInstance()){
 	MeatballSpawner::setTexture();
@@ -17,8 +17,8 @@ MeatballSpawner::~MeatballSpawner() {
 }
 
 
-Terrain* MeatballSpawner::createMeatballSpawner(sf::Vector2f pos, float &spawnRate) {
-	return new MeatballSpawner(pos, spawnRate);
+Terrain* MeatballSpawner::createMeatballSpawner(sf::Vector2f pos) {
+	return new MeatballSpawner(pos);
 }
 
 void MeatballSpawner::setTexture() {
@@ -35,9 +35,14 @@ void MeatballSpawner::update() {
 
 void MeatballSpawner::spawnMeatball() {
 	float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-	if (r < mSpawnRate && mClock.getElapsedTime().asSeconds() > 1.5) {
+	if (r < mSpawnRate && mClock.getElapsedTime().asSeconds() > 2.0f) {
+		sf::Vector2f meatballPos = this->getPos();
+		mEntityHandler.add(Meatball::createMeatball(meatballPos));
+
+		meatballPos.y += mEntityHandler.getEntities().back()->getHeight() + 10;
+
+		mEntityHandler.getEntities().back()->setPos(meatballPos);
 		mClock.restart();
-		mEntityHandler.addEntity(Meatball::createMeatball(this->getPos()));
 	}
 }
 

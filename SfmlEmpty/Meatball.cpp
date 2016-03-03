@@ -9,6 +9,7 @@ mAcceleration(8),
 mMaxSpeed(4),
 mIsAlive(true),
 mLife(1) {
+	mVelocityGoal.y = mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
@@ -41,7 +42,7 @@ void Meatball::update() {
 }
 
 void Meatball::addVector(sf::Vector2f & vector) {
-	mVelocityGoal += vector;
+	//mVelocityGoal += vector;
 }
 
 void Meatball::entityCollision(Entity * entity, char direction) {
@@ -55,6 +56,13 @@ void Meatball::entityCollision(Entity * entity, char direction) {
 }
 
 void Meatball::terrainCollision(Terrain * terrain, char direction) {
+	switch (terrain->getType()) {
+	case Terrain::MEATBALLSPAWNER:
+		//Meatball::kill();
+		break;
+	default:
+		break;
+	}
 }
 
 void Meatball::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
@@ -137,6 +145,10 @@ void Meatball::animate() {
 
 void Meatball::checkOutOfBounds() {
 	if (this->getPos().y > Toolbox::getLevelBounds().top + Toolbox::getLevelBounds().height + this->getHeight()) {
-		mIsAlive = false;
+		Meatball::kill();
 	}
+}
+
+void Meatball::kill() {
+	mIsAlive = false;
 }

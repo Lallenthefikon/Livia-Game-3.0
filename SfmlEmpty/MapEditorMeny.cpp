@@ -64,7 +64,7 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150.f)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 	
-	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150), 0));
+	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 	
 	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '0', 'b'));
