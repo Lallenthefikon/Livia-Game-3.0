@@ -23,6 +23,12 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	case '2':
 		mTerrains.push_back(Factory::createSpikes(pos, type));
 		break;
+	case '3':
+		mTerrains.push_back(Factory::createGoal(pos));
+		break;
+	case '4':
+		mTerrains.push_back(Factory::createMeatballSpawner(pos));
+		break;
 	case '01':
 		mCollisionBlocks.push_back(Factory::createCollisionBlock(pos));
 		break;
@@ -31,12 +37,28 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	}
 }
 
-void Terrainhandler::getVector(char id) {
-	
+void Terrainhandler::render(sf::RenderWindow &window) {
+	for (auto i : mTerrains) {
+		if (i->getType() != Terrain::MEATBALLSPAWNER) {
+			i->render(window);
+		}
+	}
+
+	for (auto i : mCollisionBlocks)
+		i->render(window);
+}
+
+void Terrainhandler::update() {
+	for (auto i : mTerrains)
+		i->update();
 }
 
 void Terrainhandler::clear(){
 	Terrainhandler::internalClear();
+}
+
+void Terrainhandler::addCollisionblock(BlockTerrain* blockterrain) {
+	mCollisionBlocks.push_back(blockterrain);
 }
 
 //void Terrainhandler::addTerrain(Terrain* terrain){

@@ -34,15 +34,18 @@ private:
 	void readDecorationfile(std::string &mapname);
 	void readDialoguefile(std::string &mapname);
 
-	void createBlock0(sf::Vector2f &pos, char type);
 	void createPlayer(sf::Vector2f &pos);
 	void createWorm(sf::Vector2f &pos);
 	void createAcidMonster(sf::Vector2f &pos);
+	void createMeatball(sf::Vector2f &pos);
+
+	void createBlock0(sf::Vector2f &pos, char type);
 	void createBlock0WallJump(sf::Vector2f &pos, char type);
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
-	void createDialogue(sf::Vector2f &pos, char type);
 	void createMeatballSpawner(sf::Vector2f &pos);
+	
+	void createDialogue(sf::Vector2f &pos, char type);
 	void createDecoration(sf::Vector2f &pos, char id, char layer);
 
 

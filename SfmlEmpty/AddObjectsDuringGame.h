@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Factory.h"
-#include "AbstractHandler.h"
-
+#include "Entityhandler.h"
+#include "Terrainhandler.h"
 
 class AddObjectsDuringGame {
 public:
@@ -21,6 +21,7 @@ public:
 	void createCollisionBlock(sf::Vector2f pos);
 	~AddObjectsDuringGame();
 private:
-	AddObjectsDuringGame()
-
+	AddObjectsDuringGame();
+	Abstracthandler* mEntityHandler;
+	Abstracthandler* mTerrainHandler;
 };

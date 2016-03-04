@@ -29,8 +29,8 @@ private:
 	Stomach();
 	~Stomach();
 	
-	Entityhandler& mEntityHandler;
-	Terrainhandler& mTerrainHandler;
+	Entityhandler* mEntityHandler;
+	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;

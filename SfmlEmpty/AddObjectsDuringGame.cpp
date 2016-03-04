@@ -1,7 +1,6 @@
 #include "AddObjectsDuringGame.h"
 
 
-
 AddObjectsDuringGame::AddObjectsDuringGame():
 	mEntityHandler(Entityhandler::getInstance()),
 	mTerrainHandler(Terrainhandler::getInstance()){
@@ -20,13 +19,14 @@ void AddObjectsDuringGame::createPlayer(sf::Vector2f pos) {
 }
 
 void AddObjectsDuringGame::createWorm(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '1');
 }
 
 void AddObjectsDuringGame::createAcidMonster(sf::Vector2f pos) {
 }
 
 void AddObjectsDuringGame::createMeatball(sf::Vector2f pos) {
-	mEntityHandler.addEntity(Factory::createMeatball(pos));
+	mEntityHandler->add(pos, '3');
 }
 
 void AddObjectsDuringGame::createBlock0(sf::Vector2f pos, char type) {
@@ -45,10 +45,4 @@ void AddObjectsDuringGame::createMeatballSpawner(sf::Vector2f pos) {
 }
 
 void AddObjectsDuringGame::createCollisionBlock(sf::Vector2f pos) {
-}
-
-void AddObjectsDuringGame::createDialogue(sf::Vector2f pos) {
-}
-
-void AddObjectsDuringGame::createDecoration(sf::Vector2f pos, char id, char layer) {
 }

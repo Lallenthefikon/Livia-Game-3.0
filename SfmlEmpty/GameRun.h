@@ -21,7 +21,7 @@ private:
 	GameRun(std::string &mapname, std::string &levelName);
 	~GameRun();
 
-	/*Entityhandler& mEntityHandler;
+	/*Entityhandler& mEntityHandler->;
 	Terrainhandler& mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;*/

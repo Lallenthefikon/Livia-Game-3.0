@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Terrain.h"
+#include "AddObjectsDuringGame.h"
 
 class MeatballSpawner : public Terrain {
 public:
@@ -33,5 +34,7 @@ private:
 	char mTileType;
 	float mSpawnRate;
 	bool mIsOnScreen = true;
+	AddObjectsDuringGame& mAddObjectsDuringGame;
+
 };
 

@@ -39,6 +39,8 @@ private:
 	void checkOutOfBounds();
 	void kill();
 
+	void randDirection();
+
 	void playSound();
 	void stopSound();
 

@@ -44,8 +44,8 @@ private:
 
 
 	// Pekare till singeltonklasser
-	Abstracthandler *mTerrainhandler;
-	Abstracthandler *mEntityhandler;
+	Terrainhandler *mTerrainhandler;
+	Entityhandler *mEntityHandler;
 	Decorationhandler *mDecorationhandler;
 	Dialoguehandler *mDialoguehandler;
 

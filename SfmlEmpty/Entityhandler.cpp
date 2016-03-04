@@ -11,9 +11,9 @@ Entityhandler::~Entityhandler(){
 	}
 }
 
-Entityhandler& Entityhandler::getInstance(){
+Entityhandler* Entityhandler::getInstance(){
 	static Entityhandler entityhandler;
-	return entityhandler;
+	return &entityhandler;
 }
 
 void Entityhandler::add(sf::Vector2f pos, char id, char type, char layer) {
@@ -34,6 +34,45 @@ void Entityhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	default:
 		break;
 	}
+}
+
+void Entityhandler::bringOutTheDead() {
+	for (Entities::size_type i = 0; i < mEntities.size(); i++) {
+		if (!mEntities[i]->getIsAlive()) {
+			if (mEntities[i]->getType() == Entity::PLAYER) {
+				//Entityhandler::gameOver();
+			} else {
+				delete mEntities[i];
+				mEntities.erase(mEntities.begin() + i);
+			}
+		}
+	}
+}
+
+int Entityhandler::getPlayerLife() {
+	return mEntities[0]->getLife();
+}
+
+bool Entityhandler::isPlayerAlive() {
+	if (mEntities[0]->getType() == Entity::PLAYER) {
+		if (mEntities[0]->getLife() == 0) {
+			return false;
+		} else
+			return true;
+	} else
+		return false;
+}
+
+void Entityhandler::render(sf::RenderWindow& window) {
+	for (auto i : mEntities)
+		i->render(window);
+}
+
+void Entityhandler::update() {
+	addVector();
+	sortEntities();
+	for (auto i : mEntities)
+		i->update();
 }
 
 //void Entityhandler::renderEntities(sf::RenderWindow &window){
@@ -94,15 +133,34 @@ void Entityhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 //		return false;
 //}
 
+
 void Entityhandler::clear(){
 	Entityhandler::internalClear();
 }
 
 // Private funcs
 
+void Entityhandler::addVector() {
+	for (auto i : mEntities)
+		i->addVector(Toolbox::getGravity() * Toolbox::getFrameTime());
+}
+
 void Entityhandler::internalClear(){
 	while (!mEntities.empty()){
 		delete mEntities.back();
 		mEntities.pop_back();
+	}
+}
+
+void Entityhandler::sortEntities() {
+	if (mEntities.back()->getType() != Entity::ACIDMONSTER) {
+		Entity* temp;
+		for (Entities::size_type i = 0; i < mEntities.size(); i++) {
+			if (mEntities[i]->getType() == Entity::ACIDMONSTER) {
+				temp = mEntities[i];
+				mEntities.erase(mEntities.begin() + i);
+				mEntities.push_back(temp);
+			}
+		}
 	}
 }

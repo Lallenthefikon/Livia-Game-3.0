@@ -17,6 +17,5 @@ public:
 	virtual void render(sf::RenderWindow &window) = 0;
 	virtual void update() = 0;
 	virtual void clear() = 0;
-	virtual void getVector(char id) = 0;
 };
 

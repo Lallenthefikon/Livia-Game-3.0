@@ -129,6 +129,15 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
+	
+			 case 'M':
+				 switch (line[1]) {
+				 case '0':
+					 MapEditMaploader::createMeatball(MapEditMaploader::readPosition(line));
+					 break;
+				 default:
+					 break;
+				 }
 
 			 default:
 				 break;
@@ -194,6 +203,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
  void MapEditMaploader::createAcidMonster(sf::Vector2f &pos){
 	 mEntities.push_back(Factory::createAcidMonster(pos));
+ }
+
+ void MapEditMaploader::createMeatball(sf::Vector2f &pos) {
+	 mEntities.push_back(Factory::createMeatball(pos));
  }
 
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){

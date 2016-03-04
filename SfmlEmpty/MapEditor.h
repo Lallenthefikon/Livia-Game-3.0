@@ -24,10 +24,12 @@ public:
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	
-	void createBlock0(sf::Vector2f mousePos);
 	void createPlayer(sf::Vector2f mousePos);
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
+	void createMeatball(sf::Vector2f mousePos);
+	
+	void createBlock0(sf::Vector2f mousePos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);

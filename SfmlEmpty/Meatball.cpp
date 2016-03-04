@@ -1,18 +1,21 @@
 #include "Meatball.h"
 
-static float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.25);
 
 Meatball::Meatball(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getMeatballANI()),
 mIsOnScreen(true),
 mAcceleration(8),
-mMaxSpeed(4),
+mMaxSpeed(1250),
 mIsAlive(true),
 mLife(1) {
 	mVelocityGoal.y = mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
+
+	// Needs a texture to get bounds from
+	randDirection();
 }
 
 Meatball::~Meatball() {
@@ -81,13 +84,14 @@ void Meatball::lerp() {
 	bool lerpedY(false);
 	bool lerpedX(false);
 
+	if (mVelocityGoal.y > mMaxSpeed * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+	}
+	
 	float delta = mAcceleration * Toolbox::getFrameTime();
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
-		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
-	}
 
 	// Interpolates the velocity up from stationary
 	if (differenceX > delta) {
@@ -142,6 +146,15 @@ void Meatball::animate() {
 	}
 }
 
+void Meatball::randDirection() {
+	float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	if (r < 0.5) {
+		mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+	} else {
+		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+	}
+	mSprite.setTexture(*mCurrentAnimation->at(0));
+}
 
 void Meatball::checkOutOfBounds() {
 	if (this->getPos().y > Toolbox::getLevelBounds().top + Toolbox::getLevelBounds().height + this->getHeight()) {

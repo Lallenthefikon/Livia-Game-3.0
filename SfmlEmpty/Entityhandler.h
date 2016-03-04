@@ -6,35 +6,30 @@
 
 class Entityhandler : public Abstracthandler {
 public:
-	typedef std::vector<Entity*> Entities;
-	static Entityhandler& getInstance();
+	static Entityhandler* getInstance();
 
 	virtual ~Entityhandler();
-	virtual void add(sf::Vector2f pos, char id, char type, char layer);
+	
+	/// <summary>
+	/// ID: 0 = player, 1 = worm, 2 = acidMonster, 3 = meatball
+	/// </summary>
+	virtual void add(sf::Vector2f pos, char id, char type = '0', char layer = '0');
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual void clear();
-	virtual void getVector(char id);
-	Entities& getEntities() { return mEntities; }
 
-	/*void addEntity(Entity* entity);
-	void renderEntities(sf::RenderWindow &window);
-	void updateEntities();
+	Entities& getEntities() { return mEntities; }
 	
 	void bringOutTheDead();
-	Entities& getEntities(){ return mEntities; }
-	
-	void addVector();
-	void clear();
-	void gameOver();
 	int getPlayerLife();
-
 	bool isPlayerAlive();
 
-	~Entityhandler();*/
 private:
 	Entityhandler();
+	void addVector();
+	void gameOver();
 	void internalClear();
+	void sortEntities();
 
 	Entities mEntities;
 };

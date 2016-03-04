@@ -3,7 +3,7 @@
 
 MapGenerator::MapGenerator() :
 mTerrainhandler(Terrainhandler::getInstance()),
-mEntityhandler(&Entityhandler::getInstance()),
+mEntityHandler(Entityhandler::getInstance()),
 mDecorationhandler(&Decorationhandler::getInstance()),
 mDialoguehandler(&Dialoguehandler::getInstance()){
 }
@@ -20,7 +20,7 @@ MapGenerator& MapGenerator::getInstance(){
 // Finds all mapfiles for a given mapname, mapname must have a letter in front of it
 void MapGenerator::loadMap(std::string &mapname){
 
-	mEntityhandler->clear();
+	mEntityHandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
 	mDialoguehandler->clear();
@@ -123,6 +123,7 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case '0':
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
@@ -131,14 +132,16 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case 'C':
 					MapGenerator::createAcidMonster(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
 				break;
 			case 'M':
 				switch (line[1]) {
-				case 'B':
+				case '0':
 					MapGenerator::createMeatball(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
@@ -192,19 +195,19 @@ void MapGenerator::readDialoguefile(std::string &filename) {
 
 // Create entities
 void MapGenerator::createPlayer(sf::Vector2f pos){
-	mEntityhandler->add(pos, '0');
+	mEntityHandler->add(pos, '0');
 }
 
 void MapGenerator::createWorm(sf::Vector2f pos){
-	mEntityhandler->add(pos, '1');
+	mEntityHandler->add(pos, '1');
 }
 
 void MapGenerator::createAcidMonster(sf::Vector2f pos){
-	mEntityhandler->add(pos, '2');
+	mEntityHandler->add(pos, '2');
 }
 
 void MapGenerator::createMeatball(sf::Vector2f pos) {
-	mEntityhandler->add(pos, '3');
+	mEntityHandler->add(pos, '3');
 }
 
 
@@ -268,9 +271,9 @@ void MapGenerator::createCollisionBlocks() {
 }
 
 
-void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
+void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains) {
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
-		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
+		for (BlockTerrains::size_type j = i + 1; j < blockterrains.size(); j++) {
 			if (blockterrains[i]->getPos().x == (blockterrains[j]->getPos().x - blockterrains[i]->getWidth())
 				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y) {
 				bool Xnew;
@@ -287,7 +290,6 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 			}
 		}
 	}
-
 }
 
 

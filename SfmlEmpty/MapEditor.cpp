@@ -238,6 +238,10 @@ void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
 }
 
+void MapEditor::createMeatball(sf::Vector2f mousePos) {
+	mEntities.push_back(Factory::createMeatball(mousePos));
+}
+
 // Terrains
 void MapEditor::createBlock0(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
@@ -321,6 +325,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION1:
 		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
+	case MapEditorMeny::MEATBALL:
+		MapEditor::createMeatball(mousePos);
+		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
 		MapEditor::createMeatballSpawner(mousePos);
 		break;
@@ -387,6 +394,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
+		mInsertType = MapEditorMeny::MEATBALL;
+		break;
+	case MapEditorMeny::MEATBALL:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:

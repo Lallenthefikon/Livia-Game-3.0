@@ -49,8 +49,9 @@ void MapEditorMeny::insertObjects(){
 	
 	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7f, 70.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	/*mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
-	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));*/
+	
+	mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 	
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8f, 150.f), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6f, 0.6f));
@@ -90,6 +91,10 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 
 				case Entity::WORM:
 					mInsertType = WORM;
+					break;
+
+				case Entity::MEATBALL:
+					mInsertType = MEATBALL;
 					break;
 
 				default:
