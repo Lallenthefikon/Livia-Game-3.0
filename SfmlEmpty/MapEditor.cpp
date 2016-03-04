@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(500, 50),
+mMapDimensionsTiles(50, 500),
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),

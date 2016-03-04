@@ -65,10 +65,11 @@ private:
 	float mJumpSpeedInitial;
 	float mJumpSpeedDouble;
 	float mJumpSpeedMax;
-	float mMaxSpeed;
+	float mMaxSpeed, mIcyMaxSpeed;
 	sf::Vector2f mAcceleration, mIcyAcceleration;
 	float mWallSlideSpeed;
-	float mAirbornAcc;
+	float mAirbornAcc, mIcyAirborn;
+
 	
 
 	sf::Sprite mSprite;

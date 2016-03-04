@@ -18,7 +18,7 @@ mCamera(),
 mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 mZoomedOut(false),
-mLevelBounds(0.f, 0.f, 10000.f, 2300.f) {
+mLevelBounds(0.f, 0.f, 2300.f, 100000.f) {
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
