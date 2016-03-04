@@ -2,7 +2,9 @@
 
 GameRun::GameRun(std::string &levelDirectory, std::string &levelName):
 mStomach(Stomach::getInstance()){
-
+	//mStomach.getInstance();
+	mCurrentLevel = &Stomach::getInstance();
+	//mCurrentLevel = &Stomach::getInstance();
 	setCurrentLevel(levelDirectory, levelName);
 }
 
@@ -15,14 +17,17 @@ GameRun* GameRun::getInstance(std::string &levelDirectory, std::string &levelNam
 }
 
 void GameRun::update(sf::RenderWindow &window){
-	mStomach.update(window);
+	mCurrentLevel->update(window);
+	//mStomach.update(window);
 }
 
 void GameRun::render(sf::RenderWindow &window){
-	mStomach.render(window);
+	mCurrentLevel->render(window);
+	//mStomach.render(window);
 
 }
 
 void GameRun::loadLevel(){
-	mStomach.loadLevel();
+	mCurrentLevel->loadLevel();
+	//mStomach.loadLevel();
 }

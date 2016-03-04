@@ -59,11 +59,11 @@ Toolbox& Toolbox::getInstance(){
 }
 
 void Toolbox::loadTextures(std::string levelName){
-	if (levelName == "Stomach"){
+//	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
 		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
-	}
+//	}
 
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
@@ -84,13 +84,13 @@ void Toolbox::loadTextures(std::string levelName){
 
 void Toolbox::loadSounds(std::string levelName) {
 
-	if (levelName == "Stomach") {
+//	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
 		//mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
-	}
+//	}
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
@@ -141,6 +141,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case STOMACHBACKGROUND:
+		return mStomachBackgroundTexture;
+		break;
+
+	case HUBBACKGROUND:
 		return mStomachBackgroundTexture;
 		break;
 
