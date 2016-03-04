@@ -130,6 +130,9 @@
     <ClCompile Include="Block0Icy.cpp">
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="Germ.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="Block0Icy.h">
       <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Germ.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

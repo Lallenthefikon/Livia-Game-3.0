@@ -130,6 +130,13 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
+			case 'G':
+				switch (line[1]){
+				case 'E':
+					MapGenerator::createGerm(MapGenerator::readPosition(line));
+				default:
+					break;
+				}
 			case 'A':
 				switch (line[1]){
 				case 'C':
@@ -196,6 +203,10 @@ void MapGenerator::readDialoguefile(std::string &filename) {
 // Create entities
 void MapGenerator::createWorm(sf::Vector2f pos){
 	mEntityhandler->addEntity(Factory::createWorm(pos));
+}
+
+void MapGenerator::createGerm(sf::Vector2f pos){
+	mEntityhandler->addEntity(Factory::createGerm(pos));
 }
 
 void MapGenerator::createPlayer(sf::Vector2f pos){

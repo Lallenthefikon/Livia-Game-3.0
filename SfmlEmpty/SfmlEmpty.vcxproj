@@ -84,6 +84,7 @@
     <ClCompile Include="Block0WallJump.cpp" />
     <ClCompile Include="Block0Icy.cpp" />
     <ClCompile Include="BlockGoal.cpp" />
+    <ClCompile Include="Germ.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
     <ClCompile Include="BlockTerrain.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Block0WallJump.h" />
     <ClInclude Include="Block0Icy.h" />
     <ClInclude Include="BlockGoal.h" />
+    <ClInclude Include="Germ.h" />
     <ClInclude Include="MeatballSpawner.h" />
     <ClInclude Include="BlockTerrain.h" />
     <ClInclude Include="Camera.h" />

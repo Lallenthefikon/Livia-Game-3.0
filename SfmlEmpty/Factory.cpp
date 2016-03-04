@@ -12,6 +12,7 @@
 #include "CollisionBlock.h"
 #include "MeatballSpawner.h"
 #include "Block0Icy.h"
+#include "Germ.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -63,4 +64,8 @@ Terrain* Factory::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
 
 Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {
 	return Block0Icy::createBlock0Icy(pos, type);
+}
+
+Entity* Factory::createGerm(sf::Vector2f pos) {
+	return Germ::createGerm(pos);
 }
