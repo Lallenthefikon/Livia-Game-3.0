@@ -251,9 +251,9 @@ void LayerHandler::renderMiddleground(sf::RenderWindow & window){
 }
 
 void LayerHandler::renderForeground(sf::RenderWindow &window){
-	for (size_t i = 0; i < mForegroundObjects.size(); i++) {
+	/*for (size_t i = 0; i < mForegroundObjects.size(); i++) {
 		window.draw(mForegroundObjects[i]);
-	}
+	}*/ //Design, kommenteras bort på alla banor förutom magsäck/strupe
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){

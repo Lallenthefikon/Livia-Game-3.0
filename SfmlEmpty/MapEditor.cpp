@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(50, 500),
+mMapDimensionsTiles(250, 350), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
