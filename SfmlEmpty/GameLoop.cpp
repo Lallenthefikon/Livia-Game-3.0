@@ -3,7 +3,7 @@
 
 GameLoop::GameLoop():
 mCurrentLevelDirectory("resources/maps/mMap0.txt"),
-mCurrentLevelName("Stomach"),
+mCurrentLevelName("Hub"),
 mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK"),
 mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),
 mStomachAmbience(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHAMBIENCE)){

@@ -25,6 +25,7 @@ static sf::Image mMeatballSpawnerTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
+static sf::Image mStomachMiddlegroundTexture;
 static sf::Image mAcidBottom;
 static sf::Image mLifeTexture;
 
@@ -48,6 +49,7 @@ static sf::SoundBuffer mPlayerDeathSound;
 static sf::SoundBuffer mPlayerFallDeathSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
+
 static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
@@ -62,8 +64,10 @@ Toolbox& Toolbox::getInstance(){
 }
 
 void Toolbox::loadTextures(std::string levelName){
+
 	if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
+		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 	}
@@ -88,13 +92,13 @@ void Toolbox::loadTextures(std::string levelName){
 
 void Toolbox::loadSounds(std::string levelName) {
 
-	if (levelName == "Stomach") {
+//	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
 		//mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
-	}
+//	}
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
@@ -145,6 +149,14 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case STOMACHBACKGROUND:
+		return mStomachBackgroundTexture;
+		break;
+
+	case STOMACHMIDDLEGROUND:
+		return mStomachMiddlegroundTexture;
+		break;
+
+	case HUBBACKGROUND:
 		return mStomachBackgroundTexture;
 		break;
 

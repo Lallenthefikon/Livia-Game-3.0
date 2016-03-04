@@ -14,18 +14,23 @@ class LayerHandler {
 public:
 	static LayerHandler& LayerHandler::getInstance();
 	void moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveMiddleground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveForeground(sf::Vector2f &velocity);
+	// Unused
 	void moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
 	void moveStationaryForeground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
-	void moveForeground(sf::Vector2f &velocity);
-	
-	void addForegroundObject(sf::Sprite &foregroundSprite);
 	
 	void renderBackground(sf::RenderWindow &window);
+	void renderMiddleground(sf::RenderWindow &window);
 	void renderForeground(sf::RenderWindow &window);
 	void renderHud(sf::RenderWindow &window);
 
 	void addBackground(sf::Texture &backgroundTexture);
+	void addMiddleground(sf::Texture &backgroundTexture);
+	void addForegroundObject(sf::Texture &foregroundTexture);
+
 	void addLifeSprite(sf::Sprite &life);
+	
 	void addAcid(sf::Texture &acidTexture);
 	
 	void updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f sceneCamCoordPos);
@@ -52,9 +57,9 @@ private:
 	
 	Camera mCamera;
 
-	sf::Sprite mBackground1, mBackground2, mBackground3, mForeground1;
+	sf::Sprite mBackground, mMiddleground, mForeground;
 	sf::Vector2f mlocalPos1, mlocalPos2, mLocalPos3;
-	std::vector<sf::Sprite> mBackgrounds;
+	std::vector<sf::Sprite> mBackgrounds, mMiddlegrounds;
 
 	Entityhandler& mEntityHandler;
 	Texthandler& mTextHandler;
