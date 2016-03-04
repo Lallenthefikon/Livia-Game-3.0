@@ -22,9 +22,6 @@
     <ClCompile Include="Decoration.cpp">
       <Filter>Source Files\Decoration</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogue.cpp">
-      <Filter>Source Files\Dialogue</Filter>
-    </ClCompile>
     <ClCompile Include="WormSound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
@@ -59,16 +56,16 @@
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="AcidMonster.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Meatball.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="GameRun.cpp">
       <Filter>Source Files\Level</Filter>
@@ -86,10 +83,10 @@
       <Filter>Source Files\Level</Filter>
     </ClCompile>
     <ClCompile Include="CollisionFuncs.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Worm.cpp">
-      <Filter>Source Files\Entity</Filter>
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Texthandler.cpp">
       <Filter>Source Files\Handlers</Filter>
@@ -129,6 +126,15 @@
     </ClCompile>
     <ClCompile Include="Block0Icy.cpp">
       <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="EventBlock.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Decoration\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue0.cpp">
+      <Filter>Source Files\Decoration\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +207,6 @@
     <ClInclude Include="LiviaSound.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogue.h">
-      <Filter>Header Files\Dialogue</Filter>
-    </ClInclude>
     <ClInclude Include="Collisionhandler.h">
       <Filter>Header Files\Handlers</Filter>
     </ClInclude>
@@ -258,6 +261,15 @@
     <ClInclude Include="Block0Icy.h">
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="EventBlock.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue0.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -265,9 +277,6 @@
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{9f741086-f8e7-43cd-a39c-a7d009b782a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entity">
-      <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Entity">
       <UniqueIdentifier>{05fb708c-ca6e-4ec6-ba32-b4e45a490e91}</UniqueIdentifier>
@@ -299,9 +308,6 @@
     <Filter Include="Header Files\Dialogue">
       <UniqueIdentifier>{ea499b8a-cba7-4ec7-9c2d-76f0e7b556bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Dialogue">
-      <UniqueIdentifier>{3ad2bc69-575a-45bb-a797-d17627addc48}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Terrain">
       <UniqueIdentifier>{b6736458-bd68-40e0-b1fc-501e20c09001}</UniqueIdentifier>
     </Filter>
@@ -319,6 +325,12 @@
     </Filter>
     <Filter Include="Source Files\Terrain\BlockTerrain">
       <UniqueIdentifier>{3efbf8c7-82fb-4282-9f14-ca5067b0a3ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Terrain\Entity">
+      <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Decoration\Dialogue">
+      <UniqueIdentifier>{3ad2bc69-575a-45bb-a797-d17627addc48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

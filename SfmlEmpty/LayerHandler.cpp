@@ -8,6 +8,7 @@ static float ANIFramesPerFrame(0.25);
 LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
+mDialogueHandler(Dialoguehandler::getInstance()),
 mHeartAnimation(Animations::getHeartANI()){
 	
 	//mForegroundObjects.push_back(background);
@@ -193,12 +194,16 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
 	}
 
-	
+	if (mDialogueHandler.isInDialogue){
+		mDialogueHandler.renderDialogue(window);
+		
+	}
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
+
 	}
 
 	LayerHandler::animate();
@@ -253,21 +258,21 @@ void LayerHandler::animate(){
 }
 
 
-//
-//	if (mTimerANI >= 1){
-//		mAnimationIndex += 1;
-//		mTimerANI = 0;
-//		if (mAnimationIndex >= mCurrentAnimation->size()){
-//			if (mState == DEATH){
-//				mIsAlive = false;
-//				mAnimationIndex -= 1;
-//			}
-//			else
-//				mAnimationIndex = 0;
-//		}
-//
-//		if (mCurrentAnimation->size() > 0)
-//			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
-//	}
+
+	//if (mTimerANI >= 1){
+	//	mAnimationIndex += 1;
+	//	mTimerANI = 0;
+	//	if (mAnimationIndex >= mCurrentAnimation->size()){
+	//		if (mState == DEATH){
+	//			mIsAlive = false;
+	//			mAnimationIndex -= 1;
+	//		}
+	//		else
+	//			mAnimationIndex = 0;
+	//	}
+
+	//	if (mCurrentAnimation->size() > 0)
+	//		mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	//}
 //}
 

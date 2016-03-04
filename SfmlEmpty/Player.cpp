@@ -194,6 +194,9 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		mWin = true;
 		break;
 
+	//case Terrain::DIALOGUE:
+		
+
 	default:
 		break;
 	}
