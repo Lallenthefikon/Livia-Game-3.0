@@ -94,12 +94,7 @@ void MapEditor::update(sf::RenderWindow &window){
 							break;
 						}
 					}
-					for (i = mDialogues.size() - 1; i > -1; i--) {
-						if (MapEditor::isSpriteClicked(mDialogues[i]->getSprite(), &coord_pos)) {
-							MapEditor::eraseDialogue(i);
-							break;
-						}
-					}
+
 					break;
 
 				case sf::Mouse::Middle:
@@ -204,9 +199,6 @@ void MapEditor::render(sf::RenderWindow &window){
 			mDecorations[i]->render(window);
 	}
 
-	for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
-		mDialogues[i]->render(window);
-	}
 
 	mMeny.render(window);
 
@@ -263,6 +255,14 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
+void MapEditor::createDialogue(sf::Vector2f mousePos) {
+	mTerrains.push_back(Factory::createDialogue(mousePos));
+}
+
+void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
+	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
+}
+
 // Decorations
 void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 	if (id == '0') {	// Lol
@@ -271,13 +271,7 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
 
-void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
-	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
-}
 
-void MapEditor::createDialogue(sf::Vector2f mousePos) {
-	mDialogues.push_back(Factory::createDialogue(mousePos));
-}
 
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
@@ -361,10 +355,6 @@ void MapEditor::eraseDecoration(int index) {
 	mDecorations.erase(mDecorations.begin() + index);
 }
 
-void MapEditor::eraseDialogue(int index) {
-	delete mDialogues[index];
-	mDialogues.erase(mDialogues.begin() + index);
-}
 
 
 
@@ -451,7 +441,7 @@ void MapEditor::changeLayer() {
 
 void MapEditor::displayCurrentLayer(sf::RenderWindow & window) {
 	std::string textToRender = "Current layer: ";
-	mTextHandler.renderText(window, textToRender + layerToString());
+	mTextHandler.renderCurrentLayer(window, textToRender + layerToString());
 }
 
 std::string MapEditor::layerToString() const {
@@ -475,8 +465,6 @@ void MapEditor::saveMap(){
 	mCurrentLevelDirectory[15] = 'D';
 	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'Q';
-	MapEditor::writeDialoguesToFile(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'm';
 
@@ -714,46 +702,6 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 	decorationFile.close();
 }
 
-void MapEditor::writeDialoguesToFile(std::string filename) {
-	std::string posString;
-	std::string output;
-	std::ofstream dialogueFile(filename);
-
-	if (dialogueFile.is_open()) {
-		for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
-
-			switch (mDialogues[i]->getType()) {
-			case Terrain::DIALOGUE:
-				output.push_back('Q');
-				output.push_back('0');
-			default:
-				break;
-			}
-			output.push_back('|');
-
-			// Inserts xpos into output followed by a ','
-			posString = MapEditor::floatToString(mDialogues[i]->getPos().x + mDialogues[i]->getOffset().x);
-			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
-				output.push_back(posString[iS]);
-			}
-			output.push_back(',');
-
-			// Inserts ypos into output
-			posString = MapEditor::floatToString(mDialogues[i]->getPos().y + mDialogues[i]->getOffset().y);
-			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
-				output.push_back(posString[iS]);
-			}
-
-			// Writes output into file
-			dialogueFile << output << std::endl;
-
-			output.clear();
-			posString.clear();
-		}
-	}
-	dialogueFile.close();
-}
-
 char MapEditor::blockType(Terrain* terrain){
 
 	bool leftOccupied(false);
@@ -840,10 +788,7 @@ void MapEditor::internalClear(){
 		delete mDecorations.back();
 		mDecorations.pop_back();
 	}
-	while (!mDialogues.empty()) {
-		delete mDialogues.back();
-		mDialogues.pop_back();
-	}
+
 }
 
 std::string MapEditor::floatToString(float f){

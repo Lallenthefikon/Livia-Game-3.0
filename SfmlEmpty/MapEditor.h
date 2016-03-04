@@ -55,7 +55,6 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void eraseDecoration(int index);
-	void eraseDialogue(int index);
 	void changeInsertType();
 	void changeRotDirection();
 	void changeLayer();
@@ -92,12 +91,12 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogues;
+
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogues mDialogues;
+
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;

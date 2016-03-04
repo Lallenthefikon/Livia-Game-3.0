@@ -2,13 +2,14 @@
 
 #include "Terrain.h"
 #include "Toolbox.h"
+#include "Texthandler.h"
 #include <string>
 
 class Dialogue : public Terrain {
 public:
 	virtual ~Dialogue();
 	virtual TERRAINTYPE getType() { return Terrain::DIALOGUE; }
-	static Dialogue* createDialogue();
+	static Dialogue* createDialogue(sf::Vector2f pos);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -21,10 +22,12 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
 
+	void setIsInDialogue(bool f);
+
 	sf::FloatRect bounds;
 	std::vector<std::string> pages;
 private:
-	Dialogue();
+	Dialogue(sf::Vector2f pos);
 
 	void setTexture();
 	
@@ -33,9 +36,11 @@ private:
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
+	Texthandler& mTexthandler;
 
 	char mTileType;
 
 	bool mIsOnScreen = true;
+	bool mIsInDialogue;
 };
 

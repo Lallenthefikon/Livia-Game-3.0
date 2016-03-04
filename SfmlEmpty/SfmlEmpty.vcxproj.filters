@@ -124,17 +124,17 @@
     <ClCompile Include="MapEditorMeny.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MeatballSpawner.cpp">
-      <Filter>Source Files\Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Block0Icy.cpp">
-      <Filter>Source Files\Terrain</Filter>
+    <ClCompile Include="Hub.cpp">
+      <Filter>Source Files\Level</Filter>
     </ClCompile>
     <ClCompile Include="Germ.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Abstractgame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Animations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -252,14 +252,8 @@
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files\Level</Filter>
     </ClInclude>
-    <ClInclude Include="Abstractgame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MeatballSpawner.h">
-      <Filter>Header Files\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Block0Icy.h">
-      <Filter>Header Files\Terrain</Filter>
+    <ClInclude Include="Hub.h">
+      <Filter>Header Files\Level</Filter>
     </ClInclude>
     <ClInclude Include="Germ.h">
       <Filter>Header Files\Entity</Filter>
@@ -319,12 +313,6 @@
     </Filter>
     <Filter Include="Source Files\Handlers">
       <UniqueIdentifier>{fbab6e57-7111-4db2-9fc4-22228c0fb0f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{8b708340-4d34-4f49-af05-ab303bf8d9f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{3efbf8c7-82fb-4282-9f14-ca5067b0a3ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

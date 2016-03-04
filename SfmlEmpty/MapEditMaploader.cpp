@@ -28,11 +28,6 @@ MapEditMaploader::Decorations MapEditMaploader::getDecorations(std::string &file
 	return mDecorations;
 }
 
-MapEditMaploader::Dialogue MapEditMaploader::getDialogue(std::string &filename) {
-	MapEditMaploader::readDialoguefile(filename);
-	return mDialogue;
-}
-
 void MapEditMaploader::clear(){
 	MapEditMaploader::internalClear();
 }
@@ -62,6 +57,11 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				default:
 					break;
 				}
+				break;
+
+				// Dialogue
+			case 'Q':
+				MapEditMaploader::createDialogue(MapEditMaploader::readPosition(line));
 				break;
 
 				// Spikes
@@ -170,28 +170,6 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 decorationFile.close();
  }
 
- void MapEditMaploader::readDialoguefile(std::string &filename) {
-
-	 std::string line;
-	 std::ifstream dialoguefile(filename);
-
-	 if (dialoguefile.is_open()) {
-		 while (getline(dialoguefile, line)) {
-			 switch (line[0]) {
-			 case 'Q':
-				 switch (line[1]){
-				 case '0':
-					 MapEditMaploader::createDialogue(MapEditMaploader::readPosition(line), line[1]);
-					 break;
-				 }
-				 
-			 default:
-				 break;
-			 }
-		 }
-	 }
-	 dialoguefile.close();
- }
 
  void MapEditMaploader::createBlock0(sf::Vector2f &pos, char type){
 	 mTerrains.push_back(Factory::createBlock0(pos, type));
@@ -233,8 +211,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
  }
 
- void MapEditMaploader::createDialogue(sf::Vector2f &pos, char type) {
-	 mDialogue.push_back(Factory::createDialogue(pos));
+ void MapEditMaploader::createDialogue(sf::Vector2f &pos) {
+	 mTerrains.push_back(Factory::createDialogue(pos));
  }
 
  void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos, float spawnRate) {
@@ -428,7 +406,6 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  void MapEditMaploader::internalClear(){
 	 mEntities.clear();
 	 mTerrains.clear();
-	 mDialogue.clear();
 	 mDecorations.clear();
 
  }

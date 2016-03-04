@@ -36,9 +36,6 @@ void MapGenerator::loadMap(std::string &mapname){
 	mapname[15] = 'D';
 	MapGenerator::readDecorationfile(mapname);
 
-	mapname[15] = 'Q';
-	MapGenerator::readDialoguefile(mapname);
-
 
 	mapname[15] = 'm';
 
@@ -182,23 +179,7 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 	decorationFile.close();
 }
 
-void MapGenerator::readDialoguefile(std::string &filename) {
-	std::string line;
-	std::ifstream dialoguefile(filename);
 
-	if (dialoguefile.is_open()) {
-		while (getline(dialoguefile, line)) {
-			switch (line[0]) {
-			case 'E':
-				MapGenerator::createDialogue(MapGenerator::readPosition(line));
-				break;
-			default:
-				break;
-			}
-		}
-	}
-	dialoguefile.close();
-}
 
 // Create entities
 void MapGenerator::createWorm(sf::Vector2f pos){
@@ -245,6 +226,10 @@ void MapGenerator::createGoal(sf::Vector2f pos) {
 
 void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
 	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
+}
+
+void MapGenerator::createDialogue(sf::Vector2f pos) {
+	mTerrainhandler->addTerrain(Factory::createDialogue(pos));
 }
 
 
@@ -310,10 +295,6 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 }
 
 
-// Create  Dialogue
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
-}
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
 

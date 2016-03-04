@@ -30,12 +30,11 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogue;
+	
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogue mDialogue;
 	
 	INSERTTYPE mInsertType;
 
