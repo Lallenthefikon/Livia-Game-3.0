@@ -1,12 +1,14 @@
 #pragma once
 
+#include <SFML\System.hpp>
 #include "Terrain.h"
+#include "Toolbox.h"
 
-class BlockGoal : public Terrain {
+class Block0Icy : public Terrain{
 public:
-	virtual ~BlockGoal();
-	virtual TERRAINTYPE getType() { return Terrain::BLOCKGOAL; }
-	static Terrain* createGoal(sf::Vector2f pos);
+	~Block0Icy();
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0ICY; }
+	static Terrain* createBlock0Icy(sf::Vector2f pos, char type);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -18,10 +20,11 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
-private:
-	BlockGoal(sf::Vector2f pos);
 
-	void setTexture();
+private:
+	Block0Icy(sf::Vector2f pos, char type);
+
+	void setTexture(char type);
 
 	sf::Texture mTexture;
 	sf::Sprite mSprite;

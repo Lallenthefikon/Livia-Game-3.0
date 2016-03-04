@@ -2,6 +2,8 @@
 
 #include "Terrain.h"
 #include "Toolbox.h"
+#include "Texthandler.h"
+#include <string>
 
 class Dialogue : public Terrain {
 public:
@@ -19,17 +21,26 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
+
+	void setIsInDialogue(bool f);
+
+	sf::FloatRect bounds;
+	std::vector<std::string> pages;
 private:
 	Dialogue(sf::Vector2f pos);
 
 	void setTexture();
+	
 
+	
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
+	Texthandler& mTexthandler;
 
 	char mTileType;
 
 	bool mIsOnScreen = true;
+	bool mIsInDialogue;
 };
 

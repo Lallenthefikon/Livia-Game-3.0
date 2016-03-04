@@ -36,9 +36,6 @@ void MapGenerator::loadMap(std::string &mapname){
 	mapname[15] = 'D';
 	MapGenerator::readDecorationfile(mapname);
 
-	mapname[15] = 'Q';
-	MapGenerator::readDialoguefile(mapname);
-
 
 	mapname[15] = 'm';
 
@@ -64,6 +61,9 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				case 'W':
 					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2]);
 					break;
+				case 'I':
+					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2]);
+					break;
 				default:
 					break;
 				}
@@ -85,9 +85,13 @@ void MapGenerator::readTerrainfile(std::string &filename){
 				MapGenerator::createGoal(MapGenerator::readPosition(line));
 				break;
 
-			default:
+			// Meatball spawner
+			case 'M':
+				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line), 0.01);
 				break;
 
+			default:
+				break;
 			}
 		}
 	}
@@ -168,23 +172,7 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 	decorationFile.close();
 }
 
-void MapGenerator::readDialoguefile(std::string &filename) {
-	std::string line;
-	std::ifstream dialoguefile(filename);
 
-	if (dialoguefile.is_open()) {
-		while (getline(dialoguefile, line)) {
-			switch (line[0]) {
-			case 'E':
-				MapGenerator::createDialogue(MapGenerator::readPosition(line));
-				break;
-			default:
-				break;
-			}
-		}
-	}
-	dialoguefile.close();
-}
 
 // Create entities
 void MapGenerator::createWorm(sf::Vector2f pos){
@@ -213,12 +201,24 @@ void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
 	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type));
 }
 
+void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type){
+	mTempBlocks.push_back(Factory::createBlock0Icy(pos, type));
+}
+
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
 	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
 }
 
 void MapGenerator::createGoal(sf::Vector2f pos) {
 	mTerrainhandler->addTerrain(Factory::createGoal(pos));
+}
+
+void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
+	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
+}
+
+void MapGenerator::createDialogue(sf::Vector2f pos) {
+	mTerrainhandler->addTerrain(Factory::createDialogue(pos));
 }
 
 
@@ -238,7 +238,7 @@ void MapGenerator::createCollisionBlocks() {
 		}
 		else {
 			if (mTempBlocks[i]->getPos().x == collisionBlocks.back()->getPos().x) {
-				if (mTempBlocks[i]->getPos().y <= collisionBlocks.back()->getPos().y + collisionBlocks.back()->getHeight()) {
+				if (mTempBlocks[i]->getPos().y == collisionBlocks.back()->getPos().y + collisionBlocks.back()->getHeight()) {
 					collisionBlocks.back()->addBlockTerrain(mTempBlocks[i], false);
 				}
 				else {
@@ -264,7 +264,8 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
 		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
 			if (blockterrains[i]->getPos().x == (blockterrains[j]->getPos().x - blockterrains[i]->getWidth())
-				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y) {
+				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y 
+				&& blockterrains[i]->getHeight() == blockterrains[j]->getHeight()) {
 				bool Xnew;
 				for (BlockTerrain::Terrains2D::size_type BI = 0; BI < blockterrains[j]->getBlocks().size(); BI++) {
 					Xnew = true;
@@ -283,10 +284,6 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 }
 
 
-// Create  Dialogue
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mDialoguehandler->addDialogue(Factory::createDialogue(pos));
-}
 
 sf::Vector2f MapGenerator::readPosition(std::string line){
 

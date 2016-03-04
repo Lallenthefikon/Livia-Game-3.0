@@ -12,12 +12,14 @@ mCollisionHandler(Collisionhandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mDecorationhandler(Decorationhandler::getInstance()),
+mDialoguehandler(Dialoguehandler::getInstance()),
 mMapName("Stomach"),
 mCamera(),
 mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 mZoomedOut(false),
 mLevelBounds(0.f,0.f,15000.f,12300.f){
+
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
@@ -34,8 +36,12 @@ mLevelBounds(0.f,0.f,15000.f,12300.f){
 	mLayerHandler.addBackground(mBackgroundTexture);
 
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	//mAcidSprite.setTexture(mAcidTexture);
-	mLayerHandler.addAcid(mAcidTexture);
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	//mLayerHandler.addMiddleground(mAcidTexture);
+	//mLayerHandler.addAcid(mAcidTexture);
 
 }
 
@@ -81,6 +87,7 @@ void Stomach::update(sf::RenderWindow &window){
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
+		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
 		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -89,6 +96,8 @@ void Stomach::update(sf::RenderWindow &window){
 		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Rising"){
@@ -119,9 +128,14 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to sceneryView containing background, HUD and other estetic scene objects
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
+
+	// Middleground
+	mLayerHandler.renderMiddleground(window);
 	
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
+
+
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -133,6 +147,7 @@ void Stomach::render(sf::RenderWindow &window){
 	// Entities
 	mEntityHandler.renderEntities(window);
 
+
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
 	
@@ -140,6 +155,11 @@ void Stomach::render(sf::RenderWindow &window){
 	mLayerHandler.renderForeground(window);
 	mLayerHandler.renderHud(window);
 
+
+	// Dialogue
+	mDialoguehandler.renderDialogue(window);
+
+	
 	window.display();
 }
 

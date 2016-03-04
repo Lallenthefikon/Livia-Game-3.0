@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Dialogue.h"
+#include "Texthandler.h"
 
 class Dialoguehandler {
 public:
@@ -10,7 +11,7 @@ public:
 
 	void addDialogue(Dialogue* dialogue);
 	void renderDialogue(sf::RenderWindow &window);
-	void updateDialogue();
+	void updateDialogue(const sf::Vector2f &pos);
 	void clear();
 
 	Dialogues& getDialogue() { return mDialogue; }
@@ -19,6 +20,9 @@ private:
 	Dialoguehandler();
 	void internalClear();
 
+	size_t current;
+	size_t page;
+	bool isInDialogue = false;
 	Dialogues mDialogue;
 };
 

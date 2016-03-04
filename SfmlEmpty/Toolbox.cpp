@@ -1,8 +1,10 @@
 #include "Toolbox.h"
+#include <iostream>
 
 // Player Info
 static sf::Sprite mPlayerSprite;
 static sf::Vector2f mPlayerVelocity;
+static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 
 static float mFrameTime(0);
@@ -19,9 +21,11 @@ static sf::Image mPlayersheet;
 static sf::Image mGoalTexture;
 static sf::Image mDialogueTexture;
 static sf::Image mMeatballTexture;
+static sf::Image mMeatballSpawnerTexture;
 
 static sf::Image mAcidMonsterTexture;
 static sf::Image mStomachBackgroundTexture;
+static sf::Image mStomachMiddlegroundTexture;
 static sf::Image mAcidBottom;
 static sf::Image mLifeTexture;
 
@@ -45,6 +49,7 @@ static sf::SoundBuffer mPlayerDeathSound;
 static sf::SoundBuffer mPlayerFallDeathSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
+
 static sf::SoundBuffer mWormDeathSound;
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
@@ -59,27 +64,30 @@ Toolbox& Toolbox::getInstance(){
 }
 
 void Toolbox::loadTextures(std::string levelName){
-//	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/Magsack mork suddig.png");
-		mAcidBottom.loadFromFile("resources/images/Magsyra suddig gulare.png");
+
+	if (levelName == "Stomach"){
+		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
+		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
+		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
-//	}
+	}
 
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
-	mBlock0sheet.loadFromFile("resources/images/Current_block0_sheet.png");
-	mGoalTexture.loadFromFile("resources/images/goal.jpg");
+	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet.png");
+	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	mAcidMonsterTexture.loadFromFile("resources/images/entities/Tummy jagar spritesheet.png");
 
-	mTileTexture.loadFromFile("resources/images/Tile.png");
-	mEditorMenyTexture.loadFromFile("resources/images/EditorMenu.png");
+	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
-	mLifeTexture.loadFromFile("resources/images/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
-	mMeatballTexture.loadFromFile("resources/images/entities/meatball.png");
-	mDialogueTexture.loadFromFile("resources/images/Dialogue-bubble.png");
+	mMeatballTexture.loadFromFile("resources/images/entities/meatball_projectile.png");
+	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -144,6 +152,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mStomachBackgroundTexture;
 		break;
 
+	case STOMACHMIDDLEGROUND:
+		return mStomachMiddlegroundTexture;
+		break;
+
 	case HUBBACKGROUND:
 		return mStomachBackgroundTexture;
 		break;
@@ -170,6 +182,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
+		break;
+
+	case MEATBALLSPAWNERTEXTURE:
+		return mMeatballSpawnerTexture;
 		break;
 
 	default:
@@ -224,6 +240,10 @@ void Toolbox::copyPlayerVelocity(sf::Vector2f &playerVelocity){
 	mPlayerVelocity = playerVelocity;
 }
 
+void Toolbox::copyPlayerPosition(sf::Vector2f playerPosition) {
+	mPlayerPosition = playerPosition;
+}
+
 void Toolbox::copyPlayerIsAlive(bool isAlive){
 	mPlayerAlive = isAlive;
 }
@@ -234,6 +254,10 @@ sf::Sprite Toolbox::getPlayerSprite(){
 
 sf::Vector2f Toolbox::getPlayerVelocity(){
 	return mPlayerVelocity;
+}
+
+sf::Vector2f Toolbox::getPlayerPosition() {
+	return mPlayerPosition;
 }
 
 bool Toolbox::getPlayerIsAlive(){

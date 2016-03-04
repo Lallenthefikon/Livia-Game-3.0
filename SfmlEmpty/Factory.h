@@ -17,9 +17,11 @@ struct Factory{
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
 	static Terrain* createGoal(sf::Vector2f pos);
 
-	static Dialogue* createDialogue(sf::Vector2f pos);
+	static Terrain* createDialogue(sf::Vector2f pos);
 	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
 	static Entity* createMeatball(sf::Vector2f pos);
+	static Terrain* createMeatballSpawner(sf::Vector2f pos, float spawnRate);
 
+	static Terrain* createBlock0Icy(sf::Vector2f pos, char id);
 };

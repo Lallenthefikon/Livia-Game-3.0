@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(500, 50),
+mMapDimensionsTiles(50, 500),
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
@@ -94,12 +94,7 @@ void MapEditor::update(sf::RenderWindow &window){
 							break;
 						}
 					}
-					for (i = mDialogues.size() - 1; i > -1; i--) {
-						if (MapEditor::isSpriteClicked(mDialogues[i]->getSprite(), &coord_pos)) {
-							MapEditor::eraseDialogue(i);
-							break;
-						}
-					}
+
 					break;
 
 				case sf::Mouse::Middle:
@@ -204,9 +199,6 @@ void MapEditor::render(sf::RenderWindow &window){
 			mDecorations[i]->render(window);
 	}
 
-	for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
-		mDialogues[i]->render(window);
-	}
 
 	mMeny.render(window);
 
@@ -247,12 +239,24 @@ void MapEditor::createBlock0WallJump(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0WallJump(mousePos, 'p'));
 }
 
+void MapEditor::createBlock0Icy(sf::Vector2f mousePos){
+	mTerrains.push_back(Factory::createBlock0Icy(mousePos, 'a'));
+}
+
 void MapEditor::createSpikes(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createSpikes(mousePos, mRotDirection));
 }
 
 void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
+}
+
+void MapEditor::createDialogue(sf::Vector2f mousePos) {
+	mTerrains.push_back(Factory::createDialogue(mousePos));
+}
+
+void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
+	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
 }
 
 // Decorations
@@ -263,13 +267,7 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
 
-void MapEditor::createMeatball(sf::Vector2f mousepos) {
-	mEntities.push_back(Factory::createMeatball(mousepos));
-}
 
-void MapEditor::createDialogue(sf::Vector2f mousePos) {
-	mDialogues.push_back(Factory::createDialogue(mousePos));
-}
 
 void MapEditor::loadLevel(){
 	mCurrentLevelDirectory[15] = 'E';
@@ -309,6 +307,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::BLOCK0WALLJUMP:
 		MapEditor::createBlock0WallJump(mousePos);
 		break;
+	case MapEditorMeny::BLOCK0ICY:
+		MapEditor::createBlock0Icy(mousePos);
+		break;
 	case MapEditorMeny::SPIKES:
 		MapEditor::createSpikes(mousePos);
 		break;
@@ -321,8 +322,8 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION1:
 		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
-	case MapEditorMeny::MEATBALL:
-		MapEditor::createMeatball(mousePos);
+	case MapEditorMeny::MEATBALLSPAWNER:
+		MapEditor::createMeatballSpawner(mousePos, 0.01f);
 		break;
 	case MapEditorMeny::DIALOGUE:
 		MapEditor::createDialogue(mousePos);
@@ -347,10 +348,6 @@ void MapEditor::eraseDecoration(int index) {
 	mDecorations.erase(mDecorations.begin() + index);
 }
 
-void MapEditor::eraseDialogue(int index) {
-	delete mDialogues[index];
-	mDialogues.erase(mDialogues.begin() + index);
-}
 
 
 
@@ -369,6 +366,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::BLOCK0WALLJUMP;
 		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
+		mInsertType = MapEditorMeny::BLOCK0ICY;
+		break;
+	case MapEditorMeny::BLOCK0ICY:
 		mInsertType = MapEditorMeny::SPIKES;
 		break;
 	case MapEditorMeny::SPIKES:
@@ -378,18 +378,15 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
-
 		mInsertType = MapEditorMeny::DIALOGUE;
 		break;
 	case MapEditorMeny::DIALOGUE:
-
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
-		mInsertType = MapEditorMeny::MEATBALL;
+		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
-	case MapEditorMeny::MEATBALL:
-
+	case MapEditorMeny::MEATBALLSPAWNER:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -434,7 +431,7 @@ void MapEditor::changeLayer() {
 
 void MapEditor::displayCurrentLayer(sf::RenderWindow & window) {
 	std::string textToRender = "Current layer: ";
-	mTextHandler.renderText(window, textToRender + layerToString());
+	mTextHandler.renderCurrentLayer(window, textToRender + layerToString());
 }
 
 std::string MapEditor::layerToString() const {
@@ -458,8 +455,6 @@ void MapEditor::saveMap(){
 	mCurrentLevelDirectory[15] = 'D';
 	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'Q';
-	MapEditor::writeDialoguesToFile(mCurrentLevelDirectory);
 
 	mCurrentLevelDirectory[15] = 'm';
 
@@ -518,6 +513,13 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back(blockType(mTerrains[i]));
 				break;
 
+			case Terrain::BLOCK0ICY:
+				output.push_back('B');
+				output.push_back('I');
+				// Push what type of block it is
+				output.push_back(blockType(mTerrains[i]));
+				break;
+
 			case Terrain::SPIKES:
 				output.push_back('S');
 				output.push_back('0');
@@ -528,13 +530,16 @@ void MapEditor::writeTerrainToFile(std::string filename){
 			case Terrain::BLOCKGOAL:
 				output.push_back('G');
 				output.push_back('0');
-
 				break;
 
 			case Terrain::DIALOGUE:
 				output.push_back('Q');
 				output.push_back('0');
+				break;
 
+			case Terrain::MEATBALLSPAWNER:
+				output.push_back('M');
+				output.push_back('0');
 				break;
 
 			default:
@@ -597,7 +602,7 @@ void MapEditor::writeEntityToFile(std::string filename){
 
 			case Entity::MEATBALL:
 				output.push_back('M');
-				output.push_back('B');
+				output.push_back('0');
 				break;
 
 			default:
@@ -680,46 +685,6 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 		}
 	}
 	decorationFile.close();
-}
-
-void MapEditor::writeDialoguesToFile(std::string filename) {
-	std::string posString;
-	std::string output;
-	std::ofstream dialogueFile(filename);
-
-	if (dialogueFile.is_open()) {
-		for (Dialogues::size_type i = 0; i < mDialogues.size(); i++) {
-
-			switch (mDialogues[i]->getType()) {
-			case Terrain::DIALOGUE:
-				output.push_back('Q');
-				output.push_back('0');
-			default:
-				break;
-			}
-			output.push_back('|');
-
-			// Inserts xpos into output followed by a ','
-			posString = MapEditor::floatToString(mDialogues[i]->getPos().x + mDialogues[i]->getOffset().x);
-			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
-				output.push_back(posString[iS]);
-			}
-			output.push_back(',');
-
-			// Inserts ypos into output
-			posString = MapEditor::floatToString(mDialogues[i]->getPos().y + mDialogues[i]->getOffset().y);
-			for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
-				output.push_back(posString[iS]);
-			}
-
-			// Writes output into file
-			dialogueFile << output << std::endl;
-
-			output.clear();
-			posString.clear();
-		}
-	}
-	dialogueFile.close();
 }
 
 char MapEditor::blockType(Terrain* terrain){
@@ -808,10 +773,7 @@ void MapEditor::internalClear(){
 		delete mDecorations.back();
 		mDecorations.pop_back();
 	}
-	while (!mDialogues.empty()) {
-		delete mDialogues.back();
-		mDialogues.pop_back();
-	}
+
 }
 
 std::string MapEditor::floatToString(float f){

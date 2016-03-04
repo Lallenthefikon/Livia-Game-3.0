@@ -7,6 +7,7 @@
 #include "Texthandler.h"
 #include "Decorationhandler.h"
 #include "MapGenerator.h"
+#include "Dialoguehandler.h"
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
@@ -35,9 +36,11 @@ private:
 	LayerHandler& mLayerHandler;
 	Texthandler& mTextHandler;
 	Decorationhandler& mDecorationhandler;
+	Dialoguehandler& mDialoguehandler;
 
 	// Specific level graphics
 	sf::Texture mBackgroundTexture;
+	sf::Texture mMiddlegroundTexture;
 	sf::Texture mLifeTexture;
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;

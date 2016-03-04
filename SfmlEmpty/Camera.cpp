@@ -119,7 +119,9 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "ZoomedOut"){
 		// Designers
 		// Följer åt vänster, följer åt höger, följer neråt, följer uppåt
+
 		updateGameCam(window, true, true, true, true);
+
 		//updateCamGAME(window);
 	}
 	else if (currentCamState == "SecondCutscene"){

@@ -7,18 +7,36 @@ struct Toolbox {
 
 
 	enum TEXTUREKEY { 
-		WORMTEXTURE, 
-		BLOCK0TEXTURE, 
-		ACIDMONSTERTEXTURE,
-		MEATBALLTEXTURE,
+		// Player
 		PLAYERRUNNINGTEXTURE, PLAYERJUMPTEXTURE, PLAYERIDLETEXTURE, PLAYERHURTTEXTURE, PLAYERSLIDETEXTURE,
-		TILETEXTURE, EDITORMENY, STOMACHBACKGROUND, HUBBACKGROUND, STOMACHACID, LIFETEXTURE, GOALTEXTURE,
-		DECORATIONTEXTURE, DIALOGUETEXTURE
+		// Enemies
+		WORMTEXTURE,
+		ACIDMONSTERTEXTURE,
+		// Blocks
+		BLOCK0TEXTURE, 
+		// Other Entities
+		MEATBALLTEXTURE, MEATBALLSPAWNERTEXTURE,
+		// Editor
+		TILETEXTURE,
+		EDITORMENY,
+		GOALTEXTURE,
+		// UI
+		LIFETEXTURE,
+		// Stomach
+		STOMACHBACKGROUND, STOMACHMIDDLEGROUND, STOMACHACID,
+		// Hub
+		HUBBACKGROUND,
+		DECORATIONTEXTURE,
+		// Dialogue
+		DIALOGUETEXTURE
 	};
 
 	enum SOUNDKEY {
+		// Player
 		PLAYERIDLE, PLAYERRUN, PLAYERJUMP, PLAYERLAND, PLAYERDAMAGED, PLAYERDEATH, PLAYERFALLDEATH, PLAYERWALLSLIDE,
+		// Worm
 		WORMIDLE, WORMRUN, WORMJUMP, WORMLAND, WORMDEATH,
+		// Stomach
 		STOMACHMUSIC, STOMACHAMBIENCE
 	};
 
@@ -48,8 +66,11 @@ struct Toolbox {
 	static void copyPlayerSprite(sf::Sprite &playerSprite);
 	static void copyPlayerVelocity(sf::Vector2f &playerVelocity);
 	static void copyPlayerIsAlive(bool isAlive);
+	static void copyPlayerPosition(sf::Vector2f playerPosition);
+	
 	static sf::Sprite getPlayerSprite();
 	static sf::Vector2f getPlayerVelocity();
+	static sf::Vector2f getPlayerPosition();
 	static bool getPlayerIsAlive();
 
 	static sf::Vector2f findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window);

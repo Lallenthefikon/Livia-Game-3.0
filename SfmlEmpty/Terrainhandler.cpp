@@ -21,7 +21,9 @@ void Terrainhandler::addCollisionblock(BlockTerrain* blockterrain){
 
 void Terrainhandler::renderTerrains(sf::RenderWindow &window){
 	for (Terrains::size_type i = 0; i < mTerrains.size(); i++){
-		mTerrains[i]->render(window);
+		if (mTerrains[i]->getType() != Terrain::MEATBALLSPAWNER) {
+			mTerrains[i]->render(window);
+		}
 	}
 	for (BlockTerrains::size_type i = 0; i < mCollisionBlocks.size(); i++) {
 		mCollisionBlocks[i]->render(window);

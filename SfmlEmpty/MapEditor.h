@@ -29,14 +29,14 @@ public:
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
+	void createBlock0Icy(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
-
+	void createMeatballSpawner(sf::Vector2f mousePos, float spawnRate);
 
 	void createDialogue(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
-	void createMeatball(sf::Vector2f mousePos);
 
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
@@ -54,7 +54,6 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void eraseDecoration(int index);
-	void eraseDialogue(int index);
 	void changeInsertType();
 	void changeRotDirection();
 	void changeLayer();
@@ -91,12 +90,12 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogues;
+
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogues mDialogues;
+
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;

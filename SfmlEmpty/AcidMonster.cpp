@@ -6,17 +6,17 @@ AcidMonster::AcidMonster(sf::Vector2f pos):
 mCurrentAnimation(Animations::getAcidMonster()),
 mIsOnScreen(true),
 mIsAlive(true),
-mAcceleration(8),
-mMaxSpeed(8){
-	mVelocityGoal.x = mMaxSpeed;
+mAcceleration(4.3),
+mMaxSpeed(4.3),
+mCollisionBodyOffset(-60,-60){
+	mVelocityGoal.y = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
-	mSprite.setPosition(pos - mSpriteOffset);
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
+	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
+	mCollisionBody.setPosition(pos - mSpriteOffset);
 }
 
-
-AcidMonster::~AcidMonster()
-{
+AcidMonster::~AcidMonster(){
 }
 
 Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
@@ -24,6 +24,7 @@ Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
 }
 
 void AcidMonster::render(sf::RenderWindow &window){
+	AcidMonster::updateTexturepos();
 	window.draw(mSprite);
 }
 
@@ -34,9 +35,8 @@ void AcidMonster::update(){
 	AcidMonster::animate();
 
 	if (Toolbox::getPlayerIsAlive()){
-		mSprite.move(mVelocity);
+		mCollisionBody.move(mVelocity);
 	}
-
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){
@@ -90,6 +90,15 @@ void AcidMonster::blockterrainCollision(BlockTerrain * blockterrain, char direct
 }
 
 // Privates
+
+void AcidMonster::updateTexturepos() {
+	sf::Vector2f temp(mCollisionBody.getPosition() + mSpriteOffset);
+	temp.x -= (mSprite.getLocalBounds().width / 2);
+	temp.y -= (mSprite.getLocalBounds().height / 2);
+	mSprite.setPosition(temp);
+	//std::cout << "X: " << mCollisionBody.getPosition().x << std::endl;
+	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
+}
 
 void AcidMonster::lerp(){
 
