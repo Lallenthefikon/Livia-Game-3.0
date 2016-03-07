@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(250, 350), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
+mMapDimensionsTiles(100, 100), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
@@ -259,8 +259,8 @@ void MapEditor::createDialogue(sf::Vector2f mousePos) {
 	mTerrains.push_back(Factory::createDialogue(mousePos));
 }
 
-void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
-	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
+void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
+	mTerrains.push_back(Factory::createMeatballSpawner(mousepos));
 }
 
 // Decorations
@@ -269,10 +269,6 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 		mAirHorn.play();
 	}
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
-}
-
-void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
-	mTerrains.push_back(Factory::createMeatballSpawner(mousepos));
 }
 
 
@@ -388,12 +384,12 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
-		mInsertType = MapEditorMeny::DIALOGUE;
-		break;
-	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
+		mInsertType = MapEditorMeny::DIALOGUE;
+		break;
+	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:

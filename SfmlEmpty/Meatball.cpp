@@ -15,6 +15,7 @@ mCollisionBodyOffset(-30,-30){
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
+	Meatball::randDirection();
 }
 
 
@@ -78,7 +79,7 @@ void Meatball::getHit() {
 }
 
 void Meatball::setPos(sf::Vector2f newPos) {
-	mSprite.setPosition(newPos);
+	mCollisionBody.setPosition(newPos);
 }
 
 // Private

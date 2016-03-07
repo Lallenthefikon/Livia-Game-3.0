@@ -1,7 +1,9 @@
 #include "Dialogue.h"
 
 Dialogue::Dialogue(sf::Vector2f pos){
-	
+	sf::Texture texture;
+	texture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUETEXTURE));
+	mSprite.setTexture(texture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
 }
@@ -9,7 +11,7 @@ Dialogue::Dialogue(sf::Vector2f pos){
 Dialogue::~Dialogue() {
 }
 
-Dialogue* Dialogue::createDialogue(sf::Vector2f pos) {
+Terrain* Dialogue::createDialogue(sf::Vector2f pos) {
 	return new Dialogue(pos);
 }
 

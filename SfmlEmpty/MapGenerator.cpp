@@ -221,7 +221,7 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
 }
 
 void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mTerrainhandler->addTerrain(Factory::createDialogue(pos));
+	mTerrainhandler->add(pos, '5');
 }
 
 

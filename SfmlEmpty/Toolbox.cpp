@@ -79,7 +79,7 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	//mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy.png");
+	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy.png");
 	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy upp.png");
 
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
@@ -146,8 +146,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mEditorMenyTexture;
 		break;
 
-	case ACIDMONSTERTEXTURE:
-		//return mAcidMonsterVerticalTexture;
+	case ACIDMONSTERVERTICALTEXTURE:
+		return mAcidMonsterVerticalTexture;
+		break;
+
+	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
 		break;
 

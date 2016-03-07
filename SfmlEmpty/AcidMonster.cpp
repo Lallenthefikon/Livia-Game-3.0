@@ -3,7 +3,7 @@
 static const float ANIFramesPerFrame(0.25);
 
 AcidMonster::AcidMonster(sf::Vector2f pos):
-mCurrentAnimation(Animations::getAcidMonsterHorizontal()),
+mCurrentAnimation(Animations::getAcidMonsterVertical()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),

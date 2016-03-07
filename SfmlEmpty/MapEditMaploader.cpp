@@ -125,6 +125,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
+				 break;
 			 case 'A':
 				 switch (line[1]){
 				 case 'C':
@@ -132,7 +133,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
-	
+				 break;
 			 case 'M':
 				 switch (line[1]) {
 				 case '0':

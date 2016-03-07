@@ -29,6 +29,9 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	case '4':
 		mTerrains.push_back(Factory::createMeatballSpawner(pos));
 		break;
+	case '5':
+		mTerrains.push_back(Factory::createDialogue(pos));
+		break;
 	case '01':
 		mCollisionBlocks.push_back(Factory::createCollisionBlock(pos));
 		break;

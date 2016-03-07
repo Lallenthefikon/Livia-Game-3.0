@@ -38,16 +38,16 @@
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="AcidMonster.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Meatball.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="GameRun.cpp">
       <Filter>Source Files\Level</Filter>
@@ -65,10 +65,10 @@
       <Filter>Source Files\Level</Filter>
     </ClCompile>
     <ClCompile Include="CollisionFuncs.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Worm.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Texthandler.cpp">
       <Filter>Source Files\Handlers</Filter>
@@ -130,7 +130,18 @@
     <ClCompile Include="AddObjectsDuringGame.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
-    <ClCompile Include="HandlerFactory.cpp" />
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="Block0Icy.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="HandlerFactory.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="EventBlock.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -268,8 +279,8 @@
     <ClInclude Include="Dialogue.h">
       <Filter>Header Files\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogue0.h">
-      <Filter>Header Files\Dialogue</Filter>
+    <ClInclude Include="HandlerFactory.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -321,23 +332,17 @@
     <Filter Include="Source Files\Handlers">
       <UniqueIdentifier>{fbab6e57-7111-4db2-9fc4-22228c0fb0f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{8b708340-4d34-4f49-af05-ab303bf8d9f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{3efbf8c7-82fb-4282-9f14-ca5067b0a3ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Terrain\Entity">
-      <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Decoration\Dialogue">
-      <UniqueIdentifier>{3ad2bc69-575a-45bb-a797-d17627addc48}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Other">
       <UniqueIdentifier>{590a4ff7-86b1-48df-85af-da45d1ff0858}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Other">
       <UniqueIdentifier>{409161d0-331a-4757-811f-f13d21d40c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogue">
+      <UniqueIdentifier>{3ad2bc69-575a-45bb-a797-d17627addc48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
+      <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

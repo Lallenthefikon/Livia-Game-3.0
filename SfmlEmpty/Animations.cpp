@@ -5,7 +5,8 @@ static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::PLAYERRUNNINGTEXTURE))
 
 static sf::Image& mEnemy0IMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
-static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
+static sf::Image& mAcidMonsterHorizontalIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERHORIZONTALTEXTURE));
+static sf::Image& mAcidMonsterVerticalIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERVERTICALTEXTURE));
 
 static sf::Image& mMeatballIMG(Toolbox::getTexture(Toolbox::MEATBALLTEXTURE));
 
@@ -23,7 +24,7 @@ Animations::Textures mPlayerSlideANI;
 Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
 
-Animations::Textures mAcidMonsterANI;
+Animations::Textures mAcidMonsterHorizontalANI;
 Animations::Textures mAcidMonsterVerticalANI;
 
 Animations::Textures mMeatballANI;
@@ -156,9 +157,9 @@ void Animations::loadTextures(){
 
 	// Acidmonster horizontal ANI
 	for (int i = 0; i < 32; i++){
-	mAcidMonsterANI.push_back(new sf::Texture);
-		mAcidMonsterANI[i]->loadFromImage(mAcidMonsterIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
-		mAcidMonsterANI[i]->setSmooth(true);
+	mAcidMonsterHorizontalANI.push_back(new sf::Texture);
+		mAcidMonsterHorizontalANI[i]->loadFromImage(mAcidMonsterHorizontalIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
+		mAcidMonsterHorizontalANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -169,9 +170,9 @@ void Animations::loadTextures(){
 	y = 0;
 
 	// Acidmonster vertical ANI
-	/*for (int i = 0; i < 32; i++) {
+	for (int i = 0; i < 32; i++) {
 		mAcidMonsterVerticalANI.push_back(new sf::Texture);
-		mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
+		mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterVerticalIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
 		mAcidMonsterVerticalANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
@@ -180,7 +181,7 @@ void Animations::loadTextures(){
 		}
 	}
 	x = 0;
-	y = 0;*/
+	y = 0;
 
 
 	// Heart ANI
@@ -274,7 +275,7 @@ Animations::Textures* Animations::getWormDyingANI(){
 
 // Acid Monster ANI
 Animations::Textures* Animations::getAcidMonsterHorizontal(){
-	return &mAcidMonsterANI;
+	return &mAcidMonsterHorizontalANI;
 }
 
 Animations::Textures* Animations::getAcidMonsterVertical() {

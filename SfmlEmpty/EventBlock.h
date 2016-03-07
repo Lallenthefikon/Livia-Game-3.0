@@ -33,8 +33,6 @@ private:
 
 	void setTexture();
 	
-
-	
 	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
