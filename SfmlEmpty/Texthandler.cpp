@@ -38,9 +38,8 @@ void Texthandler::updateText(sf::Vector2f& centerScreenCoordPos) {
 	//
 }
 
-void Texthandler::renderText(sf::RenderWindow& window, std::string text, sf::Vector2f pos) {
+void Texthandler::renderText(sf::RenderWindow& window, std::string text) {
 	mText.setString(text);
-	mText.setPosition(pos);
 	window.draw(mText);
 	//window.draw(mGameOverText);
 }

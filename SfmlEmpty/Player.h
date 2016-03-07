@@ -112,6 +112,7 @@ private:
 	
 	bool mIsAlive;
 	bool mWin;
+	bool mIsInDialogue;
 	int mLife;
 	bool jumpReleased;
 

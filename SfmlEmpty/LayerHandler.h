@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include <SFML\System.hpp>
 #include "EntityHandler.h"
+#include "Dialoguehandler.h"
 #include "Camera.h"
 #include "Texthandler.h"
 #include "Animations.h"
@@ -41,12 +42,15 @@ private:
 	Animations::Textures* mCurrentAnimation;
 	int mAnimationIndex;
 	float mTimer;
+
 	void animate();
 
 	void updateState();
 	void updateANI();
+
 	
 	sf::Texture mLifeTexture;
+	//std::vector<sf::Sprite> mDialogues;
 	std::vector<sf::Sprite> mLives;
 	std::vector<sf::Sprite> mForegroundObjects;
 	Animations::Textures* mHeartAnimation;
@@ -59,5 +63,6 @@ private:
 
 	Entityhandler& mEntityHandler;
 	Texthandler& mTextHandler;
+	Dialoguehandler& mDialogueHandler;
 };
 

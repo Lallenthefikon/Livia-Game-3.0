@@ -7,7 +7,7 @@ class Texthandler {
 public:
 	static Texthandler& getInstance();
 	void updateText(sf::Vector2f& centerScreenCoordPos);
-	void renderText(sf::RenderWindow& window, std::string text, sf::Vector2f pos);
+	void renderText(sf::RenderWindow& window, std::string text);
 	void renderCurrentLayer(sf::RenderWindow& window, std::string text);
 	void renderGameOver(sf::RenderWindow& window);
 	void renderWin(sf::RenderWindow& window);
