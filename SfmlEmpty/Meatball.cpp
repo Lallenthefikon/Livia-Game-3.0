@@ -84,8 +84,10 @@ void Meatball::lerp() {
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	if (mVelocityGoal.y > mMaxSpeed * Toolbox::getFrameTime()) {
-		mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+	if (Toolbox::getFrameTime() > 0) {
+		if (mVelocityGoal.y > mMaxSpeed * Toolbox::getFrameTime()) {
+			mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+		}
 	}
 	
 	float delta = mAcceleration * Toolbox::getFrameTime();

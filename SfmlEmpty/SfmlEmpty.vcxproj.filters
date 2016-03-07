@@ -133,6 +133,7 @@
     <ClCompile Include="AddObjectsDuringGame.cpp">
       <Filter>Source Files\Other</Filter>
     </ClCompile>
+    <ClCompile Include="HandlerFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -264,6 +265,7 @@
     <ClInclude Include="Abstracthandler.h">
       <Filter>Header Files\Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="HandlerFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

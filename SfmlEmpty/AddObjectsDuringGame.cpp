@@ -2,8 +2,8 @@
 
 
 AddObjectsDuringGame::AddObjectsDuringGame():
-	mEntityHandler(Entityhandler::getInstance()),
-	mTerrainHandler(Terrainhandler::getInstance()){
+	mEntityHandler(HandlerFactory::getEntityHandlerInstance()),
+	mTerrainHandler(HandlerFactory::getTerrainHandlerInstance()){
 }
 
 

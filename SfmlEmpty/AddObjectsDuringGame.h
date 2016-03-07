@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Factory.h"
-#include "Entityhandler.h"
-#include "Terrainhandler.h"
+#include "Abstracthandler.h"
+#include "HandlerFactory.h"
 
 class AddObjectsDuringGame {
 public:
