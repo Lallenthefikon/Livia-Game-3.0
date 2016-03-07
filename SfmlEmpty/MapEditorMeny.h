@@ -11,10 +11,11 @@
 class MapEditorMeny{
 public:
 
+	enum INSERTTYPE {BLOCK0ICY, BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP,
+					  SPIKES, BLOCKGOAL, DECORATION0, DECORATION1, MEATBALLSPAWNER, DIALOGUE };
 	enum INSERTTYPE { BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP, 
 					  SPIKES, BLOCKGOAL, DECORATION0, DECORATION1, MEATBALLSPAWNER, DIALOGUE,
 					  MEATBALL };
-
 
 	static MapEditorMeny& getInstance();
 	void render(sf::RenderWindow &window);
@@ -32,12 +33,11 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogue;
+	
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogue mDialogue;
 	
 	INSERTTYPE mInsertType;
 

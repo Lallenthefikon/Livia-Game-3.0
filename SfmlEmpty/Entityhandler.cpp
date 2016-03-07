@@ -45,8 +45,8 @@ void Entityhandler::bringOutTheDead() {
 				delete mEntities[i];
 				mEntities.erase(mEntities.begin() + i);
 			}
-		}
-	}
+}
+}
 }
 
 int Entityhandler::getPlayerLife() {

@@ -16,6 +16,7 @@ public:
 
 	void centerOnPlayer(sf::RenderWindow &window);
 	void updateStomachCam(sf::RenderWindow &window, std::string cameraState);
+	void updateHubCam(sf::RenderWindow &window, std::string cameraState);
 	/*bool getIsFullscreen(){ return mIsFullscreen; }*/
 	sf::View getTileView(){ return mTileView; }
 	sf::View getSceneryView(){ return mSceneryView; }

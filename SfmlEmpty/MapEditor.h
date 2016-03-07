@@ -31,6 +31,7 @@ public:
 	
 	void createBlock0(sf::Vector2f mousePos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
+	void createBlock0Icy(sf::Vector2f mousePos);
 	void createSpikes(sf::Vector2f mousepos);
 	void createGoal(sf::Vector2f mousePos);
 	void createMeatballSpawner(sf::Vector2f mousePos);
@@ -55,7 +56,6 @@ private:
 	void eraseEntity(int index);
 	void eraseTerrain(int index);
 	void eraseDecoration(int index);
-	void eraseDialogue(int index);
 	void changeInsertType();
 	void changeRotDirection();
 	void changeLayer();
@@ -92,12 +92,12 @@ private:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	typedef std::vector<Dialogue*> Dialogues;
+
 
 	Entities mEntities;
 	Terrains mTerrains;
 	Decorations mDecorations;
-	Dialogues mDialogues;
+
 	MapEditorMeny& mMeny;
 
 	sf::Texture mTileTexture;

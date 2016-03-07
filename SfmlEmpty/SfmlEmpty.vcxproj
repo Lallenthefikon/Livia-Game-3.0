@@ -84,7 +84,10 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Block0.cpp" />
     <ClCompile Include="Block0WallJump.cpp" />
+    <ClCompile Include="Block0Icy.cpp" />
     <ClCompile Include="BlockGoal.cpp" />
+    <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="Dialogue0.cpp" />
     <ClCompile Include="HandlerFactory.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
     <ClCompile Include="BlockTerrain.cpp" />
@@ -94,7 +97,7 @@
     <ClCompile Include="Collisionhandler.cpp" />
     <ClCompile Include="Decoration.cpp" />
     <ClCompile Include="Decorationhandler.cpp" />
-    <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="EventBlock.cpp" />
     <ClCompile Include="Dialoguehandler.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Entityhandler.cpp" />
@@ -131,7 +134,10 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Block0.h" />
     <ClInclude Include="Block0WallJump.h" />
+    <ClInclude Include="Block0Icy.h" />
     <ClInclude Include="BlockGoal.h" />
+    <ClInclude Include="Dialogue.h" />
+    <ClInclude Include="Dialogue0.h" />
     <ClInclude Include="HandlerFactory.h" />
     <ClInclude Include="MeatballSpawner.h" />
     <ClInclude Include="BlockTerrain.h" />
@@ -141,7 +147,7 @@
     <ClInclude Include="Collisionhandler.h" />
     <ClInclude Include="Decoration.h" />
     <ClInclude Include="Decorationhandler.h" />
-    <ClInclude Include="Dialogue.h" />
+    <ClInclude Include="EventBlock.h" />
     <ClInclude Include="Dialoguehandler.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Entityhandler.h" />

@@ -119,7 +119,9 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "ZoomedOut"){
 		// Designers
 		// Följer åt vänster, följer åt höger, följer neråt, följer uppåt
+
 		updateGameCam(window, true, true, true, true);
+
 		//updateCamGAME(window);
 	}
 	else if (currentCamState == "SecondCutscene"){
@@ -129,6 +131,45 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 		//updateStomachStandardCam(window, sf::Vector2f(0.f, 1.f));
 	}
 	else if (currentCamState == "FinalCutscene"){
+
+	}
+}
+
+void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {
+	// Get current screen bounds for reference in other classes
+	window.setView(mTileView);
+	sf::Vector2f camGlobalCenter = Toolbox::findCoordPos(sf::Vector2i(mTileView.getCenter()), window);
+	Toolbox::copyCameraInfo(camGlobalCenter, sf::Vector2f(mTileView.getCenter()));
+
+	// Camera updated differently on parts of the level
+	std::string currentCamState = cameraState;
+	if (currentCamState == "Cutscene") {
+		centerOnPlayer(window);
+	}
+	else if (currentCamState == "Standard") {
+		setCollisionStripe("Left", window);
+		updateGameCam(window, false, true, true, true);
+	}
+	else if (currentCamState == "Shake") {
+
+	}
+	else if (currentCamState == "ZoomOut") {
+		zoomOut(0.5f, 1);
+		//	centerOnPlayer(window);
+	}
+	else if (currentCamState == "ZoomedOut") {
+		// Designers
+		// Följer åt vänster, följer åt höger, följer neråt, följer uppåt
+		updateGameCam(window, true, true, true, true);
+		//updateCamGAME(window);
+	}
+	else if (currentCamState == "SecondCutscene") {
+
+	}
+	else if (currentCamState == "Rising") {
+		//updateStomachStandardCam(window, sf::Vector2f(0.f, 1.f));
+	}
+	else if (currentCamState == "FinalCutscene") {
 
 	}
 }

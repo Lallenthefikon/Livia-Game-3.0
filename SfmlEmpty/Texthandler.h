@@ -8,7 +8,7 @@ public:
 	static Texthandler& getInstance();
 	void updateText(sf::Vector2f& centerScreenCoordPos);
 	void renderText(sf::RenderWindow& window, std::string text);
-	void renderText(sf::RenderWindow& window);
+	void renderCurrentLayer(sf::RenderWindow& window, std::string text);
 	void renderGameOver(sf::RenderWindow& window);
 	void renderWin(sf::RenderWindow& window);
 	void loadGameOverFont();
@@ -20,5 +20,7 @@ private:
 	sf::Text mDialogueText;
 	sf::Text mWinText;
 	sf::Text mText;
+	sf::Text mLayerText;
+	sf::Vector2f mCenter;
 };
 

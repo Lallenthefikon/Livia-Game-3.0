@@ -1,41 +1,25 @@
 #pragma once
 
-#include "Terrain.h"
-#include "Toolbox.h"
-#include <string>
+#include <SFML\Graphics.hpp>
+#include "Animations.h"
 
-class Dialogue : public Terrain {
+class Dialogue {
 public:
 	virtual ~Dialogue();
-	virtual TERRAINTYPE getType() { return Terrain::DIALOGUE; }
-	static Dialogue* createDialogue();
-	virtual void render(sf::RenderWindow &window);
-	virtual void update();
-	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
-	virtual sf::Vector2f getOffset() { return mSpriteOffset; }
-	virtual float getWidth() { return mSprite.getGlobalBounds().width; }
-	virtual float getHeight() { return mSprite.getGlobalBounds().height; }
-	virtual sf::Sprite getSprite() { return mSprite; }
-	virtual bool isOnScreen() { return mIsOnScreen; }
-	virtual void setPos(sf::Vector2f newPos);
-	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
-	virtual char getTileType() { return mTileType; }
 
-	sf::FloatRect bounds;
-	std::vector<std::string> pages;
-private:
-	Dialogue();
+	virtual void render(sf::RenderWindow &window) = 0;
+	virtual void update() = 0;
+	virtual void setPos(sf::Vector2f newPos) = 0;
 
-	void setTexture();
-	
+	virtual sf::Vector2f getPos() = 0;
+	virtual sf::Vector2f getOffset() = 0;
+	virtual float getWidth() = 0;
+	virtual float getHeight() = 0;
+	virtual sf::Sprite getSprite() = 0;
 
-	
-	sf::Texture mTexture;
-	sf::Sprite mSprite;
-	sf::Vector2f mSpriteOffset;
+	virtual bool isOnScreen() = 0;
+	virtual void setScale(sf::Vector2f newScale) = 0;
+	virtual bool getIsDone() = 0;
 
-	char mTileType;
-
-	bool mIsOnScreen = true;
 };
 

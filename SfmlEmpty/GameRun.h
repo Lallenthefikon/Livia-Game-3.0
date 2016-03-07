@@ -9,6 +9,7 @@
 #include "Animations.h"
 #include "Camera.h"
 #include "Stomach.h"
+#include "Hub.h"
 
 class GameRun : public GameState{
 public:
@@ -26,7 +27,11 @@ private:
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;*/
 
-	Stomach& mStomach;
+	Level* mCurrentLevel;
+	Stomach mStomach;
+	//Hub &mHub;
+
+
 
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;

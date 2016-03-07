@@ -11,6 +11,7 @@
 #include "Dialogue.h"
 #include "CollisionBlock.h"
 #include "MeatballSpawner.h"
+#include "Block0Icy.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -40,8 +41,8 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Dialogue* Factory::createDialogue(sf::Vector2f pos) {
-	return Dialogue::createDialogue();
+Terrain* Factory::createDialogue(sf::Vector2f pos) {
+	return Dialogue::createDialogue(pos);
 }
 Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
 	return Decoration::createDecoration(pos, id, layer);
@@ -57,4 +58,8 @@ Entity* Factory::createMeatball(sf::Vector2f pos) {
 
 Terrain* Factory::createMeatballSpawner(sf::Vector2f pos) {
 	return MeatballSpawner::createMeatballSpawner(pos);
+}
+
+Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {
+	return Block0Icy::createBlock0Icy(pos, type);
 }

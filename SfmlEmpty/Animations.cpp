@@ -186,7 +186,7 @@ void Animations::loadTextures(){
 	// Heart ANI
 	for (int i = 0; i < 16; i++){
 		mHeartANI.push_back(new sf::Texture);
-		mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((52 * x), (70 * y), 52, 70));
+		mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((75 * x), (100 * y), 75, 100));
 		mHeartANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){

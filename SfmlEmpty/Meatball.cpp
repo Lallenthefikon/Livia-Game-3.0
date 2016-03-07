@@ -8,15 +8,15 @@ mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(1250),
 mIsAlive(true),
-mLife(1) {
-	mVelocityGoal.y = mMaxSpeed;
+mLife(1),
+mCollisionBodyOffset(-30,-30){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
-	mSprite.setPosition(pos - mSpriteOffset);
-
-	// Needs a texture to get bounds from
-	randDirection();
+	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
+	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
+	mCollisionBody.setPosition(pos - mSpriteOffset);
 }
+
 
 Meatball::~Meatball() {
 }
@@ -28,17 +28,20 @@ Entity * Meatball::createMeatball(sf::Vector2f pos) {
 }
 
 void Meatball::render(sf::RenderWindow & window) {
+	Meatball::updateTexturepos();
 	window.draw(mSprite);
+//	window.draw(mCollisionBody);
 }
 
 void Meatball::update() {
+	mVelocityGoal.y = mMaxSpeed;
 	Meatball::lerp();
 
 	Meatball::updateCollision();
 
 	Meatball::animate();
 	
-	mSprite.move(mVelocity);
+	mCollisionBody.move(mVelocity);
 
 	checkOutOfBounds();
 
@@ -79,6 +82,15 @@ void Meatball::setPos(sf::Vector2f newPos) {
 }
 
 // Private
+
+void Meatball::updateTexturepos() {
+	sf::Vector2f temp(mCollisionBody.getPosition() + mSpriteOffset);
+	temp.x -= (mSprite.getLocalBounds().width / 2);
+	temp.y -= (mSprite.getLocalBounds().height / 2);
+	mSprite.setPosition(temp);
+	//std::cout << "X: " << mCollisionBody.getPosition().x << std::endl;
+	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
+}
 
 void Meatball::lerp() {
 	bool lerpedY(false);
@@ -165,5 +177,5 @@ void Meatball::checkOutOfBounds() {
 }
 
 void Meatball::kill() {
-	mIsAlive = false;
-}
+		mIsAlive = false;
+	}

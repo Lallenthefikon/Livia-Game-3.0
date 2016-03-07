@@ -23,7 +23,8 @@ mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 
 mZoomedOut(false),
-mLevelBounds(0.f, 0.f, 10000.f, 2300.f) {
+mLevelBounds(0.f,0.f,15000.f,12300.f){
+
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
@@ -40,8 +41,12 @@ mLevelBounds(0.f, 0.f, 10000.f, 2300.f) {
 	mLayerHandler.addBackground(mBackgroundTexture);
 
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	//mAcidSprite.setTexture(mAcidTexture);
-	mLayerHandler.addAcid(mAcidTexture);
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	//mLayerHandler.addMiddleground(mAcidTexture);
+	//mLayerHandler.addAcid(mAcidTexture);
 
 }
 
@@ -93,9 +98,11 @@ void Stomach::update(sf::RenderWindow &window){
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		//mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Rising"){
@@ -110,9 +117,9 @@ void Stomach::update(sf::RenderWindow &window){
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		//mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset"){
@@ -126,9 +133,14 @@ void Stomach::render(sf::RenderWindow &window){
 	// Change view to sceneryView containing background, HUD and other estetic scene objects
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
+
+	// Middleground
+	mLayerHandler.renderMiddleground(window);
 	
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
+
+
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -141,11 +153,13 @@ void Stomach::render(sf::RenderWindow &window){
 	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
+
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
 	
 	// Hud
 	mLayerHandler.renderHud(window);
+
 
 	// Dialogue
 	mDialoguehandler.renderDialogue(window);
