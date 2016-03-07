@@ -2,24 +2,36 @@
 
 #include <SFML\Graphics.hpp>
 #include "Animations.h"
+#include "Terrain.h"
 
-class Dialogue {
+class Dialogue : public Terrain{
 public:
 	virtual ~Dialogue();
 
-	virtual void render(sf::RenderWindow &window) = 0;
-	virtual void update() = 0;
-	virtual void setPos(sf::Vector2f newPos) = 0;
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0; }
+	static Dialogue* createDialogue(sf::Vector2f pos);
+	virtual void render(sf::RenderWindow &window);
+	virtual void update();
+	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
+	virtual sf::Vector2f getOffset() { return mSpriteOffset; }
+	virtual float getWidth() { return mSprite.getGlobalBounds().width; }
+	virtual float getHeight() { return mSprite.getGlobalBounds().height; }
+	virtual sf::Sprite getSprite() { return mSprite; }
+	virtual bool isOnScreen() { return mIsOnScreen; }
+	virtual void setPos(sf::Vector2f newPos);
+	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
+	virtual char getTileType() { return mTileType; }
 
-	virtual sf::Vector2f getPos() = 0;
-	virtual sf::Vector2f getOffset() = 0;
-	virtual float getWidth() = 0;
-	virtual float getHeight() = 0;
-	virtual sf::Sprite getSprite() = 0;
+private:
+	Dialogue(sf::Vector2f pos);
 
-	virtual bool isOnScreen() = 0;
-	virtual void setScale(sf::Vector2f newScale) = 0;
-	virtual bool getIsDone() = 0;
+	sf::Texture mTexture;
+	sf::Sprite mSprite;
+	sf::Vector2f mSpriteOffset;
+
+	char mTileType;
+
+	bool mIsOnScreen = true;
 
 };
 

@@ -133,9 +133,6 @@
     <ClCompile Include="Dialogue.cpp">
       <Filter>Source Files\Decoration\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogue0.cpp">
-      <Filter>Source Files\Decoration\Dialogue</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -265,9 +262,6 @@
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Dialogue.h">
-      <Filter>Header Files\Dialogue</Filter>
-    </ClInclude>
-    <ClInclude Include="Dialogue0.h">
       <Filter>Header Files\Dialogue</Filter>
     </ClInclude>
   </ItemGroup>

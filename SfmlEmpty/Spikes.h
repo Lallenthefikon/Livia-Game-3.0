@@ -22,6 +22,7 @@ public:
 	virtual bool isOnScreen(){ return mIsOnScreen; }
 	virtual void setScale(sf::Vector2f newScale) { mCollisionBody.setScale(newScale); mSprite.setScale(newScale); }
 	virtual char getTileType(){ return mTileType; }
+	virtual void trigger(){}
 
 private:
 	Spikes(sf::Vector2f pos, char type);

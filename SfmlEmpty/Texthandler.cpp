@@ -16,6 +16,7 @@ mLayerText() {
 	mLayerText.setColor(sf::Color::Blue);
 	mLayerText.setCharacterSize(60);
 	//mGameOverText.scale(0.5, 0.5);
+	Texthandler::loadDialogueFont();
 }
 
 Texthandler::~Texthandler() {
@@ -29,7 +30,6 @@ Texthandler & Texthandler::getInstance() {
 void Texthandler::updateText(sf::Vector2f& centerScreenCoordPos) {
 	mCenter = centerScreenCoordPos;
 	mLayerText.setPosition(mCenter.x - mText.getGlobalBounds().width / 2, mCenter.y - 700 - mText.getGlobalBounds().height / 2);
-
 	
 
 	//mGameOverText.setPosition(centerScreenCoordPos.x - mGameOverText.getGlobalBounds().width / 2, centerScreenCoordPos.y - 540 - mGameOverText.getGlobalBounds().height / 2);
@@ -52,12 +52,12 @@ void Texthandler::renderCurrentLayer(sf::RenderWindow& window, std::string text)
 	//window.draw(mGameOverText);
 }
 
-void Texthandler::loadGameOverFont() {
-
+void Texthandler::setDialougeText(std::string &text0, std::string &text1, std::string &text2){
+	mDialogueText0.setString(text0);
+	mDialogueText1.setString(text1);
+	mDialogueText2.setString(text2);
 }
 
-void Texthandler::loadDialogueFont() {
-}
 
 void Texthandler::renderGameOver(sf::RenderWindow& window) {
 	window.draw(mGameOverText);
@@ -65,4 +65,22 @@ void Texthandler::renderGameOver(sf::RenderWindow& window) {
 
 void Texthandler::renderWin(sf::RenderWindow& window) {
 	window.draw(mWinText);
+}
+
+void Texthandler::renderDialougeText(sf::RenderWindow& window){
+	
+	window.draw(mDialogueText0);
+	window.draw(mDialogueText1);
+	window.draw(mDialogueText2);
+}
+
+
+void Texthandler::loadGameOverFont() {
+
+}
+
+void Texthandler::loadDialogueFont() {
+	mDialogueText0.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
+	mDialogueText1.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
+	mDialogueText2.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
 }

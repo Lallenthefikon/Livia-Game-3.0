@@ -7,6 +7,7 @@ class Terrain;
 class BlockTerrain;
 class Decoration;
 class Dialogue;
+class Level;
 
 struct Factory{
 	static Entity* createPlayer(sf::Vector2f pos);
@@ -17,7 +18,7 @@ struct Factory{
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
 	static Terrain* createGoal(sf::Vector2f pos);
 
-	static Terrain* createDialogue(sf::Vector2f pos);
+	static Terrain* createDialogue(sf::Vector2f pos, Level* level, char eventType);
 	static BlockTerrain* createCollisionBlock(sf::Vector2f pos);
 	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
 	static Entity* createMeatball(sf::Vector2f pos);

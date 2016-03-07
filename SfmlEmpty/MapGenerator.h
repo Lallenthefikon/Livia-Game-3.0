@@ -37,7 +37,7 @@ private:
 	void createMeatball(sf::Vector2f pos);
 	void createMeatballSpawner(sf::Vector2f pos, float spawnRate);
 	void createDecoration(sf::Vector2f pos, char id, char layer);
-	void createDialogue(sf::Vector2f pos);
+	void createDialogue(sf::Vector2f pos, Level* level, char eventType);
 	
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);

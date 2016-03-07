@@ -21,6 +21,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos) = 0;
 	virtual void setScale(sf::Vector2f newScale) = 0;
 	virtual char getTileType() = 0;
+	virtual void trigger() = 0;
 	
 
 	virtual void addBlockTerrain(Terrain* blockTerrain, bool newX) = 0;

@@ -42,6 +42,7 @@ mLevelBounds(0.f,0.f,15000.f,12300.f){
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
+	
 
 }
 
@@ -87,7 +88,6 @@ void Stomach::update(sf::RenderWindow &window){
 		mTerrainHandler.updateTerrains();
 		mCollisionHandler.checkCollision(mEntityHandler.getEntities(),mTerrainHandler.getTerrains(), mTerrainHandler.getCollisionTerrains());
 		mEntityHandler.bringOutTheDead();
-		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
 		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -120,6 +120,9 @@ void Stomach::update(sf::RenderWindow &window){
 	if (mLevelState == "Reset"){
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue(gEvent, window);
+	}
 }
 
 void Stomach::render(sf::RenderWindow &window){
@@ -129,6 +132,11 @@ void Stomach::render(sf::RenderWindow &window){
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
+	// Dialouge
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+
+	}
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	
@@ -173,6 +181,16 @@ void Stomach::unloadLevel(){
 	//Toolbox::unloadTextures(mMapName);
 }
 
+void Stomach::triggerEvent(char type){
+	switch (type){
+	case 'a':
+		Stomach::eventA();
+		break;
+	default:
+		break;
+	}
+}
+
 void Stomach::setCurrentMap(std::string &mapname){
 }
 
@@ -180,4 +198,9 @@ void Stomach::resetLevel(sf::RenderWindow &window){
 	mCamera.centerOnPlayer(window);
 	mMapGenerator.loadMap(mMapPath);
 	mLevelState = "Cutscene";
+}
+
+void Stomach::eventA(){
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Test.txt");
 }

@@ -217,8 +217,8 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
 	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
 }
 
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mTerrainhandler->addTerrain(Factory::createDialogue(pos));
+void MapGenerator::createDialogue(sf::Vector2f pos, Level* level, char eventType) {
+	mTerrainhandler->addTerrain(Factory::createDialogue(pos, level, eventType));
 }
 
 

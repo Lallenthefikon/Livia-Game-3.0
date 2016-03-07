@@ -41,7 +41,7 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Terrain* Factory::createDialogue(sf::Vector2f pos) {
+Terrain* Factory::createDialogue(sf::Vector2f pos, Level* level, char eventType) {
 	return Dialogue::createDialogue(pos);
 }
 Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {

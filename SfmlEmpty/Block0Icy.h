@@ -20,6 +20,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
+	virtual void trigger() {}
 
 private:
 	Block0Icy(sf::Vector2f pos, char type);

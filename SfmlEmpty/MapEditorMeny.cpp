@@ -125,8 +125,8 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 					mInsertType = MEATBALLSPAWNER;
 					break;
 
-				case Terrain::DIALOGUE:
-					mInsertType = DIALOGUE;
+				case Terrain::EVENT:
+					mInsertType = EVENT;
 					break;
 
 				default:

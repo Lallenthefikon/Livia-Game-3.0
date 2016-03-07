@@ -1,11 +1,12 @@
 #include "EventBlock.h"
 
 
-EventBlock::EventBlock(sf::Vector2f pos) :
-	mTexthandler(Texthandler::getInstance()) {
-	EventBlock::setTexture();
-	mSprite.setTexture(mTexture);
+EventBlock::EventBlock(sf::Vector2f pos, Level *level, char eventType) :
+	mLevel(level),
+	mEventType(eventType){
 	//mSprite.scale(0.4081632653061224, 0.4081632653061224);
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUETEXTURE));
+	mSprite.setTexture(mTexture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
 }
@@ -15,31 +16,25 @@ EventBlock::~EventBlock() {
 }
 
 
-EventBlock* EventBlock::createDialogue(sf::Vector2f pos) {
-	return new EventBlock(pos);
+EventBlock* EventBlock::createEvent(sf::Vector2f pos, Level *level, char eventType) {
+	return new EventBlock(pos, level, eventType);
 }
 
 void EventBlock::render(sf::RenderWindow &window) {
-	//if (mIsInDialogue) {
-		window.draw(mSprite);
-		sf::Vector2f pos = Toolbox::getPlayerPosition();
-		pos.y -= Toolbox::getPlayerSprite().getLocalBounds().height;
-		pos.x += Toolbox::getPlayerSprite().getLocalBounds().width;
-		mTexthandler.renderText(window, "Hej");
-
-	//}
+	window.draw(mSprite);
 }
 
 void EventBlock::update() {
 
 }
 
-void EventBlock::setTexture() {
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::TEXTUREKEY::DIALOGUETEXTURE));
-}
 
 void EventBlock::setPos(sf::Vector2f newPos) {
 	mSprite.setPosition(newPos);
+}
+
+void EventBlock::trigger(){
+	mLevel->triggerEvent(mEventType);
 }
 
 void EventBlock::setIsInDialogue(bool f){

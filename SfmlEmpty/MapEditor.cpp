@@ -532,9 +532,10 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back('0');
 				break;
 
-			case Terrain::DIALOGUE:
+			case Terrain::EVENT:
 				output.push_back('Q');
 				output.push_back('0');
+				output.push_back(mTerrains[i]->getTileType());
 				break;
 
 			case Terrain::MEATBALLSPAWNER:

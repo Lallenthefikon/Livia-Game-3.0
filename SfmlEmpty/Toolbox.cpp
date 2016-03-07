@@ -333,6 +333,7 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 		return mGameOverFont;
 		break;
 	case Toolbox::DIALOGUE:
+		return mGameOverFont;
 		break;
 	default:
 		break;

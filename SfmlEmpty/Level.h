@@ -12,4 +12,5 @@ public:
 	virtual void unloadLevel() = 0;
 	virtual std::string getLevelName() = 0;
 	virtual std::string getLevelDirectory() = 0;
+	virtual void triggerEvent(char type) = 0;
 };
