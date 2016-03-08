@@ -3,7 +3,8 @@
 
 
 Block0Icy::Block0Icy(sf::Vector2f pos, char type):
-mTileType(type){
+mTileType(type),
+mTexture() {
 	Block0Icy::setTexture(type);
 	mSprite.setTexture(mTexture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
@@ -27,10 +28,10 @@ void Block0Icy::update() {
 }
 
 void Block0Icy::setTexture(char type) {
-	float tileWidth(100);
-	float tileHeight(100);
-	int xIndex(0);
-	int yIndex(0);
+	float tileWidth = 100.f;
+	float tileHeight = 100.f;
+	int xIndex = 0;
+	int yIndex = 0;
 
 	switch (type) {
 
@@ -85,7 +86,6 @@ void Block0Icy::setTexture(char type) {
 		break;
 
 	case 'l':
-
 		xIndex = 5;
 		break;
 
@@ -112,8 +112,12 @@ void Block0Icy::setTexture(char type) {
 	default:
 		break;
 	}
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::ACIDMONSTERHORIZONTALTEXTURE),
-		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
+	mTexture.loadFromImage(
+		Toolbox::getTexture(Toolbox::ACIDMONSTERVERTICALTEXTURE), 
+		sf::IntRect(tileWidth * xIndex, 
+					tileHeight * yIndex, 
+					tileWidth, 
+					tileHeight));
 }
 
 void Block0Icy::setPos(sf::Vector2f newPos) {

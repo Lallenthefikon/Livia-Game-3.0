@@ -1,7 +1,6 @@
 #include "GameRun.h"
 
-GameRun::GameRun(std::string &levelDirectory, std::string &levelName):
-mStomach(Stomach::getInstance()){
+GameRun::GameRun(std::string &levelDirectory, std::string &levelName){
 	//mStomach.getInstance();
 	mCurrentLevel = &Stomach::getInstance();
 	//mCurrentLevel = &Stomach::getInstance();

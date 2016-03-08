@@ -79,8 +79,12 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy.png");
-	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy upp.png");
+	if (!mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png")) {
+		std::cout << "Failed to load: Acid monster horizontal" << std::endl;
+	}
+	if (!mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png")) {
+		std::cout << "Failed to load: Acid monster vertical" << std::endl;
+	}
 
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
@@ -147,11 +151,13 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
-		return mAcidMonsterVerticalTexture;
+		return mAcidMonsterHorizontalTexture;
+		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
+		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
