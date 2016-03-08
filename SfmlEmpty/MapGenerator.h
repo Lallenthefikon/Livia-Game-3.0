@@ -35,7 +35,7 @@ private:
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
 	void createMeatball(sf::Vector2f pos);
-	void createMeatballSpawner(sf::Vector2f pos, float spawnRate);
+	void createMeatballSpawner(sf::Vector2f pos);
 	void createDecoration(sf::Vector2f pos, char id, char layer);
 	void createDialogue(sf::Vector2f pos);
 	
@@ -45,7 +45,7 @@ private:
 
 	// Pekare till singeltonklasser
 	Terrainhandler *mTerrainhandler;
-	Entityhandler *mEntityhandler;
+	Entityhandler *mEntityHandler;
 	Decorationhandler *mDecorationhandler;
 	Dialoguehandler *mDialoguehandler;
 

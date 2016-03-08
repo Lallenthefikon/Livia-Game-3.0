@@ -1,15 +1,14 @@
 #pragma once
 
 #include "Terrain.h"
-#include "Meatball.h"
-#include "Entityhandler.h"
+#include "AddObjectsDuringGame.h"
 
 class MeatballSpawner : public Terrain {
 public:
 
 	virtual ~MeatballSpawner();
 	virtual TERRAINTYPE getType() { return Terrain::MEATBALLSPAWNER; }
-	static Terrain* createMeatballSpawner(sf::Vector2f pos, float &spawnRate);
+	static Terrain* createMeatballSpawner(sf::Vector2f pos);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -22,7 +21,7 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
 private:
-	MeatballSpawner(sf::Vector2f pos, float &spawnRate);
+	MeatballSpawner(sf::Vector2f pos);
 
 	void setTexture();
 	void spawnMeatball();
@@ -35,7 +34,7 @@ private:
 	char mTileType;
 	float mSpawnRate;
 	bool mIsOnScreen = true;
+	AddObjectsDuringGame& mAddObjectsDuringGame;
 
-	Entityhandler& mEntityHandler;
 };
 

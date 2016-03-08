@@ -21,7 +21,7 @@ void Dialoguehandler::addDialogue(Dialogue *dialogue){
 }
 
 void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
-	mDialogue[currentDialouge]->render(window);
+	//mDialogue[currentDialouge]->render(window);
 
 	//for (size_t i = 0; i < mDialogue.size(); i++){
 	//	mDialogue[i]->render(window);
@@ -33,9 +33,9 @@ void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 }
 
 void Dialoguehandler::updateDialogue(const sf::Vector2f & pos){
-	mDialogue[currentDialouge]->update();
+	/*mDialogue[currentDialouge]->update();
 	if (mDialogue[currentDialouge]->getIsDone())
-		isInDialogue = false;
+		isInDialogue = false;*/
 
 	///*printf((std::to_string(pos.x) + " " + std::to_string(pos.y) + "\n").data());*/
 	//bool found = false;
