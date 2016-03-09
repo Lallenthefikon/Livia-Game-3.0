@@ -12,6 +12,7 @@
 #include "CollisionBlock.h"
 #include "MeatballSpawner.h"
 #include "Block0Icy.h"
+#include "ExtraLife.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -54,6 +55,10 @@ BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 
 Entity* Factory::createMeatball(sf::Vector2f pos) {
 	return Meatball::createMeatball(pos);
+}
+
+Entity* Factory::createExtraLife(sf::Vector2f pos) {
+	return ExtraLife::createExtraLife(pos);
 }
 
 Terrain* Factory::createMeatballSpawner(sf::Vector2f pos) {

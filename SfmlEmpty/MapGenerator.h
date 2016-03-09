@@ -24,20 +24,25 @@ private:
 	void readTerrainfile(std::string &filename);
 	void readEntityfile(std::string &filename);
 	void readDecorationfile(std::string &filename);
-	void readDialoguefile(std::string &filename);
 
+	// Entities
 	void createWorm(sf::Vector2f pos);
 	void createPlayer(sf::Vector2f pos);
-	void createBlock0(sf::Vector2f pos, char type);
 	void createAcidMonster(sf::Vector2f pos);
+	void createMeatball(sf::Vector2f pos);
+	void createExtraLife(sf::Vector2f pos);
+	
+	// Terrains
+	void createBlock0(sf::Vector2f pos, char type);
 	void createBlock0WallJump(sf::Vector2f pos, char type);
 	void createBlock0Icy(sf::Vector2f pos, char type);
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
-	void createMeatball(sf::Vector2f pos);
 	void createMeatballSpawner(sf::Vector2f pos);
-	void createDecoration(sf::Vector2f pos, char id, char layer);
 	void createDialogue(sf::Vector2f pos);
+	
+	// Decoration
+	void createDecoration(sf::Vector2f pos, char id, char layer);
 	
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);

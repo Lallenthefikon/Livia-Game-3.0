@@ -29,7 +29,7 @@ void WormSound::playSound(SOUNDTYPE type) {
 	switch (type) {
 	case SoundFX::RUNNING:
 		break;
-	case SoundFX::JUMPING:
+	case SoundFX::JUMPING1:
 		break;
 	case SoundFX::LANDING:
 		break;
@@ -56,7 +56,7 @@ void WormSound::stopSound(SOUNDTYPE type) {
 	switch (type) {
 	case SoundFX::RUNNING:
 		break;
-	case SoundFX::JUMPING:
+	case SoundFX::JUMPING1:
 		break;
 	case SoundFX::LANDING:
 		break;

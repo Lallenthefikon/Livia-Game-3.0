@@ -142,6 +142,9 @@
     <ClCompile Include="EventBlock.cpp">
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="ExtraLife.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -281,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="HandlerFactory.h">
       <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraLife.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

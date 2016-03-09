@@ -10,9 +10,7 @@
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
 #include "Camera.h"
-
 #include "Dialogue.h"
-
 #include "Texthandler.h"
 #include "LayerHandler.h"
 
@@ -28,6 +26,7 @@ public:
 	void createWorm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createMeatball(sf::Vector2f mousePos);
+	void createExtraLife(sf::Vector2f mousePos);
 	
 	void createBlock0(sf::Vector2f mousePos);
 	void createBlock0WallJump(sf::Vector2f mousePos);

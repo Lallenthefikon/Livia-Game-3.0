@@ -17,6 +17,7 @@ mHeartAnimation(Animations::getHeartANI()){
 }
 
 LayerHandler::~LayerHandler(){
+	LayerHandler::internalClear();
 }
 
 LayerHandler& LayerHandler::getInstance(){
@@ -258,7 +259,7 @@ void LayerHandler::renderForeground(sf::RenderWindow &window){
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
 
-	if (mEntityHandler->getPlayerLife() == 3){
+	/*if (mEntityHandler->getPlayerLife() == 3){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
@@ -274,6 +275,19 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 	else if (mEntityHandler->getPlayerLife() == 1){
 		window.draw(mLives[0]);
 		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
+	}*/
+
+	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
+		window.draw(mLives[i]);
+	}
+
+	int div;
+	if (mEntityHandler->getPlayerLife() != 0) {
+		div = mEntityHandler->getPlayerLife();
+		if (div > 3) {
+			div = 3;
+		}
+		ANIFramesPerFrame = 125 / div * Toolbox::getFrameTime();
 	}
 
 	if (mDialogueHandler.isInDialogue){
@@ -283,9 +297,9 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
+	updateLife();
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
-
 	}
 
 	LayerHandler::animate();
@@ -325,13 +339,11 @@ void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
 }
 
 void LayerHandler::addLifeSprite(sf::Sprite &life){
-	mLives.push_back(life);
-	mLives.push_back(life);
-	mLives.push_back(life);
+	mLifeSprite = sf::Sprite(life);
 
-	for (int i = 0; i < mLives.size(); i++){
+	/*for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setTexture(*mHeartAnimation->at(0));
-	}
+	}*/
 }
 
 void LayerHandler::addAcid(sf::Texture &acidTexture) {
@@ -357,7 +369,15 @@ void LayerHandler::animate(){
 	}
 }
 
+void LayerHandler::updateLife() {
+	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
+		mLives.push_back(sf::Sprite(mLifeSprite));
+	}
+}
 
+void LayerHandler::internalClear() {
+	
+}
 
 	//if (mTimerANI >= 1){
 	//	mAnimationIndex += 1;

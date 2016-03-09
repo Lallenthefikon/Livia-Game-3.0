@@ -38,6 +38,7 @@ private:
 	void createWorm(sf::Vector2f &pos);
 	void createAcidMonster(sf::Vector2f &pos);
 	void createMeatball(sf::Vector2f &pos);
+	void createExtraLife(sf::Vector2f &pos);
 
 	void createBlock0(sf::Vector2f &pos, char type);
 	void createBlock0WallJump(sf::Vector2f &pos, char type);
@@ -45,10 +46,8 @@ private:
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
 	void createDialogue(sf::Vector2f &pos);
-	void createMeatballSpawner(sf::Vector2f &pos, float spawnRate);
 	void createMeatballSpawner(sf::Vector2f &pos);
 	
-	void createDialogue(sf::Vector2f &pos, char type);
 	void createDecoration(sf::Vector2f &pos, char id, char layer);
 
 

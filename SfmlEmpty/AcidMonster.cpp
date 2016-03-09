@@ -3,11 +3,11 @@
 static const float ANIFramesPerFrame(0.25);
 
 AcidMonster::AcidMonster(sf::Vector2f pos):
-mCurrentAnimation(Animations::getAcidMonsterHorizontal()),
+mCurrentAnimation(Animations::getAcidMonsterVertical()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
-mMaxSpeed(-258), // 4.3
+mMaxSpeed(-4.3), // 4.3 // 258
 mCollisionBodyOffset(-60,-60){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
@@ -29,7 +29,7 @@ void AcidMonster::render(sf::RenderWindow &window){
 
 void AcidMonster::update(){
 
-	mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+	mVelocityGoal.y = mMaxSpeed;
 	AcidMonster::lerp();
 
 	AcidMonster::updateState();
@@ -107,13 +107,13 @@ void AcidMonster::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	if (Toolbox::getFrameTime() > 0) {
-		if (mVelocityGoal.y > mMaxSpeed * Toolbox::getFrameTime()) {
-			mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+	//if (Toolbox::getFrameTime() > 0) {
+		if (mVelocityGoal.y > mMaxSpeed) {
+			mVelocityGoal.y = mMaxSpeed;
 		}
-	}
+	//}
 	
-	float delta = mAcceleration * Toolbox::getFrameTime();
+	float delta = mAcceleration * 0.016;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -179,5 +179,5 @@ void AcidMonster::getHit(){
 }
 
 void AcidMonster::setPos(sf::Vector2f newPos){
-	mSprite.setPosition(newPos);
+	mCollisionBody.setPosition(newPos);
 }
