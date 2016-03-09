@@ -30,6 +30,7 @@ public:
 	virtual Terrains2D& getBlocks();
 	virtual Terrain::TERRAINTYPE getType(sf::Vector2f pos, float length, char direction);
 	virtual char getTileType(sf::Vector2f pos, float length, char direction);
+	virtual void clear();
 private:
 	CollisionBlock(sf::Vector2f pos);
 
@@ -37,6 +38,7 @@ private:
 	sf::Vector2f mSpriteOffset;
 
 	void updateRect();
+	void internalClear();
 
 	void checkCollisionR(sf::Vector2f pos, float length);
 	void checkCollisionL(sf::Vector2f pos, float length);

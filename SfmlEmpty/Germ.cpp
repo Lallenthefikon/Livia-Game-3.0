@@ -12,6 +12,7 @@ Germ::Germ(sf::Vector2f pos) :
 	mIsAlive(true),
 	mLife(5),
 	mState(IMWALKINGHERE),
+	mCurrentAnimationRate(15.643),
 	mSoundFX(SoundFactory::getWormSound()) {
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
@@ -36,6 +37,7 @@ void Germ::render(sf::RenderWindow &window) {
 }
 
 void Germ::update() {
+	ANIFramesPerFrame = mCurrentAnimationRate * Toolbox::getFrameTime();
 
 	Germ::addSpeed();
 	Germ::lerp();
@@ -77,25 +79,25 @@ void Germ::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
 
 		case 't':
 			mCollisionT = true;
-			delta = mSprite.getPosition().y - blockterrain->getPos().y;
+			delta = mCollisionBody.getPosition().y - blockterrain->getPos().y;
 			mCollisionBody.move(sf::Vector2f(0, blockterrain->getHeight() - delta + 1));
 			mCurrentCollisionT = blockterrain;
 			break;
 		case 'b':
 			mCollisionB = true;
-			delta = blockterrain->getPos().y - mSprite.getPosition().y;
+			delta = blockterrain->getPos().y - mCollisionBody.getPosition().y;
 			mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
 			mCurrentCollisionB = blockterrain;
 			break;
 		case 'l':
 			mCollisionL = true;
-			delta = mSprite.getPosition().x - blockterrain->getPos().x;
+			delta = mCollisionBody.getPosition().x - blockterrain->getPos().x;
 			mCollisionBody.move(sf::Vector2f(blockterrain->getWidth() - delta + 1, 0));
 			mCurrentCollisionL = blockterrain;
 			break;
 		case 'r':
 			mCollisionR = true;
-			delta = blockterrain->getPos().x - mSprite.getPosition().x;
+			delta = blockterrain->getPos().x - mCollisionBody.getPosition().x;
 			mCollisionBody.move(sf::Vector2f(delta - this->getWidth(), 0));
 			mCurrentCollisionR = blockterrain;
 			break;
@@ -234,12 +236,12 @@ void Germ::updateANI() {
 	case Germ::IMWALKINGHERE:
 		mCurrentAnimation = Animations::getGermWalkingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 130));
-		ANIFramesPerFrame = 0.5;
+		mCurrentAnimationRate = 31.250;
 		break;
 	case Germ::DAMAGED:
 		mCurrentAnimation = Animations::getGermDamagedANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 65, 130));
-		ANIFramesPerFrame = 0.25;
+		mCurrentAnimationRate = 15.625;
 		break;
 	default:
 		break;

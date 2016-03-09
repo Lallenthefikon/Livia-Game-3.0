@@ -100,6 +100,7 @@ void Terrainhandler::internalClear(){
 		mTerrains.pop_back();
 	}
 	while (!mCollisionBlocks.empty()) {
+		mCollisionBlocks.back()->clear();
 		delete mCollisionBlocks.back();
 		mCollisionBlocks.pop_back();
 	}
