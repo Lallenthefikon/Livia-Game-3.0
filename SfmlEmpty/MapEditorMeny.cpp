@@ -66,7 +66,7 @@ void MapEditorMeny::insertObjects(){
 	
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 4.8, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
-	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 5.8f, 150), 0));
+	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 5.8f, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 
 	// Dialog

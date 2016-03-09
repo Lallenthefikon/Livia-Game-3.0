@@ -189,12 +189,8 @@ void MapGenerator::createPlayer(sf::Vector2f pos){
 	mEntityHandler->add(pos, '0');
 }
 
-void MapGenerator::createGerm(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createGerm(pos));
-}
-
-void MapGenerator::createPlayer(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createPlayer(pos));
+void MapGenerator::createWorm(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '1');
 }
 
 void MapGenerator::createAcidMonster(sf::Vector2f pos){
@@ -203,6 +199,11 @@ void MapGenerator::createAcidMonster(sf::Vector2f pos){
 
 void MapGenerator::createMeatball(sf::Vector2f pos) {
 	mEntityHandler->add(pos, '3');
+}
+
+
+void MapGenerator::createGerm(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '4');
 }
 
 
