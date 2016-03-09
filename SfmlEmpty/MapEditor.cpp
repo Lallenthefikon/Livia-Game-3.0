@@ -16,6 +16,7 @@ mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
+mDialogueHandler(Dialoguehandler::getInstance()),
 
 mCamera(),
 
@@ -251,8 +252,8 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
-void MapEditor::createDialogue(sf::Vector2f mousePos) {
-	mTerrains.push_back(Factory::createDialogue(mousePos));
+void MapEditor::createEvent(sf::Vector2f mousePos) {
+	mTerrains.push_back(Factory::createEvent(mousePos, 'a'));
 }
 
 void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
@@ -325,8 +326,8 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::MEATBALLSPAWNER:
 		MapEditor::createMeatballSpawner(mousePos, 0.01f);
 		break;
-	case MapEditorMeny::DIALOGUE:
-		MapEditor::createDialogue(mousePos);
+	case MapEditorMeny::EVENT:
+		MapEditor::createEvent(mousePos);
 		break;
 	default:
 		break;
@@ -378,9 +379,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
-		mInsertType = MapEditorMeny::DIALOGUE;
+		mInsertType = MapEditorMeny::EVENT;
 		break;
-	case MapEditorMeny::DIALOGUE:
+	case MapEditorMeny::EVENT:
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:

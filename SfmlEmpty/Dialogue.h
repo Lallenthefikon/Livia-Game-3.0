@@ -9,7 +9,7 @@ public:
 	virtual ~Dialogue();
 
 	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0; }
-	static Dialogue* createDialogue(sf::Vector2f pos);
+	static Dialogue* createEvent(sf::Vector2f pos);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -21,6 +21,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
+	virtual void trigger();
 
 private:
 	Dialogue(sf::Vector2f pos);

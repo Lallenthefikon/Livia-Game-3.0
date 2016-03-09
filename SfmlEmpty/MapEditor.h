@@ -15,6 +15,7 @@
 
 #include "Texthandler.h"
 #include "LayerHandler.h"
+#include "Dialoguehandler.h"
 
 
 class MapEditor : public GameState{
@@ -34,7 +35,7 @@ public:
 	void createGoal(sf::Vector2f mousePos);
 	void createMeatballSpawner(sf::Vector2f mousePos, float spawnRate);
 
-	void createDialogue(sf::Vector2f mousePos);
+	void createEvent(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
@@ -66,7 +67,6 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
-	void writeDialoguesToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -112,6 +112,7 @@ private:
 
 	Texthandler& mTextHandler;
 	LayerHandler& mLayerHandler;
+	Dialoguehandler& mDialogueHandler;
 
 	sf::Sound mAirHorn;
 };

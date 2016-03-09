@@ -4,8 +4,7 @@
 MapGenerator::MapGenerator() :
 mTerrainhandler(&Terrainhandler::getInstance()),
 mEntityhandler(&Entityhandler::getInstance()),
-mDecorationhandler(&Decorationhandler::getInstance()),
-mDialoguehandler(&Dialoguehandler::getInstance()){
+mDecorationhandler(&Decorationhandler::getInstance()){
 }
 
 MapGenerator::~MapGenerator(){
@@ -23,7 +22,6 @@ void MapGenerator::loadMap(std::string &mapname){
 	mEntityhandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
-	mDialoguehandler->clear();
 
 	mapname[15] = 'T';
 	MapGenerator::readTerrainfile(mapname);
@@ -68,6 +66,14 @@ void MapGenerator::readTerrainfile(std::string &filename){
 					break;
 				}
 				break;
+				
+				
+
+			 // Event block
+
+			case 'O':
+					MapGenerator::createEvent(MapGenerator::readPosition(line), line[1]);
+					break;
 
 			// Spikes
 			case 'S':
@@ -217,8 +223,8 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
 	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
 }
 
-void MapGenerator::createDialogue(sf::Vector2f pos, Level* level, char eventType) {
-	mTerrainhandler->addTerrain(Factory::createDialogue(pos, level, eventType));
+void MapGenerator::createEvent(sf::Vector2f pos, char eventType) {
+	mTerrainhandler->addTerrain(Factory::createEvent(pos, eventType));
 }
 
 

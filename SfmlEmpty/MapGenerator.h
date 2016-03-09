@@ -24,7 +24,6 @@ private:
 	void readTerrainfile(std::string &filename);
 	void readEntityfile(std::string &filename);
 	void readDecorationfile(std::string &filename);
-	void readDialoguefile(std::string &filename);
 
 	void createWorm(sf::Vector2f pos);
 	void createPlayer(sf::Vector2f pos);
@@ -37,7 +36,7 @@ private:
 	void createMeatball(sf::Vector2f pos);
 	void createMeatballSpawner(sf::Vector2f pos, float spawnRate);
 	void createDecoration(sf::Vector2f pos, char id, char layer);
-	void createDialogue(sf::Vector2f pos, Level* level, char eventType);
+	void createEvent(sf::Vector2f pos, char eventType);
 	
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);

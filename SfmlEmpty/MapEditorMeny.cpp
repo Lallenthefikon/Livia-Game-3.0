@@ -65,7 +65,7 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 
 	// Dialog
-	mTerrains.push_back(Factory::createDialogue(sf::Vector2f(WIDTHBETWEEN * 2.8, 150)));
+	mTerrains.push_back(Factory::createEvent(sf::Vector2f(WIDTHBETWEEN * 2.8, 150), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 
 	// Decorations
