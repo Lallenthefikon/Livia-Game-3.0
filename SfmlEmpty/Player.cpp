@@ -30,14 +30,14 @@ Player::Player(sf::Vector2f pos) :
 
 	// Stats
 	mMaxSpeed(800),
-	mIcyMaxSpeed(1600),
+	mIcyMaxSpeed(1500), //Design, 1500
 mAcceleration(70, 70),
-mIcyAcceleration(10,70),
+mIcyAcceleration(12,70), //Design, 12, 70
 mLife(3),
 mWallSlideSpeed(4),
 mTimeInvulnerable(sf::seconds(3)),
 mAirbornAcc(70),
-mIcyAirborn(20),
+mIcyAirborn(19), //Design, 19
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()),

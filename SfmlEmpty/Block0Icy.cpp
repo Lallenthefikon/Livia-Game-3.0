@@ -112,7 +112,7 @@ void Block0Icy::setTexture(char type) {
 	default:
 		break;
 	}
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::EDITORMENY),
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE),
 		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
 }
 
