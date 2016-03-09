@@ -25,4 +25,5 @@ struct Factory{
 	static Decoration* createDecoration(sf::Vector2f pos, char id, char layer);
 
 	static Terrain* createBlock0Icy(sf::Vector2f pos, char id);
+	static Entity* createGerm(sf::Vector2f pos);
 };

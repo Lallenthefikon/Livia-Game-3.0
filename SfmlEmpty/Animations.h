@@ -20,6 +20,10 @@ struct Animations{
 
 	static Textures* getAcidMonsterHorizontal();
 	static Textures* getAcidMonsterVertical();
+	static Textures* getGermWalkingANI();
+	static Textures* getGermDamagedANI();
+
+	static Textures* getAcidMonster();
 
 	static Textures* getMeatballANI();
 

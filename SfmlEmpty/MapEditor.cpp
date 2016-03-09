@@ -25,7 +25,7 @@ mAirHorn(Toolbox::getSound(Toolbox::WORMIDLE)) {
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
-	MapEditor::loadLevel();
+	//MapEditor::loadLevel();
 	MapEditor::createGrid();
 }
 
@@ -226,6 +226,10 @@ void MapEditor::createWorm(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createWorm(mousePos));
 }
 
+void MapEditor::createGerm(sf::Vector2f mousePos) {
+	mEntities.push_back(Factory::createGerm(mousePos));
+}
+
 void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
 }
@@ -304,6 +308,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::WORM:
 		MapEditor::createWorm(mousePos);
 		break;
+	case MapEditorMeny::GERM:
+		MapEditor::createGerm(mousePos);
+		break;
 	case MapEditorMeny::ACIDMONSTER:
 		MapEditor::createAcidMonster(mousePos);
 		break;
@@ -366,6 +373,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::WORM;
 		break;
 	case MapEditorMeny::WORM:
+		mInsertType = MapEditorMeny::GERM;
+		break;
+	case MapEditorMeny::GERM:
 		mInsertType = MapEditorMeny::BLOCK0;
 		break;
 	case MapEditorMeny::BLOCK0:
@@ -602,6 +612,11 @@ void MapEditor::writeEntityToFile(std::string filename){
 			case Entity::WORM:
 				output.push_back('W');
 				output.push_back('0');
+				break;
+
+			case Entity::GERM:
+				output.push_back('G');
+				output.push_back('E');
 				break;
 
 			case Entity::ACIDMONSTER:

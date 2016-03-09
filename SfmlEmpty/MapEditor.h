@@ -26,6 +26,7 @@ public:
 	
 	void createPlayer(sf::Vector2f mousePos);
 	void createWorm(sf::Vector2f mousePos);
+	void createGerm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createMeatball(sf::Vector2f mousePos);
 	

@@ -137,6 +137,7 @@ void Player::entityCollision(Entity* entity, char direction){
 	float delta;
 	switch (entity->getType()){
 	case Entity::WORM:
+	case Entity::GERM:
 		switch (direction){
 		case 'b':
 			if (mLife > 0){
@@ -472,7 +473,7 @@ void Player::updateState() {
 		// Player runs in a direction
 		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
 			mState = RUNNING;
-			Player::updateANI();
+			changed = true;
 			if (!mVelocity.y > 0) {
 				Player::playSound(RUNNING);
 			}

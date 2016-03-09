@@ -282,6 +282,9 @@
     <ClInclude Include="HandlerFactory.h">
       <Filter>Header Files\Other</Filter>
     </ClInclude>
+    <ClInclude Include="Germ.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

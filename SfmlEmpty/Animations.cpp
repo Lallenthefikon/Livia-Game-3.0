@@ -26,6 +26,10 @@ Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterHorizontalANI;
 Animations::Textures mAcidMonsterVerticalANI;
+Animations::Textures mGermWalkingANI;
+Animations::Textures mGermDamagedANI;
+
+Animations::Textures mAcidMonsterANI;
 
 Animations::Textures mMeatballANI;
 
@@ -155,7 +159,35 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	// Acidmonster horizontal ANI
+	// Germ Walking ANI
+	for (int i = 0; i < 16; i++) {
+		mGermWalkingANI.push_back(new sf::Texture);
+		mGermWalkingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x), (130 * y) + 216, 80, 130));
+		mGermWalkingANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Germ damaged ANI
+	for (int i = 0; i < 8; i++) {
+		mGermDamagedANI.push_back(new sf::Texture);
+		mGermDamagedANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((65 * x) + 333, (130 * y) + 200, 65, 130));
+		mGermDamagedANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Acidmonster ANI
 	for (int i = 0; i < 32; i++){
 	mAcidMonsterHorizontalANI.push_back(new sf::Texture);
 		mAcidMonsterHorizontalANI[i]->loadFromImage(mAcidMonsterHorizontalIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
@@ -272,6 +304,17 @@ Animations::Textures* Animations::getWormCrawlingANI(){
 Animations::Textures* Animations::getWormDyingANI(){
 	return &mWormDyingANI;
 }
+
+// Germ Walking ANI
+Animations::Textures* Animations::getGermWalkingANI() {
+	return &mGermWalkingANI;
+}
+
+Animations::Textures* Animations::getGermDamagedANI() {
+	return &mGermDamagedANI;
+}
+
+
 
 // Acid Monster ANI
 Animations::Textures* Animations::getAcidMonsterHorizontal(){

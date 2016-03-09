@@ -27,6 +27,7 @@ private:
 	void readDialoguefile(std::string &filename);
 
 	void createWorm(sf::Vector2f pos);
+	void createGerm(sf::Vector2f pos);
 	void createPlayer(sf::Vector2f pos);
 	void createBlock0(sf::Vector2f pos, char type);
 	void createAcidMonster(sf::Vector2f pos);
