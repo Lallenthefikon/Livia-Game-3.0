@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(250, 350), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
+mMapDimensionsTiles(100, 100), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
@@ -95,7 +95,7 @@ void MapEditor::update(sf::RenderWindow &window){
 						}
 					}
 
-					break;
+							break;
 
 				case sf::Mouse::Middle:
 					MapEditor::changeInsertType();
@@ -234,6 +234,10 @@ void MapEditor::createAcidMonster(sf::Vector2f mousePos){
 	mEntities.push_back(Factory::createAcidMonster(mousePos));
 }
 
+void MapEditor::createMeatball(sf::Vector2f mousePos) {
+	mEntities.push_back(Factory::createMeatball(mousePos));
+}
+
 // Terrains
 void MapEditor::createBlock0(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
@@ -259,8 +263,8 @@ void MapEditor::createDialogue(sf::Vector2f mousePos) {
 	mTerrains.push_back(Factory::createDialogue(mousePos));
 }
 
-void MapEditor::createMeatballSpawner(sf::Vector2f mousepos, float spawnRate) {
-	mTerrains.push_back(Factory::createMeatballSpawner(mousepos, spawnRate));
+void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
+	mTerrains.push_back(Factory::createMeatballSpawner(mousepos));
 }
 
 // Decorations
@@ -270,7 +274,6 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
 	}
 	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
 }
-
 
 
 void MapEditor::loadLevel(){
@@ -329,8 +332,11 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION1:
 		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
 		break;
+	case MapEditorMeny::MEATBALL:
+		MapEditor::createMeatball(mousePos);
+		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
-		MapEditor::createMeatballSpawner(mousePos, 0.01f);
+		MapEditor::createMeatballSpawner(mousePos);
 		break;
 	case MapEditorMeny::DIALOGUE:
 		MapEditor::createDialogue(mousePos);
@@ -388,15 +394,18 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
-		mInsertType = MapEditorMeny::DIALOGUE;
-		break;
-	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
+		mInsertType = MapEditorMeny::DIALOGUE;
+		break;
+	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
+		mInsertType = MapEditorMeny::MEATBALL;
+		break;
+	case MapEditorMeny::MEATBALL:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:

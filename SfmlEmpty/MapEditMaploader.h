@@ -14,7 +14,7 @@ public:
 	typedef std::vector<Entity*> Entities;
 	typedef std::vector<Terrain*> Terrains;
 	typedef std::vector<Decoration*> Decorations;
-	
+
 
 	static MapEditMaploader& getInstance();
 
@@ -34,17 +34,22 @@ private:
 	void readDecorationfile(std::string &mapname);
 
 
-	void createBlock0(sf::Vector2f &pos, char type);
 	void createPlayer(sf::Vector2f &pos);
 	void createWorm(sf::Vector2f &pos);
 	void createGerm(sf::Vector2f &pos);
 	void createAcidMonster(sf::Vector2f &pos);
+	void createMeatball(sf::Vector2f &pos);
+
+	void createBlock0(sf::Vector2f &pos, char type);
 	void createBlock0WallJump(sf::Vector2f &pos, char type);
 	void createBlock0Icy(sf::Vector2f &pos, char type);
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
 	void createDialogue(sf::Vector2f &pos);
 	void createMeatballSpawner(sf::Vector2f &pos, float spawnRate);
+	void createMeatballSpawner(sf::Vector2f &pos);
+	
+	void createDialogue(sf::Vector2f &pos, char type);
 	void createDecoration(sf::Vector2f &pos, char id, char layer);
 
 

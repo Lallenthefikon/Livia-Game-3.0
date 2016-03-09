@@ -5,7 +5,8 @@ static sf::Image& mPlayerIMG(Toolbox::getTexture(Toolbox::PLAYERRUNNINGTEXTURE))
 
 static sf::Image& mEnemy0IMG(Toolbox::getTexture(Toolbox::WORMTEXTURE));
 
-static sf::Image& mAcidMonsterIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERTEXTURE));
+static sf::Image& mAcidMonsterHorizontalIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERHORIZONTALTEXTURE));
+static sf::Image& mAcidMonsterVerticalIMG(Toolbox::getTexture(Toolbox::ACIDMONSTERVERTICALTEXTURE));
 
 static sf::Image& mMeatballIMG(Toolbox::getTexture(Toolbox::MEATBALLTEXTURE));
 
@@ -23,6 +24,8 @@ Animations::Textures mPlayerSlideANI;
 Animations::Textures mWormDyingANI;
 Animations::Textures mWormCrawlingANI;
 
+Animations::Textures mAcidMonsterHorizontalANI;
+Animations::Textures mAcidMonsterVerticalANI;
 Animations::Textures mGermWalkingANI;
 Animations::Textures mGermDamagedANI;
 
@@ -186,9 +189,9 @@ void Animations::loadTextures(){
 
 	// Acidmonster ANI
 	for (int i = 0; i < 32; i++){
-	mAcidMonsterANI.push_back(new sf::Texture);
-		mAcidMonsterANI[i]->loadFromImage(mAcidMonsterIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
-		mAcidMonsterANI[i]->setSmooth(true);
+	mAcidMonsterHorizontalANI.push_back(new sf::Texture);
+		mAcidMonsterHorizontalANI[i]->loadFromImage(mAcidMonsterHorizontalIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
+		mAcidMonsterHorizontalANI[i]->setSmooth(true);
 		x++;
 		if (x == 4){
 			x = 0;
@@ -198,7 +201,20 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	
+	// Acidmonster vertical ANI
+	for (int i = 0; i < 32; i++) {
+		mAcidMonsterVerticalANI.push_back(new sf::Texture);
+		mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterVerticalIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
+		mAcidMonsterVerticalANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
 
 	// Heart ANI
 	for (int i = 0; i < 16; i++){
@@ -228,6 +244,23 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Meatball ANI
+	for (int i = 0; i < 16; i++) {
+		mMeatballANI.push_back(new sf::Texture);
+		mMeatballANI[i]->loadFromImage(mMeatballIMG, sf::IntRect((200 * x), (200 * y), 200, 200));
+		mMeatballANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+
+	/*mMeatballANI.push_back(new sf::Texture);
+	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));*/
 
 	// Decoration sprite
 	mDecoration0ANI.push_back(new sf::Texture);
@@ -236,8 +269,6 @@ void Animations::loadTextures(){
 	mDecoration1ANI.push_back(new sf::Texture);
 	mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(100, 0, 100, 200));
 
-	mMeatballANI.push_back(new sf::Texture);
-	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));
 }
 // Player ANI
 
@@ -286,8 +317,12 @@ Animations::Textures* Animations::getGermDamagedANI() {
 
 
 // Acid Monster ANI
-Animations::Textures* Animations::getAcidMonster(){
-	return &mAcidMonsterANI;
+Animations::Textures* Animations::getAcidMonsterHorizontal(){
+	return &mAcidMonsterHorizontalANI;
+}
+
+Animations::Textures* Animations::getAcidMonsterVertical() {
+	return &mAcidMonsterVerticalANI;
 }
 
 // Meatball ANI

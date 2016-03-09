@@ -34,9 +34,6 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 	for (Decorations::size_type i = 0; i < mDecorations.size(); i++) {
 		mDecorations[i]->render(window);
 	}
-
-
-
 }
 
 void MapEditorMeny::insertObjects(){
@@ -46,22 +43,27 @@ void MapEditorMeny::insertObjects(){
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
 	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
 	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
+	
 	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
-	/*mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
-	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));*/
 
+	mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 
 
 	// Terrains
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	
 	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	
 	mTerrains.push_back(Factory::createBlock0Icy(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
+	
 	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 3.8, 150), 't'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6)); 
+	
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 4.8, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 5.8f, 150), 0));
@@ -94,9 +96,13 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				case Entity::WORM:
 					mInsertType = WORM;
 					break;
-					
+
 				case Entity::GERM:
 					mInsertType = GERM;
+					break;
+
+				case Entity::MEATBALL:
+					mInsertType = MEATBALL;
 					break;
 
 				default:
@@ -156,9 +162,6 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 			}
 		}
 
-	
-
-
 		std::cout << std::to_string(mInsertType) << std::endl;
 
 		return true;
@@ -174,6 +177,7 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	//// Worm
 	//mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
 
+	// Entities
 	for (size_t i = 0; i < mEntities.size(); i++)
 		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 10));
 

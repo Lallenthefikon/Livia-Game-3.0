@@ -55,11 +55,10 @@ BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 
 Entity* Factory::createMeatball(sf::Vector2f pos) {
 	return Meatball::createMeatball(pos);
-
 }
 
-Terrain* Factory::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
-	return MeatballSpawner::createMeatballSpawner(pos, spawnRate);
+Terrain* Factory::createMeatballSpawner(sf::Vector2f pos) {
+	return MeatballSpawner::createMeatballSpawner(pos);
 }
 
 Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {

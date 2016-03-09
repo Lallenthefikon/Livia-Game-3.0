@@ -2,8 +2,8 @@
 #include <fstream>
 
 MapGenerator::MapGenerator() :
-mTerrainhandler(&Terrainhandler::getInstance()),
-mEntityhandler(&Entityhandler::getInstance()),
+mTerrainhandler(Terrainhandler::getInstance()),
+mEntityHandler(Entityhandler::getInstance()),
 mDecorationhandler(&Decorationhandler::getInstance()),
 mDialoguehandler(&Dialoguehandler::getInstance()){
 }
@@ -20,7 +20,7 @@ MapGenerator& MapGenerator::getInstance(){
 // Finds all mapfiles for a given mapname, mapname must have a letter in front of it
 void MapGenerator::loadMap(std::string &mapname){
 
-	mEntityhandler->clear();
+	mEntityHandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
 	mDialoguehandler->clear();
@@ -87,7 +87,7 @@ void MapGenerator::readTerrainfile(std::string &filename){
 
 			// Meatball spawner
 			case 'M':
-				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line), 0.01);
+				MapGenerator::createMeatballSpawner(MapGenerator::readPosition(line));
 				break;
 
 			default:
@@ -123,6 +123,7 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case '0':
 					MapGenerator::createWorm(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
@@ -138,14 +139,16 @@ void MapGenerator::readEntityfile(std::string &filename){
 				switch (line[1]){
 				case 'C':
 					MapGenerator::createAcidMonster(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
 				break;
 			case 'M':
 				switch (line[1]) {
-				case 'B':
+				case '0':
 					MapGenerator::createMeatball(MapGenerator::readPosition(line));
+					break;
 				default:
 					break;
 				}
@@ -182,8 +185,8 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 
 
 // Create entities
-void MapGenerator::createWorm(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createWorm(pos));
+void MapGenerator::createPlayer(sf::Vector2f pos){
+	mEntityHandler->add(pos, '0');
 }
 
 void MapGenerator::createGerm(sf::Vector2f pos){
@@ -195,11 +198,11 @@ void MapGenerator::createPlayer(sf::Vector2f pos){
 }
 
 void MapGenerator::createAcidMonster(sf::Vector2f pos){
-	mEntityhandler->addEntity(Factory::createAcidMonster(pos));
+	mEntityHandler->add(pos, '2');
 }
 
 void MapGenerator::createMeatball(sf::Vector2f pos) {
-	mEntityhandler->addEntity(Factory::createMeatball(pos));
+	mEntityHandler->add(pos, '3');
 }
 
 
@@ -217,19 +220,19 @@ void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type){
 }
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){
-	mTerrainhandler->addTerrain(Factory::createSpikes(pos, type));
+	mTerrainhandler->add(pos, '2', type);
 }
 
 void MapGenerator::createGoal(sf::Vector2f pos) {
-	mTerrainhandler->addTerrain(Factory::createGoal(pos));
+	mTerrainhandler->add(pos, '3');
 }
 
-void MapGenerator::createMeatballSpawner(sf::Vector2f pos, float spawnRate) {
-	mTerrainhandler->addTerrain(Factory::createMeatballSpawner(pos, spawnRate));
+void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
+	mTerrainhandler->add(pos, '4');
 }
 
 void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mTerrainhandler->addTerrain(Factory::createDialogue(pos));
+	mTerrainhandler->add(pos, '5');
 }
 
 
@@ -271,9 +274,9 @@ void MapGenerator::createCollisionBlocks() {
 }
 
 
-void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
+void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains) {
 	for (BlockTerrains::size_type i = 0; i < blockterrains.size(); i++) {
-		for (BlockTerrains::size_type j = i+1; j < blockterrains.size(); j++) {
+		for (BlockTerrains::size_type j = i + 1; j < blockterrains.size(); j++) {
 			if (blockterrains[i]->getPos().x == (blockterrains[j]->getPos().x - blockterrains[i]->getWidth())
 				&& blockterrains[i]->getPos().y == blockterrains[j]->getPos().y 
 				&& blockterrains[i]->getHeight() == blockterrains[j]->getHeight()) {
@@ -291,7 +294,6 @@ void MapGenerator::mergeCollisionblocks(BlockTerrains& blockterrains){
 			}
 		}
 	}
-
 }
 
 
