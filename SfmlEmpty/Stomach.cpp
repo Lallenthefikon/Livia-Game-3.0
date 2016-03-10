@@ -6,8 +6,8 @@ Stomach::Stomach() :
 mBackground(),
 mTexture(),
 
-mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
+mTerrainHandler(Terrainhandler::getInstance()),
 
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),

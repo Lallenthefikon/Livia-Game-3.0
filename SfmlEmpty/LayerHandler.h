@@ -68,5 +68,7 @@ private:
 	Entityhandler* mEntityHandler;
 	Texthandler& mTextHandler;
 	Dialoguehandler& mDialogueHandler;
+
+	int mPreviousLife;
 };
 

@@ -11,8 +11,8 @@ LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mDialogueHandler(Dialoguehandler::getInstance()),
-mHeartAnimation(Animations::getHeartANI()){
-	
+mHeartAnimation(Animations::getHeartANI()),
+mPreviousLife(-1){
 	//mForegroundObjects.push_back(background);
 }
 
@@ -239,7 +239,6 @@ void LayerHandler::moveForeground(sf::Vector2f &velocity){
 }
 
 void LayerHandler::renderBackground(sf::RenderWindow &window){
-
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		window.draw(mBackgrounds[i]);
 	}
@@ -281,23 +280,13 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 		window.draw(mLives[i]);
 	}
 
-	int div;
-	if (mEntityHandler->getPlayerLife() != 0) {
-		div = mEntityHandler->getPlayerLife();
-		if (div > 3) {
-			div = 3;
-		}
-		ANIFramesPerFrame = 125 / div * Toolbox::getFrameTime();
-	}
-
 	if (mDialogueHandler.isInDialogue){
 		mDialogueHandler.renderDialogue(window);
-		
 	}
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	updateLife();
+	LayerHandler::updateLife();
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
 	}
@@ -370,8 +359,22 @@ void LayerHandler::animate(){
 }
 
 void LayerHandler::updateLife() {
-	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
-		mLives.push_back(sf::Sprite(mLifeSprite));
+	int lives = mEntityHandler->getPlayerLife();
+	if (mPreviousLife < lives || mPreviousLife > lives || mPreviousLife == -1) {
+		mLives.clear();
+		for (int i = 0; i < lives; i++) {
+			mLives.push_back(sf::Sprite(mLifeSprite));
+		}
+		mPreviousLife = lives;
+	}
+	std::cout << mLives.size() << std::endl;
+
+	if (mEntityHandler->getPlayerLife() != 0) {
+		int div = mEntityHandler->getPlayerLife();
+		if (div > 3) {
+			div = 3;
+		}
+		ANIFramesPerFrame = 125 / div * Toolbox::getFrameTime();
 	}
 }
 
