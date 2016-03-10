@@ -1,12 +1,12 @@
 #include "Meatball.h"
 
-static float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.25);
 
 Meatball::Meatball(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getMeatballANI()),
 mIsOnScreen(true),
 mAcceleration(8),
-mMaxSpeed(8),
+mMaxSpeed(1250),
 mIsAlive(true),
 mLife(1),
 mCollisionBodyOffset(-30,-30){
@@ -15,6 +15,7 @@ mCollisionBodyOffset(-30,-30){
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
+	Meatball::randDirection();
 }
 
 
@@ -34,6 +35,7 @@ void Meatball::render(sf::RenderWindow & window) {
 }
 
 void Meatball::update() {
+	ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
 	mVelocityGoal.y = mMaxSpeed;
 	Meatball::lerp();
 
@@ -48,7 +50,7 @@ void Meatball::update() {
 }
 
 void Meatball::addVector(sf::Vector2f & vector) {
-	mVelocityGoal += vector;
+	//mVelocityGoal += vector;
 }
 
 void Meatball::entityCollision(Entity * entity, char direction) {
@@ -62,6 +64,13 @@ void Meatball::entityCollision(Entity * entity, char direction) {
 }
 
 void Meatball::terrainCollision(Terrain * terrain, char direction) {
+	switch (terrain->getType()) {
+	case Terrain::MEATBALLSPAWNER:
+		//Meatball::kill();
+		break;
+	default:
+		break;
+	}
 }
 
 void Meatball::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
@@ -71,7 +80,7 @@ void Meatball::getHit() {
 }
 
 void Meatball::setPos(sf::Vector2f newPos) {
-	mSprite.setPosition(newPos);
+	mCollisionBody.setPosition(newPos);
 }
 
 // Private
@@ -89,13 +98,16 @@ void Meatball::lerp() {
 	bool lerpedY(false);
 	bool lerpedX(false);
 
+	if (Toolbox::getFrameTime() > 0) {
+		if (mVelocityGoal.y > mMaxSpeed * Toolbox::getFrameTime()) {
+			mVelocityGoal.y = mMaxSpeed * Toolbox::getFrameTime();
+		}
+	}
+	
 	float delta = mAcceleration * Toolbox::getFrameTime();
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
-		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
-	}
 
 	// Interpolates the velocity up from stationary
 	if (differenceX > delta) {
@@ -150,9 +162,22 @@ void Meatball::animate() {
 	}
 }
 
+void Meatball::randDirection() {
+	float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	if (r < 0.5) {
+		mSprite.setTextureRect(sf::IntRect(0, 0, mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+	} else {
+		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
+	}
+	mSprite.setTexture(*mCurrentAnimation->at(0));
+}
 
 void Meatball::checkOutOfBounds() {
 	if (this->getPos().y > Toolbox::getLevelBounds().top + Toolbox::getLevelBounds().height + this->getHeight()) {
-		mIsAlive = false;
+		Meatball::kill();
 	}
 }
+
+void Meatball::kill() {
+		mIsAlive = false;
+	}

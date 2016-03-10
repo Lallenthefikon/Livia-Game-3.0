@@ -61,7 +61,7 @@ private:
 	sf::Vector2f mlocalPos1, mlocalPos2, mLocalPos3;
 	std::vector<sf::Sprite> mBackgrounds, mMiddlegrounds;
 
-	Entityhandler& mEntityHandler;
+	Entityhandler* mEntityHandler;
 	Texthandler& mTextHandler;
 	Dialoguehandler& mDialogueHandler;
 };

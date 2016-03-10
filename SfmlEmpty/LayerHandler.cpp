@@ -251,27 +251,27 @@ void LayerHandler::renderMiddleground(sf::RenderWindow & window){
 }
 
 void LayerHandler::renderForeground(sf::RenderWindow &window){
-	for (size_t i = 0; i < mForegroundObjects.size(); i++) {
+	/*for (size_t i = 0; i < mForegroundObjects.size(); i++) {
 		window.draw(mForegroundObjects[i]);
-	}
+	}*/ //Design, kommenteras bort på alla banor förutom magsäck/strupe
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
 
-	if (mEntityHandler.getPlayerLife() == 3){
+	if (mEntityHandler->getPlayerLife() == 3){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		window.draw(mLives[2]);
 		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
 	}
 
-	else if (mEntityHandler.getPlayerLife() == 2){
+	else if (mEntityHandler->getPlayerLife() == 2){
 		window.draw(mLives[0]);
 		window.draw(mLives[1]);
 		ANIFramesPerFrame = 62.5 * Toolbox::getFrameTime();
 	}
 
-	else if (mEntityHandler.getPlayerLife() == 1){
+	else if (mEntityHandler->getPlayerLife() == 1){
 		window.draw(mLives[0]);
 		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
 	}

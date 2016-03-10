@@ -21,9 +21,6 @@ public:
 	virtual char getTileType(){ return mTileType; }
 	virtual void trigger() {}
 
-
-	
-
 private:
 	Block0(sf::Vector2f pos, char type);
 

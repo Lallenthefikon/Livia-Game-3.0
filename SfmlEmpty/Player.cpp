@@ -30,14 +30,14 @@ Player::Player(sf::Vector2f pos) :
 
 	// Stats
 	mMaxSpeed(800),
-	mIcyMaxSpeed(1600),
+	mIcyMaxSpeed(1500), //Design, 1500
 mAcceleration(70, 70),
-mIcyAcceleration(10,70),
+mIcyAcceleration(12,70), //Design, 12, 70
 mLife(3),
 mWallSlideSpeed(4),
 mTimeInvulnerable(sf::seconds(3)),
 mAirbornAcc(70),
-mIcyAirborn(4000),
+mIcyAirborn(19), //Design, 19
 
 // Sounds
 mSoundFX(SoundFactory::getLiviaSound()),
@@ -57,7 +57,7 @@ mTextHandler(Texthandler::getInstance()){
 
 
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height- 10));
-	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
+	//mCollisionBody.setTexture(*mCurrentAnimation->back());
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
 	Player::updateTexturepos();
@@ -102,7 +102,9 @@ void Player::render(sf::RenderWindow &window){
 
 	//std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	//std::cout << "mState: " << mState << std::endl;
-	 Player::playerInput();
+	ANIFramesPerFrame = mCurrentAnimationRate * Toolbox::getFrameTime();
+	
+	Player::playerInput();
 	
 	Player::lerp();
 
@@ -137,6 +139,7 @@ void Player::entityCollision(Entity* entity, char direction){
 	float delta;
 	switch (entity->getType()){
 	case Entity::WORM:
+	case Entity::GERM:
 		switch (direction){
 		case 'b':
 			if (mLife > 0){
@@ -474,7 +477,7 @@ void Player::updateState() {
 		// Player runs in a direction
 		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
 			mState = RUNNING;
-			Player::updateANI();
+			changed = true;
 			if (!mVelocity.y > 0) {
 				Player::playSound(RUNNING);
 			}
@@ -591,43 +594,43 @@ void Player::updateANI(){
 	switch (mState){
 
 	case JUMPING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
 		break;
 
 	case IDLE:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 70, 140));
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
 	case RUNNING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerRunningANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
 		break;
 
 	case FALLING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerFallingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		break;
 
 	case WALLSTUCK:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerSlideANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 67, 140));
 		break;
 
 	case DEATH:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		break;
 		
 	case FALLDEATH:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		break;
@@ -649,7 +652,6 @@ void Player::addForces(){
 	if (mState == WALLSTUCK){
 		mVelocity.y = mWallSlideSpeed;
 	}
-
 }
 
 

@@ -23,7 +23,8 @@ static sf::Image mDialogueTexture;
 static sf::Image mMeatballTexture;
 static sf::Image mMeatballSpawnerTexture;
 
-static sf::Image mAcidMonsterTexture;
+static sf::Image mAcidMonsterHorizontalTexture;
+static sf::Image mAcidMonsterVerticalTexture;
 static sf::Image mStomachBackgroundTexture;
 static sf::Image mStomachMiddlegroundTexture;
 static sf::Image mAcidBottom;
@@ -73,19 +74,20 @@ void Toolbox::loadTextures(std::string levelName){
 	}
 
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
-	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet.png");
+	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
 	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterTexture.loadFromFile("resources/images/entities/Tummy jagar spritesheet.png");
+	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy.png");
+	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy upp.png");
 
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
 	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
-	mMeatballTexture.loadFromFile("resources/images/entities/meatball_projectile.png");
+	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 }
@@ -96,7 +98,7 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Load Tummy Acid Trip
 
 		// Music and ambience
-		//mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 //	}
 
@@ -144,8 +146,12 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mEditorMenyTexture;
 		break;
 
-	case ACIDMONSTERTEXTURE:
-		return mAcidMonsterTexture;
+	case ACIDMONSTERVERTICALTEXTURE:
+		return mAcidMonsterVerticalTexture;
+		break;
+
+	case ACIDMONSTERHORIZONTALTEXTURE:
+		return mAcidMonsterHorizontalTexture;
 		break;
 
 	case STOMACHBACKGROUND:

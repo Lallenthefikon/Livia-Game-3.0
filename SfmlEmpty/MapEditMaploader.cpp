@@ -92,7 +92,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
 				// Meatball spawner
 			case 'M':
-				MapEditMaploader::createMeatballSpawner(MapEditMaploader::readPosition(line), 0.01f);
+				MapEditMaploader::createMeatballSpawner(MapEditMaploader::readPosition(line));
 				break;
 
 			default:
@@ -130,10 +130,29 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
+				 break;
+			 case 'G':
+				 switch (line[1]){
+				 case 'E':
+					 MapEditMaploader::createGerm(MapEditMaploader::readPosition(line));
+				 default:
+					 break;
+				 }
+				 break;
+				 break;
 			 case 'A':
 				 switch (line[1]){
 				 case 'C':
 					 MapEditMaploader::createAcidMonster(MapEditMaploader::readPosition(line));
+				 default:
+					 break;
+				 }
+				 break;
+			 case 'M':
+				 switch (line[1]) {
+				 case '0':
+					 MapEditMaploader::createMeatball(MapEditMaploader::readPosition(line));
+					 break;
 				 default:
 					 break;
 				 }
@@ -178,8 +197,16 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mEntities.push_back(Factory::createWorm(pos));
  }
 
+ void MapEditMaploader::createGerm(sf::Vector2f & pos){
+	 mEntities.push_back(Factory::createGerm(pos));
+ }
+
  void MapEditMaploader::createAcidMonster(sf::Vector2f &pos){
 	 mEntities.push_back(Factory::createAcidMonster(pos));
+ }
+
+ void MapEditMaploader::createMeatball(sf::Vector2f &pos) {
+	 mEntities.push_back(Factory::createMeatball(pos));
  }
 
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
@@ -206,8 +233,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mTerrains.push_back(Factory::createEvent(pos, 'a'));
  }
 
- void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos, float spawnRate) {
-	 mTerrains.push_back(Factory::createMeatballSpawner(pos, spawnRate));
+ void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {
+	 mTerrains.push_back(Factory::createMeatballSpawner(pos));
  }
 
  sf::Vector2f MapEditMaploader::readPosition(std::string line){

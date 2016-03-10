@@ -91,6 +91,10 @@ char CollisionBlock::getTileType(sf::Vector2f pos, float length, char direction)
 	return mTileType;
 }
 
+void CollisionBlock::clear(){
+	internalClear();
+}
+
 // Privates
 
 void CollisionBlock::updateRect(){
@@ -103,6 +107,17 @@ void CollisionBlock::updateRect(){
 		height += mBlockTerrains2D[0]->at(i)->getHeight();
 	}
 	mSprite.setTextureRect(sf::IntRect(0, 0, width, height));
+}
+
+void CollisionBlock::internalClear(){
+	while (!mBlockTerrains2D.empty()){
+		while(!mBlockTerrains2D.back()->empty()){
+			delete mBlockTerrains2D.back()->back();
+			mBlockTerrains2D.back()->pop_back();
+		}
+		delete mBlockTerrains2D.back();
+		mBlockTerrains2D.pop_back();
+	}
 }
 
 void CollisionBlock::checkCollisionR(sf::Vector2f pos, float length){

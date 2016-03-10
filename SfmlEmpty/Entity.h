@@ -11,7 +11,7 @@
 
 class Entity{
 public:
-	enum ENTITYTYPE {PLAYER, WORM, ACIDMONSTER, MEATBALL };
+	enum ENTITYTYPE {PLAYER, WORM, ACIDMONSTER, MEATBALL, GERM };
 	
 	Entity();
 	virtual ~Entity();

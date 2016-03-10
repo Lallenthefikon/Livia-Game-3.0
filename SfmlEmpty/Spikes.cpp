@@ -33,6 +33,7 @@ void Spikes::render(sf::RenderWindow &window){
 }
 
 void Spikes::update(){
+	ANIFramesPerFrame = 12.625 * Toolbox::getFrameTime();
 	Spikes::animate();
 }
 

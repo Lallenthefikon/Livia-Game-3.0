@@ -88,7 +88,8 @@ private:
 		mClickOnce,
 		mNrOfJumps;
 	float mTimerANI,
-		mFrameTime;
+		mFrameTime,
+		mCurrentAnimationRate;
 
 	sf::Vector2f
 		mVelocity,

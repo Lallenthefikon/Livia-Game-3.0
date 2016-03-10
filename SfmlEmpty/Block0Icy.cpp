@@ -46,12 +46,10 @@ void Block0Icy::setTexture(char type) {
 		break;
 
 	case 'd':
-		xIndex = 6;
-		yIndex = 2;
+		xIndex = 3;
 		break;
 
 	case 'e':
-		xIndex = 6;
 		yIndex = 1;
 		break;
 
@@ -61,59 +59,58 @@ void Block0Icy::setTexture(char type) {
 		break;
 
 	case 'g':
-		yIndex = 2;
-		xIndex = 7;
+		yIndex = 1;
+		xIndex = 2;
 		break;
 
 	case 'h':
 		yIndex = 1;
-		xIndex = 7;
+		xIndex = 3;
 		break;
 
 	case 'i':
 		yIndex = 2;
-		xIndex = 5;
 		break;
 
 	case 'j':
-		yIndex = 1;
-		xIndex = 5;
+		yIndex = 2;
+		xIndex = 1;
 		break;
 
 	case 'k':
-		xIndex = 6;
+		yIndex = 2;
+		xIndex = 2;
 		break;
 
 	case 'l':
-
-		xIndex = 5;
+		yIndex = 2;
+		xIndex = 3;
 		break;
 
 	case 'm':
-		yIndex = 2;
-		xIndex = 4;
+		yIndex = 3;
 		break;
 
 	case 'n':
-		yIndex = 1;
-		xIndex = 4;
+		yIndex = 3;
+		xIndex = 1;
 		break;
 
 	case 'o':
-		yIndex = 0;
-		xIndex = 4;
+		yIndex = 3;
+		xIndex = 2;
 		break;
 
 	case 'p':
-		yIndex = 0;
-		xIndex = 4;
+		yIndex = 3;
+		xIndex = 3;
 		break;
 
 	default:
 		break;
 	}
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::EDITORMENY),
-		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE),
+		sf::IntRect(tileWidth * xIndex, (tileHeight * yIndex) + 400, tileWidth, tileHeight));
 }
 
 void Block0Icy::setPos(sf::Vector2f newPos) {
