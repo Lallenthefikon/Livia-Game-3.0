@@ -8,11 +8,13 @@
 #include <vector>
 #include "Factory.h"
 
-class MapEditorMeny{
+class MapEditorMeny {
 public:
-
-	enum INSERTTYPE {BLOCK0ICY, BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP,
-					  SPIKES, BLOCKGOAL, DECORATION0, DECORATION1, MEATBALLSPAWNER, EVENT };
+	enum INSERTTYPE {
+		BLOCK0ICY, BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP,
+		SPIKES, BLOCKGOAL, DECORATION0, DECORATION1, MEATBALLSPAWNER, DIALOGUE,
+		MEATBALL, GERM
+	};
 
 	static MapEditorMeny& getInstance();
 	void render(sf::RenderWindow &window);

@@ -31,25 +31,25 @@ void Dialoguehandler::updateDialogue(sf::Event &gEvent, sf::RenderWindow & windo
 			}
 		}
 	}
-		///*printf((std::to_string(pos.x) + " " + std::to_string(pos.y) + "\n").data());*/
-		//bool found = false;
-		//for (size_t i = 0; i < mDialogue.size(); i++) {
-		//	/*printf("lol\n");*/
-		//	if (mDialogue[i]->bounds.contains(pos)) {
-		//		found = true;
-		//		if (!isInDialogue) {
-		//			// Player triggered a dialogue
-		//			isInDialogue = true;
-		//			mDialogue[i]->setIsInDialogue(true);
-		//			current = i;
-		//			page = 0;
-		//			break;
-		//		}
-		//	}
-		//}
-		//if (!found) {
-		//	isInDialogue = false;
-		//}
+	///*printf((std::to_string(pos.x) + " " + std::to_string(pos.y) + "\n").data());*/
+	//bool found = false;
+	//for (size_t i = 0; i < mDialogue.size(); i++) {
+	//	/*printf("lol\n");*/
+	//	if (mDialogue[i]->bounds.contains(pos)) {
+	//		found = true;
+	//		if (!isInDialogue) {
+	//			// Player triggered a dialogue
+	//			isInDialogue = true;
+	//			mDialogue[i]->setIsInDialogue(true);
+	//			current = i;
+	//			page = 0;
+	//			break;
+	//		}
+	//	}
+	//}
+	//if (!found) {
+	//	isInDialogue = false;
+	//}
 	
 }
 

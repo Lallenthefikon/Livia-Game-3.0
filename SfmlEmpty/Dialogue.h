@@ -6,7 +6,10 @@
 
 class Dialogue : public Terrain{
 public:
+	Dialogue();
 	virtual ~Dialogue();
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::DIALOGUE; }
+	static Terrain* createDialogue(sf::Vector2f pos);
 
 	virtual Terrain::TERRAINTYPE getType() { return Terrain::BLOCK0; }
 	static Dialogue* createEvent(sf::Vector2f pos);
@@ -34,5 +37,5 @@ private:
 
 	bool mIsOnScreen = true;
 
+	char mTileType;
 };
-

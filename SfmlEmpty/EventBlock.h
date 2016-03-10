@@ -29,7 +29,7 @@ public:
 	
 private:
 	EventBlock(sf::Vector2f pos, Level *level, char eventType);
-
+	
 	
 	Level* mLevel;
 	
