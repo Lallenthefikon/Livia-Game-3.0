@@ -39,6 +39,8 @@ void MapEditorMeny::render(sf::RenderWindow &window){
 void MapEditorMeny::insertObjects(){
 
 	// Entities
+	mEntities.push_back(Factory::createGerm(sf::Vector2f(WIDTHBETWEEN * 2.7, 70)));
+	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
 	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
 	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
 	
@@ -47,7 +49,7 @@ void MapEditorMeny::insertObjects(){
 	
 	mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.25f, 0.25f));
-
+	
 	mEntities.push_back(Factory::createAcidMonster(sf::Vector2f(WIDTHBETWEEN * 4.f, 70.f)));
 	mEntities.back()->setScale(sf::Vector2f(0.03f, 0.03f));
 	
@@ -69,8 +71,7 @@ void MapEditorMeny::insertObjects(){
 	
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 4.8, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
-	
-	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 2.8f, 150)));
+	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 5.8f, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 	
 	// Dialog
@@ -78,10 +79,9 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 	
 	// Decorations
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '1', 'b'));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 0.8f, 180.f), '1', 'b'));
 	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 70.f), '0', 'b'));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 1.8f, 180.f), '0', 'b'));
 	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
 	
 	
@@ -100,6 +100,10 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 
 				case Entity::WORM:
 					mInsertType = WORM;
+					break;
+
+				case Entity::GERM:
+					mInsertType = GERM;
 					break;
 
 				case Entity::MEATBALL:

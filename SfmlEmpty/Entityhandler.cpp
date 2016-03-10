@@ -34,6 +34,9 @@ void Entityhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	case '4':
 		mEntities.push_back(Factory::createExtraLife(pos));
 		break;
+	case '5':
+		mEntities.push_back(Factory::createGerm(pos));
+		break;
 	default:
 		break;
 	}

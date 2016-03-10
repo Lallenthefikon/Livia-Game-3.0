@@ -145,6 +145,9 @@
     <ClCompile Include="ExtraLife.cpp">
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="Germ.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -286,6 +289,9 @@
       <Filter>Header Files\Other</Filter>
     </ClInclude>
     <ClInclude Include="ExtraLife.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Germ.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>

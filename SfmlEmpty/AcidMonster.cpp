@@ -1,6 +1,6 @@
 #include "AcidMonster.h"
 
-static const float ANIFramesPerFrame(0.25);
+static float ANIFramesPerFrame(0.25);
 
 AcidMonster::AcidMonster(sf::Vector2f pos):
 mCurrentAnimation(Animations::getAcidMonsterVertical()),
@@ -28,6 +28,9 @@ void AcidMonster::render(sf::RenderWindow &window){
 }
 
 void AcidMonster::update(){
+	ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
+
+	AcidMonster::addSpeed();
 
 	mVelocityGoal.y = mMaxSpeed;
 	AcidMonster::lerp();

@@ -27,6 +27,7 @@ private:
 
 	// Entities
 	void createWorm(sf::Vector2f pos);
+	void createGerm(sf::Vector2f pos);
 	void createPlayer(sf::Vector2f pos);
 	void createAcidMonster(sf::Vector2f pos);
 	void createMeatball(sf::Vector2f pos);

@@ -88,6 +88,7 @@
     <ClCompile Include="BlockGoal.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="ExtraLife.cpp" />
+    <ClCompile Include="Germ.cpp" />
     <ClCompile Include="HandlerFactory.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
     <ClCompile Include="BlockTerrain.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="BlockGoal.h" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="ExtraLife.h" />
+    <ClInclude Include="Germ.h" />
     <ClInclude Include="HandlerFactory.h" />
     <ClInclude Include="MeatballSpawner.h" />
     <ClInclude Include="BlockTerrain.h" />
