@@ -35,6 +35,7 @@ void Meatball::render(sf::RenderWindow & window) {
 }
 
 void Meatball::update() {
+	ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
 	mVelocityGoal.y = mMaxSpeed;
 	Meatball::lerp();
 

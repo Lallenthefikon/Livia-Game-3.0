@@ -28,5 +28,6 @@ public:
 	virtual Terrains2D& getBlocks() = 0;
 	virtual Terrain::TERRAINTYPE getType(sf::Vector2f pos, float length, char direction) = 0;
 	virtual char getTileType(sf::Vector2f pos, float length, char direction) = 0;
+	virtual void clear() = 0;
 };
 

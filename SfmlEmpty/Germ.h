@@ -57,7 +57,8 @@ private:
 	// Animations stuff
 	Animations::Textures* mCurrentAnimation;
 	int mAnimationIndex;
-	float mTimer;
+	float mTimer,
+		mCurrentAnimationRate;
 
 	float mAcceleration;
 	float mMaxSpeed;
