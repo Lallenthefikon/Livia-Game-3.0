@@ -5,18 +5,6 @@ mGameOverText("Game Over", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)),
 mWinText("You Win", Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER)),
 mText(), 
 mLayerText() {
-	mGameOverText.setColor(sf::Color::Black);
-	mGameOverText.setCharacterSize(600);
-	mWinText.setColor(sf::Color::Yellow);
-	mWinText.setCharacterSize(600);
-	mText.setFont(Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER));
-	mText.setColor(sf::Color::Blue);
-	mText.setCharacterSize(60);
-	mLayerText.setFont(Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER));
-	mLayerText.setColor(sf::Color::Blue);
-	mLayerText.setCharacterSize(60);
-	//mGameOverText.scale(0.5, 0.5);
-	Texthandler::loadDialogueFont();
 }
 
 Texthandler::~Texthandler() {
@@ -74,13 +62,34 @@ void Texthandler::renderDialougeText(sf::RenderWindow& window){
 	window.draw(mDialogueText2);
 }
 
+void Texthandler::loadTexts() {
+	Texthandler::loadDialogueFont();
+	mGameOverText.setColor(sf::Color::Black);
+	mGameOverText.setCharacterSize(600);
+	mWinText.setColor(sf::Color::Yellow);
+	mWinText.setCharacterSize(600);
+	mText.setFont(Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER));
+	mText.setColor(sf::Color::Blue);
+	mText.setCharacterSize(60);
+	mLayerText.setFont(Toolbox::getFont(Toolbox::FONTKEY::GAMEOVER));
+	mLayerText.setColor(sf::Color::Blue);
+	mLayerText.setCharacterSize(60);
+	//mGameOverText.scale(0.5, 0.5);
+
+}
 
 void Texthandler::loadGameOverFont() {
 
 }
 
 void Texthandler::loadDialogueFont() {
+	float xPos(500);
+	float yPos(1000);
 	mDialogueText0.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
 	mDialogueText1.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
 	mDialogueText2.setFont(Toolbox::getFont(Toolbox::DIALOGUE));
+	mDialogueText0.setPosition(sf::Vector2f(xPos, yPos - 200));
+	mDialogueText1.setPosition(sf::Vector2f(xPos, yPos - 150));
+	mDialogueText2.setPosition(sf::Vector2f(xPos, yPos - 100));
+
 }

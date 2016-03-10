@@ -2,8 +2,8 @@
 #include <fstream>
 
 MapGenerator::MapGenerator() :
-mTerrainhandler(&Terrainhandler::getInstance()),
-mEntityhandler(&Entityhandler::getInstance()),
+mTerrainhandler(Terrainhandler::getInstance()),
+mEntityHandler(Entityhandler::getInstance()),
 mDecorationhandler(&Decorationhandler::getInstance()){
 }
 
@@ -17,14 +17,14 @@ MapGenerator& MapGenerator::getInstance(){
 
 
 // Finds all mapfiles for a given mapname, mapname must have a letter in front of it
-void MapGenerator::loadMap(std::string &mapname){
+void MapGenerator::loadMap(std::string &mapname, Level *level){
 
 	mEntityHandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
 
 	mapname[15] = 'T';
-	MapGenerator::readTerrainfile(mapname);
+	MapGenerator::readTerrainfile(mapname, level);
 
 
 	mapname[15] = 'E';
@@ -40,7 +40,7 @@ void MapGenerator::loadMap(std::string &mapname){
 	createCollisionBlocks();
 }
 
-void MapGenerator::readTerrainfile(std::string &filename){
+void MapGenerator::readTerrainfile(std::string &filename, Level *level){
 
 	std::string line;
 	std::ifstream terrainfile(filename);
@@ -71,9 +71,15 @@ void MapGenerator::readTerrainfile(std::string &filename){
 
 			 // Event block
 
-			case 'O':
-					MapGenerator::createEvent(MapGenerator::readPosition(line), line[1]);
+			case 'E':
+				switch (line[1]){
+				case 'V':
+					MapGenerator::createEvent(MapGenerator::readPosition(line),level, line[2]);
 					break;
+				default:
+					break;
+				}
+				break;
 
 			// Spikes
 			case 'S':
@@ -238,8 +244,8 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
 	mTerrainhandler->add(pos, '4');
 }
 
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mTerrainhandler->add(pos, '5');
+void MapGenerator::createEvent(sf::Vector2f pos, Level *level, char eventType) {
+	mTerrainhandler->createEvent(pos, level, eventType);
 }
 
 

@@ -21,6 +21,7 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
 	virtual void trigger() {}
+	virtual bool getIsAlive() { return mIsAlive; }
 private:
 	MeatballSpawner(sf::Vector2f pos);
 
@@ -36,6 +37,7 @@ private:
 	float mSpawnRate;
 	bool mIsOnScreen = true;
 	AddObjectsDuringGame& mAddObjectsDuringGame;
+	bool mIsAlive = true;
 
 };
 

@@ -11,8 +11,6 @@
 #include "MapEditorMeny.h"
 #include "Camera.h"
 
-#include "Dialogue.h"
-
 #include "Texthandler.h"
 #include "LayerHandler.h"
 #include "Dialoguehandler.h"
@@ -38,7 +36,7 @@ public:
 	void createGoal(sf::Vector2f mousePos);
 	void createMeatballSpawner(sf::Vector2f mousePos);
 
-	void createEvent(sf::Vector2f mousePos);
+	void createEditorEvent(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
@@ -82,10 +80,12 @@ private:
 	bool isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos);
 
 	void updateInsertType();
+	void changeEventType();
 
 	MapEditMaploader &mMaploader;
 
 	MapEditorMeny::INSERTTYPE mInsertType;
+	char mEventType;
 	char mRotDirection;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;

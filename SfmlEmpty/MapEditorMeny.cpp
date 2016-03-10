@@ -70,7 +70,7 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 
 	// Dialog
-	mTerrains.push_back(Factory::createEvent(sf::Vector2f(WIDTHBETWEEN * 2.8, 150), 'a'));
+	mTerrains.push_back(Factory::createEditorEvent(sf::Vector2f(WIDTHBETWEEN * 2.8, 150), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 
 	// Decorations
@@ -78,9 +78,6 @@ void MapEditorMeny::insertObjects(){
 	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
 	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 1.8f, 180.f), '0', 'b'));
 	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-
-
-	
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -189,8 +186,6 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	for (size_t i = 0; i < mDecorations.size(); i++)
 		mDecorations[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 10, newPos.y + 180));
 
-	
-
 
 	//int nrOfEntities;
 	//for (Entities::size_type i = 0; i < mEntities.size(); i++){
@@ -203,9 +198,11 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	//}
 }
 
+
 bool MapEditorMeny::isSpriteClicked(sf::Sprite& spr, sf::Vector2i *mousePos){
 	return mousePos->x > spr.getPosition().x
 		&& mousePos->x < spr.getPosition().x + spr.getLocalBounds().width
 		&& mousePos->y > spr.getPosition().y
 		&& mousePos->y < spr.getPosition().y + spr.getLocalBounds().height;
 }
+

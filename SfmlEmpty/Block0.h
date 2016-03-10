@@ -20,6 +20,7 @@ public:
 	virtual void setScale(sf::Vector2f newScale){ mSprite.setScale(newScale); }
 	virtual char getTileType(){ return mTileType; }
 	virtual void trigger() {}
+	virtual bool getIsAlive() { return mIsAlive; }
 
 private:
 	Block0(sf::Vector2f pos, char type);
@@ -33,5 +34,6 @@ private:
 	char mTileType;
 
 	bool mIsOnScreen = true;
+	bool mIsAlive = true;
 };
 

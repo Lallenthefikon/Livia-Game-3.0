@@ -59,9 +59,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				}
 				break;
 
-				// Dialogue
-			case 'Q':
+				// Event
+			case 'E':
 				switch (line[1]) {
+				case 'V':
 					MapEditMaploader::createEvent(MapEditMaploader::readPosition(line), line[2]);
 					break;
 				default:
@@ -230,7 +231,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  }
 
  void MapEditMaploader::createEvent(sf::Vector2f &pos, char eventType) {
-	 mTerrains.push_back(Factory::createEvent(pos, 'a'));
+	 mTerrains.push_back(Factory::createEditorEvent(pos, eventType));
  }
 
  void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {

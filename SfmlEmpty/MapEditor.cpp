@@ -8,6 +8,7 @@ mMapDimensionsTiles(100, 100), //Design, 250/350 för tarm, 50/500 för magsäck, 5
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
+mEventType('a'),
 
 mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
@@ -131,6 +132,9 @@ void MapEditor::update(sf::RenderWindow &window){
 				break;
 			case sf::Keyboard::R:
 				MapEditor::changeRotDirection();
+				break;
+			case sf::Keyboard::E:
+				MapEditor::changeEventType();
 				break;
 			default:
 				break;
@@ -260,8 +264,8 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
-void MapEditor::createEvent(sf::Vector2f mousePos) {
-	mTerrains.push_back(Factory::createEvent(mousePos, 'a'));
+void MapEditor::createEditorEvent(sf::Vector2f mousePos) {
+	mTerrains.push_back(Factory::createEditorEvent(mousePos, mEventType));
 }
 
 void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
@@ -340,7 +344,7 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		MapEditor::createMeatballSpawner(mousePos);
 		break;
 	case MapEditorMeny::EVENT:
-		MapEditor::createEvent(mousePos);
+		MapEditor::createEditorEvent(mousePos);
 		break;
 	default:
 		break;
@@ -553,8 +557,8 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				break;
 
 			case Terrain::EVENT:
-				output.push_back('Q');
-				output.push_back('0');
+				output.push_back('E');
+				output.push_back('V');
 				output.push_back(mTerrains[i]->getTileType());
 				break;
 
@@ -871,4 +875,11 @@ bool MapEditor::isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos){
 
 void MapEditor::updateInsertType(){
 	mInsertType = mMeny.getInsertType();
+}
+
+void MapEditor::changeEventType() {
+	mEventType++;
+	if (mEventType == 'h') {
+		mEventType = 'a';
+	}
 }

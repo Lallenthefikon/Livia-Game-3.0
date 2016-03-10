@@ -5,6 +5,7 @@
 #include "Terrainhandler.h"
 #include "Decorationhandler.h"
 #include "Dialoguehandler.h"
+#include "Level.h"
 
 class MapGenerator{
 public:
@@ -12,7 +13,7 @@ public:
 	typedef std::vector<BlockTerrain*> BlockTerrains;
 	static MapGenerator& getInstance();
 
-	void loadMap(std::string &mapname);
+	void loadMap(std::string &mapname, Level *level);
 
 	
 private:
@@ -21,7 +22,7 @@ private:
 
 	sf::Vector2f readPosition(std::string line);
 
-	void readTerrainfile(std::string &filename);
+	void readTerrainfile(std::string &filename, Level *level);
 	void readEntityfile(std::string &filename);
 	void readDecorationfile(std::string &filename);
 
@@ -37,7 +38,7 @@ private:
 	void createMeatball(sf::Vector2f pos);
 	void createMeatballSpawner(sf::Vector2f pos);
 	void createDecoration(sf::Vector2f pos, char id, char layer);
-	void createEvent(sf::Vector2f pos, char eventType);
+	void createEvent(sf::Vector2f pos,Level *level, char eventType);
 	
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);
@@ -47,7 +48,6 @@ private:
 	Terrainhandler *mTerrainhandler;
 	Entityhandler *mEntityHandler;
 	Decorationhandler *mDecorationhandler;
-	Dialoguehandler *mDialoguehandler;
 
 	Terrains mTempBlocks;
 };

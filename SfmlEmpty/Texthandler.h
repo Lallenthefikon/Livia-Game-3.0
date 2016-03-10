@@ -16,6 +16,7 @@ public:
 	void setDialougeText(std::string &text0, std::string &text1, std::string &text2);
 	void loadGameOverFont();
 	void loadDialogueFont();
+	void loadTexts();
 	~Texthandler();
 private:
 	Texthandler();

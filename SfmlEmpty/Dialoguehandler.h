@@ -13,8 +13,8 @@ public:
 	static Dialoguehandler& getInstance();
 
 	void renderDialogue(sf::RenderWindow &window);
-	void updateDialogue(sf::Event &gEvent, sf::RenderWindow & window);
-	void loadDialougehandler();
+	void updateDialogue();
+	void loadDialougehandler(char level);
 	void clear();
 	void setCurrentDialogue(std::string filename);
 
@@ -27,12 +27,15 @@ private:
 	void internalClear();
 	void readFile();
 	void setCurrentSpeaker(std::string &line);
+	void loadTexture(char level);
 	size_t currentDialouge;
 	sf::Sprite mSpriteHudBackground;
+	sf::Texture mTexture;
 	std::string mFilename;
 	CURRENTSPEAKER mCurrentspeaker;
 	int mIndex;
 	StringVectors mStringVectors;
+	bool mReturnRealesed;
 
 };
 

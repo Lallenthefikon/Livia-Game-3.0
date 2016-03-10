@@ -29,7 +29,8 @@ struct Toolbox {
 		HUBBACKGROUND,
 		DECORATIONTEXTURE,
 		// Dialogue
-		DIALOGUETEXTURE
+		DIALOGUETEXTURE,
+		DIALOGUESHEET
 	};
 
 	enum SOUNDKEY {
@@ -57,6 +58,7 @@ struct Toolbox {
 	// Camera Info
 	static void copyCameraInfo(sf::Vector2f &globalCameraBounds, sf::Vector2f &localCameraBounds);
 	static sf::FloatRect getGlobalCameraBounds();
+	static void setGlobalCameraBounds(sf::RenderWindow &window);
 
 	// Level Info
 	static void copyLevelBounds(sf::FloatRect &levelBounds);

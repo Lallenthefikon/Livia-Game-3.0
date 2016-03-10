@@ -130,8 +130,20 @@
     <ClCompile Include="EventBlock.cpp">
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="Dialogue.cpp">
-      <Filter>Source Files\Decoration\Dialogue</Filter>
+    <ClCompile Include="EditorEventBlock.cpp">
+      <Filter>Source Files\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="AddObjectsDuringGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Germ.cpp">
+      <Filter>Source Files\Terrain\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Abstracthandler.cpp">
+      <Filter>Source Files\Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HandlerFactory.cpp">
+      <Filter>Source Files\Handlers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,8 +273,20 @@
     <ClInclude Include="EventBlock.h">
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogue.h">
-      <Filter>Header Files\Dialogue</Filter>
+    <ClInclude Include="EditorEventBlock.h">
+      <Filter>Header Files\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="AddObjectsDuringGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Germ.h">
+      <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstracthandler.h">
+      <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HandlerFactory.h">
+      <Filter>Header Files\Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

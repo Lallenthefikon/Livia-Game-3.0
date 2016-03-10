@@ -3,7 +3,6 @@
 #include "Entity.h"
 #include "Terrain.h"
 #include "Decoration.h"
-#include "Dialogue.h"
 #include "Toolbox.h"
 #include <vector>
 #include "Factory.h"
@@ -13,7 +12,7 @@ public:
 	enum INSERTTYPE {
 		BLOCK0ICY, BLOCK0, PLAYER, WORM, ACIDMONSTER, BLOCK0WALLJUMP,
 		SPIKES, BLOCKGOAL, DECORATION0, DECORATION1, MEATBALLSPAWNER, DIALOGUE,
-		MEATBALL, GERM
+		MEATBALL, GERM, EVENT
 	};
 
 	static MapEditorMeny& getInstance();
@@ -42,5 +41,6 @@ private:
 
 	sf::Texture mMenyTexture;
 	sf::Sprite mMenySprite;
+
 };
 

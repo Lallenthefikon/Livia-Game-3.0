@@ -15,21 +15,26 @@ Dialoguehandler& Dialoguehandler::getInstance() {
 }
 
 void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
+	window.draw(mSpriteHudBackground);
 	Texthandler::getInstance().renderDialougeText(window);
 }
 
 
-void Dialoguehandler::updateDialogue(sf::Event &gEvent, sf::RenderWindow & window) {
-	while (window.pollEvent(gEvent)) {
-		if (gEvent.type == sf::Event::KeyPressed) {
-			if (gEvent.key.code == sf::Keyboard::BackSpace) {
-				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
-				mIndex++;
-				if (mIndex >= mStringVectors.size()) {
-					isInDialogue = false;
-				}
+void Dialoguehandler::updateDialogue() {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+		if (mReturnRealesed) {
+			mIndex++;
+			if (mIndex >= mStringVectors.size()) {
+				isInDialogue = false;
 			}
+			else {
+				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
+			}
+			mReturnRealesed = false;
 		}
+	}
+	else {
+		mReturnRealesed = true;
 	}
 	///*printf((std::to_string(pos.x) + " " + std::to_string(pos.y) + "\n").data());*/
 	//bool found = false;
@@ -53,8 +58,13 @@ void Dialoguehandler::updateDialogue(sf::Event &gEvent, sf::RenderWindow & windo
 	
 }
 
-void Dialoguehandler::loadDialougehandler(){
-	
+void Dialoguehandler::loadDialougehandler(char level){
+	mReturnRealesed = true;
+	Dialoguehandler::loadTexture(level);
+	mSpriteHudBackground.setTexture(mTexture);
+	mSpriteHudBackground.setScale(1.5, 1.4);
+	mSpriteHudBackground.setPosition((Toolbox::getWindowSize().x / 2) - (mSpriteHudBackground.getGlobalBounds().width / 2), Toolbox::getWindowSize().y - mSpriteHudBackground.getGlobalBounds().height - 30);
+
 }
 
 void Dialoguehandler::clear(){
@@ -64,7 +74,7 @@ void Dialoguehandler::clear(){
 void Dialoguehandler::setCurrentDialogue(std::string filename){
 	Dialoguehandler::internalClear();
 	isInDialogue = true;
-	mIndex = 1;
+	mIndex = 0;
 	mFilename = filename;
 	Dialoguehandler::readFile();
 	Texthandler::getInstance().setDialougeText(*mStringVectors[0]->at(0), *mStringVectors[0]->at(1), *mStringVectors[0]->at(2));
@@ -117,4 +127,17 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 	default:
 		break;
 	}
+}
+
+void Dialoguehandler::loadTexture(char level) {
+	int xIndex;
+	int yIndex;
+	switch (level) {
+	case 's':
+	default:
+		xIndex = 0;
+		yIndex = 0;
+		break;
+	}
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUESHEET), sf::IntRect(xIndex, yIndex, 1000, 200));
 }
