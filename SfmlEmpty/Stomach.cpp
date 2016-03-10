@@ -6,8 +6,8 @@ Stomach::Stomach() :
 mBackground(),
 mTexture(),
 
-mTerrainHandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
+mTerrainHandler(Terrainhandler::getInstance()),
 
 mMapGenerator(MapGenerator::getInstance()),
 mCollisionHandler(Collisionhandler::getInstance()),
@@ -31,6 +31,7 @@ mLevelBounds(0.f,0.f,15000.f,12300.f){
 	Animations::loadTextures();
 
 	Toolbox::copyLevelBounds(mLevelBounds);
+
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -139,8 +140,6 @@ void Stomach::render(sf::RenderWindow &window){
 	
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
-
-
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');

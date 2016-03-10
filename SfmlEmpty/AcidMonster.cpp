@@ -7,9 +7,8 @@ mCurrentAnimation(Animations::getAcidMonsterVertical()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
-mMaxSpeed(4.3),
+mMaxSpeed(-4.3), // 4.3 // 258
 mCollisionBodyOffset(-60,-60){
-	mVelocityGoal.y = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
@@ -32,8 +31,12 @@ void AcidMonster::update(){
 	ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
 
 	AcidMonster::addSpeed();
+
+	mVelocityGoal.y = mMaxSpeed;
 	AcidMonster::lerp();
+
 	AcidMonster::updateState();
+
 	AcidMonster::animate();
 
 	if (Toolbox::getPlayerIsAlive()){
@@ -107,13 +110,16 @@ void AcidMonster::lerp(){
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = 0.016 *mAcceleration;
+	//if (Toolbox::getFrameTime() > 0) {
+		if (mVelocityGoal.y > mMaxSpeed) {
+			mVelocityGoal.y = mMaxSpeed;
+		}
+	//}
+	
+	float delta = mAcceleration * 0.016;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
-	}
 
 	// Interpolates the velocity up from stationary
 	if (differenceX > delta) {
@@ -176,5 +182,5 @@ void AcidMonster::getHit(){
 }
 
 void AcidMonster::setPos(sf::Vector2f newPos){
-	mSprite.setPosition(newPos);
+	mCollisionBody.setPosition(newPos);
 }
