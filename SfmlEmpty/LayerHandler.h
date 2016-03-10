@@ -37,6 +37,8 @@ public:
 
 	void updateLife();
 
+	void clearLife();
+
 	~LayerHandler();
 private:
 	LayerHandler();
@@ -70,5 +72,6 @@ private:
 	Dialoguehandler& mDialogueHandler;
 
 	int mPreviousLife;
+	int mMaxLife;
 };
 
