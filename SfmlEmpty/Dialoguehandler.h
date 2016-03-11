@@ -2,7 +2,11 @@
 
 #include <vector>
 #include <SFML\Graphics.hpp>
+#include <SFML\System.hpp>
+#include "Toolbox.h"
 #include "Texthandler.h"
+#include "Animations.h"
+
 
 class Dialoguehandler {
 public:
@@ -28,6 +32,7 @@ private:
 	void readFile();
 	void setCurrentSpeaker(std::string &line);
 	void loadTexture(char level);
+	void animate();
 	size_t currentDialouge;
 	sf::Sprite mSpriteHudBackground;
 	sf::Texture mTexture;
@@ -36,6 +41,12 @@ private:
 	int mIndex;
 	StringVectors mStringVectors;
 	bool mReturnRealesed;
+	float mTimer;
+	int mAnimationIndex;
+	Animations::Textures* mDialogueAnimationRight;
+	Animations::Textures* mDialogueAnimationLeft;
+	sf::Sprite mDialoguespriteLeft;
+	sf::Sprite mDialoguespriteRight;
 
 };
 

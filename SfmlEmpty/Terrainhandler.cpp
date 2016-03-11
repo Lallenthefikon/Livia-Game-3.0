@@ -37,8 +37,8 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	}
 }
 
-void Terrainhandler::createEvent(sf::Vector2f pos, Level *level, char eventType) {
-	mTerrains.push_back(Factory::createEvent(pos, level, eventType));
+void Terrainhandler::createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size) {
+	mTerrains.push_back(Factory::createEvent(pos, level, eventType, size));
 }
 
 

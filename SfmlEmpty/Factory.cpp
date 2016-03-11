@@ -44,12 +44,12 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Terrain* Factory::createEvent(sf::Vector2f pos, Level* level, char eventType) {
-	return EventBlock::createEvent(pos, level, eventType);
+Terrain* Factory::createEvent(sf::Vector2f pos, Level* level, char eventType, sf::Vector2f size) {
+	return EventBlock::createEvent(pos, level, eventType, size);
 }
 
-Terrain* Factory::createEditorEvent(sf::Vector2f pos, char eventType) {
-	return EditorEventBlock::createEventblock(pos, eventType);
+Terrain* Factory::createEditorEvent(sf::Vector2f pos, char eventType, sf::Vector2f size) {
+	return EditorEventBlock::createEventblock(pos, eventType, size);
 }
 
 Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {

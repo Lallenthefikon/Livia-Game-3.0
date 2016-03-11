@@ -8,7 +8,7 @@ class EditorEventBlock : public Terrain
 public:
 	virtual ~EditorEventBlock();
 	virtual Terrain::TERRAINTYPE getType() { return Terrain::EVENT; }
-	static Terrain* createEventblock(sf::Vector2f pos, char type);
+	static Terrain* createEventblock(sf::Vector2f pos, char type, sf::Vector2f size);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -24,7 +24,7 @@ public:
 	virtual bool getIsAlive() { return mIsAlive; }
 
 private:
-	EditorEventBlock(sf::Vector2f pos, char type);
+	EditorEventBlock(sf::Vector2f pos, char type, sf::Vector2f size);
 
 	sf::Texture mTexture;
 	sf::Sprite mSprite;

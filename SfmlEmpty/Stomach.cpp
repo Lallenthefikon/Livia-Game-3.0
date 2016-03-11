@@ -195,6 +195,30 @@ void Stomach::triggerEvent(char type){
 	case 'a':
 		Stomach::eventA();
 		break;
+	case 'b':
+		Stomach::eventB();
+		break;
+
+	case 'c':
+		Stomach::eventC();
+		break;
+
+	case 'd':
+		Stomach::eventD();
+		break;
+
+	case 'e':
+		Stomach::eventE();
+		break;
+
+	case 'f':
+		Stomach::eventF();
+		break;
+
+	case 'g':
+		Stomach::eventG();
+		break;
+
 	default:
 		break;
 	}
@@ -209,8 +233,39 @@ void Stomach::resetLevel(sf::RenderWindow &window){
 	mLevelState = "Cutscene";
 }
 
-void Stomach::eventA(){
+void Stomach::eventA() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Test.txt");
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+void Stomach::eventB() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+}
+void Stomach::eventC() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+}
+void Stomach::eventD() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+}
+void Stomach::eventE() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+void Stomach::eventF() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+
+void Stomach::eventG() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }

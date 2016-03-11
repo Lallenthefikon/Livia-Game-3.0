@@ -30,6 +30,13 @@ public:
 private:
 	Stomach();
 	void eventA();
+	void eventB();
+	void eventC();
+	void eventD();
+	void eventE();
+	void eventF();
+	void eventG();
+
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;

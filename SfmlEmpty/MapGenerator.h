@@ -41,11 +41,11 @@ private:
 	void createSpikes(sf::Vector2f pos, char type);
 	void createGoal(sf::Vector2f pos);
 	void createMeatballSpawner(sf::Vector2f pos);
-	void createDialogue(sf::Vector2f pos);
+	
 	
 	// Decoration
 	void createDecoration(sf::Vector2f pos, char id, char layer);
-	void createEvent(sf::Vector2f pos,Level *level, char eventType);
+	void createEvent(sf::Vector2f pos,Level *level, char eventType, sf::Vector2f size);
 	
 	void createCollisionBlocks();
 	void mergeCollisionblocks(BlockTerrains& blockterrains);

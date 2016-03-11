@@ -34,6 +34,7 @@ static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
 static sf::Image mDecorationTexture;
+static sf::Image mDialogueBoxSpriteSheetIMG;
 static sf::Image mDialogueSpriteSheetIMG;
 
 // Camera
@@ -97,7 +98,9 @@ void Toolbox::loadTextures(std::string levelName){
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -194,13 +197,17 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mDecorationTexture;
 		break;
 
-	case DIALOGUETEXTURE:
+	case DIALOGUEMAPEDITORTEXTURE:
 		return mDialogueTexture;
 		break;
 
-	case DIALOGUESHEET:
-		return mDialogueSpriteSheetIMG;
+	case DIALOGUEBOXSHEET:
+		return mDialogueBoxSpriteSheetIMG;
 		break;
+
+	case DIALOGUETEXTURE:
+		return mDialogueSpriteSheetIMG;
+			break;
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
