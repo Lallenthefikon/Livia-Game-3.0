@@ -8,6 +8,7 @@ mMapDimensionsTiles(100, 100), //Design, 250/350 för tarm, 50/500 för magsäck, 5
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
+mEventType('a'),
 
 mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
@@ -16,6 +17,7 @@ mMaploader(MapEditMaploader::getInstance()),
 mMeny(MapEditorMeny::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mLayerHandler(LayerHandler::getInstance()),
+mDialogueHandler(Dialoguehandler::getInstance()),
 
 mCamera(),
 
@@ -95,7 +97,7 @@ void MapEditor::update(sf::RenderWindow &window){
 						}
 					}
 
-							break;
+					break;
 
 				case sf::Mouse::Middle:
 					MapEditor::changeInsertType();
@@ -130,6 +132,9 @@ void MapEditor::update(sf::RenderWindow &window){
 				break;
 			case sf::Keyboard::R:
 				MapEditor::changeRotDirection();
+				break;
+			case sf::Keyboard::E:
+				MapEditor::changeEventType();
 				break;
 			default:
 				break;
@@ -238,6 +243,10 @@ void MapEditor::createMeatball(sf::Vector2f mousePos) {
 	mEntities.push_back(Factory::createMeatball(mousePos));
 }
 
+void MapEditor::createExtraLife(sf::Vector2f mousePos) {
+	mEntities.push_back(Factory::createExtraLife(mousePos));
+}
+
 // Terrains
 void MapEditor::createBlock0(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
@@ -259,8 +268,8 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 	mTerrains.push_back(Factory::createGoal(mousepos));
 }
 
-void MapEditor::createDialogue(sf::Vector2f mousePos) {
-	mTerrains.push_back(Factory::createDialogue(mousePos));
+void MapEditor::createEditorEvent(sf::Vector2f mousePos) {
+	mTerrains.push_back(Factory::createEditorEvent(mousePos, mEventType));
 }
 
 void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
@@ -314,6 +323,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::ACIDMONSTER:
 		MapEditor::createAcidMonster(mousePos);
 		break;
+	case MapEditorMeny::EXTRALIFE:
+		MapEditor::createExtraLife(mousePos);
+		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
 		MapEditor::createBlock0WallJump(mousePos);
 		break;
@@ -338,8 +350,8 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::MEATBALLSPAWNER:
 		MapEditor::createMeatballSpawner(mousePos);
 		break;
-	case MapEditorMeny::DIALOGUE:
-		MapEditor::createDialogue(mousePos);
+	case MapEditorMeny::EVENT:
+		MapEditor::createEditorEvent(mousePos);
 		break;
 	default:
 		break;
@@ -394,18 +406,21 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
+		mInsertType = MapEditorMeny::EVENT;
+		break;
+	case MapEditorMeny::EVENT:
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
-		mInsertType = MapEditorMeny::DIALOGUE;
-		break;
-	case MapEditorMeny::DIALOGUE:
 		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
 		mInsertType = MapEditorMeny::MEATBALL;
 		break;
 	case MapEditorMeny::MEATBALL:
+		mInsertType = MapEditorMeny::EXTRALIFE;
+		break;
+	case MapEditorMeny::EXTRALIFE:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -551,9 +566,10 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back('0');
 				break;
 
-			case Terrain::DIALOGUE:
-				output.push_back('Q');
-				output.push_back('0');
+			case Terrain::EVENT:
+				output.push_back('E');
+				output.push_back('V');
+				output.push_back(mTerrains[i]->getTileType());
 				break;
 
 			case Terrain::MEATBALLSPAWNER:
@@ -626,6 +642,11 @@ void MapEditor::writeEntityToFile(std::string filename){
 
 			case Entity::MEATBALL:
 				output.push_back('M');
+				output.push_back('0');
+				break;
+
+			case Entity::EXTRALIFE:
+				output.push_back('E');
 				output.push_back('0');
 				break;
 
@@ -869,4 +890,11 @@ bool MapEditor::isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos){
 
 void MapEditor::updateInsertType(){
 	mInsertType = mMeny.getInsertType();
+}
+
+void MapEditor::changeEventType() {
+	mEventType++;
+	if (mEventType == 'h') {
+		mEventType = 'a';
+	}
 }

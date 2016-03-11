@@ -17,7 +17,9 @@ SoundFX& LiviaSound::createLiviaSound() {
 
 void LiviaSound::initialize() {
 	mSounds.insert({ RUNNING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERRUN)) });
-	mSounds.insert({ JUMPING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP)) });
+	mSounds.insert({ JUMPING1, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP1)) });
+	mSounds.insert({ JUMPING2, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP2)) });
+	mSounds.insert({ JUMPING3, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERJUMP3)) });
 	mSounds.insert({ DAMAGED, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDAMAGED)) });
 	mSounds.insert({ IDLE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERIDLE)) });
 	mSounds.insert({ DEATH, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDEATH)) });
@@ -29,7 +31,9 @@ void LiviaSound::initialize() {
 	
 	mSounds[LANDING]->setVolume(15);
 	mSounds[RUNNING]->setVolume(33);
-	mSounds[JUMPING]->setVolume(33);
+	mSounds[JUMPING1]->setVolume(33);
+	mSounds[JUMPING2]->setVolume(33);
+	mSounds[JUMPING3]->setVolume(33);
 	mSounds[DEATH]->setVolume(75);
 }
 
@@ -47,9 +51,19 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 			mSounds[RUNNING]->play();
 		break;
 
-	case SoundFX::JUMPING:
-		if (mSounds[JUMPING]->getStatus() != sf::Sound::Status::Playing)
-			mSounds[JUMPING]->play();
+	case SoundFX::JUMPING1:
+		if (mSounds[JUMPING1]->getStatus() != sf::Sound::Status::Playing)
+			mSounds[JUMPING1]->play();
+		break;
+
+	case SoundFX::JUMPING2:
+		if (mSounds[JUMPING2]->getStatus() != sf::Sound::Status::Playing)
+			mSounds[JUMPING2]->play();
+		break;
+
+	case SoundFX::JUMPING3:
+		if (mSounds[JUMPING3]->getStatus() != sf::Sound::Status::Playing)
+			mSounds[JUMPING3]->play();
 		break;
 
 	case SoundFX::LANDING:
@@ -94,9 +108,19 @@ void LiviaSound::stopSound(SOUNDTYPE type) {
 			mSounds[RUNNING]->stop();
 		break;
 
-	case SoundFX::JUMPING:
-		if (mSounds[JUMPING]->getStatus() == sf::Sound::Status::Playing)
-			mSounds[JUMPING]->stop();
+	case SoundFX::JUMPING1:
+		if (mSounds[JUMPING1]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[JUMPING1]->stop();
+		break;
+
+	case SoundFX::JUMPING2:
+		if (mSounds[JUMPING2]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[JUMPING2]->stop();
+		break;
+
+	case SoundFX::JUMPING3:
+		if (mSounds[JUMPING3]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[JUMPING3]->stop();
 		break;
 
 	case SoundFX::LANDING:

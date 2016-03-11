@@ -28,7 +28,6 @@ private:
 	Collisionhandler& mCollisionHandler;*/
 
 	Level* mCurrentLevel;
-	Stomach mStomach;
 	//Hub &mHub;
 
 

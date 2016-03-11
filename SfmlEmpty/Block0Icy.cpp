@@ -3,7 +3,8 @@
 
 
 Block0Icy::Block0Icy(sf::Vector2f pos, char type):
-mTileType(type){
+mTileType(type),
+mTexture() {
 	Block0Icy::setTexture(type);
 	mSprite.setTexture(mTexture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);

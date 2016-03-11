@@ -1,21 +1,23 @@
 #pragma once
 
 #include <vector>
-#include "Dialogue.h"
+#include <SFML\Graphics.hpp>
+#include "Texthandler.h"
 
 class Dialoguehandler {
 public:
-	typedef std::vector<Dialogue*> Dialogues;
+	enum CURRENTSPEAKER{LIVIA, MANSASOUL, TUMMY};
+
+	typedef std::vector<std::string*> Strings;
+	typedef std::vector<Strings*> StringVectors;
 	static Dialoguehandler& getInstance();
 
-
-	void addDialogue(Dialogue* dialogue);
 	void renderDialogue(sf::RenderWindow &window);
-	void updateDialogue(const sf::Vector2f &pos);
+	void updateDialogue();
+	void loadDialougehandler(char level);
 	void clear();
-	void setCurrentDialogue(size_t index);
+	void setCurrentDialogue(std::string filename);
 
-	Dialogues& getDialogue() { return mDialogue; }
 	~Dialoguehandler();
 	bool isInDialogue = false;
 
@@ -23,11 +25,17 @@ private:
 	
 	Dialoguehandler();
 	void internalClear();
-	sf::Sprite mSpriteHudBackground;
-
+	void readFile();
+	void setCurrentSpeaker(std::string &line);
+	void loadTexture(char level);
 	size_t currentDialouge;
-	size_t page;
+	sf::Sprite mSpriteHudBackground;
+	sf::Texture mTexture;
+	std::string mFilename;
+	CURRENTSPEAKER mCurrentspeaker;
+	int mIndex;
+	StringVectors mStringVectors;
+	bool mReturnRealesed;
 
-	Dialogues mDialogue;
 };
 

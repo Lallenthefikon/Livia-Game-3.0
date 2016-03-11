@@ -6,7 +6,7 @@ static sf::Sprite mPlayerSprite;
 static sf::Vector2f mPlayerVelocity;
 static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
-
+static int mPlayerHealth;
 static float mFrameTime(0);
 
 // Level Info
@@ -34,6 +34,7 @@ static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
 static sf::Image mDecorationTexture;
+static sf::Image mDialogueSpriteSheetIMG;
 
 // Camera
 static sf::Vector2f mWindowSize;
@@ -44,7 +45,9 @@ static sf::FloatRect mGlobalCameraBounds;
 // Sounds
 static sf::SoundBuffer mPlayerIdleSound;
 static sf::SoundBuffer mPlayerRunSound;
-static sf::SoundBuffer mPlayerJumpSound;
+static sf::SoundBuffer mPlayerJumpSound1;
+static sf::SoundBuffer mPlayerJumpSound2;
+static sf::SoundBuffer mPlayerJumpSound3;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mPlayerDeathSound;
 static sf::SoundBuffer mPlayerFallDeathSound;
@@ -79,8 +82,9 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy.png");
-	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy upp.png");
+	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/terrain/icy_block_placeholder.png");
+	//mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
+	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
 	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
@@ -90,6 +94,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -105,7 +110,9 @@ void Toolbox::loadSounds(std::string levelName) {
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
 	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/walking/Walkcycle_01.ogg");
-	mPlayerJumpSound.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
+	mPlayerJumpSound1.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
+	mPlayerJumpSound2.loadFromFile("resources/sounds/effects/livia/jumps/Jump_05.ogg");
+	mPlayerJumpSound3.loadFromFile("resources/sounds/effects/livia/jumps/Jump_06.ogg");
 	mPlayerDamagedSound.loadFromFile("resources/sounds/effects/livia/damage/Hurt_02.ogg");
 	mPlayerDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_01.ogg");
 	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Fall_01.ogg");
@@ -147,11 +154,13 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
+		//return mAcidMonsterHorizontalTexture;
 		return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
+		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
@@ -186,6 +195,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mDialogueTexture;
 		break;
 
+	case DIALOGUESHEET:
+		return mDialogueSpriteSheetIMG;
+		break;
+
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
 		break;
@@ -205,6 +218,10 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mResolution.x = videoMode.width;
 	mResolution.y = videoMode.height;
 	mWindowPos = sf::Vector2f(window.getPosition());
+}
+
+void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+	mWindowSize = sf::Vector2f(window.getSize());
 }
 
 sf::Vector2f Toolbox::getWindowSize(){
@@ -270,6 +287,14 @@ bool Toolbox::getPlayerIsAlive(){
 	return mPlayerAlive;
 }
 
+void Toolbox::copyPlayerHealth(int i) {
+	mPlayerHealth = i;
+}
+
+int Toolbox::getPlayerHealth() {
+	return mPlayerHealth;
+}
+
 sf::Vector2f Toolbox::findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window){
 	sf::Vector2i pixel_pos = pixelPos;
 	sf::Vector2f coord_pos = window.mapPixelToCoords(pixel_pos);
@@ -285,8 +310,14 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERRUN:
 		return mPlayerRunSound;
 		break;
-	case Toolbox::PLAYERJUMP:
-		return mPlayerJumpSound;
+	case Toolbox::PLAYERJUMP1:
+		return mPlayerJumpSound1;
+		break;
+	case Toolbox::PLAYERJUMP2:
+		return mPlayerJumpSound2;
+		break;
+	case Toolbox::PLAYERJUMP3:
+		return mPlayerJumpSound3;
 		break;
 	case Toolbox::PLAYERLAND:
 		return mPlayerLandSound;
@@ -339,6 +370,7 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 		return mGameOverFont;
 		break;
 	case Toolbox::DIALOGUE:
+		return mGameOverFont;
 		break;
 	default:
 		break;

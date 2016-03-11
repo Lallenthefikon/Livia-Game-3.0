@@ -29,9 +29,6 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	case '4':
 		mTerrains.push_back(Factory::createMeatballSpawner(pos));
 		break;
-	case '5':
-		mTerrains.push_back(Factory::createDialogue(pos));
-		break;
 	case '01':
 		mCollisionBlocks.push_back(Factory::createCollisionBlock(pos));
 		break;
@@ -39,6 +36,11 @@ void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 		break;
 	}
 }
+
+void Terrainhandler::createEvent(sf::Vector2f pos, Level *level, char eventType) {
+	mTerrains.push_back(Factory::createEvent(pos, level, eventType));
+}
+
 
 void Terrainhandler::render(sf::RenderWindow &window) {
 	for (auto i : mTerrains) {
@@ -63,6 +65,16 @@ void Terrainhandler::clear(){
 void Terrainhandler::addCollisionblock(BlockTerrain* blockterrain) {
 	mCollisionBlocks.push_back(blockterrain);
 }
+
+void Terrainhandler::bringOutTheDead(){
+	for (Terrains::size_type i = 0; i < mTerrains.size(); i++) {
+		if (!mTerrains[i]->getIsAlive()) {
+			delete mTerrains[i];
+			mTerrains.erase(mTerrains.begin() + i);
+		}
+	}
+}
+
 
 //void Terrainhandler::addTerrain(Terrain* terrain){
 //	mTerrains.push_back(terrain);

@@ -23,12 +23,13 @@ public:
 	virtual void unloadLevel();
 	virtual std::string getLevelName(){ return mMapName; }
 	virtual std::string getLevelDirectory(){ return mMapPath; }
+	virtual void triggerEvent(char type);
 	void setCurrentMap(std::string &mapname);
 	void resetLevel(sf::RenderWindow &window);
 	
 private:
 	Stomach();
-	
+	void eventA();
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;

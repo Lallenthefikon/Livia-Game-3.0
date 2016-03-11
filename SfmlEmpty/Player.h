@@ -3,6 +3,7 @@
 #include <SFML\System.hpp>
 #include "Entity.h"
 
+
 class Player : public Entity{
 
 public:

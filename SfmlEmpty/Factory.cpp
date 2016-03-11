@@ -8,11 +8,13 @@
 #include "Spikes.h"
 #include "BlockGoal.h"
 #include "Decoration.h"
-#include "Dialogue.h"
+#include "EventBlock.h"
 #include "CollisionBlock.h"
 #include "MeatballSpawner.h"
 #include "Block0Icy.h"
+#include "ExtraLife.h"
 #include "Germ.h"
+#include "EditorEventBlock.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -42,9 +44,14 @@ Terrain* Factory::createGoal(sf::Vector2f pos) {
 	return BlockGoal::createGoal(pos);
 }
 
-Terrain* Factory::createDialogue(sf::Vector2f pos) {
-	return Dialogue::createDialogue(pos);
+Terrain* Factory::createEvent(sf::Vector2f pos, Level* level, char eventType) {
+	return EventBlock::createEvent(pos, level, eventType);
 }
+
+Terrain* Factory::createEditorEvent(sf::Vector2f pos, char eventType) {
+	return EditorEventBlock::createEventblock(pos, eventType);
+}
+
 Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
 	return Decoration::createDecoration(pos, id, layer);
 }
@@ -55,6 +62,10 @@ BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {
 
 Entity* Factory::createMeatball(sf::Vector2f pos) {
 	return Meatball::createMeatball(pos);
+}
+
+Entity* Factory::createExtraLife(sf::Vector2f pos) {
+	return ExtraLife::createExtraLife(pos);
 }
 
 Terrain* Factory::createMeatballSpawner(sf::Vector2f pos) {

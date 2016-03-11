@@ -20,6 +20,9 @@ public:
 private:
 	void calcTimeElapsedAndFPS(sf::Clock &clock);
 	void manualStateChange(int &i);
+	void manualFPSChange(int &i);
+	void switchFPS();
+	void updateFPS();
 	void switchState();
 	void updateState();
 
@@ -35,5 +38,6 @@ private:
 	float mFrameTime;
 	int FPS;
 	bool gameRunning = true, mapEditing; // States
+	bool lowFPS, highFPS = true;
 };
 
