@@ -87,6 +87,7 @@
     <ClCompile Include="Block0Icy.cpp" />
     <ClCompile Include="BlockGoal.cpp" />
     <ClCompile Include="EditorEventBlock.cpp" />
+    <ClCompile Include="ExtraLife.cpp" />
     <ClCompile Include="Germ.cpp" />
     <ClCompile Include="HandlerFactory.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Block0Icy.h" />
     <ClInclude Include="BlockGoal.h" />
     <ClInclude Include="EditorEventBlock.h" />
+    <ClInclude Include="ExtraLife.h" />
     <ClInclude Include="Germ.h" />
     <ClInclude Include="HandlerFactory.h" />
     <ClInclude Include="MeatballSpawner.h" />

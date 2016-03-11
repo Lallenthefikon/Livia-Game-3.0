@@ -145,11 +145,11 @@
     <ClCompile Include="HandlerFactory.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="ExtraLife.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="Germ.cpp">
       <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtraLife.cpp">
+      <Filter>Source Files\Terrain\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -285,9 +285,6 @@
     <ClInclude Include="AddObjectsDuringGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ExtraLife.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
     <ClInclude Include="Germ.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -296,6 +293,9 @@
     </ClInclude>
     <ClInclude Include="HandlerFactory.h">
       <Filter>Header Files\Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraLife.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

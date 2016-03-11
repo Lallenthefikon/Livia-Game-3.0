@@ -261,22 +261,6 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
 		window.draw(mLives[i]);
 	}
-
-	else if (mEntityHandler->getPlayerLife() == 2){
-		window.draw(mLives[0]);
-		window.draw(mLives[1]);
-		ANIFramesPerFrame = 62.5 * Toolbox::getFrameTime();
-	}
-
-	else if (mEntityHandler->getPlayerLife() == 1){
-		window.draw(mLives[0]);
-		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
-	}
-
-	if (mDialogueHandler.isInDialogue){
-		mDialogueHandler.renderDialogue(window);
-		
-	}
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
