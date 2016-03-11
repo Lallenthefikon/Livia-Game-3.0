@@ -145,6 +145,12 @@
     <ClCompile Include="HandlerFactory.cpp">
       <Filter>Source Files\Handlers</Filter>
     </ClCompile>
+    <ClCompile Include="ExtraLife.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Germ.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h">
@@ -278,6 +284,9 @@
     </ClInclude>
     <ClInclude Include="AddObjectsDuringGame.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExtraLife.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="Germ.h">
       <Filter>Header Files\Entity</Filter>

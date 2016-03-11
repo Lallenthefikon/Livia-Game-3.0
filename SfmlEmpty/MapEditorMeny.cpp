@@ -42,14 +42,19 @@ void MapEditorMeny::insertObjects(){
 	mEntities.push_back(Factory::createGerm(sf::Vector2f(WIDTHBETWEEN * 2.7, 70)));
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
 	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
-	mEntities.back()->setScale(sf::Vector2f(0.6,0.6));
+	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
 	
 	mEntities.push_back(Factory::createWorm(sf::Vector2f(WIDTHBETWEEN * 1.7, 70)));
-	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
+	mEntities.back()->setScale(sf::Vector2f(0.6f, 0.6f));
 
 	mEntities.push_back(Factory::createMeatball(sf::Vector2f(WIDTHBETWEEN * 2.6f, 70.f)));
-	mEntities.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+	mEntities.back()->setScale(sf::Vector2f(0.25f, 0.25f));
 
+	mEntities.push_back(Factory::createAcidMonster(sf::Vector2f(WIDTHBETWEEN * 4.f, 70.f)));
+	mEntities.back()->setScale(sf::Vector2f(0.03f, 0.03f));
+
+	mEntities.push_back(Factory::createExtraLife(sf::Vector2f(WIDTHBETWEEN * 4.4f, 70.5)));
+	mEntities.back()->setScale(sf::Vector2f(0.7f, 0.7f));
 
 	// Terrains
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
@@ -102,6 +107,14 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 					mInsertType = MEATBALL;
 					break;
 
+				case Entity::ACIDMONSTER:
+					mInsertType = ACIDMONSTER;
+					break;
+
+				case Entity::EXTRALIFE:
+					mInsertType = EXTRALIFE;
+					break;
+
 				default:
 					break;
 				}
@@ -150,7 +163,7 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				case Decoration::FLOWER:
 					mInsertType = DECORATION0;
 					break;
-				case Decoration::DECORATIONID::SAYS:
+				case Decoration::SAYS:
 					mInsertType = DECORATION1;
 					break;
 				default:
@@ -175,8 +188,25 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	//mEntities[1]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN, newPos.y + 40));
 
 	// Entities
-	for (size_t i = 0; i < mEntities.size(); i++)
-		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 10));
+	sf::Vector2f offset(0.f, 0.f);
+	for (size_t i = 0; i < mEntities.size(); i++) {
+		if (mEntities[i]->getType() == Entity::PLAYER) {
+			offset = sf::Vector2f(25.f, 20.f);
+		}
+		if (mEntities[i]->getType() == Entity::WORM) {
+			offset = sf::Vector2f(4.2f, 60.f);
+		}
+		if (mEntities[i]->getType() == Entity::ACIDMONSTER) {
+			offset = sf::Vector2f(28.f, 60.f);
+		}
+		if (mEntities[i]->getType() == Entity::MEATBALL) {
+			offset = sf::Vector2f(23.f, 40.f);
+		}
+		if (mEntities[i]->getType() == Entity::EXTRALIFE) {
+			offset = sf::Vector2f(8.f, 7.f);
+		}
+		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + offset.x, newPos.y + offset.y));
+	}
 
 	// Block0 
 	for (size_t i = 0; i < mTerrains.size(); i++)
@@ -186,7 +216,7 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	for (size_t i = 0; i < mDecorations.size(); i++)
 		mDecorations[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 10, newPos.y + 180));
 
-
+	
 	//int nrOfEntities;
 	//for (Entities::size_type i = 0; i < mEntities.size(); i++){
 	//	nrOfEntities = i + 1;

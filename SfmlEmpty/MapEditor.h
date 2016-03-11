@@ -28,6 +28,7 @@ public:
 	void createGerm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createMeatball(sf::Vector2f mousePos);
+	void createExtraLife(sf::Vector2f mousePos);
 	
 	void createBlock0(sf::Vector2f mousePos);
 	void createBlock0WallJump(sf::Vector2f mousePos);

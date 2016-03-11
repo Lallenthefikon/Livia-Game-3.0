@@ -35,6 +35,10 @@ public:
 	
 	void updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f sceneCamCoordPos);
 
+	void updateLife();
+
+	void clearLife();
+
 	~LayerHandler();
 private:
 	LayerHandler();
@@ -48,9 +52,11 @@ private:
 	void updateState();
 	void updateANI();
 
-	
+	void internalClear();
+
 	sf::Texture mLifeTexture;
 	//std::vector<sf::Sprite> mDialogues;
+	sf::Sprite mLifeSprite;
 	std::vector<sf::Sprite> mLives;
 	std::vector<sf::Sprite> mForegroundObjects;
 	Animations::Textures* mHeartAnimation;
@@ -64,5 +70,8 @@ private:
 	Entityhandler* mEntityHandler;
 	Texthandler& mTextHandler;
 	Dialoguehandler& mDialogueHandler;
+
+	int mPreviousLife;
+	int mMaxLife;
 };
 

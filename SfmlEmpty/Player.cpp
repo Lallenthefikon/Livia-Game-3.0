@@ -164,6 +164,10 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::ACIDMONSTER:
 		mLife = 0;
 		break;
+	case Entity::EXTRALIFE:
+		mLife++;
+		entity->getHit();
+		break;
 	default:
 		break;
 	}
@@ -356,11 +360,11 @@ void Player::lerp(){
 	
 	sf::Vector2f delta;
 
+	// Different delta depending on what block the player is standing on
 	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
-			delta = sf::Vector2f(Toolbox::getFrameTime() * mIcyAcceleration.x, Toolbox::getFrameTime() * mIcyAcceleration.y);
-		}
-	else {
-		delta = sf::Vector2f(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
+		delta = sf::Vector2f(Toolbox::getFrameTime() * mIcyAcceleration.x, Toolbox::getFrameTime() * mIcyAcceleration.y);
+	} else {
+		delta = sf::Vector2f(mAcceleration.x * Toolbox::getFrameTime(), mAcceleration.y * Toolbox::getFrameTime());
 	}
 
 	float airBorneDelta;
@@ -371,6 +375,7 @@ void Player::lerp(){
 	else {
 		airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
 	}
+
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -686,9 +691,17 @@ void Player::updateTexturepos(){
 }
 
 void Player::playSound(PLAYERSTATE state) {
+	int randomValue = std::rand() % 3;
 	switch (state) {
 	case Player::JUMPING:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		// Randomize jump sound
+		if (randomValue == 0) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING1);
+		} else if (randomValue == 1) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING2);
+		} else if (randomValue == 2) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING3);
+		}
 		break;
 	case Player::IDLE:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
@@ -721,7 +734,9 @@ void Player::playSound(PLAYERSTATE state) {
 void Player::stopSound(PLAYERSTATE state) {
 	switch (state) {
 	case Player::JUMPING:
-		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING1);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING2);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING3);
 		break;
 	case Player::IDLE:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::IDLE);

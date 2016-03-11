@@ -165,6 +165,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
+			case 'E':
+				switch (line[1]) {
+				case '0':
+					MapGenerator::createExtraLife(MapGenerator::readPosition(line));
+					break;
+				default:
+					break;
+				}
 			default:
 				break;
 
@@ -213,9 +221,12 @@ void MapGenerator::createMeatball(sf::Vector2f pos) {
 	mEntityHandler->add(pos, '3');
 }
 
+void MapGenerator::createExtraLife(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '4');
+}
 
 void MapGenerator::createGerm(sf::Vector2f pos) {
-	mEntityHandler->add(pos, '4');
+	mEntityHandler->add(pos, '5');
 }
 
 

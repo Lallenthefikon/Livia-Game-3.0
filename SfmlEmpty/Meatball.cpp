@@ -8,7 +8,6 @@ mIsOnScreen(true),
 mAcceleration(8),
 mMaxSpeed(1250),
 mIsAlive(true),
-mLife(1),
 mCollisionBodyOffset(-30,-30){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
