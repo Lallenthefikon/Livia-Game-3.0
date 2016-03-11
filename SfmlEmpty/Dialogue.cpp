@@ -25,6 +25,5 @@ void Dialogue::setPos(sf::Vector2f newPos) {
 	mSprite.setPosition(newPos);
 }
 
-void Dialogue::trigger()
-{
+void Dialogue::trigger(){
 }

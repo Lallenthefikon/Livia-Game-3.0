@@ -42,6 +42,8 @@ void MapGenerator::loadMap(std::string &mapname, Level *level){
 
 void MapGenerator::readTerrainfile(std::string &filename, Level *level){
 
+	std::string eventSize;
+
 	std::string line;
 	std::ifstream terrainfile(filename);
 
@@ -74,7 +76,14 @@ void MapGenerator::readTerrainfile(std::string &filename, Level *level){
 			case 'E':
 				switch (line[1]){
 				case 'V':
-					MapGenerator::createEvent(MapGenerator::readPosition(line),level, line[2]);
+					for (int i = 3; i < line.size(); i++) {
+						if (line[i] == '|')
+							break;
+						else
+							eventSize.push_back(line[i]);
+					}
+					MapGenerator::createEvent(MapGenerator::readPosition(line),level, line[2], MapGenerator::readPosition(eventSize));
+					eventSize.clear();
 					break;
 				default:
 					break;
@@ -255,8 +264,8 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
 	mTerrainhandler->add(pos, '4');
 }
 
-void MapGenerator::createEvent(sf::Vector2f pos, Level *level, char eventType) {
-	mTerrainhandler->createEvent(pos, level, eventType);
+void MapGenerator::createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size) {
+	mTerrainhandler->createEvent(pos, level, eventType, size);
 }
 
 

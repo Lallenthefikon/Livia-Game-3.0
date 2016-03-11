@@ -34,6 +34,8 @@ void MapEditMaploader::clear(){
 
 void MapEditMaploader::readTerrainfile(std::string &filename) {
 
+	std::string eventSize;
+
 	std::string line;
 	std::ifstream terrainfile(filename);
 
@@ -63,8 +65,16 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 			case 'E':
 				switch (line[1]) {
 				case 'V':
-					MapEditMaploader::createEvent(MapEditMaploader::readPosition(line), line[2]);
+					for (int i = 3; i < line.size(); i++) {
+						if (line[i] == '|')
+							break;
+						else
+							eventSize.push_back(line[i]);
+					}
+					MapEditMaploader::createEvent(MapEditMaploader::readPosition(line), line[2], MapEditMaploader::readPosition(eventSize));
+					eventSize.clear();
 					break;
+				
 				default:
 					break;
 				}
@@ -242,8 +252,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
  }
 
- void MapEditMaploader::createEvent(sf::Vector2f &pos, char eventType) {
-	 mTerrains.push_back(Factory::createEditorEvent(pos, eventType));
+ void MapEditMaploader::createEvent(sf::Vector2f &pos, char eventType, sf::Vector2f size) {
+	 mTerrains.push_back(Factory::createEditorEvent(pos, eventType, size ));
  }
 
  void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {
