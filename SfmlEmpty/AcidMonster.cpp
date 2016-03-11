@@ -4,13 +4,15 @@
 static float ANIFramesPerFrame(0.25);
 
 AcidMonster::AcidMonster(sf::Vector2f pos):
-mCurrentAnimation(Animations::getAcidMonsterVertical()),
 mSoundFX(SoundFactory::getTummySound()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
 mMaxSpeed(-4.3), // 4.3 // 258
-mCollisionBodyOffset(-60,-60){
+mCollisionBodyOffset(-60,-60),
+mState(MOVINGUP){
+
+	AcidMonster::setAnimation();
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
@@ -189,6 +191,9 @@ void AcidMonster::playSound(ACIDMONSTERSTATE state) {
 	case AcidMonster::MOVINGRIGHT:
 		mSoundFX.playSound(SoundFX::RUNNING);
 		break;
+	case AcidMonster::MOVINGUP:
+		mSoundFX.playSound(SoundFX::RUNNING);
+		break;
 	default:
 		break;
 	}
@@ -199,6 +204,9 @@ void AcidMonster::stopSound(ACIDMONSTERSTATE state) {
 	case AcidMonster::MOVINGRIGHT:
 		mSoundFX.stopSound(SoundFX::RUNNING);
 		break;
+	case AcidMonster::MOVINGUP:
+		mSoundFX.stopSound(SoundFX::RUNNING);
+		break;
 	default:
 		break;
 	}
@@ -207,13 +215,22 @@ void AcidMonster::stopSound(ACIDMONSTERSTATE state) {
 void AcidMonster::updateSound() {
 	sf::Vector2f playerPos = Toolbox::getPlayerPosition();
 	sf::Vector2f tummyPos = this->getPos();
-	float distanceBetween = abs(playerPos.y / tummyPos.y);
+	float volume = calculateVolume(playerPos, tummyPos);
+	mSoundFX.updateSound(SoundFX::RUNNING, volume);
+}
+
+float AcidMonster::calculateVolume(sf::Vector2f &pos1, sf::Vector2f &pos2) {
+	float distanceBetween;
+	if (mState == MOVINGUP) {
+		distanceBetween = abs(pos1.y / pos2.y);
+	} else if (mState == MOVINGRIGHT) {
+		distanceBetween = abs(pos1.x / pos2.x);
+	}
 	float exp = pow(0.1f, distanceBetween);
 	float invertedVolume = abs(exp * 1000 - 100) * 10;
 	float volume = 100 - invertedVolume;
-	
-	std::cout << volume << std::endl;
-	mSoundFX.updateSound(SoundFX::RUNNING, volume);
+
+	return volume;
 }
 
 void AcidMonster::getHit(){
@@ -222,4 +239,17 @@ void AcidMonster::getHit(){
 
 void AcidMonster::setPos(sf::Vector2f newPos){
 	mCollisionBody.setPosition(newPos);
+}
+
+void AcidMonster::setAnimation() {
+	switch (mState) {
+	case AcidMonster::MOVINGRIGHT:
+		mCurrentAnimation = Animations::getAcidMonsterHorizontal();
+		break;
+	case AcidMonster::MOVINGUP:
+		mCurrentAnimation = Animations::getAcidMonsterVertical();
+		break;
+	default:
+		break;
+	}
 }

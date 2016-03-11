@@ -8,7 +8,7 @@
 
 	class AcidMonster : public Entity{
 	public:
-		enum ACIDMONSTERSTATE { MOVINGRIGHT };
+		enum ACIDMONSTERSTATE { MOVINGRIGHT, MOVINGUP };
 		virtual ~AcidMonster();
 		virtual ENTITYTYPE getType(){ return ACIDMONSTER; }
 		static Entity* createAcidMonster(sf::Vector2f pos);
@@ -43,10 +43,13 @@
 		void updateANI();
 		void animate();
 
+		void setAnimation();
+
 		void playSound(ACIDMONSTERSTATE state);
 		void stopSound(ACIDMONSTERSTATE state);
 		void updateSound();
 
+		float calculateVolume(sf::Vector2f &pos1, sf::Vector2f &pos2);
 
 		sf::Sprite mSprite,
 			mCollisionBody;
