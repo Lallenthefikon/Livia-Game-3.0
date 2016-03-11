@@ -23,6 +23,7 @@ void AddObjectsDuringGame::createWorm(sf::Vector2f pos) {
 }
 
 void AddObjectsDuringGame::createAcidMonster(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '2');
 }
 
 void AddObjectsDuringGame::createMeatball(sf::Vector2f pos) {
