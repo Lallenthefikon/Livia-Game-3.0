@@ -124,6 +124,7 @@
     <ClCompile Include="Terrainhandler.cpp" />
     <ClCompile Include="Texthandler.cpp" />
     <ClCompile Include="Toolbox.cpp" />
+    <ClCompile Include="TummySound.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="WormSound.cpp" />
   </ItemGroup>
@@ -174,6 +175,7 @@
     <ClInclude Include="Terrainhandler.h" />
     <ClInclude Include="Texthandler.h" />
     <ClInclude Include="Toolbox.h" />
+    <ClInclude Include="TummySound.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="WormSound.h" />
   </ItemGroup>
