@@ -10,6 +10,8 @@ mTileDimensions(100, 100),
 mInsertType(MapEditorMeny::BLOCK0),
 mEventType('a'),
 
+mEventSize(100,100),
+
 mRotDirection('t'),
 mCurrentLevelDirectory(levelDirectory),
 
@@ -135,6 +137,18 @@ void MapEditor::update(sf::RenderWindow &window){
 				break;
 			case sf::Keyboard::E:
 				MapEditor::changeEventType();
+				break;
+			case sf::Keyboard::P:
+				mEventSize.y -= 30;
+				break;
+			case sf::Keyboard::O:
+				mEventSize.y += 30;
+				break;
+			case sf::Keyboard::I:
+				mEventSize.x += 30;
+				break;
+			case sf::Keyboard::U:
+				mEventSize.x -= 30;
 				break;
 			default:
 				break;
@@ -269,7 +283,7 @@ void MapEditor::createGoal(sf::Vector2f mousepos) {
 }
 
 void MapEditor::createEditorEvent(sf::Vector2f mousePos) {
-	mTerrains.push_back(Factory::createEditorEvent(mousePos, mEventType));
+	mTerrains.push_back(Factory::createEditorEvent(mousePos, mEventType,mEventSize));
 }
 
 void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
@@ -570,6 +584,18 @@ void MapEditor::writeTerrainToFile(std::string filename){
 				output.push_back('E');
 				output.push_back('V');
 				output.push_back(mTerrains[i]->getTileType());
+				posString = MapEditor::floatToString(mTerrains[i]->getWidth());
+
+				for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+					output.push_back(posString[iS]);
+				}
+				output.push_back(',');
+				posString = MapEditor::floatToString(mTerrains[i]->getHeight());
+
+				for (std::string::size_type iS = 0; iS < posString.size(); iS++) {
+					output.push_back(posString[iS]);
+				}
+
 				break;
 
 			case Terrain::MEATBALLSPAWNER:

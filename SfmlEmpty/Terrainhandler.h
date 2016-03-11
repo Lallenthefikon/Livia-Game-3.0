@@ -21,7 +21,7 @@ public:
 	virtual void clear();
 
 	void addCollisionblock(BlockTerrain* blockterrain);
-	void createEvent(sf::Vector2f pos, Level *level, char eventType);
+	void createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size);
 	void bringOutTheDead();
 	Terrains& getTerrains() { return mTerrains; }
 	BlockTerrains& getCollisionTerrains() { return mCollisionBlocks; }

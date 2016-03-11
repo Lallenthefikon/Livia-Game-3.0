@@ -8,7 +8,7 @@ class EventBlock : public Terrain {
 public:
 	virtual ~EventBlock();
 	virtual TERRAINTYPE getType() { return Terrain::EVENT; }
-	static EventBlock* createEvent(sf::Vector2f pos, Level *level, char eventType);
+	static EventBlock* createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -27,7 +27,7 @@ public:
 	std::vector<std::string> pages;
 	
 private:
-	EventBlock(sf::Vector2f pos, Level *level, char eventType);
+	EventBlock(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size);
 	
 	
 	Level* mLevel;

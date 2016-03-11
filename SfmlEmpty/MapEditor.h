@@ -88,6 +88,7 @@ private:
 	MapEditorMeny::INSERTTYPE mInsertType;
 	char mEventType;
 	char mRotDirection;
+	sf::Vector2f mEventSize;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;
 

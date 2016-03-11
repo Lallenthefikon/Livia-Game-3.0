@@ -246,7 +246,7 @@ void Worm::updateCollision(){
 		mVelocity.x = 0;
 
 	if (mCollisionB){
-		switch (mCurrentCollisionB->getTileType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b')){
+		switch (mCurrentCollisionB->getTileType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 't')){
 
 		case 'p':
 			if (this->getPos().x < mCurrentCollisionB->getPos().x){
