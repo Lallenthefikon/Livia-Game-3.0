@@ -14,22 +14,22 @@
 #include "GameRun.h"
 
 
-class Stomach : public Level{
+class Throat : public Level {
 public:
-	static Stomach& getInstance();
-	~Stomach();
+	static Throat& getInstance();
+	~Throat();
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
 	virtual void unloadLevel();
-	virtual std::string getLevelName(){ return mMapName; }
-	virtual std::string getLevelDirectory(){ return mMapPath; }
+	virtual std::string getLevelName() { return mMapName; }
+	virtual std::string getLevelDirectory() { return mMapPath; }
 	void setCurrentMap(std::string &mapname);
 	void resetLevel(sf::RenderWindow &window);
-	
+
 private:
-	Stomach();
-	
+	Throat();
+
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;
@@ -50,12 +50,12 @@ private:
 	// Level Info
 	sf::FloatRect mLevelBounds;
 	sf::Sprite mAcidSprite;
-	
+
 	Camera mCamera;
 
 	std::string mMapName,
-				mMapPath,
-				mLevelState;
+		mMapPath,
+		mLevelState;
 
 	sf::Sprite mBackground;
 	sf::Texture mTexture;

@@ -7,9 +7,11 @@
 #include "Texthandler.h"
 #include "Decorationhandler.h"
 #include "MapGenerator.h"
+#include "Dialoguehandler.h"
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "GameRun.h"
 
 
 class Hub : public Level {
@@ -28,16 +30,18 @@ public:
 private:
 	Hub();
 
-	Entityhandler& mEntityHandler;
-	Terrainhandler& mTerrainHandler;
+	Entityhandler* mEntityHandler;
+	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;
 	Texthandler& mTextHandler;
 	Decorationhandler& mDecorationhandler;
+	Dialoguehandler& mDialoguehandler;
 
 	// Specific level graphics
 	sf::Texture mBackgroundTexture;
+	sf::Texture mMiddlegroundTexture;
 	sf::Texture mLifeTexture;
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;

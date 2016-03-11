@@ -9,6 +9,7 @@
 #include "Animations.h"
 #include "Camera.h"
 #include "Stomach.h"
+#include "Throat.h"
 #include "Hub.h"
 
 class GameRun : public GameState{
@@ -18,6 +19,7 @@ public:
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
+	void changeLevel(std::string levelName);
 private:
 	GameRun(std::string &mapname, std::string &levelName);
 	~GameRun();
@@ -28,7 +30,7 @@ private:
 	Collisionhandler& mCollisionHandler;*/
 
 	Level* mCurrentLevel;
-	Stomach mStomach;
+	//Stomach mStomach;
 	//Hub &mHub;
 
 

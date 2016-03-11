@@ -11,7 +11,9 @@ LayerHandler::LayerHandler() :
 mEntityHandler(Entityhandler::getInstance()),
 mTextHandler(Texthandler::getInstance()),
 mDialogueHandler(Dialoguehandler::getInstance()),
-mHeartAnimation(Animations::getHeartANI()){
+mHeartAnimation(Animations::getHeartANI()),
+mMiddlegrounds(3),
+mBackgrounds(3){
 	
 	//mForegroundObjects.push_back(background);
 }
@@ -296,23 +298,30 @@ void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamC
 
 void LayerHandler::addBackground(sf::Texture &backgroundTexture){
 
+
 	mBackground.setTexture(backgroundTexture);
-	mBackgrounds.push_back(mBackground);
+
+	mBackgrounds[0] = mBackground;
 	mBackgrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
-	mBackgrounds.push_back(mBackground);
+
+	mBackgrounds[1] = mBackground;
 	mBackgrounds[1].setPosition(sf::Vector2f(mBackgrounds[0].getPosition().x + mBackgrounds[1].getLocalBounds().width, 0.f));
-	mBackgrounds.push_back(mBackground);
+
+	mBackgrounds[2] = mBackground;
 	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x + mBackgrounds[2].getLocalBounds().width, 0.f));
 }
 
 void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture){
 
 	mMiddleground.setTexture(middlegroundTexture);
-	mMiddlegrounds.push_back(mMiddleground);
+
+	mMiddlegrounds[0] = mMiddleground;
 	mMiddlegrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
-	mMiddlegrounds.push_back(mMiddleground);
+
+	mMiddlegrounds[1] = mMiddleground;
 	mMiddlegrounds[1].setPosition(sf::Vector2f(mMiddlegrounds[0].getPosition().x + mMiddlegrounds[1].getLocalBounds().width, 0.f));
-	mMiddlegrounds.push_back(mMiddleground);
+
+	mMiddlegrounds[2] = mMiddleground;
 	mMiddlegrounds[2].setPosition(sf::Vector2f(mMiddlegrounds[1].getPosition().x + mMiddlegrounds[2].getLocalBounds().width, 0.f));
 }
 

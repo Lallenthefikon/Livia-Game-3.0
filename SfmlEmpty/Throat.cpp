@@ -1,7 +1,7 @@
-#include "Hub.h"
+#include "Throat.h"
 #include <iostream>
 
-Hub::Hub() :
+Throat::Throat() :
 	// Initiate singleton classes
 	mBackground(),
 	mTexture(),
@@ -18,12 +18,12 @@ Hub::Hub() :
 
 	mCamera(),
 
-	mMapName("Stomach"),
-	mMapPath("resources/maps/mMap0.txt"),
-	mLevelState("Center"),
+	mMapName("Throat"),
+	mMapPath("resources/maps/mMap2.txt"),
+	mLevelState("Cutscene"),
 
 	mZoomedOut(false),
-	mLevelBounds(0.f, 0.f, 15000.f, 12300.f) {
+	mLevelBounds(0.f, 0.f, 15000.f, 57500.f) {
 
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
@@ -50,15 +50,15 @@ Hub::Hub() :
 
 }
 
-Hub::~Hub() {
+Throat::~Throat() {
 }
 
-Hub& Hub::getInstance() {
-	static Hub Hub;
-	return Hub;
+Throat& Throat::getInstance() {
+	static Throat Throat;
+	return Throat;
 }
 
-void Hub::update(sf::RenderWindow &window) {
+void Throat::update(sf::RenderWindow &window) {
 	// Specific event loop for gameRun state
 	sf::Event gEvent;
 	while (window.pollEvent(gEvent)) {
@@ -71,13 +71,22 @@ void Hub::update(sf::RenderWindow &window) {
 		resetLevel(window);
 	}
 	// Updates depending on state
-	if (mLevelState == "Center") {
+	if (mLevelState == "Cutscene") {
 		//mCamera.updateStomachCam(window,mLevelState);
-		mCamera.updateHubCam(window, mLevelState);
-		mLevelState = "Standard";
+		mCamera.updateStomachCam(window, mLevelState);
+		mLevelState = "ZoomOut";
 	}
-	if (mLevelState == "Standard") {
-		mCamera.updateHubCam(window, mLevelState);
+	if (mLevelState == "ZoomOut") {
+		if (!mZoomedOut) {
+			mCamera.updateStomachCam(window, mLevelState);
+			mZoomedOut = true;
+		}
+		mEntityHandler->getEntities().back()->setScale(sf::Vector2f(2.f, 2.f));
+		mLevelState = "ZoomedOut";
+	}
+	if (mLevelState == "ZoomedOut") {
+
+		mCamera.updateThroatCam(window, mLevelState);
 
 		mEntityHandler->update();
 		mTerrainHandler->update();
@@ -96,19 +105,34 @@ void Hub::update(sf::RenderWindow &window) {
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-		}
+
+	}
+	if (mLevelState == "Rising") {
+
+		mCamera.updateStomachCam(window, mLevelState);
+
+		mEntityHandler->update();
+		mTerrainHandler->update();
+		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
+		mEntityHandler->bringOutTheDead();
+		window.setView(mCamera.getTileView());
+		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
+		window.setView(mCamera.getSceneryView());
+		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
+		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
 }
 
-void Hub::render(sf::RenderWindow &window) {
+void Throat::render(sf::RenderWindow &window) {
 	window.clear();
 
 	// Change view to sceneryView containing background, HUD and other estetic scene objects
@@ -149,21 +173,21 @@ void Hub::render(sf::RenderWindow &window) {
 	window.display();
 }
 
-void Hub::loadLevel() {
+void Throat::loadLevel() {
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath);
-	mLevelState = "Center";
+	mLevelState = "Cutscene";
 }
 
-void Hub::unloadLevel() {
+void Throat::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Hub::setCurrentMap(std::string &mapname) {
+void Throat::setCurrentMap(std::string &mapname) {
 }
 
-void Hub::resetLevel(sf::RenderWindow &window) {
-	mCamera.centerOnPlayer(window, 0, -300);
+void Throat::resetLevel(sf::RenderWindow &window) {
+	mCamera.centerOnPlayer(window, 500, 100);
 	mMapGenerator.loadMap(mMapPath);
-	mLevelState = "Center";
+	mLevelState = "Cutscene";
 }
