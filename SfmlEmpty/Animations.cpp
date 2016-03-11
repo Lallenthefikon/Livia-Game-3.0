@@ -42,7 +42,8 @@ Animations::Textures mSpikesANI;
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
 
-Animations::Textures mDialogueANI;
+Animations::Textures mDialogueLiviaANI; 
+Animations::Textures mDialogueMansaANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -267,9 +268,9 @@ void Animations::loadTextures(){
 	// Livia
 
 	for (int i = 0; i < 32; i++) {
-		mDialogueANI.push_back(new sf::Texture);
-		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
-		mDialogueANI[i]->setSmooth(true);
+		mDialogueLiviaANI.push_back(new sf::Texture);
+		mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+		mDialogueLiviaANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
 			x = 0;
@@ -282,9 +283,9 @@ void Animations::loadTextures(){
 	// Mansa 
 
 	for (int i = 0; i < 32; i++) {
-		mDialogueANI.push_back(new sf::Texture);
-		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
-		mDialogueANI[i]->setSmooth(true);
+		mDialogueMansaANI.push_back(new sf::Texture);
+		mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+		mDialogueMansaANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
 			x = 0;
@@ -385,6 +386,10 @@ Animations::Textures* Animations::getDecoration1ANI() {
 }
 
 // Dialogue ANI
-Animations::Textures* Animations::getDialogueANI() {
-	return &mDialogueANI;
+Animations::Textures* Animations::getDialogueLiviaANI() {
+	return &mDialogueLiviaANI;
+}
+
+Animations::Textures* Animations::getDialogueMansaANI() {
+	return &mDialogueMansaANI;
 }

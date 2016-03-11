@@ -42,11 +42,14 @@ private:
 	StringVectors mStringVectors;
 	bool mReturnRealesed;
 	float mTimer;
-	int mAnimationIndex;
+	int mAnimationIndexLeft;
+	int mAnimationIndexRight;
 	Animations::Textures* mDialogueAnimationRight;
 	Animations::Textures* mDialogueAnimationLeft;
 	sf::Sprite mDialoguespriteLeft;
 	sf::Sprite mDialoguespriteRight;
+	bool mLeftActive = true;
+	Strings speakers;
 
 };
 
