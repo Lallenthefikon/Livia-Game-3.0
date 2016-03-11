@@ -23,7 +23,7 @@ mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 
 mZoomedOut(false),
-mLevelBounds(0.f,0.f,15000.f,12300.f){
+mLevelBounds(0.f,0.f,15000.f,48900.f){
 
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);

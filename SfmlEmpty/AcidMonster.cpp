@@ -1,9 +1,11 @@
 #include "AcidMonster.h"
+#include <iostream>
 
 static float ANIFramesPerFrame(0.25);
 
 AcidMonster::AcidMonster(sf::Vector2f pos):
 mCurrentAnimation(Animations::getAcidMonsterVertical()),
+mSoundFX(SoundFactory::getTummySound()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
@@ -33,6 +35,7 @@ void AcidMonster::update(){
 	AcidMonster::addSpeed();
 
 	mVelocityGoal.y = mMaxSpeed;
+
 	AcidMonster::lerp();
 
 	AcidMonster::updateState();
@@ -42,6 +45,10 @@ void AcidMonster::update(){
 	if (Toolbox::getPlayerIsAlive()){
 		mCollisionBody.move(mVelocity);
 	}
+
+	AcidMonster::updateSound();
+
+	AcidMonster::playSound(mState);
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){
@@ -175,6 +182,38 @@ void AcidMonster::animate(){
 		if (mCurrentAnimation->size() > 0)
 			mSprite.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	}
+}
+
+void AcidMonster::playSound(ACIDMONSTERSTATE state) {
+	switch (state) {
+	case AcidMonster::MOVINGRIGHT:
+		mSoundFX.playSound(SoundFX::RUNNING);
+		break;
+	default:
+		break;
+	}
+}
+
+void AcidMonster::stopSound(ACIDMONSTERSTATE state) {
+	switch (state) {
+	case AcidMonster::MOVINGRIGHT:
+		mSoundFX.stopSound(SoundFX::RUNNING);
+		break;
+	default:
+		break;
+	}
+}
+
+void AcidMonster::updateSound() {
+	sf::Vector2f playerPos = Toolbox::getPlayerPosition();
+	sf::Vector2f tummyPos = this->getPos();
+	float distanceBetween = abs(playerPos.y / tummyPos.y);
+	float exp = pow(0.1f, distanceBetween);
+	float invertedVolume = abs(exp * 1000 - 100) * 10;
+	float volume = 100 - invertedVolume;
+	
+	std::cout << volume << std::endl;
+	mSoundFX.updateSound(SoundFX::RUNNING, volume);
 }
 
 void AcidMonster::getHit(){

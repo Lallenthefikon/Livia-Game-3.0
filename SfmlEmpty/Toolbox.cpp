@@ -55,6 +55,9 @@ static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
 static sf::SoundBuffer mWormDeathSound;
+
+static sf::SoundBuffer mTummyRunningSound;
+
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::SoundBuffer mAirHorn;
@@ -101,7 +104,9 @@ void Toolbox::loadSounds(std::string levelName) {
 
 //	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
-
+		
+		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
+		
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
@@ -154,13 +159,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
-		//return mAcidMonsterHorizontalTexture;
 		return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
-		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
@@ -345,6 +348,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::WORMDEATH:
 		return mWormDeathSound;
+		break;
+	case Toolbox::TUMMYRUNNING:
+		return mTummyRunningSound;
 		break;
 	default:
 		break;

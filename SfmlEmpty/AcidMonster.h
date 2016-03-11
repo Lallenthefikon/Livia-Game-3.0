@@ -43,6 +43,10 @@
 		void updateANI();
 		void animate();
 
+		void playSound(ACIDMONSTERSTATE state);
+		void stopSound(ACIDMONSTERSTATE state);
+		void updateSound();
+
 
 		sf::Sprite mSprite,
 			mCollisionBody;
@@ -64,5 +68,7 @@
 		bool mIsOnScreen;
 		bool mIsAlive;
 
+		// Sounds
+		SoundFX& mSoundFX;
 	};
 
