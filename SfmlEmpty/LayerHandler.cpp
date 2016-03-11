@@ -261,16 +261,12 @@ void LayerHandler::renderHud(sf::RenderWindow &window){
 	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
 		window.draw(mLives[i]);
 	}
-
-	if (mDialogueHandler.isInDialogue){
-		mDialogueHandler.renderDialogue(window);
-	}
 }
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
 	LayerHandler::animate();
 	LayerHandler::updateLife();
-	
+
 
 	for (int i = 0; i < mLives.size(); i++){
 		mLives[i].setPosition(viewCamCoordPos.x - 1800 + (i * 180), tileCamCoordPos.y + 50);

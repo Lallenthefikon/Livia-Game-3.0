@@ -10,9 +10,10 @@
 #include "MapEditMaploader.h"
 #include "MapEditorMeny.h"
 #include "Camera.h"
-#include "Dialogue.h"
+
 #include "Texthandler.h"
 #include "LayerHandler.h"
+#include "Dialoguehandler.h"
 
 
 class MapEditor : public GameState{
@@ -36,7 +37,7 @@ public:
 	void createGoal(sf::Vector2f mousePos);
 	void createMeatballSpawner(sf::Vector2f mousePos);
 
-	void createDialogue(sf::Vector2f mousePos);
+	void createEditorEvent(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
@@ -68,7 +69,6 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
-	void writeDialoguesToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -81,10 +81,12 @@ private:
 	bool isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos);
 
 	void updateInsertType();
+	void changeEventType();
 
 	MapEditMaploader &mMaploader;
 
 	MapEditorMeny::INSERTTYPE mInsertType;
+	char mEventType;
 	char mRotDirection;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;
@@ -114,6 +116,7 @@ private:
 
 	Texthandler& mTextHandler;
 	LayerHandler& mLayerHandler;
+	Dialoguehandler& mDialogueHandler;
 
 	sf::Sound mAirHorn;
 };

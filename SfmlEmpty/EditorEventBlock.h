@@ -1,14 +1,14 @@
 #pragma once
 
+#include <SFML\System.hpp>
 #include "Terrain.h"
-#include "Toolbox.h"
-#include "Level.h"
 
-class EventBlock : public Terrain {
+class EditorEventBlock : public Terrain
+{
 public:
-	virtual ~EventBlock();
-	virtual TERRAINTYPE getType() { return Terrain::EVENT; }
-	static EventBlock* createEvent(sf::Vector2f pos, Level *level, char eventType);
+	virtual ~EditorEventBlock();
+	virtual Terrain::TERRAINTYPE getType() { return Terrain::EVENT; }
+	static Terrain* createEventblock(sf::Vector2f pos, char type);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -16,29 +16,23 @@ public:
 	virtual float getWidth() { return mSprite.getGlobalBounds().width; }
 	virtual float getHeight() { return mSprite.getGlobalBounds().height; }
 	virtual sf::Sprite getSprite() { return mSprite; }
-	virtual bool isOnScreen() { return mIsOnScreen; }
+	virtual bool isOnScreen() { return true; }
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
-	virtual char getTileType() { return mEventType; }
-	virtual void trigger();
+	virtual char getTileType() { return mTileType; }
+	virtual void trigger() {}
 	virtual bool getIsAlive() { return mIsAlive; }
 
-	sf::FloatRect bounds;
-	std::vector<std::string> pages;
-	
 private:
-	EventBlock(sf::Vector2f pos, Level *level, char eventType);
-	
-	
-	Level* mLevel;
-	
+	EditorEventBlock(sf::Vector2f pos, char type);
+
+	sf::Texture mTexture;
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
-	sf::Texture mTexture;
 
-	char mEventType;
-
-	bool mIsOnScreen = true;
+	char mTileType;
 	bool mIsAlive = true;
+	sf::Text mTextType;
 };
+
 

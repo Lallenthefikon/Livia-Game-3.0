@@ -59,9 +59,15 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				}
 				break;
 
-				// Dialogue
-			case 'Q':
-				MapEditMaploader::createDialogue(MapEditMaploader::readPosition(line));
+				// Event
+			case 'E':
+				switch (line[1]) {
+				case 'V':
+					MapEditMaploader::createEvent(MapEditMaploader::readPosition(line), line[2]);
+					break;
+				default:
+					break;
+				}
 				break;
 
 				// Spikes
@@ -236,8 +242,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
  }
 
- void MapEditMaploader::createDialogue(sf::Vector2f &pos) {
-	 mTerrains.push_back(Factory::createDialogue(pos));
+ void MapEditMaploader::createEvent(sf::Vector2f &pos, char eventType) {
+	 mTerrains.push_back(Factory::createEditorEvent(pos, eventType));
  }
 
  void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {

@@ -34,6 +34,7 @@ static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
 static sf::Image mDecorationTexture;
+static sf::Image mDialogueSpriteSheetIMG;
 
 // Camera
 static sf::Vector2f mWindowSize;
@@ -93,6 +94,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -193,6 +195,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mDialogueTexture;
 		break;
 
+	case DIALOGUESHEET:
+		return mDialogueSpriteSheetIMG;
+		break;
+
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
 		break;
@@ -212,6 +218,10 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mResolution.x = videoMode.width;
 	mResolution.y = videoMode.height;
 	mWindowPos = sf::Vector2f(window.getPosition());
+}
+
+void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+	mWindowSize = sf::Vector2f(window.getSize());
 }
 
 sf::Vector2f Toolbox::getWindowSize(){
@@ -360,6 +370,7 @@ sf::Font & Toolbox::getFont(FONTKEY fontKey) {
 		return mGameOverFont;
 		break;
 	case Toolbox::DIALOGUE:
+		return mGameOverFont;
 		break;
 	default:
 		break;

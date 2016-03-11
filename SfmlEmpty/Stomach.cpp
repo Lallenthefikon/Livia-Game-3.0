@@ -29,7 +29,7 @@ mLevelBounds(0.f,0.f,15000.f,12300.f){
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
-
+	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
 
 
@@ -48,6 +48,7 @@ mLevelBounds(0.f,0.f,15000.f,12300.f){
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
+
 
 }
 
@@ -93,7 +94,7 @@ void Stomach::update(sf::RenderWindow &window){
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(),mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
+		mTerrainHandler->bringOutTheDead();
 		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -114,6 +115,7 @@ void Stomach::update(sf::RenderWindow &window){
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
+		mTerrainHandler->bringOutTheDead();
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
@@ -126,6 +128,11 @@ void Stomach::update(sf::RenderWindow &window){
 	if (mLevelState == "Reset"){
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
+}
 }
 
 void Stomach::render(sf::RenderWindow &window){
@@ -135,6 +142,7 @@ void Stomach::render(sf::RenderWindow &window){
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
+	
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	
@@ -159,9 +167,14 @@ void Stomach::render(sf::RenderWindow &window){
 	// Hud
 	mLayerHandler.renderHud(window);
 
+	// Foreground
+	window.setView(mCamera.getSceneryView());
 
-	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	// Dialouge
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+
+	}
 
 	
 	window.display();
@@ -169,7 +182,7 @@ void Stomach::render(sf::RenderWindow &window){
 
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
 }
 
@@ -177,11 +190,27 @@ void Stomach::unloadLevel(){
 	//Toolbox::unloadTextures(mMapName);
 }
 
+void Stomach::triggerEvent(char type){
+	switch (type){
+	case 'a':
+		Stomach::eventA();
+		break;
+	default:
+		break;
+	}
+}
+
 void Stomach::setCurrentMap(std::string &mapname){
 }
 
 void Stomach::resetLevel(sf::RenderWindow &window){
 	mCamera.centerOnPlayer(window);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
+}
+
+void Stomach::eventA(){
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Test.txt");
 }
