@@ -26,9 +26,9 @@ Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
 	return new AcidMonster(pos);
 }
 
-void AcidMonster::render(sf::RenderWindow &window){
+void AcidMonster::render(sf::RenderWindow &window) {
 	AcidMonster::updateTexturepos();
-	window.draw(mSprite);
+		window.draw(mSprite);
 }
 
 void AcidMonster::update(){
