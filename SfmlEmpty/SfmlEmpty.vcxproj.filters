@@ -338,9 +338,6 @@
     <Filter Include="Source Files\Level">
       <UniqueIdentifier>{1a9b794c-199c-4114-a8e6-17d841828450}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Dialogue">
-      <UniqueIdentifier>{ea499b8a-cba7-4ec7-9c2d-76f0e7b556bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Terrain">
       <UniqueIdentifier>{b6736458-bd68-40e0-b1fc-501e20c09001}</UniqueIdentifier>
     </Filter>
@@ -352,9 +349,6 @@
     </Filter>
     <Filter Include="Source Files\Handlers">
       <UniqueIdentifier>{fbab6e57-7111-4db2-9fc4-22228c0fb0f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{8b708340-4d34-4f49-af05-ab303bf8d9f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Other">
       <UniqueIdentifier>{daee3194-b3fa-47c1-a6a3-18d3d2d69f16}</UniqueIdentifier>

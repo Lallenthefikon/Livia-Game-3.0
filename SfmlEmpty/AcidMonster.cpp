@@ -105,6 +105,10 @@ void AcidMonster::blockterrainCollision(BlockTerrain * blockterrain, char direct
 
 // Privates
 
+void AcidMonster::setup() {
+
+}
+
 void AcidMonster::updateTexturepos() {
 	sf::Vector2f temp(mCollisionBody.getPosition() + mSpriteOffset);
 	temp.x -= (mSprite.getLocalBounds().width / 2);

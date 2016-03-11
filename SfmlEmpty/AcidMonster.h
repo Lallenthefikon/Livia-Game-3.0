@@ -43,6 +43,7 @@
 		void updateANI();
 		void animate();
 
+		void setup();
 		void setAnimation();
 
 		void playSound(ACIDMONSTERSTATE state);
