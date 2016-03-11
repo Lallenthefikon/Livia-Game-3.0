@@ -12,6 +12,8 @@ static sf::Image& mMeatballIMG(Toolbox::getTexture(Toolbox::MEATBALLTEXTURE));
 
 static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 
+static sf::Image& mDialogueSpritesheetIMG(Toolbox::getTexture(Toolbox::DIALOGUETEXTURE));
+
 static sf::Image& mDecorationIMG(Toolbox::getTexture(Toolbox::DECORATIONTEXTURE));
 
 Animations::Textures mPlayerRunningANI;
@@ -39,6 +41,8 @@ Animations::Textures mSpikesANI;
 
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
+
+Animations::Textures mDialogueANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -258,6 +262,39 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Dialogue ANI
+
+	// Livia
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueANI.push_back(new sf::Texture);
+		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+		mDialogueANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Mansa 
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueANI.push_back(new sf::Texture);
+		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+		mDialogueANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+
 
 	/*mMeatballANI.push_back(new sf::Texture);
 	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));*/
@@ -345,4 +382,9 @@ Animations::Textures* Animations::getDecoration0ANI(){
 
 Animations::Textures* Animations::getDecoration1ANI() {
 	return &mDecoration1ANI;
+}
+
+// Dialogue ANI
+Animations::Textures* Animations::getDialogueANI() {
+	return &mDialogueANI;
 }

@@ -4,7 +4,7 @@
 
 EditorEventBlock::EditorEventBlock(sf::Vector2f pos, char type):
 mTileType(type) {
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUETEXTURE));
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUEMAPEDITORTEXTURE));
 	mSprite.setTexture(mTexture);
 	mSprite.setTextureRect(sf::IntRect(0,0,100,100));
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
