@@ -34,6 +34,7 @@ static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
 static sf::Image mDecorationTexture;
+static sf::Image mDialogueBoxSpriteSheetIMG;
 static sf::Image mDialogueSpriteSheetIMG;
 
 // Camera
@@ -55,6 +56,9 @@ static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
 static sf::SoundBuffer mWormDeathSound;
+
+static sf::SoundBuffer mTummyRunningSound;
+
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::SoundBuffer mAirHorn;
@@ -94,14 +98,18 @@ void Toolbox::loadTextures(std::string levelName){
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+
 }
 
 void Toolbox::loadSounds(std::string levelName) {
 
 //	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
-
+		
+		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
+		
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
@@ -154,13 +162,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
-		//return mAcidMonsterHorizontalTexture;
 		return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
-		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
@@ -191,13 +197,17 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mDecorationTexture;
 		break;
 
-	case DIALOGUETEXTURE:
+	case DIALOGUEMAPEDITORTEXTURE:
 		return mDialogueTexture;
 		break;
 
-	case DIALOGUESHEET:
-		return mDialogueSpriteSheetIMG;
+	case DIALOGUEBOXSHEET:
+		return mDialogueBoxSpriteSheetIMG;
 		break;
+
+	case DIALOGUETEXTURE:
+		return mDialogueSpriteSheetIMG;
+			break;
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
@@ -345,6 +355,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::WORMDEATH:
 		return mWormDeathSound;
+		break;
+	case Toolbox::TUMMYRUNNING:
+		return mTummyRunningSound;
 		break;
 	default:
 		break;

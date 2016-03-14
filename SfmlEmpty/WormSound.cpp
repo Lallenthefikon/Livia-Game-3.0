@@ -46,12 +46,6 @@ void WormSound::playSound(SOUNDTYPE type) {
 	}
 }
 
-void WormSound::stopAllSound() {
-	for (auto i : mSounds) {
-		i.second->stop();
-	}
-}
-
 void WormSound::stopSound(SOUNDTYPE type) {
 	switch (type) {
 	case SoundFX::RUNNING:
@@ -70,5 +64,15 @@ void WormSound::stopSound(SOUNDTYPE type) {
 		break;
 	default:
 		break;
+	}
+}
+
+void WormSound::updateSound(SoundFX::SOUNDTYPE type, float &volume) {
+
+}
+
+void WormSound::stopAllSound() {
+	for (auto i : mSounds) {
+		i.second->stop();
 	}
 }

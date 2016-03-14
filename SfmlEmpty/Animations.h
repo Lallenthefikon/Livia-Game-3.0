@@ -29,6 +29,7 @@ struct Animations{
 	static Textures* getMeatballANI();
 
 	static Textures* getHeartANI();
+	static Textures* getDialogueANI();
 
 	static Textures* getSpikesANI();
 

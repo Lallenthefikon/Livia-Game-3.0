@@ -13,5 +13,6 @@ public:
 	virtual void playSound(SOUNDTYPE type) = 0;
 	virtual void stopSound(SOUNDTYPE type) = 0;
 	virtual void stopAllSound() = 0;
+	virtual void updateSound(SOUNDTYPE type, float &volume) = 0;
 };
 

@@ -1,24 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Abstractgame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Factory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Toolbox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Decoration.cpp">
       <Filter>Source Files\Decoration</Filter>
     </ClCompile>
@@ -56,16 +38,16 @@
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="AcidMonster.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Meatball.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="GameRun.cpp">
       <Filter>Source Files\Level</Filter>
@@ -83,10 +65,10 @@
       <Filter>Source Files\Level</Filter>
     </ClCompile>
     <ClCompile Include="CollisionFuncs.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Worm.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Texthandler.cpp">
       <Filter>Source Files\Handlers</Filter>
@@ -133,11 +115,8 @@
     <ClCompile Include="EditorEventBlock.cpp">
       <Filter>Source Files\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="AddObjectsDuringGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Germ.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="Abstracthandler.cpp">
       <Filter>Source Files\Handlers</Filter>
@@ -149,22 +128,34 @@
       <Filter>Source Files\Entity</Filter>
     </ClCompile>
     <ClCompile Include="ExtraLife.cpp">
-      <Filter>Source Files\Terrain\Entity</Filter>
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolbox.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Abstractgame.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="AddObjectsDuringGame.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="TummySound.cpp">
+      <Filter>Source Files\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Toolbox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AcidMonster.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -267,9 +258,6 @@
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files\Level</Filter>
     </ClInclude>
-    <ClInclude Include="Abstractgame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MeatballSpawner.h">
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
@@ -282,9 +270,6 @@
     <ClInclude Include="EditorEventBlock.h">
       <Filter>Header Files\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="AddObjectsDuringGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Germ.h">
       <Filter>Header Files\Entity</Filter>
     </ClInclude>
@@ -296,6 +281,27 @@
     </ClInclude>
     <ClInclude Include="ExtraLife.h">
       <Filter>Header Files\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbox.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Abstractgame.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="AddObjectsDuringGame.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="TummySound.h">
+      <Filter>Header Files\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,14 +356,14 @@
     <Filter Include="Header Files\Terrain\BlockTerrain">
       <UniqueIdentifier>{8b708340-4d34-4f49-af05-ab303bf8d9f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Terrain\BlockTerrain">
-      <UniqueIdentifier>{3efbf8c7-82fb-4282-9f14-ca5067b0a3ee}</UniqueIdentifier>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{daee3194-b3fa-47c1-a6a3-18d3d2d69f16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Terrain\Entity">
+    <Filter Include="Source Files\Other">
+      <UniqueIdentifier>{73a0e928-57bf-4c83-96c9-49d1493dd0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entity">
       <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Decoration\Dialogue">
-      <UniqueIdentifier>{3ad2bc69-575a-45bb-a797-d17627addc48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
