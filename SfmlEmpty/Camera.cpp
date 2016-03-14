@@ -133,7 +133,6 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "FinalCutscene"){
 
 	}
-	Toolbox::setGlobalCameraBounds(window);
 }
 
 void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {

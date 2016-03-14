@@ -10,7 +10,7 @@
 
 class Dialoguehandler {
 public:
-	enum CURRENTSPEAKER{LIVIA, MANSASOUL, TUMMY};
+	enum CURRENTSPEAKER{LIVIA, MANSASOUL, TUMMY, MUHNIN, INSTRUCTIONS};
 
 	typedef std::vector<std::string*> Strings;
 	typedef std::vector<Strings*> StringVectors;

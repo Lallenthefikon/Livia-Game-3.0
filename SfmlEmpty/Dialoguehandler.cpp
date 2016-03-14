@@ -17,10 +17,12 @@ Dialoguehandler& Dialoguehandler::getInstance() {
 
 void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 	window.draw(mSpriteHudBackground);
-	if(mLeftActive)
-		window.draw(mDialoguespriteLeft);
-	else
-		window.draw(mDialoguespriteRight);
+	if (mCurrentspeaker != INSTRUCTIONS) {
+		if (mLeftActive)
+			window.draw(mDialoguespriteLeft);
+		else
+			window.draw(mDialoguespriteRight);
+	}
 	Texthandler::getInstance().renderDialougeText(window);
 }
 
@@ -64,7 +66,6 @@ void Dialoguehandler::updateDialogue() {
 	//if (!found) {
 	//	isInDialogue = false;
 	//}
-	
 }
 
 void Dialoguehandler::loadDialougehandler(char level){
@@ -72,10 +73,12 @@ void Dialoguehandler::loadDialougehandler(char level){
 	Dialoguehandler::loadTexture(level);
 	mSpriteHudBackground.setTexture(mTexture);
 	mSpriteHudBackground.setScale(1.5, 1.4);
-	mSpriteHudBackground.setPosition((Toolbox::getWindowSize().x / 2) - (mSpriteHudBackground.getGlobalBounds().width / 2), Toolbox::getWindowSize().y - mSpriteHudBackground.getGlobalBounds().height - 30);
+	mSpriteHudBackground.setPosition(sf::Vector2f(240,750));
 	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition());
+	mDialoguespriteLeft.setScale(0.4, 0.4);
 	mDialoguespriteRight.setPosition(sf::Vector2f(mSpriteHudBackground.getPosition().x + mSpriteHudBackground.getGlobalBounds().width - mDialoguespriteRight.getGlobalBounds().width,
 		mSpriteHudBackground.getPosition().y));
+	/*mDialoguespriteRight.setPosition(sf::Vector2f(0, 0));*/
 	mTimer = 0;
 }
 
@@ -102,6 +105,7 @@ void Dialoguehandler::internalClear() {
 		delete mStringVectors.back();
 		mStringVectors.pop_back();
 	}
+	mSpeakers.clear();
 }
 
 void Dialoguehandler::readFile(){
@@ -134,6 +138,11 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 			mDialogueAnimationRight = Animations::getDialogueMansaANI();
 			mLeftActive = false;
 		}
+		else if (line[1] == 'I') {
+			mCurrentspeaker = MUHNIN;
+			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
+			mLeftActive = false;
+		}
 		break;
 	case 'L':
 		if (line[1] == 'I') {
@@ -142,6 +151,10 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 			mLeftActive = true;
 		}
 		break;
+	case 'I':
+		if (line[1] == 'N') {
+			mCurrentspeaker = INSTRUCTIONS;
+		}
 	default:
 		break;
 	}

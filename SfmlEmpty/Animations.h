@@ -30,6 +30,8 @@ struct Animations{
 	static Textures* getHeartANI();
 	static Textures* getDialogueLiviaANI();
 	static Textures* getDialogueMansaANI();
+	static Textures* getDialogueMuhninANI();
+	static Textures* getDialogueTummyANI();
 
 	static Textures* getSpikesANI();
 

@@ -44,6 +44,8 @@ Animations::Textures mDecoration1ANI;
 
 Animations::Textures mDialogueLiviaANI; 
 Animations::Textures mDialogueMansaANI;
+Animations::Textures mDialogueMuhninANI;
+Animations::Textures mDialogueTummyANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -295,6 +297,35 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Muhnin
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueMuhninANI.push_back(new sf::Texture);
+		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 0, (500 * y), 400, 500));
+		mDialogueMuhninANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Tummy
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueTummyANI.push_back(new sf::Texture);
+		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 0, (500 * y), 400, 500));
+		mDialogueTummyANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 
 
 	/*mMeatballANI.push_back(new sf::Texture);
@@ -392,4 +423,12 @@ Animations::Textures* Animations::getDialogueLiviaANI() {
 
 Animations::Textures* Animations::getDialogueMansaANI() {
 	return &mDialogueMansaANI;
+}
+
+Animations::Textures* Animations::getDialogueMuhninANI(){
+	return &mDialogueMuhninANI;
+}
+
+Animations::Textures* Animations::getDialogueTummyANI() {
+	return &mDialogueTummyANI;
 }

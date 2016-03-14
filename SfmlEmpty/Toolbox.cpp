@@ -227,7 +227,7 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mWindowPos = sf::Vector2f(window.getPosition());
 }
 
-void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+void Toolbox::setWindowSize(sf::RenderWindow &window) {
 	mWindowSize = sf::Vector2f(window.getSize());
 }
 

@@ -24,13 +24,13 @@ mLevelState("Cutscene"),
 
 mZoomedOut(false),
 mLevelBounds(0.f,0.f,15000.f,12300.f){
-
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
+
 
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
@@ -182,6 +182,7 @@ void Stomach::render(sf::RenderWindow &window){
 
 void Stomach::loadLevel(){
 	Toolbox::loadTextures(mMapName);
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
 }
@@ -235,37 +236,30 @@ void Stomach::resetLevel(sf::RenderWindow &window){
 
 void Stomach::eventA() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }
 void Stomach::eventB() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
 }
 void Stomach::eventC() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
 }
 void Stomach::eventD() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
 }
 void Stomach::eventE() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }
 void Stomach::eventF() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }
 
 void Stomach::eventG() {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }

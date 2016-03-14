@@ -92,7 +92,7 @@ void GameLoop::run() {
 	mStomachAmbience.play();
 
 	int clickOnce = 0;
-
+	Toolbox::setWindowSize(mWindow);
 	sf::Clock clock;
 
 	// Loop
