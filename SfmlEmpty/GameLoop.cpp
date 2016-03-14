@@ -45,6 +45,7 @@ void GameLoop::manualStateChange(int &i) {
 	if (i == 1) {
 		switchState();
 		updateState();
+		i = 0;
 	}
 }
 
@@ -59,6 +60,7 @@ void GameLoop::manualFPSChange(int &i) {
 	if (i == 1) {
 		switchFPS();
 		updateFPS();
+		i = 0;
 	}
 }
 
@@ -88,7 +90,7 @@ void GameLoop::run() {
 	mStomachAmbience.setVolume(80);
 	mStomachAmbience.setLoop(true);
 
-	//mStomachMusic.play();
+	mStomachMusic.play();
 	mStomachAmbience.play();
 
 	int clickOnce = 0;

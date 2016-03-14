@@ -8,9 +8,9 @@ mSoundFX(SoundFactory::getTummySound()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
-mMaxSpeed(-4.3), // 4.3 // 258
+mMaxSpeed(10), // 4.3 // 258
 mCollisionBodyOffset(-60,-60),
-mState(MOVINGUP){
+mState(MOVINGRIGHT){
 
 	AcidMonster::setAnimation();
 	mSprite.setTexture(*mCurrentAnimation->at(0));
@@ -36,7 +36,7 @@ void AcidMonster::update(){
 
 	AcidMonster::addSpeed();
 
-	mVelocityGoal.y = mMaxSpeed;
+	mVelocityGoal.x = mMaxSpeed;
 
 	AcidMonster::lerp();
 

@@ -134,5 +134,7 @@ private:
 	// Text
 	sf::Text mText;
 
+	sf::Clock mClock;
+
 	Texthandler& mTextHandler;
 };

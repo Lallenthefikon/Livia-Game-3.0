@@ -23,7 +23,7 @@ mMapPath("resources/maps/mMap0.txt"),
 mLevelState("Cutscene"),
 
 mZoomedOut(false),
-mLevelBounds(0.f,0.f,15000.f,48900.f){
+mLevelBounds(0.f,0.f,15000.f,37900.f){
 
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
@@ -66,6 +66,9 @@ void Stomach::update(sf::RenderWindow &window){
 	while (window.pollEvent(gEvent)){
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.type == sf::Event::KeyPressed && gEvent.key.code == sf::Keyboard::R) {
+			resetLevel(window);
+		}
 	}
 	// Updates independent of state
 	

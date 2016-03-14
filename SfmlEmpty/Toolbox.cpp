@@ -10,7 +10,7 @@ static int mPlayerHealth;
 static float mFrameTime(0);
 
 // Level Info
-static sf::Vector2f mGravity(0, 125);
+static sf::Vector2f mGravity(0, 2500); // 125
 static sf::FloatRect mLevelBounds;
 
 
@@ -86,8 +86,7 @@ void Toolbox::loadTextures(std::string levelName){
 
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/terrain/icy_block_placeholder.png");
-	//mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
+	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
