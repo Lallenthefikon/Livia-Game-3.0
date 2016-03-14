@@ -22,6 +22,7 @@ Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
 Animations::Textures mPlayerFallDyingANI;
 Animations::Textures mPlayerDyingANI;
+Animations::Textures mPlayerDamageANI;
 Animations::Textures mPlayerSlideANI;
 
 Animations::Textures mWormDyingANI;
@@ -136,7 +137,19 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
-	
+	// Player Damage ANI
+	for (int i = 0; i < 8; i++) {
+		mPlayerDamageANI.push_back(new sf::Texture);
+		mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
+		mPlayerDamageANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 
 	// Player Slide ANI
 	for (int i = 0; i < 8; i++){
@@ -336,6 +349,10 @@ Animations::Textures* Animations::getPlayerJumpingANI(){
 
 Animations::Textures* Animations::getPlayerIdleANI(){
 	return &mPlayerIdleANI;
+}
+
+Animations::Textures* Animations::getPlayerHurtANI(){
+	return &mPlayerDamageANI;
 }
 
 Animations::Textures* Animations::getPlayerFallingANI(){
