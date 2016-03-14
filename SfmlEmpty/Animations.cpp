@@ -12,13 +12,17 @@ static sf::Image& mMeatballIMG(Toolbox::getTexture(Toolbox::MEATBALLTEXTURE));
 
 static sf::Image& mHeartIMG(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 
+static sf::Image& mDialogueSpritesheetIMG(Toolbox::getTexture(Toolbox::DIALOGUETEXTURE));
+
 static sf::Image& mDecorationIMG(Toolbox::getTexture(Toolbox::DECORATIONTEXTURE));
 
 Animations::Textures mPlayerRunningANI;
 Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
+Animations::Textures mPlayerFallDyingANI;
 Animations::Textures mPlayerDyingANI;
+Animations::Textures mPlayerDamageANI;
 Animations::Textures mPlayerSlideANI;
 
 Animations::Textures mWormDyingANI;
@@ -39,6 +43,8 @@ Animations::Textures mSpikesANI;
 
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
+
+Animations::Textures mDialogueANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -112,6 +118,20 @@ void Animations::loadTextures(){
 		y = 0;
 	}
 
+	// Player FallDying ANI
+	for (int i = 0; i < 8; i++) {
+		mPlayerFallDyingANI.push_back(new sf::Texture);
+		mPlayerFallDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 970, (160 * y)+ 580, 100, 160));
+		mPlayerFallDyingANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
 	// Player Dying ANI
 	if (mPlayerDyingANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
@@ -127,6 +147,20 @@ void Animations::loadTextures(){
 		x = 0;
 		y = 0;
 	}
+
+	// Player Damage ANI
+	for (int i = 0; i < 8; i++) {
+		mPlayerDamageANI.push_back(new sf::Texture);
+		mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
+		mPlayerDamageANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 
 	// Player Slide ANI
 	if (mPlayerSlideANI.size() == 0) {
@@ -290,6 +324,39 @@ void Animations::loadTextures(){
 		y = 0;
 	}
 
+	// Dialogue ANI
+
+	// Livia
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueANI.push_back(new sf::Texture);
+		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+		mDialogueANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Mansa 
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueANI.push_back(new sf::Texture);
+		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+		mDialogueANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+
 
 	/*mMeatballANI.push_back(new sf::Texture);
 	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));*/
@@ -322,12 +389,20 @@ Animations::Textures* Animations::getPlayerIdleANI(){
 	return &mPlayerIdleANI;
 }
 
+Animations::Textures* Animations::getPlayerHurtANI(){
+	return &mPlayerDamageANI;
+}
+
 Animations::Textures* Animations::getPlayerFallingANI(){
 	return &mPlayerFallingANI;
 }
 
 Animations::Textures* Animations::getPlayerDyingANI(){
 	return &mPlayerDyingANI;
+}
+
+Animations::Textures* Animations::getPlayerFallDyingANI() {
+	return &mPlayerFallDyingANI;
 }
 
 Animations::Textures* Animations::getPlayerSlideANI(){
@@ -383,4 +458,9 @@ Animations::Textures* Animations::getDecoration0ANI(){
 
 Animations::Textures* Animations::getDecoration1ANI() {
 	return &mDecoration1ANI;
+}
+
+// Dialogue ANI
+Animations::Textures* Animations::getDialogueANI() {
+	return &mDialogueANI;
 }

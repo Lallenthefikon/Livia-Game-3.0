@@ -35,6 +35,7 @@ static sf::Image mTileTexture;
 static sf::Image mEditorMenyTexture;
 
 static sf::Image mDecorationTexture;
+static sf::Image mDialogueBoxSpriteSheetIMG;
 static sf::Image mDialogueSpriteSheetIMG;
 
 // Camera
@@ -56,6 +57,9 @@ static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
 static sf::SoundBuffer mWormDeathSound;
+
+static sf::SoundBuffer mTummyRunningSound;
+
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::SoundBuffer mAirHorn;
@@ -84,49 +88,54 @@ void Toolbox::loadTextures(std::string levelName){
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 
 	if (mEnemy0sheet.getSize().x <= 0)
-		mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
+	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	
 	if (mBlock0sheet.getSize().x <= 0)
-		mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
+	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
 
 	if (mGoalTexture.getSize().x <= 0)
-		mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
+	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	if (mPlayersheet.getSize().x <= 0)
-		mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
+	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
 		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 
 	if(mAcidMonsterVerticalTexture.getSize().x <= 0)
-		mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
+	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	if (mTileTexture.getSize().x <= 0)
-		mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
 	
 	if (mEditorMenyTexture.getSize().x <= 0)
-		mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
+	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
 	if (mLifeTexture.getSize().x <= 0)
-		mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
 	if(mMeatballTexture.getSize().x <= 0)
-		mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
+	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	
 	if (mMeatballSpawnerTexture.getSize().x <= 0)
-		mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 
 	if (mDialogueTexture.getSize().x <= 0)
-		mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
-		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+
 }
 
 void Toolbox::loadSounds(std::string levelName) {
 
-	// Load Tummy Acid Trip
-	// Music and ambience
-	mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
-	mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		// Load Tummy Acid Trip
+		
+		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
+		
+		// Music and ambience
+		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
@@ -175,13 +184,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
-		//return mAcidMonsterHorizontalTexture;
 		return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
-		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
@@ -212,11 +219,15 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		return mDecorationTexture;
 		break;
 
-	case DIALOGUETEXTURE:
+	case DIALOGUEMAPEDITORTEXTURE:
 		return mDialogueTexture;
 		break;
 
-	case DIALOGUESHEET:
+	case DIALOGUEBOXSHEET:
+		return mDialogueBoxSpriteSheetIMG;
+		break;
+
+	case DIALOGUETEXTURE:
 		return mDialogueSpriteSheetIMG;
 		break;
 
@@ -373,6 +384,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::WORMDEATH:
 		return mWormDeathSound;
+		break;
+	case Toolbox::TUMMYRUNNING:
+		return mTummyRunningSound;
 		break;
 	default:
 		break;

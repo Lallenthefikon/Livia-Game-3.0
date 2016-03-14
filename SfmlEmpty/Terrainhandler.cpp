@@ -4,6 +4,7 @@ Terrainhandler::Terrainhandler(){
 }
 
 Terrainhandler::~Terrainhandler(){
+	internalClear();
 }
 
 Terrainhandler* Terrainhandler::getInstance(){

@@ -234,38 +234,55 @@ void Stomach::resetLevel(sf::RenderWindow &window) {
 }
 
 void Stomach::eventA() {
+	if (!eventAtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	eventAtriggerd = true;
+}
 }
 void Stomach::eventB() {
+	if (!eventBtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+	eventBtriggerd = true;
+}
 }
 void Stomach::eventC() {
+	if (!eventCtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+	eventCtriggerd = true;
+}
 }
 void Stomach::eventD() {
+	if (!eventDtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+	eventDtriggerd = true;
+	}
 }
 void Stomach::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
 }
 void Stomach::eventF() {
+	if (!eventFtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	eventFtriggerd = true;
+	}
 }
 
 void Stomach::eventG() {
+	if (!eventGtriggerd) {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		eventGtriggerd = true;
+	}
+
 }

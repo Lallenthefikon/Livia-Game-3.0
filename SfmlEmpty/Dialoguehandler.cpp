@@ -1,12 +1,15 @@
 #include "Dialoguehandler.h"
 #include <fstream>
+#include <iostream>
 
+static float ANIFramesPerFrame;
 
-Dialoguehandler::Dialoguehandler(){
-
+Dialoguehandler::Dialoguehandler():
+	mDialogueAnimationLeft(Animations::getDialogueANI()){
 }
 
 Dialoguehandler::~Dialoguehandler(){
+	internalClear();
 }
 
 Dialoguehandler& Dialoguehandler::getInstance() {
@@ -139,5 +142,23 @@ void Dialoguehandler::loadTexture(char level) {
 		yIndex = 0;
 		break;
 	}
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUESHEET), sf::IntRect(xIndex, yIndex, 1000, 200));
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUEBOXSHEET), sf::IntRect(xIndex, yIndex, 1000, 200));
 }
+
+void Dialoguehandler::animate() {
+	//mTimer += ANIFramesPerFrame;
+
+	//if (mTimer >= 1) {
+	//	mAnimationIndex += 1;
+	//	mTimer = 0;
+	//	if (isInDialogue == true) {
+	//		if (mAnimationIndex >= mCurrentAnimation->size()) {
+
+	//		}
+	//		if (mCurrentAnimation->size() > 0)
+	//			mDialoguespriteLeft.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	//		mDialoguespriteRight.setTexture(*mCurrentAnimation->at(mAnimationIndex));
+	//	}
+	//}
+}
+

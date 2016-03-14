@@ -50,7 +50,8 @@ void Worm::entityCollision(Entity* entity, char direction){
 		case 't':
 			break;
 		default:
-			entity->getHit();
+			if(mState != DEATH)
+				entity->getHit();
 			break;
 		}
 	default:

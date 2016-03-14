@@ -4,6 +4,7 @@ Decorationhandler::Decorationhandler(){
 }
 
 Decorationhandler::~Decorationhandler() {
+	internalClear();
 }
 
 Decorationhandler& Decorationhandler::getInstance() {
