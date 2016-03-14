@@ -13,6 +13,7 @@ struct Animations{
 	static Textures* getPlayerHurtANI();
 	static Textures* getPlayerFallingANI();
 	static Textures* getPlayerDyingANI();
+	static Textures* getPlayerFallDyingANI();
 	static Textures* getPlayerSlideANI();
 
 	static Textures* getWormCrawlingANI();

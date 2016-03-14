@@ -18,6 +18,7 @@ Animations::Textures mPlayerRunningANI;
 Animations::Textures mPlayerFallingANI;
 Animations::Textures mPlayerJumpingANI;
 Animations::Textures mPlayerIdleANI;
+Animations::Textures mPlayerFallDyingANI;
 Animations::Textures mPlayerDyingANI;
 Animations::Textures mPlayerSlideANI;
 
@@ -103,6 +104,20 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Player FallDying ANI
+	for (int i = 0; i < 8; i++) {
+		mPlayerFallDyingANI.push_back(new sf::Texture);
+		mPlayerFallDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 970, (160 * y)+ 580, 100, 160));
+		mPlayerFallDyingANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
 	// Player Dying ANI
 	for (int i = 0; i < 16; i++){
 		mPlayerDyingANI.push_back(new sf::Texture);
@@ -116,6 +131,8 @@ void Animations::loadTextures(){
 	}
 	x = 0;
 	y = 0;
+
+	
 
 	// Player Slide ANI
 	for (int i = 0; i < 8; i++){
@@ -290,6 +307,10 @@ Animations::Textures* Animations::getPlayerFallingANI(){
 
 Animations::Textures* Animations::getPlayerDyingANI(){
 	return &mPlayerDyingANI;
+}
+
+Animations::Textures* Animations::getPlayerFallDyingANI() {
+	return &mPlayerFallDyingANI;
 }
 
 Animations::Textures* Animations::getPlayerSlideANI(){

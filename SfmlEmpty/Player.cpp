@@ -432,13 +432,21 @@ void Player::updateState() {
 
 	// Player dies from damage
 	if (mLife <= 0 && mState != DEATH && mState != FALLDEATH) {
-		mState = DEATH;
-		changed = true;
-		Player::stopSound(RUNNING);
-		Player::playSound(DEATH);
+		if (mState == FALLING || mState == JUMPING) {
+			mState = DEATH;
+			changed = true;
+			Player::stopSound(RUNNING);
+			Player::playSound(DEATH);
+		}
+		else {
+			mState = DEATH;
+			changed = true;
+			Player::stopSound(RUNNING);
+			Player::playSound(DEATH);
+		}
 	}
 	// Player falls to death
-	else if (mFallenOutsideBounds && mState != FALLDEATH) {
+	else if (mFallenOutsideBounds && mState != FALLDEATH && mState != DEATH){
 		mState = FALLDEATH;
 		changed = true;
 		Player::stopSound(RUNNING);
@@ -635,9 +643,9 @@ void Player::updateANI(){
 		break;
 		
 	case FALLDEATH:
-		mCurrentAnimationRate = 15.625;
-		mCurrentAnimation = Animations::getPlayerDyingANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
+		mCurrentAnimationRate = 7.625;
+		mCurrentAnimation = Animations::getPlayerFallDyingANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		break;
 
 	default:
