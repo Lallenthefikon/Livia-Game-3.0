@@ -24,11 +24,19 @@ public:
 	virtual void unloadLevel();
 	virtual std::string getLevelName() { return mMapName; }
 	virtual std::string getLevelDirectory() { return mMapPath; }
+	virtual void triggerEvent(char type);
 	void setCurrentMap(std::string &mapname);
 	void resetLevel(sf::RenderWindow &window);
 
 private:
 	Hub();
+	void eventA();
+	void eventB();
+	void eventC();
+	void eventD();
+	void eventE();
+	void eventF();
+	void eventG();
 
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;

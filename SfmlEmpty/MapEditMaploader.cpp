@@ -34,6 +34,8 @@ void MapEditMaploader::clear(){
 
 void MapEditMaploader::readTerrainfile(std::string &filename) {
 
+	std::string eventSize;
+
 	std::string line;
 	std::ifstream terrainfile(filename);
 
@@ -59,9 +61,23 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				}
 				break;
 
-				// Dialogue
-			case 'Q':
-				MapEditMaploader::createDialogue(MapEditMaploader::readPosition(line));
+				// Event
+			case 'E':
+				switch (line[1]) {
+				case 'V':
+					for (int i = 3; i < line.size(); i++) {
+						if (line[i] == '|')
+							break;
+						else
+							eventSize.push_back(line[i]);
+					}
+					MapEditMaploader::createEvent(MapEditMaploader::readPosition(line), line[2], MapEditMaploader::readPosition(eventSize));
+					eventSize.clear();
+					break;
+				
+				default:
+					break;
+				}
 				break;
 
 				// Spikes
@@ -151,7 +167,15 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
-
+				 break;
+			 case 'E':
+				 switch (line[1]) {
+				 case '0':
+					 MapEditMaploader::createExtraLife(MapEditMaploader::readPosition(line));
+					 break;
+				 default:
+					 break;
+				 }
 			 default:
 				 break;
 
@@ -192,7 +216,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mEntities.push_back(Factory::createWorm(pos));
  }
 
- void MapEditMaploader::createGerm(sf::Vector2f & pos){
+ void MapEditMaploader::createGerm(sf::Vector2f &pos){
 	 mEntities.push_back(Factory::createGerm(pos));
  }
 
@@ -202,6 +226,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
  void MapEditMaploader::createMeatball(sf::Vector2f &pos) {
 	 mEntities.push_back(Factory::createMeatball(pos));
+ }
+
+ void MapEditMaploader::createExtraLife(sf::Vector2f & pos) {
+	 mEntities.push_back(Factory::createExtraLife(pos));
  }
 
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
@@ -224,8 +252,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mDecorations.push_back(Factory::createDecoration(pos, id, layer));
  }
 
- void MapEditMaploader::createDialogue(sf::Vector2f &pos) {
-	 mTerrains.push_back(Factory::createDialogue(pos));
+ void MapEditMaploader::createEvent(sf::Vector2f &pos, char eventType, sf::Vector2f size) {
+	 mTerrains.push_back(Factory::createEditorEvent(pos, eventType, size ));
  }
 
  void MapEditMaploader::createMeatballSpawner(sf::Vector2f &pos) {

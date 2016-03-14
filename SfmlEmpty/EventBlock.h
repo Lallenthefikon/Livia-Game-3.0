@@ -2,15 +2,13 @@
 
 #include "Terrain.h"
 #include "Toolbox.h"
-#include "Texthandler.h"
-#include "LayerHandler.h"
-#include <string>
+#include "Level.h"
 
 class EventBlock : public Terrain {
 public:
 	virtual ~EventBlock();
-	virtual TERRAINTYPE getType() { return Terrain::DIALOGUE; }
-	static EventBlock* createDialogue(sf::Vector2f pos);
+	virtual TERRAINTYPE getType() { return Terrain::EVENT; }
+	static EventBlock* createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos() { return mSprite.getPosition(); }
@@ -21,26 +19,26 @@ public:
 	virtual bool isOnScreen() { return mIsOnScreen; }
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
-	virtual char getTileType() { return mTileType; }
-
-	void setIsInDialogue(bool f);
+	virtual char getTileType() { return mEventType; }
+	virtual void trigger();
+	virtual bool getIsAlive() { return mIsAlive; }
 
 	sf::FloatRect bounds;
 	std::vector<std::string> pages;
 	
 private:
-	EventBlock(sf::Vector2f pos);
-
-	void setTexture();
+	EventBlock(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size);
 	
-	sf::Texture mTexture;
+	
+	Level* mLevel;
+	
 	sf::Sprite mSprite;
 	sf::Vector2f mSpriteOffset;
-	Texthandler& mTexthandler;
+	sf::Texture mTexture;
 
-	char mTileType;
+	char mEventType;
 
 	bool mIsOnScreen = true;
-	bool mIsInDialogue;
+	bool mIsAlive = true;
 };
 

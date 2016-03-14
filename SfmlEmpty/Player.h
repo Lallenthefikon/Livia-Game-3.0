@@ -3,6 +3,7 @@
 #include <SFML\System.hpp>
 #include "Entity.h"
 
+
 class Player : public Entity{
 
 public:
@@ -87,7 +88,8 @@ private:
 		mClickOnce,
 		mNrOfJumps;
 	float mTimerANI,
-		mFrameTime;
+		mFrameTime,
+		mCurrentAnimationRate;
 
 	sf::Vector2f
 		mVelocity,

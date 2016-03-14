@@ -21,6 +21,8 @@ public:
 	virtual void setPos(sf::Vector2f newPos) = 0;
 	virtual void setScale(sf::Vector2f newScale) = 0;
 	virtual char getTileType() = 0;
+	virtual void trigger() = 0;
+	virtual bool getIsAlive() = 0;
 	
 
 	virtual void addBlockTerrain(Terrain* blockTerrain, bool newX) = 0;
@@ -28,5 +30,6 @@ public:
 	virtual Terrains2D& getBlocks() = 0;
 	virtual Terrain::TERRAINTYPE getType(sf::Vector2f pos, float length, char direction) = 0;
 	virtual char getTileType(sf::Vector2f pos, float length, char direction) = 0;
+	virtual void clear() = 0;
 };
 

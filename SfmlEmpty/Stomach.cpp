@@ -3,34 +3,36 @@
 
 Stomach::Stomach() :
 	// Initiate singleton classes
-	mBackground(),
-	mTexture(),
+mBackground(),
+mTexture(),
 
-	mTerrainHandler(Terrainhandler::getInstance()),
-	mEntityHandler(Entityhandler::getInstance()),
+mEntityHandler(Entityhandler::getInstance()),
+mTerrainHandler(Terrainhandler::getInstance()),
 
-	mMapGenerator(MapGenerator::getInstance()),
-	mCollisionHandler(Collisionhandler::getInstance()),
-	mLayerHandler(LayerHandler::getInstance()),
-	mTextHandler(Texthandler::getInstance()),
-	mDecorationhandler(Decorationhandler::getInstance()),
-	mDialoguehandler(Dialoguehandler::getInstance()),
+mMapGenerator(MapGenerator::getInstance()),
+mCollisionHandler(Collisionhandler::getInstance()),
+mLayerHandler(LayerHandler::getInstance()),
+mTextHandler(Texthandler::getInstance()),
+mDecorationhandler(Decorationhandler::getInstance()),
+mDialoguehandler(Dialoguehandler::getInstance()),
 
-	mCamera(),
+mCamera(),
 
-	mMapName("Stomach"),
+mMapName("Stomach"),
 	mMapPath("resources/maps/mMap1.txt"),
-	mLevelState("Cutscene"),
+mLevelState("Cutscene"),
 
-	mZoomedOut(false),
+mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
-
+	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
+	Toolbox::copyCurrentLevelName(mMapName);
+
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -47,6 +49,7 @@ Stomach::Stomach() :
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
+
 
 }
 
@@ -66,13 +69,12 @@ void Stomach::update(sf::RenderWindow &window) {
 			window.close();
 	}
 	// Updates independent of state
-
+	
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
 	// Updates depending on state
 	if (mLevelState == "Cutscene") {
-		//mCamera.updateStomachCam(window,mLevelState);
 		mCamera.updateStomachCam(window, mLevelState);
 		mLevelState = "ZoomOut";
 	}
@@ -81,7 +83,6 @@ void Stomach::update(sf::RenderWindow &window) {
 			mCamera.updateStomachCam(window, mLevelState);
 			mZoomedOut = true;
 		}
-		mEntityHandler->getEntities().back()->setScale(sf::Vector2f(2.f, 2.f));
 		mLevelState = "ZoomedOut";
 	}
 	if (mLevelState == "ZoomedOut") {
@@ -92,14 +93,12 @@ void Stomach::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
-
+		mTerrainHandler->bringOutTheDead();
+		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
@@ -118,18 +117,22 @@ void Stomach::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
+		mTerrainHandler->bringOutTheDead();
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
+}
 }
 
 void Stomach::render(sf::RenderWindow &window) {
@@ -139,13 +142,12 @@ void Stomach::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
+	
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
-
+	
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
-
-
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -158,24 +160,29 @@ void Stomach::render(sf::RenderWindow &window) {
 	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
-
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
-
+	
 	// Hud
 	mLayerHandler.renderHud(window);
 
+	// Foreground
+	window.setView(mCamera.getSceneryView());
 
-	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	// Dialouge
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
 
+	}
 
+	
 	window.display();
 }
 
 void Stomach::loadLevel() {
+	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::loadTextures(mMapName);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
 }
 
@@ -183,11 +190,82 @@ void Stomach::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Stomach::setCurrentMap(std::string &mapname) {
+void Stomach::triggerEvent(char type){
+	switch (type){
+	case 'a':
+		Stomach::eventA();
+		break;
+	case 'b':
+		Stomach::eventB();
+		break;
+
+	case 'c':
+		Stomach::eventC();
+		break;
+
+	case 'd':
+		Stomach::eventD();
+		break;
+
+	case 'e':
+		Stomach::eventE();
+		break;
+
+	case 'f':
+		Stomach::eventF();
+		break;
+
+	case 'g':
+		Stomach::eventG();
+		break;
+
+	default:
+		break;
+	}
+}
+
+void Stomach::setCurrentMap(std::string &mapname){
 }
 
 void Stomach::resetLevel(sf::RenderWindow &window) {
 	mCamera.centerOnPlayer(window, 500, 100);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
+}
+
+void Stomach::eventA() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+void Stomach::eventB() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+}
+void Stomach::eventC() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+}
+void Stomach::eventD() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+}
+void Stomach::eventE() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+void Stomach::eventF() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+
+void Stomach::eventG() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 }

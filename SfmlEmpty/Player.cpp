@@ -57,7 +57,7 @@ mTextHandler(Texthandler::getInstance()){
 
 
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height- 10));
-	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
+	//mCollisionBody.setTexture(*mCurrentAnimation->back());
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
 	Player::updateTexturepos();
@@ -102,7 +102,9 @@ void Player::render(sf::RenderWindow &window){
 
 	//std::cout << "Player Velocity X: " << mVelocity.x << std::endl << "Player Velocity Y: " << mVelocity.y << std::endl;
 	//std::cout << "mState: " << mState << std::endl;
-	 Player::playerInput();
+	ANIFramesPerFrame = mCurrentAnimationRate * Toolbox::getFrameTime();
+	
+	Player::playerInput();
 	
 	Player::lerp();
 
@@ -162,6 +164,10 @@ void Player::entityCollision(Entity* entity, char direction){
 	case Entity::ACIDMONSTER:
 		mLife = 0;
 		break;
+	case Entity::EXTRALIFE:
+		mLife++;
+		entity->getHit();
+		break;
 	default:
 		break;
 	}
@@ -195,7 +201,9 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		mWin = true;
 		break;
 
-	//case Terrain::DIALOGUE:
+	case Terrain::EVENT:
+		terrain->trigger();
+		break;
 		
 
 	default:
@@ -352,11 +360,11 @@ void Player::lerp(){
 	
 	sf::Vector2f delta;
 
+	// Different delta depending on what block the player is standing on
 	if (mCurrentCollisionB != 0 && mLastBlockToched == Terrain::BLOCK0ICY) {
-			delta = sf::Vector2f(Toolbox::getFrameTime() * mIcyAcceleration.x, Toolbox::getFrameTime() * mIcyAcceleration.y);
-		}
-	else {
-		delta = sf::Vector2f(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
+		delta = sf::Vector2f(Toolbox::getFrameTime() * mIcyAcceleration.x, Toolbox::getFrameTime() * mIcyAcceleration.y);
+	} else {
+		delta = sf::Vector2f(mAcceleration.x * Toolbox::getFrameTime(), mAcceleration.y * Toolbox::getFrameTime());
 	}
 
 	float airBorneDelta;
@@ -367,6 +375,7 @@ void Player::lerp(){
 	else {
 		airBorneDelta = Toolbox::getFrameTime() * mAirbornAcc;
 	}
+
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -590,43 +599,43 @@ void Player::updateANI(){
 	switch (mState){
 
 	case JUMPING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		mCurrentAnimation = Animations::getPlayerJumpingANI();
 		break;
 
 	case IDLE:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mSprite.setTextureRect(sf::IntRect(0, 0, 70, 140));
 		mCurrentAnimation = Animations::getPlayerIdleANI();
 		break;
 
 	case RUNNING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerRunningANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
 		break;
 
 	case FALLING:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerFallingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 160));
 		break;
 
 	case WALLSTUCK:
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 31.25;
 		mCurrentAnimation = Animations::getPlayerSlideANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 67, 140));
 		break;
 
 	case DEATH:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		break;
 		
 	case FALLDEATH:
-		ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
+		mCurrentAnimationRate = 15.625;
 		mCurrentAnimation = Animations::getPlayerDyingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 188, 140));
 		break;
@@ -648,7 +657,6 @@ void Player::addForces(){
 	if (mState == WALLSTUCK){
 		mVelocity.y = mWallSlideSpeed;
 	}
-
 }
 
 
@@ -683,9 +691,17 @@ void Player::updateTexturepos(){
 }
 
 void Player::playSound(PLAYERSTATE state) {
+	int randomValue = std::rand() % 3;
 	switch (state) {
 	case Player::JUMPING:
-		mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING);
+		// Randomize jump sound
+		if (randomValue == 0) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING1);
+		} else if (randomValue == 1) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING2);
+		} else if (randomValue == 2) {
+			mSoundFX.playSound(SoundFX::SOUNDTYPE::JUMPING3);
+		}
 		break;
 	case Player::IDLE:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::IDLE);
@@ -718,7 +734,9 @@ void Player::playSound(PLAYERSTATE state) {
 void Player::stopSound(PLAYERSTATE state) {
 	switch (state) {
 	case Player::JUMPING:
-		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING1);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING2);
+		mSoundFX.stopSound(SoundFX::SOUNDTYPE::JUMPING3);
 		break;
 	case Player::IDLE:
 		mSoundFX.stopSound(SoundFX::SOUNDTYPE::IDLE);

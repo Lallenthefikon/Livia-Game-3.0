@@ -1,6 +1,6 @@
 #include "Worm.h"
 
-static const float ANIFramesPerFrame(0.5);
+static float ANIFramesPerFrame(0.5);
 
 Worm::Worm(sf::Vector2f pos) :
 mCurrentAnimation(Animations::getWormCrawlingANI()),
@@ -28,6 +28,7 @@ void Worm::render(sf::RenderWindow &window){
 }
 
 void Worm::update(){
+	ANIFramesPerFrame = 15.625 * Toolbox::getFrameTime();
 
 	Worm::addSpeed();
 	Worm::lerp();
@@ -245,7 +246,7 @@ void Worm::updateCollision(){
 		mVelocity.x = 0;
 
 	if (mCollisionB){
-		switch (mCurrentCollisionB->getTileType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b')){
+		switch (mCurrentCollisionB->getTileType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 't')){
 
 		case 'p':
 			if (this->getPos().x < mCurrentCollisionB->getPos().x){

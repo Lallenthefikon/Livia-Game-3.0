@@ -29,12 +29,13 @@ struct Toolbox {
 		HUBBACKGROUND,
 		DECORATIONTEXTURE,
 		// Dialogue
-		DIALOGUETEXTURE
+		DIALOGUETEXTURE,
+		DIALOGUESHEET
 	};
 
 	enum SOUNDKEY {
 		// Player
-		PLAYERIDLE, PLAYERRUN, PLAYERJUMP, PLAYERLAND, PLAYERDAMAGED, PLAYERDEATH, PLAYERFALLDEATH, PLAYERWALLSLIDE,
+		PLAYERIDLE, PLAYERRUN, PLAYERJUMP1, PLAYERJUMP2, PLAYERJUMP3, PLAYERLAND, PLAYERDAMAGED, PLAYERDEATH, PLAYERFALLDEATH, PLAYERWALLSLIDE,
 		// Worm
 		WORMIDLE, WORMRUN, WORMJUMP, WORMLAND, WORMDEATH,
 		// Stomach
@@ -57,21 +58,26 @@ struct Toolbox {
 	// Camera Info
 	static void copyCameraInfo(sf::Vector2f &globalCameraBounds, sf::Vector2f &localCameraBounds);
 	static sf::FloatRect getGlobalCameraBounds();
+	static void setGlobalCameraBounds(sf::RenderWindow &window);
 
 	// Level Info
 	static void copyLevelBounds(sf::FloatRect &levelBounds);
 	static sf::FloatRect getLevelBounds();
+	static void copyCurrentLevelName(std::string newLevelName);
+	static std::string getCurrentLevelName();
 
 	// Player Info 
 	static void copyPlayerSprite(sf::Sprite &playerSprite);
 	static void copyPlayerVelocity(sf::Vector2f &playerVelocity);
 	static void copyPlayerIsAlive(bool isAlive);
 	static void copyPlayerPosition(sf::Vector2f playerPosition);
+	static void copyPlayerHealth(int i);
 	
 	static sf::Sprite getPlayerSprite();
 	static sf::Vector2f getPlayerVelocity();
 	static sf::Vector2f getPlayerPosition();
 	static bool getPlayerIsAlive();
+	static int getPlayerHealth();
 
 	static sf::Vector2f findCoordPos(sf::Vector2i &pixelPos, sf::RenderWindow &window);
 

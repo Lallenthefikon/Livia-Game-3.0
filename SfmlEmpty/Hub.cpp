@@ -30,6 +30,7 @@ Hub::Hub() :
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 
+	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
@@ -83,7 +84,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-		mDialoguehandler.updateDialogue(Toolbox::getPlayerPosition());
+		mDialoguehandler.updateDialogue();
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -101,6 +102,12 @@ void Hub::update(sf::RenderWindow &window) {
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
 		}
 	}
 	if (mLevelState == "Reset") {
@@ -151,7 +158,7 @@ void Hub::render(sf::RenderWindow &window) {
 
 void Hub::loadLevel() {
 	Toolbox::loadTextures(mMapName);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Center";
 }
 
@@ -159,11 +166,82 @@ void Hub::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
+void Hub::triggerEvent(char type){
+	switch (type) {
+	case 'a':
+		Hub::eventA();
+		break;
+	case 'b':
+		Hub::eventB();
+		break;
+
+	case 'c':
+		Hub::eventC();
+		break;
+
+	case 'd':
+		Hub::eventD();
+		break;
+
+	case 'e':
+		Hub::eventE();
+		break;
+
+	case 'f':
+		Hub::eventF();
+		break;
+
+	case 'g':
+		Hub::eventG();
+		break;
+
+	default:
+		break;
+	}
+}
+
 void Hub::setCurrentMap(std::string &mapname) {
 }
 
 void Hub::resetLevel(sf::RenderWindow &window) {
 	mCamera.centerOnPlayer(window, 0, -300);
-	mMapGenerator.loadMap(mMapPath);
+	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Center";
+}
+
+void Hub::eventA() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+}
+void Hub::eventB() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventB.txt");
+}
+void Hub::eventC() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventC.txt");
+}
+void Hub::eventD() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventD.txt");
+}
+void Hub::eventE() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+}
+void Hub::eventF() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+}
+
+void Hub::eventG() {
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
+	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
 }

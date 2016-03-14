@@ -5,7 +5,7 @@
 
 class Terrain{
 public:
-	enum TERRAINTYPE { BLOCK0ICY, BLOCK0, BLOCK0WALLJUMP, SPIKES, BLOCKGOAL, COLLISIONBLOCK, DIALOGUE, MEATBALLSPAWNER };
+	enum TERRAINTYPE { BLOCK0ICY, BLOCK0, BLOCK0WALLJUMP, SPIKES, BLOCKGOAL, COLLISIONBLOCK, EVENT, MEATBALLSPAWNER };
 	Terrain();
 	virtual ~Terrain();
 	virtual TERRAINTYPE getType() = 0;
@@ -20,5 +20,7 @@ public:
 	virtual void setPos(sf::Vector2f newPos) = 0;
 	virtual void setScale(sf::Vector2f newScale) = 0;
 	virtual char getTileType() = 0;
+	virtual void trigger() = 0;
+	virtual bool getIsAlive() = 0;
 };
 

@@ -23,6 +23,8 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual char getTileType() { return mTileType; }
+	virtual void trigger() {}
+	virtual bool getIsAlive() { return mIsAlive; }
 
 	// BlockTerrain specific
 	virtual void addBlockTerrain(Terrain* blockTerrain, bool newX);
@@ -30,6 +32,7 @@ public:
 	virtual Terrains2D& getBlocks();
 	virtual Terrain::TERRAINTYPE getType(sf::Vector2f pos, float length, char direction);
 	virtual char getTileType(sf::Vector2f pos, float length, char direction);
+	virtual void clear();
 private:
 	CollisionBlock(sf::Vector2f pos);
 
@@ -37,6 +40,7 @@ private:
 	sf::Vector2f mSpriteOffset;
 
 	void updateRect();
+	void internalClear();
 
 	void checkCollisionR(sf::Vector2f pos, float length);
 	void checkCollisionL(sf::Vector2f pos, float length);
@@ -52,6 +56,7 @@ private:
 	char mTileType;
 
 	bool mIsOnScreen = true;
+	bool mIsAlive = true;
 
 };
 

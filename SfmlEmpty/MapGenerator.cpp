@@ -4,8 +4,7 @@
 MapGenerator::MapGenerator() :
 mTerrainhandler(Terrainhandler::getInstance()),
 mEntityHandler(Entityhandler::getInstance()),
-mDecorationhandler(&Decorationhandler::getInstance()),
-mDialoguehandler(&Dialoguehandler::getInstance()){
+mDecorationhandler(&Decorationhandler::getInstance()){
 }
 
 MapGenerator::~MapGenerator(){
@@ -18,15 +17,14 @@ MapGenerator& MapGenerator::getInstance(){
 
 
 // Finds all mapfiles for a given mapname, mapname must have a letter in front of it
-void MapGenerator::loadMap(std::string &mapname){
+void MapGenerator::loadMap(std::string &mapname, Level *level){
 
 	mEntityHandler->clear();
 	mTerrainhandler->clear();
 	mDecorationhandler->clear();
-	mDialoguehandler->clear();
 
 	mapname[15] = 'T';
-	MapGenerator::readTerrainfile(mapname);
+	MapGenerator::readTerrainfile(mapname, level);
 
 
 	mapname[15] = 'E';
@@ -42,7 +40,9 @@ void MapGenerator::loadMap(std::string &mapname){
 	createCollisionBlocks();
 }
 
-void MapGenerator::readTerrainfile(std::string &filename){
+void MapGenerator::readTerrainfile(std::string &filename, Level *level){
+
+	std::string eventSize;
 
 	std::string line;
 	std::ifstream terrainfile(filename);
@@ -63,6 +63,27 @@ void MapGenerator::readTerrainfile(std::string &filename){
 					break;
 				case 'I':
 					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2]);
+					break;
+				default:
+					break;
+				}
+				break;
+
+				
+
+			 // Event block
+
+			case 'E':
+				switch (line[1]){
+				case 'V':
+					for (int i = 3; i < line.size(); i++) {
+						if (line[i] == '|')
+							break;
+						else
+							eventSize.push_back(line[i]);
+					}
+					MapGenerator::createEvent(MapGenerator::readPosition(line),level, line[2], MapGenerator::readPosition(eventSize));
+					eventSize.clear();
 					break;
 				default:
 					break;
@@ -153,6 +174,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 					break;
 				}
 				break;
+			case 'E':
+				switch (line[1]) {
+				case '0':
+					MapGenerator::createExtraLife(MapGenerator::readPosition(line));
+					break;
+				default:
+					break;
+				}
 			default:
 				break;
 
@@ -201,9 +230,12 @@ void MapGenerator::createMeatball(sf::Vector2f pos) {
 	mEntityHandler->add(pos, '3');
 }
 
+void MapGenerator::createExtraLife(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '4');
+}
 
 void MapGenerator::createGerm(sf::Vector2f pos) {
-	mEntityHandler->add(pos, '4');
+	mEntityHandler->add(pos, '5');
 }
 
 
@@ -232,8 +264,8 @@ void MapGenerator::createMeatballSpawner(sf::Vector2f pos) {
 	mTerrainhandler->add(pos, '4');
 }
 
-void MapGenerator::createDialogue(sf::Vector2f pos) {
-	mTerrainhandler->add(pos, '5');
+void MapGenerator::createEvent(sf::Vector2f pos, Level *level, char eventType, sf::Vector2f size) {
+	mTerrainhandler->createEvent(pos, level, eventType, size);
 }
 
 

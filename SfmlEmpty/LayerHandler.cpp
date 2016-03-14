@@ -13,12 +13,14 @@ mTextHandler(Texthandler::getInstance()),
 mDialogueHandler(Dialoguehandler::getInstance()),
 mHeartAnimation(Animations::getHeartANI()),
 mMiddlegrounds(3),
-mBackgrounds(3){
-	
+mBackgrounds(3),
+mPreviousLife(-1),
+mMaxLife(20) {
 	//mForegroundObjects.push_back(background);
 }
 
 LayerHandler::~LayerHandler(){
+	LayerHandler::internalClear();
 }
 
 LayerHandler& LayerHandler::getInstance(){
@@ -240,7 +242,6 @@ void LayerHandler::moveForeground(sf::Vector2f &velocity){
 }
 
 void LayerHandler::renderBackground(sf::RenderWindow &window){
-
 	for (size_t i = 0; i < mBackgrounds.size(); i++){
 		window.draw(mBackgrounds[i]);
 	}
@@ -259,46 +260,25 @@ void LayerHandler::renderForeground(sf::RenderWindow &window){
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
-
-	if (mEntityHandler->getPlayerLife() == 3){
-		window.draw(mLives[0]);
-		window.draw(mLives[1]);
-		window.draw(mLives[2]);
-		ANIFramesPerFrame = 31.25 * Toolbox::getFrameTime();
+	for (int i = 0; i < mEntityHandler->getPlayerLife(); i++) {
+		window.draw(mLives[i]);
 	}
-
-	else if (mEntityHandler->getPlayerLife() == 2){
-		window.draw(mLives[0]);
-		window.draw(mLives[1]);
-		ANIFramesPerFrame = 62.5 * Toolbox::getFrameTime();
 	}
-
-	else if (mEntityHandler->getPlayerLife() == 1){
-		window.draw(mLives[0]);
-		ANIFramesPerFrame = 125 * Toolbox::getFrameTime();
-	}
-
-	if (mDialogueHandler.isInDialogue){
-		mDialogueHandler.renderDialogue(window);
-		
-	}
-}
 
 void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamCoordPos){
-	for (int i = 0; i < mLives.size(); i++){
-		mLives[i].setPosition(viewCamCoordPos.x - 1700 + (i * 180), tileCamCoordPos.y + 50);
-
-	}
-
 	LayerHandler::animate();
+	LayerHandler::updateLife();
+
+		
+	for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setPosition(viewCamCoordPos.x - 1800 + (i * 180), tileCamCoordPos.y + 50);
+	}
 
 	// Updates Game Over text
 	mTextHandler.updateText(viewCamCoordPos);
 }
 
 void LayerHandler::addBackground(sf::Texture &backgroundTexture){
-
-
 	mBackground.setTexture(backgroundTexture);
 
 	mBackgrounds[0] = mBackground;
@@ -312,7 +292,6 @@ void LayerHandler::addBackground(sf::Texture &backgroundTexture){
 }
 
 void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture){
-
 	mMiddleground.setTexture(middlegroundTexture);
 
 	mMiddlegrounds[0] = mMiddleground;
@@ -326,7 +305,6 @@ void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture){
 }
 
 void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
-
 	mForeground.setTexture(foregroundTexture);
 	mForeground.setScale(4, 1);
 	mForegroundObjects.push_back(mForeground);
@@ -334,13 +312,13 @@ void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
 }
 
 void LayerHandler::addLifeSprite(sf::Sprite &life){
-	mLives.push_back(life);
-	mLives.push_back(life);
-	mLives.push_back(life);
-
-	for (int i = 0; i < mLives.size(); i++){
-		mLives[i].setTexture(*mHeartAnimation->at(0));
+	mLifeSprite = sf::Sprite(life);
+	for (int i = 0; i < mMaxLife; i++) {
+		mLives.push_back(sf::Sprite(mLifeSprite));
 	}
+	/*for (int i = 0; i < mLives.size(); i++){
+		mLives[i].setTexture(*mHeartAnimation->at(0));
+	}*/
 }
 
 void LayerHandler::addAcid(sf::Texture &acidTexture) {
@@ -352,7 +330,6 @@ void LayerHandler::addAcid(sf::Texture &acidTexture) {
 
 void LayerHandler::animate(){
 	mTimer += ANIFramesPerFrame;
-
 	if (mTimer >= 2){
 		mAnimationIndex += 1;
 		mTimer = 0;
@@ -366,7 +343,42 @@ void LayerHandler::animate(){
 	}
 }
 
+void LayerHandler::updateLife() {
 
+	// Special case for when game is started
+	//if (mPreviousLife == -1) {
+	//	for (int i = 0; i < 3; i++) {
+	//		mLives.push_back(sf::Sprite(mLifeSprite));
+	//	}
+	//	mPreviousLife = 3;
+	//}
+
+	//int currentLife = mEntityHandler->getPlayerLife();
+
+	//// Removes or adds life sprite
+	//if (mPreviousLife > currentLife) {
+	//	mLives.pop_back();
+	//} else if (mPreviousLife < currentLife) {
+	//	mLives.push_back(sf::Sprite(mLifeSprite));
+	//}
+
+	//mPreviousLife = currentLife;
+
+	//if (currentLife != 0) {
+	//	int div = currentLife;
+	//	if (div > 4) {
+	//		div = 4;
+	//	}
+	//	ANIFramesPerFrame = 125 / div * Toolbox::getFrameTime();
+	//}
+}
+
+void LayerHandler::clearLife() {
+	mLives.clear();
+}
+
+void LayerHandler::internalClear() {
+}
 
 	//if (mTimerANI >= 1){
 	//	mAnimationIndex += 1;

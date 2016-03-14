@@ -128,6 +128,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	else if (currentCamState == "FinalCutscene"){
 
 	}
+	Toolbox::setGlobalCameraBounds(window);
 }
 
 void Camera::updateThroatCam(sf::RenderWindow & window, std::string cameraState){
@@ -139,7 +140,7 @@ void Camera::updateThroatCam(sf::RenderWindow & window, std::string cameraState)
 	// Camera updated differently on parts of the level
 	std::string currentCamState = cameraState;
 	if (currentCamState == "Cutscene") {
-		centerOnPlayer(window, 500, 100);
+		centerOnPlayer(window, 150, 0);
 	}
 	else if (currentCamState == "Standard") {
 		setCollisionStripe("Left", window);

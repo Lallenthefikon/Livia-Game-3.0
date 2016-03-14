@@ -11,10 +11,9 @@
 #include "MapEditorMeny.h"
 #include "Camera.h"
 
-#include "Dialogue.h"
-
 #include "Texthandler.h"
 #include "LayerHandler.h"
+#include "Dialoguehandler.h"
 
 
 class MapEditor : public GameState{
@@ -29,6 +28,7 @@ public:
 	void createGerm(sf::Vector2f mousePos);
 	void createAcidMonster(sf::Vector2f mousepos);
 	void createMeatball(sf::Vector2f mousePos);
+	void createExtraLife(sf::Vector2f mousePos);
 	
 	void createBlock0(sf::Vector2f mousePos);
 	void createBlock0WallJump(sf::Vector2f mousePos);
@@ -37,7 +37,7 @@ public:
 	void createGoal(sf::Vector2f mousePos);
 	void createMeatballSpawner(sf::Vector2f mousePos);
 
-	void createDialogue(sf::Vector2f mousePos);
+	void createEditorEvent(sf::Vector2f mousePos);
 
 	void createDecoration(sf::Vector2f mousePos, char id, char layer);
 
@@ -69,7 +69,6 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
-	void writeDialoguesToFile(std::string filename);
 	char blockType(Terrain* terrain);
 	void internalClear();
 
@@ -82,11 +81,14 @@ private:
 	bool isSpriteClicked(sf::Sprite& spr, sf::Vector2f *mousePos);
 
 	void updateInsertType();
+	void changeEventType();
 
 	MapEditMaploader &mMaploader;
 
 	MapEditorMeny::INSERTTYPE mInsertType;
+	char mEventType;
 	char mRotDirection;
+	sf::Vector2f mEventSize;
 	std::string mCurrentLevelDirectory;
 	std::string mCurrentLevelName;
 
@@ -115,6 +117,7 @@ private:
 
 	Texthandler& mTextHandler;
 	LayerHandler& mLayerHandler;
+	Dialoguehandler& mDialogueHandler;
 
 	sf::Sound mAirHorn;
 };

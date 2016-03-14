@@ -11,6 +11,8 @@
 #include "Stomach.h"
 #include "Throat.h"
 #include "Hub.h"
+#include "Mouth.h"
+#include "Intestine.h"
 
 class GameRun : public GameState{
 public:
@@ -30,7 +32,6 @@ private:
 	Collisionhandler& mCollisionHandler;*/
 
 	Level* mCurrentLevel;
-	//Stomach mStomach;
 	//Hub &mHub;
 
 
