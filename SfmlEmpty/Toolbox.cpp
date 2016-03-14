@@ -96,7 +96,7 @@ void Toolbox::loadTextures(std::string levelName){
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
 
 }
 

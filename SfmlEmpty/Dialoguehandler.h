@@ -49,7 +49,7 @@ private:
 	sf::Sprite mDialoguespriteLeft;
 	sf::Sprite mDialoguespriteRight;
 	bool mLeftActive = true;
-	Strings speakers;
+	Strings mSpeakers;
 
 };
 

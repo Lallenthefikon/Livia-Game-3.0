@@ -35,7 +35,7 @@ void Dialoguehandler::updateDialogue() {
 			}
 
 			else {
-				Dialoguehandler::setCurrentSpeaker(*speakers.at(mIndex));
+				Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
 			}
 			mReturnRealesed = false;
@@ -90,7 +90,7 @@ void Dialoguehandler::setCurrentDialogue(std::string filename){
 	mFilename = filename;
 	Dialoguehandler::readFile();
 	Texthandler::getInstance().setDialougeText(*mStringVectors[0]->at(0), *mStringVectors[0]->at(1), *mStringVectors[0]->at(2));
-	Dialoguehandler::setCurrentSpeaker(*speakers.at(mIndex));
+	Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 }
 
 void Dialoguehandler::internalClear() {
@@ -111,7 +111,7 @@ void Dialoguehandler::readFile(){
 	if (dialougefile.is_open()) {
 		while (getline(dialougefile, line)) {
 			if (index == 0) {
-				speakers.push_back(new std::string(line));
+				mSpeakers.push_back(new std::string(line));
 				mStringVectors.push_back(new Strings);
 			}
 			else if (index < 4) {
@@ -129,7 +129,7 @@ void Dialoguehandler::readFile(){
 void Dialoguehandler::setCurrentSpeaker(std::string &line){
 	switch (line[0]) {
 	case 'M':
-		if (line[1] == 'S') {
+		if (line[1] == 'A') {
 			mCurrentspeaker = MANSASOUL;
 			mDialogueAnimationRight = Animations::getDialogueMansaANI();
 			mLeftActive = false;
