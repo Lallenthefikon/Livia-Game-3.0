@@ -14,15 +14,19 @@ mCollisionBodyOffset(-60,-60){
 		//mCurrentAnimation(Animations::getAcidMonsterVertical()),
 		mCurrentAnimation = Animations::getAcidMonsterHorizontal();
 		mSprite.setScale(sf::Vector2f(2.f, 2.f));
+		mCollisionBody.setScale(sf::Vector2f(2.f, 2.f));
+		mSprite.setTexture(*mCurrentAnimation->at(0));
+		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	}
 	if (Toolbox::getCurrentLevelName() == "Throat") {
 		mCurrentAnimation = Animations::getAcidMonsterVertical();
 		mSprite.setScale(sf::Vector2f(2.f, 2.f));
+		mCollisionBody.setScale(sf::Vector2f(2.f, 2.f));
+		mSprite.setTexture(*mCurrentAnimation->at(0));
+		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
+		
 	}
 
-
-	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
 }
