@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLevelDirectory("resources/maps/mMap0.txt"),
+	mCurrentLevelDirectory("resources/maps/mMap2.txt"),
 	mCurrentLevelName("Hub"),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK"),
 	mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),

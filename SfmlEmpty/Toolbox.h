@@ -67,6 +67,8 @@ struct Toolbox {
 	// Level Info
 	static void copyLevelBounds(sf::FloatRect &levelBounds);
 	static sf::FloatRect getLevelBounds();
+	static void copyCurrentLevelName(std::string newLevelName);
+	static std::string getCurrentLevelName();
 
 	// Player Info 
 	static void copyPlayerSprite(sf::Sprite &playerSprite);

@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "Level.h"
 #include "AddObjectsDuringGame.h"
+#include "GameRun.h"
 
 
 class Stomach : public Level{
