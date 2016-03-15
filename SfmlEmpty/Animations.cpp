@@ -261,7 +261,7 @@ void Animations::loadTextures(){
 
 	// Acidmonster vertical ANI
 	if (mAcidMonsterVerticalANI.size() == 0) {
-		for (int i = 0; i < 32; i++) {
+		for (int i = 0; i < 31; i++) {
 			mAcidMonsterVerticalANI.push_back(new sf::Texture);
 			mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterVerticalIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
 			mAcidMonsterVerticalANI[i]->setSmooth(true);

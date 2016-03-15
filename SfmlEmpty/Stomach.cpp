@@ -284,5 +284,12 @@ void Stomach::eventG() {
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 		eventGtriggerd = true;
 	}
+}
+
+void Stomach::eventH() {
+	if (!eventHtriggerd) {
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+		eventGtriggerd = true;
+	}
 
 }
