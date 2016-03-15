@@ -301,7 +301,7 @@ void Animations::loadTextures(){
 
 	for (int i = 0; i < 32; i++) {
 		mDialogueMuhninANI.push_back(new sf::Texture);
-		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 0, (500 * y), 400, 500));
+		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
 		mDialogueMuhninANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
@@ -316,7 +316,7 @@ void Animations::loadTextures(){
 
 	for (int i = 0; i < 32; i++) {
 		mDialogueTummyANI.push_back(new sf::Texture);
-		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 0, (500 * y), 400, 500));
+		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
 		mDialogueTummyANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {

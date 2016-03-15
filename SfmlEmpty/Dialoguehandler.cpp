@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-static float ANIFramesPerFrame;
+static float ANIFramesPerFrame = 0.5;
 
 Dialoguehandler::Dialoguehandler(){
 }
@@ -28,6 +28,8 @@ void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 
 
 void Dialoguehandler::updateDialogue() {
+	mDialoguespriteLeft.setTextureRect(sf::IntRect(mDialoguespriteLeft.getLocalBounds().width, 0, -mDialoguespriteLeft.getLocalBounds().width, mDialoguespriteLeft.getLocalBounds().height));
+	
 	animate();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		if (mReturnRealesed) {
@@ -46,7 +48,6 @@ void Dialoguehandler::updateDialogue() {
 	else {
 		mReturnRealesed = true;
 	}
-	mTimer += 0.5;
 	///*printf((std::to_string(pos.x) + " " + std::to_string(pos.y) + "\n").data());*/
 	//bool found = false;
 	//for (size_t i = 0; i < mDialogue.size(); i++) {
@@ -71,14 +72,18 @@ void Dialoguehandler::updateDialogue() {
 void Dialoguehandler::loadDialougehandler(char level){
 	mReturnRealesed = true;
 	Dialoguehandler::loadTexture(level);
+
+
+
 	mSpriteHudBackground.setTexture(mTexture);
 	mSpriteHudBackground.setScale(1.5, 1.4);
 	mSpriteHudBackground.setPosition(sf::Vector2f(240,750));
-	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition());
-	mDialoguespriteLeft.setScale(0.4, 0.4);
-	mDialoguespriteRight.setPosition(sf::Vector2f(mSpriteHudBackground.getPosition().x + mSpriteHudBackground.getGlobalBounds().width - mDialoguespriteRight.getGlobalBounds().width,
-		mSpriteHudBackground.getPosition().y));
-	/*mDialoguespriteRight.setPosition(sf::Vector2f(0, 0));*/
+	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition().x + 30, mSpriteHudBackground.getPosition().y + 25);
+	mDialoguespriteLeft.setScale(0.47, 0.47);
+	
+	mDialoguespriteRight.setPosition(sf::Vector2f(mSpriteHudBackground.getPosition().x + mSpriteHudBackground.getGlobalBounds().width - 212,
+	mSpriteHudBackground.getPosition().y + 25)); 
+	mDialoguespriteRight.setScale(0.47, 0.47);
 	mTimer = 0;
 }
 
@@ -137,11 +142,13 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 			mCurrentspeaker = MANSASOUL;
 			mDialogueAnimationRight = Animations::getDialogueMansaANI();
 			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
 		}
 		else if (line[1] == 'I') {
 			mCurrentspeaker = MUHNIN;
 			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
 			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
 		}
 		break;
 	case 'L':
@@ -149,8 +156,16 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 			mCurrentspeaker = LIVIA;
 			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
 			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
 		}
 		break;
+	case 'A':
+		if (line[1] == 'C') {
+			mCurrentspeaker = TUMMY;
+			mDialogueAnimationRight = Animations::getDialogueTummyANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.25;
+		}
 	case 'I':
 		if (line[1] == 'N') {
 			mCurrentspeaker = INSTRUCTIONS;

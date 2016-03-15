@@ -202,6 +202,7 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		break;
 
 	case Terrain::EVENT:
+		mSoundFX.stopAllSound();
 		terrain->trigger();
 		break;
 		

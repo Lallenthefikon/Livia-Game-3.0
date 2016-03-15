@@ -129,7 +129,7 @@ void Toolbox::loadSounds(std::string levelName) {
 }
 
 void Toolbox::loadFonts(std::string levelName) {
-	mGameOverFont.loadFromFile("resources/fonts/ComicSansMSRegular.ttf");
+	mGameOverFont.loadFromFile("resources/fonts/Barokah.ttf");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
