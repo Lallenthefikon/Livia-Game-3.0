@@ -19,10 +19,6 @@ mCollisionBodyOffset(-60,-60){
 		mCurrentAnimation = Animations::getAcidMonsterVertical();
 		mSprite.setScale(sf::Vector2f(2.f, 2.f));
 	}
-	else{
-		mCurrentAnimation = Animations::getAcidMonsterVertical();
-		mSprite.setScale(sf::Vector2f(0.f, 0.f));
-	}
 
 
 	mSprite.setTexture(*mCurrentAnimation->at(0));

@@ -19,7 +19,7 @@ mDialoguehandler(Dialoguehandler::getInstance()),
 mCamera(),
 
 mMapName("Stomach"),
-	mMapPath("resources/maps/mMap1.txt"),
+mMapPath("resources/maps/mMap1.txt"),
 mLevelState("Cutscene"),
 
 mZoomedOut(false),
@@ -31,7 +31,7 @@ mZoomedOut(false),
 	Animations::loadTextures();
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
-	Toolbox::copyCurrentLevelName(mMapName);
+	//Toolbox::copyCurrentLevelName(mMapName);
 
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
