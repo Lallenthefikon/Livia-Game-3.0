@@ -161,8 +161,9 @@ void Camera::updateThroatCam(sf::RenderWindow & window, std::string cameraState)
 
 		//updateCamGAME(window);
 	}
-	else if (currentCamState == "SecondCutscene") {
-
+	else if (currentCamState == "Stop") {
+		mVelocity.x = 0.f;
+		mVelocity.y = 0.f;
 	}
 	else if (currentCamState == "Rising") {
 		//updateStomachStandardCam(window, sf::Vector2f(0.f, 1.f));

@@ -77,7 +77,7 @@ void AcidMonster::update(){
 
 	AcidMonster::animate();
 
-	if (Toolbox::getPlayerIsAlive()){
+	if (Toolbox::getPlayerHealth() > 0){
 		mCollisionBody.move(mVelocity);
 	}
 
