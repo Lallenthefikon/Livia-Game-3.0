@@ -100,6 +100,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				default:
 					break;
 				}
+				break;
 
 				// Meatball spawner
 			case 'M':

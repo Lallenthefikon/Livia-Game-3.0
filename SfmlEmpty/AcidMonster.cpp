@@ -57,7 +57,7 @@ void AcidMonster::update(){
 		mVelocityGoal.x = -mMaxSpeed;
 	}
 	else if (Toolbox::getCurrentLevelName() == "Throat") {
-		ANIFramesPerFrame = 11 * Toolbox::getFrameTime();
+		ANIFramesPerFrame = 100 * Toolbox::getFrameTime();
 
 		mVelocityGoal.x = 0.f;
 		mVelocity.x = 0.f;

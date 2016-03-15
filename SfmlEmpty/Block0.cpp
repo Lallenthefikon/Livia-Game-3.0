@@ -23,13 +23,13 @@ void Block0::update(){
 
 }
 
-void Block0::setTexture(char type){
+void Block0::setTexture(char type) {
 	float tileWidth(100);
 	float tileHeight(100);
 	int xIndex(0);
 	int yIndex(0);
 
-	switch (type){
+	switch (type) {
 
 	case 'a':
 		break;
@@ -106,8 +106,19 @@ void Block0::setTexture(char type){
 	default:
 		break;
 	}
+
+	if (Toolbox::getCurrentLevelName() == "Hub") {
+		xIndex += 8;
+		yIndex += 4;
+	}
+	else if (Toolbox::getCurrentLevelName() == "Intestine") {
+		xIndex += 8;
+	}
+
+
 	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE),
 		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
+
 }
 
 void Block0::setPos(sf::Vector2f newPos){

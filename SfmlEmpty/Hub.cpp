@@ -18,7 +18,7 @@ Hub::Hub() :
 
 	mCamera(),
 
-	mMapName("Stomach"),
+	mMapName("Hub"),
 	mMapPath("resources/maps/mMap0.txt"),
 	mLevelState("Center"),
 
@@ -157,6 +157,7 @@ void Hub::render(sf::RenderWindow &window) {
 }
 
 void Hub::loadLevel() {
+	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Center";
@@ -169,21 +170,26 @@ void Hub::unloadLevel() {
 void Hub::triggerEvent(char type){
 	switch (type) {
 	case 'a':
+		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		Hub::eventA();
 		break;
 	case 'b':
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		Hub::eventB();
 		break;
 
 	case 'c':
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		Hub::eventC();
 		break;
 
 	case 'd':
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		Hub::eventD();
 		break;
 
 	case 'e':
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		Hub::eventE();
 		break;
 
@@ -210,29 +216,19 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 }
 void Hub::eventB() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventB.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 }
 void Hub::eventC() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventC.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
 void Hub::eventD() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventD.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
 }
 void Hub::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 }
 void Hub::eventF() {
 	mLevelState = "Dialogue";
