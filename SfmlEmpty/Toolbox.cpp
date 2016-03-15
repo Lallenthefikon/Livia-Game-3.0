@@ -73,12 +73,13 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 
-	if (levelName == "Stomach"){
+	//if (levelName == "Stomach"){
 		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
 		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
-		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
-	}
+		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
+		//mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
+	//}
 
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");

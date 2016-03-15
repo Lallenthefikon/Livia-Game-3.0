@@ -39,7 +39,7 @@ public:
 
 	void createEditorEvent(sf::Vector2f mousePos);
 
-	void createDecoration(sf::Vector2f mousePos, char id, char layer);
+	void createDecoration(sf::Vector2f mousePos, char id, char layer, char rotation);
 
 
 	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }

@@ -43,6 +43,14 @@ Animations::Textures mSpikesANI;
 
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
+Animations::Textures mDecoration2ANI;
+Animations::Textures mDecoration3ANI;
+Animations::Textures mDecoration4ANI;
+Animations::Textures mDecoration5ANI;
+Animations::Textures mDecoration6ANI;
+Animations::Textures mDecoration7ANI;
+Animations::Textures mDecoration8ANI;
+Animations::Textures mDecoration9ANI;
 
 Animations::Textures mDialogueANI;
 
@@ -331,10 +339,34 @@ void Animations::loadTextures(){
 
 	// Decoration sprite
 	mDecoration0ANI.push_back(new sf::Texture);
-	mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
+	mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 300, 300));
 
 	mDecoration1ANI.push_back(new sf::Texture);
-	mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(100, 0, 100, 200));
+	mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 0, 300, 300));
+
+	mDecoration2ANI.push_back(new sf::Texture);
+	mDecoration2ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 0, 300, 300));
+
+	mDecoration3ANI.push_back(new sf::Texture);
+	mDecoration3ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 0, 300, 300));
+
+	mDecoration4ANI.push_back(new sf::Texture);
+	mDecoration4ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 0, 300, 300));
+
+	mDecoration5ANI.push_back(new sf::Texture);
+	mDecoration5ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 300, 300, 300));
+
+	mDecoration6ANI.push_back(new sf::Texture);
+	mDecoration6ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 300, 300, 300));
+
+	mDecoration7ANI.push_back(new sf::Texture);
+	mDecoration7ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 300, 300, 300));
+
+	mDecoration8ANI.push_back(new sf::Texture);
+	mDecoration8ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 300, 300, 300));
+
+	mDecoration9ANI.push_back(new sf::Texture);
+	mDecoration9ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 300, 300, 300));
 
 }
 // Player ANI
@@ -420,6 +452,38 @@ Animations::Textures* Animations::getDecoration0ANI(){
 
 Animations::Textures* Animations::getDecoration1ANI() {
 	return &mDecoration1ANI;
+}
+
+Animations::Textures* Animations::getDecoration2ANI() {
+	return &mDecoration2ANI;
+}
+
+Animations::Textures* Animations::getDecoration3ANI() {
+	return &mDecoration3ANI;
+}
+
+Animations::Textures* Animations::getDecoration4ANI() {
+	return &mDecoration4ANI;
+}
+
+Animations::Textures* Animations::getDecoration5ANI() {
+	return &mDecoration5ANI;
+}
+
+Animations::Textures* Animations::getDecoration6ANI() {
+	return &mDecoration6ANI;
+}
+
+Animations::Textures* Animations::getDecoration7ANI() {
+	return &mDecoration7ANI;
+}
+
+Animations::Textures* Animations::getDecoration8ANI() {
+	return &mDecoration8ANI;
+}
+
+Animations::Textures* Animations::getDecoration9ANI() {
+	return &mDecoration9ANI;
 }
 
 // Dialogue ANI

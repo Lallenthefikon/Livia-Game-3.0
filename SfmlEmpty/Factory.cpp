@@ -52,8 +52,8 @@ Terrain* Factory::createEditorEvent(sf::Vector2f pos, char eventType, sf::Vector
 	return EditorEventBlock::createEventblock(pos, eventType, size);
 }
 
-Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer) {
-	return Decoration::createDecoration(pos, id, layer);
+Decoration* Factory::createDecoration(sf::Vector2f pos, char id, char layer, char rotation) {
+	return Decoration::createDecoration(pos, id, layer, rotation);
 }
 
 BlockTerrain* Factory::createCollisionBlock(sf::Vector2f pos) {

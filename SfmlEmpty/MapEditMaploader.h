@@ -49,7 +49,7 @@ private:
 	void createEvent(sf::Vector2f &pos, char eventType, sf::Vector2f size);
 	void createMeatballSpawner(sf::Vector2f &pos);
 	
-	void createDecoration(sf::Vector2f &pos, char id, char layer);
+	void createDecoration(sf::Vector2f &pos, char id, char layer, char rotation);
 
 
 	sf::Vector2f readPosition(std::string line);
