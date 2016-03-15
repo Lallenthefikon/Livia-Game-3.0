@@ -38,6 +38,7 @@ private:
 	void eventE();
 	void eventF();
 	void eventG();
+	void eventH();
 
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
@@ -78,5 +79,6 @@ private:
 	bool eventEtriggerd = false;
 	bool eventFtriggerd = false;
 	bool eventGtriggerd = false;
+	bool eventHtriggerd = false;
 	
 };
