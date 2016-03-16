@@ -126,7 +126,7 @@ void Player::render(sf::RenderWindow &window){
 	Toolbox::copyPlayerVelocity(mVelocity);
 	Toolbox::copyPlayerPosition(mCollisionBody.getPosition());
 	Toolbox::copyPlayerIsAlive(mIsAlive);
-	
+	Toolbox::copyPlayerHealth(mLife);
 	checkPlayerWithinBounds();
 	invulnerableBlink();
 }

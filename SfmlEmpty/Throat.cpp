@@ -85,7 +85,12 @@ void Throat::update(sf::RenderWindow &window) {
 	}
 	if (mLevelState == "ZoomedOut") {
 
-		mCamera.updateThroatCam(window, mLevelState);
+		if (Toolbox::getPlayerHealth() > 0) {
+			mCamera.updateThroatCam(window, mLevelState);
+		}
+		else {
+			mCamera.updateThroatCam(window, "Stop");
+		}
 
 		mEntityHandler->update();
 		mTerrainHandler->update();
