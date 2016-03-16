@@ -140,9 +140,10 @@ void Player::entityCollision(Entity* entity, char direction){
 	switch (entity->getType()){
 	case Entity::WORM:
 	case Entity::GERM:
+	case Entity::OCTO_PI:
 		switch (direction){
 		case 'b':
-			if (mLife > 0){
+			if (mLife > 0 && entity->getLife() > 0){
 				if (!mInvulnerable){
 					delta = entity->getPos().y - mCollisionBody.getPosition().y;
 					mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
@@ -153,8 +154,8 @@ void Player::entityCollision(Entity* entity, char direction){
 					else {
 						mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 					}
-					entity->getHit();
 				}
+				entity->getHit();
 			}
 			break;
 		default:

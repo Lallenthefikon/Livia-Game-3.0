@@ -13,8 +13,6 @@ public:
 
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
-	virtual void move();
-	virtual void updateInfo();
 
 	virtual sf::Vector2f getPos() { return mCollisionBody.getPosition(); }
 	virtual sf::Vector2f getOffset() { return mSpriteOffset; }

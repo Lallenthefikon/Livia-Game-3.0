@@ -44,21 +44,14 @@ void Octo_Pi::update() {
 	Octo_Pi::updateState();
 	Octo_Pi::animate();
 	Octo_Pi::lerp();
-}
 
-void Octo_Pi::move(){
-	if (moveTimer.getElapsedTime().asSeconds() < 1) {
-		mVelocity.x *= moveTimer.getElapsedTime().asSeconds(), mVelocity.y *= moveTimer.getElapsedTime().asSeconds();
-	}
 	mCollisionBody.move(mVelocity);
-	moveTimer.restart().asSeconds();
 }
 
-void Octo_Pi::updateInfo(){
-}
+
 
 void Octo_Pi::addVector(sf::Vector2f &vector) {
-	mVelocityGoal += vector;
+	mVelocity += vector;
 }
 
 void Octo_Pi::entityCollision(Entity* entity, char direction) {
@@ -68,9 +61,11 @@ void Octo_Pi::entityCollision(Entity* entity, char direction) {
 		case 't':
 			break;
 		default:
+			if (mLife > 0)
 			entity->getHit();
 			break;
 		}
+		break;
 	default:
 		break;
 	}
@@ -100,16 +95,12 @@ void Octo_Pi::blockterrainCollision(BlockTerrain * blockterrain, char direction)
 			break;
 		case 'l':
 			mCollisionL = true;
-			mVelocityGoal.x *= -1;
-			mVelocity.x *= -1;
 			delta = mCollisionBody.getPosition().x - blockterrain->getPos().x;
 			mCollisionBody.move(sf::Vector2f(blockterrain->getWidth() - delta + 1, 0));
 			mCurrentCollisionL = blockterrain;
 			break;
 		case 'r':
 			mCollisionR = true;
-			mVelocityGoal.x *= -1;
-			mVelocity.x *= -1;
 			delta = blockterrain->getPos().x - mCollisionBody.getPosition().x;
 			mCollisionBody.move(sf::Vector2f(delta - this->getWidth(), 0));
 			mCurrentCollisionR = blockterrain;
@@ -146,7 +137,7 @@ void Octo_Pi::lerp() {
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = mAcceleration;
+	float delta = Toolbox::getFrameTime() * mAcceleration;
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -184,15 +175,17 @@ void Octo_Pi::lerp() {
 }
 
 
+
+
 void Octo_Pi::addSpeed() {
 	if (mCollisionT && mVelocity.y < 0)
 		mVelocity.y = 0;
 	if (mCollisionB && mVelocity.y > 0)
 		mVelocity.y = -mJumpspeed;
 	if (mCollisionL && mVelocity.x < 0)
-		mVelocity.x = 0;
+		mVelocity.x *= -1;
 	if (mCollisionR && mVelocity.x > 0)
-		mVelocity.x = 0;
+		mVelocity.x *= -1;
 
 }
 
