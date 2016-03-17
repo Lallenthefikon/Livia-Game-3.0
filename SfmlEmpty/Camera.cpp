@@ -85,13 +85,8 @@ void Camera::updateCamEDITOR(sf::Window &window, std::string direction){
 
 }
 
-void Camera::centerOnPlayer(sf::RenderWindow &window){
-	float yCamOffset, xCamOffset;
-
-	yCamOffset = 100;
-	xCamOffset = 500;
-
-	mTileView.setCenter(Toolbox::getPlayerSprite().getPosition().x+xCamOffset, Toolbox::getPlayerSprite().getPosition().y);
+void Camera::centerOnPlayer(sf::RenderWindow &window, int offsetX, int offsetY){
+	mTileView.setCenter(Toolbox::getPlayerSprite().getPosition().x + offsetX, Toolbox::getPlayerSprite().getPosition().y + offsetY);
 }
 
 void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState){
@@ -103,7 +98,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	// Camera updated differently on parts of the level
 	std::string currentCamState = cameraState;
 	if (currentCamState == "Cutscene"){
-		centerOnPlayer(window);
+		centerOnPlayer(window, 500, 100);
 	}
 	else if (currentCamState == "Standard"){
 		setCollisionStripe("Left", window);
@@ -120,7 +115,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 		// Designers
 		// Följer åt vänster, följer åt höger, följer neråt, följer uppåt
 
-		updateGameCam(window, true, true, true, true);
+		updateGameCam(window, false, true, false, false);
 
 		//updateCamGAME(window);
 	}
@@ -136,7 +131,7 @@ void Camera::updateStomachCam(sf::RenderWindow &window, std::string cameraState)
 	Toolbox::setGlobalCameraBounds(window);
 }
 
-void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {
+void Camera::updateThroatCam(sf::RenderWindow & window, std::string cameraState){
 	// Get current screen bounds for reference in other classes
 	window.setView(mTileView);
 	sf::Vector2f camGlobalCenter = Toolbox::findCoordPos(sf::Vector2i(mTileView.getCenter()), window);
@@ -145,11 +140,11 @@ void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {
 	// Camera updated differently on parts of the level
 	std::string currentCamState = cameraState;
 	if (currentCamState == "Cutscene") {
-		centerOnPlayer(window);
+		centerOnPlayer(window, 150, 0);
 	}
 	else if (currentCamState == "Standard") {
 		setCollisionStripe("Left", window);
-		updateGameCam(window, false, true, true, true);
+		updateGameCam(window, false, false, true, true);
 	}
 	else if (currentCamState == "Shake") {
 
@@ -161,17 +156,37 @@ void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {
 	else if (currentCamState == "ZoomedOut") {
 		// Designers
 		// Följer åt vänster, följer åt höger, följer neråt, följer uppåt
-		updateGameCam(window, true, true, true, true);
+
+		updateGameCam(window, false, false, true, true);
+
 		//updateCamGAME(window);
 	}
-	else if (currentCamState == "SecondCutscene") {
-
+	else if (currentCamState == "Stop") {
+		mVelocity.x = 0.f;
+		mVelocity.y = 0.f;
 	}
 	else if (currentCamState == "Rising") {
 		//updateStomachStandardCam(window, sf::Vector2f(0.f, 1.f));
 	}
 	else if (currentCamState == "FinalCutscene") {
 
+	}
+}
+
+void Camera::updateHubCam(sf::RenderWindow &window, std::string cameraState) {
+	// Get current screen bounds for reference in other classes
+	window.setView(mTileView);
+	sf::Vector2f camGlobalCenter = Toolbox::findCoordPos(sf::Vector2i(mTileView.getCenter()), window);
+	Toolbox::copyCameraInfo(camGlobalCenter, sf::Vector2f(mTileView.getCenter()));
+
+	// Camera updated differently on parts of the level
+	std::string currentCamState = cameraState;
+	if (currentCamState == "Center") {
+		centerOnPlayer(window, 0,-100);
+	}
+	else if (currentCamState == "Standard") {
+		//setCollisionStripe("Left", window);
+		updateGameCam(window, true, true, true, true);
 	}
 }
 

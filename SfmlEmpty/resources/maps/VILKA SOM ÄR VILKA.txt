@@ -1,0 +1,5 @@
+0 = Hub
+1 = Magsäck
+2 = Hals
+3 = Mun
+4 = Tarm

@@ -90,6 +90,8 @@
     <ClCompile Include="ExtraLife.cpp" />
     <ClCompile Include="Germ.cpp" />
     <ClCompile Include="HandlerFactory.cpp" />
+    <ClCompile Include="Hub.cpp" />
+    <ClCompile Include="Intestine.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
     <ClCompile Include="BlockTerrain.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -115,6 +117,7 @@
     <ClCompile Include="MapEditorMeny.cpp" />
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Meatball.cpp" />
+    <ClCompile Include="Mouth.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
@@ -123,6 +126,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Terrainhandler.cpp" />
     <ClCompile Include="Texthandler.cpp" />
+    <ClCompile Include="Throat.cpp" />
     <ClCompile Include="Toolbox.cpp" />
     <ClCompile Include="TummySound.cpp" />
     <ClCompile Include="Worm.cpp" />
@@ -142,6 +146,8 @@
     <ClInclude Include="ExtraLife.h" />
     <ClInclude Include="Germ.h" />
     <ClInclude Include="HandlerFactory.h" />
+    <ClInclude Include="Hub.h" />
+    <ClInclude Include="Intestine.h" />
     <ClInclude Include="MeatballSpawner.h" />
     <ClInclude Include="BlockTerrain.h" />
     <ClInclude Include="Camera.h" />
@@ -166,6 +172,7 @@
     <ClInclude Include="MapEditorMeny.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Meatball.h" />
+    <ClInclude Include="Mouth.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />
@@ -174,6 +181,7 @@
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Terrainhandler.h" />
     <ClInclude Include="Texthandler.h" />
+    <ClInclude Include="Throat.h" />
     <ClInclude Include="Toolbox.h" />
     <ClInclude Include="TummySound.h" />
     <ClInclude Include="Worm.h" />

@@ -29,7 +29,7 @@ mAirHorn(Toolbox::getSound(Toolbox::WORMIDLE)) {
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
-	//MapEditor::loadLevel();
+	MapEditor::loadLevel();
 	MapEditor::createGrid();
 }
 
