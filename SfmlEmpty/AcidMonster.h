@@ -43,6 +43,7 @@
 		void updateANI();
 		void animate();
 
+		void setSpeed();
 		void setAnimation();
 
 		void playSound(ACIDMONSTERSTATE state);
@@ -60,7 +61,7 @@
 		float mTimer;
 
 		float mAcceleration;
-		float mMaxSpeed;
+		sf::Vector2f mMaxSpeed;
 
 		sf::Vector2f mSpriteOffset,
 			mVelocity,
