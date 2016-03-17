@@ -16,6 +16,8 @@ Hub::Hub() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mHubMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Stomach"),
@@ -49,6 +51,8 @@ Hub::Hub() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mHubMusic.stopAllMusic();
+
 }
 
 Hub::~Hub() {
@@ -65,6 +69,8 @@ void Hub::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
 	// Updates independent of state
 
@@ -113,6 +119,7 @@ void Hub::update(sf::RenderWindow &window) {
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	mHubMusic.playMusic(LevelMusic::HUBMUSIC);
 }
 
 void Hub::render(sf::RenderWindow &window) {

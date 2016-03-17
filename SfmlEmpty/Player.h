@@ -7,7 +7,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, FALLDEATH, LANDED };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, FALLDEATH, DROWN, LANDED };
 	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 	enum BLINKSTATES { BLINKIN, BLINKOUT };
 
@@ -44,7 +44,6 @@ private:
 
 	void playerInput();
 	void lerp();
-	void clickOnce(sf::Keyboard::Key key);
 
 	void jump();
 	void move();

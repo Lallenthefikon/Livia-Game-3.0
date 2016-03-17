@@ -67,6 +67,8 @@ void Mouth::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
 	// Updates independent of state
 

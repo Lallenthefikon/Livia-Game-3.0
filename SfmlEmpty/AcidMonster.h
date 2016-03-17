@@ -61,7 +61,7 @@
 		float mTimer;
 
 		float mAcceleration;
-		sf::Vector2f mMaxSpeed;
+		float mMaxSpeed;
 
 		sf::Vector2f mSpriteOffset,
 			mVelocity,

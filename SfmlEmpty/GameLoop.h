@@ -31,9 +31,6 @@ private:
 	
 	std::string mCurrentLevelDirectory,
 		mCurrentLevelName;
-
-	sf::Music& mStomachMusic;
-	sf::Music& mStomachAmbience;
 	
 	float mFrameTime;
 	int FPS;

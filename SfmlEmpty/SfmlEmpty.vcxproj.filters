@@ -166,6 +166,9 @@
     <ClCompile Include="Intestine.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="LevelMusic.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -326,6 +329,9 @@
     </ClInclude>
     <ClInclude Include="Mouth.h">
       <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelMusic.h">
+      <Filter>Header Files\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

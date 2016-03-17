@@ -8,22 +8,24 @@ mSoundFX(SoundFactory::getTummySound()),
 mIsOnScreen(true),
 mIsAlive(true),
 mAcceleration(4.3),
-mMaxSpeed(-4.3), // 4.3 // 258
-mCollisionBodyOffset(-60,-60){
+mMaxSpeed(-4.3), // 4.3 // 10
+mCollisionBodyOffset(-60, -60){
 	if (Toolbox::getCurrentLevelName() == "Stomach") {
 		//mCurrentAnimation(Animations::getAcidMonsterVertical()),
+		mState = MOVINGRIGHT;
 		mCurrentAnimation = Animations::getAcidMonsterHorizontal();
 		mSprite.setScale(sf::Vector2f(2.f, 2.f));
 		mCollisionBody.setScale(sf::Vector2f(2.f, 2.f));
-	mSprite.setTexture(*mCurrentAnimation->at(0));
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
+		mSprite.setTexture(*mCurrentAnimation->at(0));
+		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	}
 	if (Toolbox::getCurrentLevelName() == "Throat") {
+		mState = MOVINGUP;
 		mCurrentAnimation = Animations::getAcidMonsterVertical();
 		mSprite.setScale(sf::Vector2f(2.f, 2.f));
 		mCollisionBody.setScale(sf::Vector2f(2.f, 2.f));
 		mSprite.setTexture(*mCurrentAnimation->at(0));
-		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width, mSprite.getTextureRect().height + mCollisionBodyOffset.y));	
+		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	}
 
 
@@ -40,29 +42,27 @@ Entity* AcidMonster::createAcidMonster(sf::Vector2f pos){
 
 void AcidMonster::render(sf::RenderWindow &window) {
 	AcidMonster::updateTexturepos();
-		window.draw(mSprite);
+	window.draw(mSprite);
 }
 
 void AcidMonster::update(){
 
 	if (Toolbox::getCurrentLevelName() == "Stomach") {
-	ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
+		ANIFramesPerFrame = 7.8 * Toolbox::getFrameTime();
 		mVelocityGoal.y = 0.f;
 		mVelocity.y = 0.f;
-		mMaxSpeed = -10.f;
-		mCurrentAnimation = Animations::getAcidMonsterHorizontal();
+		AcidMonster::setSpeed();
+		AcidMonster::setAnimation();
 		//mSprite.setTexture(*mCurrentAnimation->at(0));
 		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 		mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
-		mVelocityGoal.x = -mMaxSpeed;
-	}
-	else if (Toolbox::getCurrentLevelName() == "Throat") {
+		mVelocityGoal.x = mMaxSpeed;
+	} else if (Toolbox::getCurrentLevelName() == "Throat") {
 		ANIFramesPerFrame = 11 * Toolbox::getFrameTime();
-
 		mVelocityGoal.x = 0.f;
 		mVelocity.x = 0.f;
-		mMaxSpeed = -4.3f;
-		mCurrentAnimation = Animations::getAcidMonsterVertical();
+		AcidMonster::setSpeed(); 
+		AcidMonster::setAnimation();
 		//mSprite.setTexture(*mCurrentAnimation->at(0));
 		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 		mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
@@ -70,8 +70,6 @@ void AcidMonster::update(){
 	}
 
 	AcidMonster::addSpeed();
-
-	mVelocityGoal.y = mMaxSpeed;
 
 	AcidMonster::lerp();
 
@@ -86,6 +84,7 @@ void AcidMonster::update(){
 	AcidMonster::updateSound();
 
 	AcidMonster::playSound(mState);
+
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){
@@ -155,14 +154,14 @@ void AcidMonster::lerp(){
 	bool lerpedX(false);
 
 	//if (Toolbox::getFrameTime() > 0) {
-		if (mVelocityGoal.y > mMaxSpeed.y) {
-			mVelocityGoal.y = mMaxSpeed.y;
-		} else if (mVelocityGoal.x > mMaxSpeed.x) {
-			mVelocityGoal.x = mMaxSpeed.x;
+		if (mVelocityGoal.y > mMaxSpeed) {
+			mVelocityGoal.y = mMaxSpeed;
+		} else if (mVelocityGoal.x > mMaxSpeed) {
+			mVelocityGoal.x = mMaxSpeed;
 		}
 	//}
 	
-	float delta = mAcceleration * 0.016;
+	float delta = mAcceleration * Toolbox::getFrameTime();
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
@@ -264,10 +263,10 @@ float AcidMonster::calculateVolume(sf::Vector2f &pos1, sf::Vector2f &pos2) {
 		distanceBetween = abs(pos1.x - pos2.x - this->getWidth());
 	}
 	float minDistance = 1000.f;
-	float attenuation = 5.f;
+	float attenuation = 2.5f;
 	float factor = minDistance / (minDistance + attenuation * (std::max(distanceBetween, minDistance) - minDistance));
 	float volume = factor * 100;
-	std::cout << "Distance between: " << distanceBetween << " Volume: " << volume << " Factor: " << factor << std::endl;
+	//std::cout << "Distance between: " << distanceBetween << " Volume: " << volume << " Factor: " << factor << std::endl;
 	return volume;
 }
 
@@ -297,8 +296,8 @@ void AcidMonster::setSpeed() {
 		mMaxSpeed = 10;
 	}*/
 	if (mState == MOVINGRIGHT) {
-		mMaxSpeed = sf::Vector2f(10, 0); // -4.3 strupe, 10 magsäck
+		mMaxSpeed = 10; // -4.3 strupe, 10 magsäck
 	} else if (mState == MOVINGUP) {
-		mMaxSpeed = sf::Vector2f(0, -4.3);
+		mMaxSpeed = -4.3;
 	}
 }

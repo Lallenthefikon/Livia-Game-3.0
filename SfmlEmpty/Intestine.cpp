@@ -16,6 +16,8 @@ Intestine::Intestine() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mIntestineMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Intestine"),
@@ -50,6 +52,7 @@ Intestine::Intestine() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mIntestineMusic.stopAllMusic();
 
 }
 
@@ -67,6 +70,8 @@ void Intestine::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
 	// Updates independent of state
 
@@ -133,6 +138,7 @@ void Intestine::update(sf::RenderWindow &window) {
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
 	}
+	mIntestineMusic.playMusic(LevelMusic::INTESTINEMUSIC);
 }
 
 void Intestine::render(sf::RenderWindow &window) {

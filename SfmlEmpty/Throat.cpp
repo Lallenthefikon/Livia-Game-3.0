@@ -16,6 +16,8 @@ Throat::Throat() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mThroatMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Throat"),
@@ -48,6 +50,8 @@ Throat::Throat() :
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
+	
+	mThroatMusic.stopAllMusic();
 
 }
 
@@ -65,6 +69,8 @@ void Throat::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
 	// Updates independent of state
 
@@ -129,6 +135,7 @@ void Throat::update(sf::RenderWindow &window) {
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	mThroatMusic.playMusic(LevelMusic::THROATMUSIC);
 }
 
 void Throat::render(sf::RenderWindow &window) {

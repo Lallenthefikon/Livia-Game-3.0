@@ -4,9 +4,7 @@
 GameLoop::GameLoop() :
 	mCurrentLevelDirectory("resources/maps/mMap3.txt"),
 	mCurrentLevelName("Hub"),
-	mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK"),
-	mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),
-	mStomachAmbience(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHAMBIENCE)) {
+	mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK") {
 	mWindow.setVerticalSyncEnabled(false);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
@@ -82,14 +80,6 @@ void GameLoop::updateFPS() {
 
 void GameLoop::run() {
 	mWindow.setFramerateLimit(60);
-
-	mStomachMusic.setVolume(25);
-	mStomachMusic.setLoop(false);
-	mStomachAmbience.setVolume(80);
-	mStomachAmbience.setLoop(true);
-
-	//mStomachMusic.play();
-	mStomachAmbience.play();
 
 	int clickOnce = 0;
 

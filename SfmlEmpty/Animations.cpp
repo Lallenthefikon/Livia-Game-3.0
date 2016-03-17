@@ -371,42 +371,48 @@ void Animations::loadTextures(){
 
 	// Decoration sprite
 	if (mDecoration0ANI.size() == 0) {
-	mDecoration0ANI.push_back(new sf::Texture);
-	mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 300, 300));
-		mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
+		mDecoration0ANI.push_back(new sf::Texture);
+		mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 300, 300));
 	}
-
 	if (mDecoration1ANI.size() == 0) {
-	mDecoration1ANI.push_back(new sf::Texture);
-	mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 0, 300, 300));
-
-	mDecoration2ANI.push_back(new sf::Texture);
-	mDecoration2ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 0, 300, 300));
-
-	mDecoration3ANI.push_back(new sf::Texture);
-	mDecoration3ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 0, 300, 300));
-
-	mDecoration4ANI.push_back(new sf::Texture);
-	mDecoration4ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 0, 300, 300));
-
-	mDecoration5ANI.push_back(new sf::Texture);
-	mDecoration5ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 300, 300, 300));
-
-	mDecoration6ANI.push_back(new sf::Texture);
-	mDecoration6ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 300, 300, 300));
-
-	mDecoration7ANI.push_back(new sf::Texture);
-	mDecoration7ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 300, 300, 300));
-
-	mDecoration8ANI.push_back(new sf::Texture);
-	mDecoration8ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 300, 300, 300));
-
-	mDecoration9ANI.push_back(new sf::Texture);
-	mDecoration9ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 300, 300, 300));
-
+		mDecoration1ANI.push_back(new sf::Texture);
+		mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 0, 300, 300));
+	}
+	if (mDecoration2ANI.size() == 0) {
+		mDecoration2ANI.push_back(new sf::Texture);
+		mDecoration2ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 0, 300, 300));
+	}
+	if (mDecoration3ANI.size() == 0) {
+		mDecoration3ANI.push_back(new sf::Texture);
+		mDecoration3ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 0, 300, 300));
+	}
+	if (mDecoration4ANI.size() == 0) {
+		mDecoration4ANI.push_back(new sf::Texture);
+		mDecoration4ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 0, 300, 300));
+	}
+	if (mDecoration5ANI.size() == 0) {
+		mDecoration5ANI.push_back(new sf::Texture);
+		mDecoration5ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 300, 300, 300));
+	}
+	if (mDecoration6ANI.size() == 0) {
+		mDecoration6ANI.push_back(new sf::Texture);
+		mDecoration6ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 300, 300, 300));
+	}
+	if (mDecoration7ANI.size() == 0) {
+		mDecoration7ANI.push_back(new sf::Texture);
+		mDecoration7ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 300, 300, 300));
+	}
+	if (mDecoration8ANI.size() == 0) {
+		mDecoration8ANI.push_back(new sf::Texture);
+		mDecoration8ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 300, 300, 300));
+	}
+	if (mDecoration9ANI.size() == 0) {
+		mDecoration9ANI.push_back(new sf::Texture);
+		mDecoration9ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 300, 300, 300));
+	}
 }
-// Player ANI
 
+// Player ANI
 Animations::Textures* Animations::getPlayerRunningANI(){
 	return &mPlayerRunningANI;
 }
