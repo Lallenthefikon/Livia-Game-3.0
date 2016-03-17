@@ -7,9 +7,11 @@
 #include "Texthandler.h"
 #include "Decorationhandler.h"
 #include "MapGenerator.h"
+#include "Dialoguehandler.h"
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "GameRun.h"
 
 
 class Hub : public Level {
@@ -22,22 +24,32 @@ public:
 	virtual void unloadLevel();
 	virtual std::string getLevelName() { return mMapName; }
 	virtual std::string getLevelDirectory() { return mMapPath; }
+	virtual void triggerEvent(char type);
 	void setCurrentMap(std::string &mapname);
 	void resetLevel(sf::RenderWindow &window);
 
 private:
 	Hub();
+	void eventA();
+	void eventB();
+	void eventC();
+	void eventD();
+	void eventE();
+	void eventF();
+	void eventG();
 
-	Entityhandler& mEntityHandler;
-	Terrainhandler& mTerrainHandler;
+	Entityhandler* mEntityHandler;
+	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;
 	Collisionhandler& mCollisionHandler;
 	LayerHandler& mLayerHandler;
 	Texthandler& mTextHandler;
 	Decorationhandler& mDecorationhandler;
+	Dialoguehandler& mDialoguehandler;
 
 	// Specific level graphics
 	sf::Texture mBackgroundTexture;
+	sf::Texture mMiddlegroundTexture;
 	sf::Texture mLifeTexture;
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;

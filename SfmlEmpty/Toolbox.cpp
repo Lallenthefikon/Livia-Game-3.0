@@ -10,6 +10,7 @@ static int mPlayerHealth;
 static float mFrameTime(0);
 
 // Level Info
+static std::string mCurrentLevelName;
 static sf::Vector2f mGravity(0, 125);
 static sf::FloatRect mLevelBounds;
 
@@ -56,6 +57,9 @@ static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
 static sf::SoundBuffer mWormDeathSound;
+
+static sf::SoundBuffer mTummyRunningSound;
+
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::SoundBuffer mAirHorn;
@@ -70,30 +74,53 @@ Toolbox& Toolbox::getInstance(){
 
 void Toolbox::loadTextures(std::string levelName){
 
-	if (levelName == "Stomach"){
-		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
-		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
-		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
-		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
-	}
 
+	if(mStomachBackgroundTexture.getSize().x <= 0)
+		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
+		
+	if (mStomachMiddlegroundTexture.getSize().x <= 0)
+		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
+		
+	if (mAcidBottom.getSize().x <= 0)
+		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
+		
+	if (mDecorationTexture.getSize().x <= 0)
+		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
+
+	if (mEnemy0sheet.getSize().x <= 0)
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
+	
+	if (mBlock0sheet.getSize().x <= 0)
 	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
+
+	if (mGoalTexture.getSize().x <= 0)
 	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
+	if (mPlayersheet.getSize().x <= 0)
 	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
-	mAcidMonsterHorizontalTexture.loadFromFile("resources/images/terrain/icy_block_placeholder.png");
-	//mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
+	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
+		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
+
+	if(mAcidMonsterVerticalTexture.getSize().x <= 0)
 	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
+	if (mTileTexture.getSize().x <= 0)
 	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+	
+	if (mEditorMenyTexture.getSize().x <= 0)
 	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
+	if (mLifeTexture.getSize().x <= 0)
 	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
+	if(mMeatballTexture.getSize().x <= 0)
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
+	
+	if (mMeatballSpawnerTexture.getSize().x <= 0)
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+
+	if (mDialogueTexture.getSize().x <= 0)
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
 	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
@@ -102,13 +129,13 @@ void Toolbox::loadTextures(std::string levelName){
 
 void Toolbox::loadSounds(std::string levelName) {
 
-//	if (levelName == "Stomach") {
 		// Load Tummy Acid Trip
-
+		
+		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
+		
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
-//	}
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
@@ -157,13 +184,11 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case ACIDMONSTERVERTICALTEXTURE:
-		//return mAcidMonsterHorizontalTexture;
 		return mAcidMonsterVerticalTexture;
 		break;
 
 	case ACIDMONSTERHORIZONTALTEXTURE:
 		return mAcidMonsterHorizontalTexture;
-		//return mAcidMonsterVerticalTexture;
 		break;
 
 	case STOMACHBACKGROUND:
@@ -204,7 +229,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case DIALOGUETEXTURE:
 		return mDialogueSpriteSheetIMG;
-			break;
+		break;
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
@@ -219,7 +244,6 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 	}
 }
 
-// Camera Edit
 void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode){
 	mWindowSize = sf::Vector2f(window.getSize());
 	mResolution.x = videoMode.width;
@@ -260,6 +284,14 @@ void Toolbox::copyLevelBounds(sf::FloatRect &levelBounds){
 
 sf::FloatRect Toolbox::getLevelBounds(){
 	 return mLevelBounds;
+}
+
+void Toolbox::copyCurrentLevelName(std::string newLevelName){
+	mCurrentLevelName = newLevelName;
+}
+
+std::string Toolbox::getCurrentLevelName(){
+	return mCurrentLevelName;
 }
 
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
@@ -342,7 +374,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		return mPlayerWallSlideSound;
 		break;
 	case Toolbox::WORMIDLE:
-		return mAirHorn;		// Temporary lol
+		return mAirHorn;		// Temporary lol (Jk, Final)
 		break;
 	case Toolbox::WORMRUN:
 		break;
@@ -352,6 +384,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::WORMDEATH:
 		return mWormDeathSound;
+		break;
+	case Toolbox::TUMMYRUNNING:
+		return mTummyRunningSound;
 		break;
 	default:
 		break;

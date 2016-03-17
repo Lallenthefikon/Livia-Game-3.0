@@ -11,6 +11,8 @@
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "AddObjectsDuringGame.h"
+#include "GameRun.h"
 
 
 class Stomach : public Level{
@@ -36,6 +38,7 @@ private:
 	void eventE();
 	void eventF();
 	void eventG();
+	void eventH();
 
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
@@ -69,4 +72,13 @@ private:
 
 	bool mGameOver = false;
 	bool mZoomedOut;
+	bool eventAtriggerd = false;
+	bool eventBtriggerd = false;
+	bool eventCtriggerd = false;
+	bool eventDtriggerd = false;
+	bool eventEtriggerd = false;
+	bool eventFtriggerd = false;
+	bool eventGtriggerd = false;
+	bool eventHtriggerd = false;
+	
 };

@@ -8,6 +8,7 @@ Dialoguehandler::Dialoguehandler(){
 }
 
 Dialoguehandler::~Dialoguehandler(){
+	internalClear();
 }
 
 Dialoguehandler& Dialoguehandler::getInstance() {
