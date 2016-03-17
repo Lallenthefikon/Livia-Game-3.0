@@ -12,7 +12,7 @@ mAnimationIndex(std::rand() % 16){
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(mAnimationIndex));
 	
 	mCollisionBody.setPosition(pos);
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 20, mSprite.getTextureRect().height - 10));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height - 10));
 	Spikes::setRotation(type);
 	mSpriteOffset = pos - mCollisionBody.getPosition();
 	Spikes::updateTexturepos();

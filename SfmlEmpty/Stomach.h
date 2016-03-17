@@ -40,6 +40,8 @@ private:
 	void eventG();
 	void eventH();
 
+	void updateVertGradiantAlpha();
+
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;
@@ -56,6 +58,7 @@ private:
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
+	sf::Texture mVertAcidGradiant;
 
 	// Level Info
 	sf::FloatRect mLevelBounds;

@@ -163,7 +163,7 @@ void Player::entityCollision(Entity* entity, char direction){
 		}
 		break;
 	case Entity::ACIDMONSTER:
-		//mLife = 0;
+		mLife = 0;
 		break;
 	case Entity::EXTRALIFE:
 		mLife++;
