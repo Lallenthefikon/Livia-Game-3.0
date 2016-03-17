@@ -123,7 +123,7 @@ void Toolbox::loadTextures(std::string levelName){
 	if (mDialogueTexture.getSize().x <= 0)
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
 
 }
 
@@ -156,7 +156,7 @@ void Toolbox::loadSounds(std::string levelName) {
 }
 
 void Toolbox::loadFonts(std::string levelName) {
-	mGameOverFont.loadFromFile("resources/fonts/ComicSansMSRegular.ttf");
+	mGameOverFont.loadFromFile("resources/fonts/Barokah.ttf");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -251,7 +251,7 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mWindowPos = sf::Vector2f(window.getPosition());
 }
 
-void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+void Toolbox::setWindowSize(sf::RenderWindow &window) {
 	mWindowSize = sf::Vector2f(window.getSize());
 }
 

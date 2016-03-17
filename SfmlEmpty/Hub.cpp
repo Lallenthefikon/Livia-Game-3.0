@@ -18,7 +18,7 @@ Hub::Hub() :
 
 	mCamera(),
 
-	mMapName("Stomach"),
+	mMapName("Hub"),
 	mMapPath("resources/maps/mMap0.txt"),
 	mLevelState("Center"),
 
@@ -84,7 +84,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-		mDialoguehandler.updateDialogue();
+	
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -112,6 +112,11 @@ void Hub::update(sf::RenderWindow &window) {
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
+	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
 	}
 }
 
@@ -150,7 +155,9 @@ void Hub::render(sf::RenderWindow &window) {
 
 
 	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+	}
 
 
 	window.display();

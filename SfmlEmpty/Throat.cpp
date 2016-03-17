@@ -129,6 +129,11 @@ void Throat::update(sf::RenderWindow &window) {
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
+	}
 }
 
 void Throat::render(sf::RenderWindow &window) {
@@ -166,7 +171,10 @@ void Throat::render(sf::RenderWindow &window) {
 
 
 	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+
+	}
 
 
 	window.display();
