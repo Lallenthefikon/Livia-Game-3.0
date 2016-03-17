@@ -3,7 +3,7 @@
 
 Hub::Hub() :
 	// Initiate singleton classes
-	mBackground(),
+	//mBackground(),
 	mTexture(),
 
 	mTerrainHandler(Terrainhandler::getInstance()),
@@ -18,7 +18,7 @@ Hub::Hub() :
 
 	mCamera(),
 
-	mMapName("Stomach"),
+	mMapName("Hub"),
 	mMapPath("resources/maps/mMap0.txt"),
 	mLevelState("Center"),
 
@@ -38,14 +38,14 @@ Hub::Hub() :
 	mLifeSprite.setScale(1.5, 1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
-	mLayerHandler.addBackground(mBackgroundTexture);
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBBACKGROUND));
+	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
+	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+//	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -73,7 +73,6 @@ void Hub::update(sf::RenderWindow &window) {
 	}
 	// Updates depending on state
 	if (mLevelState == "Center") {
-		//mCamera.updateStomachCam(window,mLevelState);
 		mCamera.updateHubCam(window, mLevelState);
 		mLevelState = "Standard";
 	}
@@ -92,9 +91,9 @@ void Hub::update(sf::RenderWindow &window) {
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
 		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		/*mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);*/
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
@@ -106,9 +105,9 @@ void Hub::update(sf::RenderWindow &window) {
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
-		}
+		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+		//	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
+		//}
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
@@ -123,12 +122,10 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	// Middleground
-	mLayerHandler.renderMiddleground(window);
+	//mLayerHandler.renderMiddleground(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
-
-
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -141,13 +138,11 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
-
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
 
 	// Hud
 	mLayerHandler.renderHud(window);
-
 
 	// Dialogue
 	mDialoguehandler.renderDialogue(window);
@@ -159,7 +154,9 @@ void Hub::render(sf::RenderWindow &window) {
 void Hub::loadLevel() {
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
+	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 	mLevelState = "Center";
+
 }
 
 void Hub::unloadLevel() {

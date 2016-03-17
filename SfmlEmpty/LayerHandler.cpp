@@ -28,7 +28,7 @@ LayerHandler& LayerHandler::getInstance(){
 	return layerHandler;
 }
 
-void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
+void LayerHandler::moveBackgroundHorizontal(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView){
 
 	sf::Sprite* furthestRightBG;
 	sf::Sprite* furthestLeftBG;
@@ -103,6 +103,83 @@ void LayerHandler::moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vec
 	furthestRightBG->move(-camVelX * BACKGROUNDSPEED, 0.f);
 	middleBG->move(-camVelX * BACKGROUNDSPEED, 0.f);
 	furthestLeftBG->move(-camVelX * BACKGROUNDSPEED, 0.f);
+}
+
+void LayerHandler::moveBackgroundVertical(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView) {
+
+	sf::Sprite* furthestUpBG;
+	sf::Sprite* furthestDownBG;
+	sf::Sprite* middleBG;
+
+	sf::Vector2f bg0CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[0].getPosition().x, mBackgrounds[0].getPosition().y), window);
+	sf::Vector2f bg1CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[1].getPosition().x, mBackgrounds[1].getPosition().y), window);
+	sf::Vector2f bg2CoordPos = Toolbox::findCoordPos(sf::Vector2i(mBackgrounds[2].getPosition().x, mBackgrounds[2].getPosition().y), window);
+
+	// Find the background highest up
+	if ((bg0CoordPos.y < bg1CoordPos.y)
+		&& (bg0CoordPos.y < bg2CoordPos.y)) {
+		furthestUpBG = &mBackgrounds[0];
+		//std::cout << "Right 0" << std::endl;
+	}
+	else if ((bg1CoordPos.y < bg0CoordPos.y)
+		&& (bg1CoordPos.y < bg2CoordPos.y)) {
+		furthestUpBG = &mBackgrounds[1];
+		//std::cout << "Right 1" << std::endl;
+	}
+	else {
+		furthestUpBG = &mBackgrounds[2];
+		//std::cout << "Right 2" << std::endl;
+	}
+	// Find the background lowest down
+	if ((bg0CoordPos.y > bg1CoordPos.y)
+		&& (bg0CoordPos.y > bg2CoordPos.y)) {
+		furthestDownBG = &mBackgrounds[0];
+		//std::cout << "Left 0" << std::endl;
+	}
+	else if ((bg1CoordPos.y > bg0CoordPos.y)
+		&& (bg1CoordPos.y > bg2CoordPos.y)) {
+		furthestDownBG = &mBackgrounds[1];
+		//std::cout << "Left 1" << std::endl;
+	}
+	else {
+		furthestDownBG = &mBackgrounds[2];
+		//std::cout << "Left 2" << std::endl;
+	}
+	// Find the background in the middle
+	if ((furthestDownBG == &mBackgrounds[0] && furthestUpBG == &mBackgrounds[1])
+		|| (furthestDownBG == &mBackgrounds[1] && furthestUpBG == &mBackgrounds[0])) {
+		middleBG = &mBackgrounds[2];
+		//std::cout << "Middle 2" << std::endl;
+	}
+	else if ((furthestDownBG == &mBackgrounds[0] && furthestUpBG == &mBackgrounds[2])
+		|| (furthestDownBG == &mBackgrounds[2] && furthestUpBG == &mBackgrounds[0])) {
+		middleBG = &mBackgrounds[1];
+		//std::cout << "Middle 1" << std::endl;
+	}
+	else {
+		middleBG = &mBackgrounds[0];
+		//std::cout << "Middle 0" << std::endl;
+	}
+
+	sf::Vector2f middleBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(middleBG->getPosition().x, middleBG->getPosition().y), window);
+	sf::Vector2f leftBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestDownBG->getPosition().x, furthestDownBG->getPosition().y), window);
+	sf::Vector2f rightBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestUpBG->getPosition().x, furthestUpBG->getPosition().y), window);
+
+	// Resets furthest left when moving right 
+	if (furthestDownBG->getPosition().y < -furthestDownBG->getLocalBounds().height) {
+		furthestDownBG->setPosition(0, furthestUpBG->getPosition().y + furthestDownBG->getLocalBounds().height);
+	}
+	// Resets furthest right when moving left 
+	else if ((furthestUpBG->getPosition().y > 1080) && (cam.getVelocity().y < 0)) {
+		furthestUpBG->setPosition(0, furthestUpBG->getPosition().y + furthestDownBG->getLocalBounds().height);
+	}
+
+	// Moves backgrounds at same speed
+	float camVelY = cam.getVelocity().y;
+
+	furthestUpBG->move(0, -camVelY * BACKGROUNDSPEED);
+	middleBG->move(0, -camVelY * BACKGROUNDSPEED);
+	furthestDownBG->move(0, -camVelY * BACKGROUNDSPEED);
 }
 
 void LayerHandler::moveMiddleground(sf::RenderWindow & window, Camera & cam, sf::Vector2f & middleCamCoordPosSceneView, sf::Vector2f & middleCamCoordPosTileView){
@@ -278,7 +355,8 @@ void LayerHandler::updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f tileCamC
 	mTextHandler.updateText(viewCamCoordPos);
 }
 
-void LayerHandler::addBackground(sf::Texture &backgroundTexture){
+void LayerHandler::addHorizontalBackground(sf::Texture &backgroundTexture){
+	mBackground.setTextureRect(sf::IntRect(0, 0, 1080, 1080));
 	mBackground.setTexture(backgroundTexture);
 
 	mBackgrounds[0] = mBackground;
@@ -291,17 +369,43 @@ void LayerHandler::addBackground(sf::Texture &backgroundTexture){
 	mBackgrounds[2].setPosition(sf::Vector2f(mBackgrounds[1].getPosition().x + mBackgrounds[2].getLocalBounds().width, 0.f));
 }
 
-void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture){
+void LayerHandler::addVerticalBackground(sf::Texture &backgroundTexture) {
+	mBackground.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	mBackground.setTexture(backgroundTexture);
+
+	mBackgrounds[0] = mBackground;
+	mBackgrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
+
+	mBackgrounds[1] = mBackground;
+	mBackgrounds[1].setPosition(sf::Vector2f(0.f, mBackgrounds[0].getPosition().y - mBackgrounds[1].getLocalBounds().height));
+
+	mBackgrounds[2] = mBackground;
+	mBackgrounds[2].setPosition(sf::Vector2f(0.f, mBackgrounds[1].getPosition().y - mBackgrounds[2].getLocalBounds().height));
+}
+
+void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture, std::string orientation){
 	mMiddleground.setTexture(middlegroundTexture);
+	if (orientation == "Top") {
+		mMiddlegrounds[0] = mMiddleground;
+		mMiddlegrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
 
-	mMiddlegrounds[0] = mMiddleground;
-	mMiddlegrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
+		mMiddlegrounds[1] = mMiddleground;
+		mMiddlegrounds[1].setPosition(sf::Vector2f(mMiddlegrounds[0].getPosition().x + mMiddlegrounds[1].getLocalBounds().width, 0.f));
 
-	mMiddlegrounds[1] = mMiddleground;
-	mMiddlegrounds[1].setPosition(sf::Vector2f(mMiddlegrounds[0].getPosition().x + mMiddlegrounds[1].getLocalBounds().width, 0.f));
+		mMiddlegrounds[2] = mMiddleground;
+		mMiddlegrounds[2].setPosition(sf::Vector2f(mMiddlegrounds[1].getPosition().x + mMiddlegrounds[2].getLocalBounds().width, 0.f));
+	}
+	else if (orientation == "Bottom"){
+		mMiddlegrounds[0] = mMiddleground;
+		mMiddlegrounds[0].setPosition(sf::Vector2f(0.f, 1080.f - mMiddlegrounds[0].getLocalBounds().height));
 
-	mMiddlegrounds[2] = mMiddleground;
-	mMiddlegrounds[2].setPosition(sf::Vector2f(mMiddlegrounds[1].getPosition().x + mMiddlegrounds[2].getLocalBounds().width, 0.f));
+		mMiddlegrounds[1] = mMiddleground;
+		mMiddlegrounds[1].setPosition(sf::Vector2f(mMiddlegrounds[0].getPosition().x + mMiddlegrounds[1].getLocalBounds().width, 1080.f - mMiddlegrounds[0].getLocalBounds().height));
+
+		mMiddlegrounds[2] = mMiddleground;
+		mMiddlegrounds[2].setPosition(sf::Vector2f(mMiddlegrounds[1].getPosition().x + mMiddlegrounds[2].getLocalBounds().width, 1080.f - mMiddlegrounds[0].getLocalBounds().height));
+	}
+
 }
 
 void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {

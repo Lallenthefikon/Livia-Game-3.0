@@ -69,8 +69,6 @@ void AcidMonster::update(){
 		mVelocityGoal.y = mMaxSpeed;
 	}
 
-
-
 	AcidMonster::lerp();
 
 	AcidMonster::updateState();

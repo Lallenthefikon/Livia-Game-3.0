@@ -24,11 +24,28 @@ static sf::Image mDialogueTexture;
 static sf::Image mMeatballTexture;
 static sf::Image mMeatballSpawnerTexture;
 
+// Stomach
 static sf::Image mAcidMonsterHorizontalTexture;
 static sf::Image mAcidMonsterVerticalTexture;
 static sf::Image mStomachBackgroundTexture;
 static sf::Image mStomachMiddlegroundTexture;
 static sf::Image mAcidBottom;
+
+// Hub
+static sf::Image mHubBackground;
+
+// Throat
+static sf::Image mThroatBackground;
+static sf::Image mThroatMiddleground;
+
+// Mouth
+static sf::Image mMouthBackground;
+static sf::Image mMouthMiddleground;
+
+// Intestine
+static sf::Image mIntestineBackground;
+
+
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -87,43 +104,63 @@ void Toolbox::loadTextures(std::string levelName){
 	if (mDecorationTexture.getSize().x <= 0)
 		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
 
+	if (mHubBackground.getSize().x <= 0)
+		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
+	
+	if (mThroatBackground.getSize().x <= 0)
+		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
+
+	if (mThroatBackground.getSize().x <= 0)
+		mThroatMiddleground.loadFromFile("resources/images/background/Strupe kant h.png");
+
+	if (mMouthBackground.getSize().x <= 0)
+		mMouthBackground.loadFromFile("resources/images/background/mun bakgr suddif 0.2.png");
+
+	if (mMouthMiddleground.getSize().x <= 0)
+		mMouthMiddleground.loadFromFile("resources/images/background/Tänder.png");
+
+	if (mIntestineBackground.getSize().x <= 0)
+		mIntestineBackground.loadFromFile("resources/images/background/Tarm bakgrund.png");
+
 	if (mEnemy0sheet.getSize().x <= 0)
-	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
+		mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
 	
 	if (mBlock0sheet.getSize().x <= 0)
-	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
+		mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
 
 	if (mGoalTexture.getSize().x <= 0)
-	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
+		mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	if (mPlayersheet.getSize().x <= 0)
-	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
+		mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
 		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 
 	if(mAcidMonsterVerticalTexture.getSize().x <= 0)
-	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
+		mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	if (mTileTexture.getSize().x <= 0)
-	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+		mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
 	
 	if (mEditorMenyTexture.getSize().x <= 0)
-	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
+		mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
 	
 	if (mLifeTexture.getSize().x <= 0)
-	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
+		mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
 	if(mMeatballTexture.getSize().x <= 0)
-	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
+		mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	
 	if (mMeatballSpawnerTexture.getSize().x <= 0)
-	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+		mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 
-	if (mDialogueTexture.getSize().x <= 0)
-	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
-	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+	if (mDialogueTexture.getSize().x <= 0) {
+		mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+		mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+	}
+
 
 }
 
@@ -200,7 +237,31 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case HUBBACKGROUND:
-		return mStomachBackgroundTexture;
+		return mHubBackground;
+		break;
+
+	case THROATBACKGROUND:
+		return mThroatBackground;
+		break;
+
+	case THROATMIDDLEGROUNDRIGHT:
+		return mThroatMiddleground;
+		break;
+
+	case THROATMIDDLEGROUNDLEFT:
+		return mThroatMiddleground;
+		break;
+
+	case MOUTHBACKGROUND:
+		return mMouthBackground;
+		break;
+
+	case MOUTHMIDDLEGROUND:
+		return mMouthMiddleground;
+		break;
+
+	case INTESTINEBACKGROUND:
+		return mIntestineBackground;
 		break;
 
 	case LIFETEXTURE:

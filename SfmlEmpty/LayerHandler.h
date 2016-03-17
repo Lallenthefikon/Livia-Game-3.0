@@ -13,7 +13,8 @@
 class LayerHandler {
 public:
 	static LayerHandler& LayerHandler::getInstance();
-	void moveBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveBackgroundHorizontal(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveBackgroundVertical(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
 	void moveMiddleground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
 	void moveForeground(sf::Vector2f &velocity);
 	// Unused
@@ -25,8 +26,9 @@ public:
 	void renderForeground(sf::RenderWindow &window);
 	void renderHud(sf::RenderWindow &window);
 
-	void addBackground(sf::Texture &backgroundTexture);
-	void addMiddleground(sf::Texture &backgroundTexture);
+	void addVerticalBackground(sf::Texture &backgroundTexture);
+	void addHorizontalBackground(sf::Texture &backgroundTexture);
+	void addMiddleground(sf::Texture &backgroundTexture, std::string orientation);
 	void addForegroundObject(sf::Texture &foregroundTexture);
 
 	void addLifeSprite(sf::Sprite &life);
