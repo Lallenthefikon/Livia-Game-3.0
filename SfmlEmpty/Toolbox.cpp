@@ -8,10 +8,11 @@ static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 static int mPlayerHealth;
 static float mFrameTime(0);
+static float staticFrametime(0.020);
 
 // Level Info
 static std::string mCurrentLevelName;
-static sf::Vector2f mGravity(0, 125);
+static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
 
@@ -428,7 +429,8 @@ void Toolbox::copyFrameTime(float &frameTime) {
 }
 
 float& Toolbox::getFrameTime() {
-	return mFrameTime;
+	//return mFrameTime;
+	return staticFrametime;
 }
 
 void Toolbox::copyGravity(sf::Vector2f &gravity) {
