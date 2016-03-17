@@ -38,7 +38,6 @@ void Dialoguehandler::updateDialogue() {
 			if (mIndex >= mStringVectors.size()) {
 				isInDialogue = false;
 			}
-
 			else {
 				Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
