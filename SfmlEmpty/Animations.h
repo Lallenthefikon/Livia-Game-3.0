@@ -24,12 +24,17 @@ struct Animations{
 	static Textures* getGermWalkingANI();
 	static Textures* getGermDamagedANI();
 
+	static Textures* getOcto_PiANI();
+
 	static Textures* getAcidMonster();
 
 	static Textures* getMeatballANI();
 
 	static Textures* getHeartANI();
-	static Textures* getDialogueANI();
+	static Textures* getDialogueLiviaANI();
+	static Textures* getDialogueMansaANI();
+	static Textures* getDialogueMuhninANI();
+	static Textures* getDialogueTummyANI();
 
 	static Textures* getSpikesANI();
 

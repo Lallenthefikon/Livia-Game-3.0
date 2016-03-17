@@ -35,6 +35,9 @@ Throat::Throat() :
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(1970,0, 1920, 1347));
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
+
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
 	mLifeSprite.setScale(1.5, 1.5);
@@ -46,7 +49,7 @@ Throat::Throat() :
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
@@ -113,7 +116,7 @@ void Throat::update(sf::RenderWindow &window) {
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
-
+		updateGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
@@ -139,6 +142,11 @@ void Throat::update(sf::RenderWindow &window) {
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
+	}
 }
 
 void Throat::render(sf::RenderWindow &window) {
@@ -150,6 +158,7 @@ void Throat::render(sf::RenderWindow &window) {
 
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
+	mLayerHandler.renderVertGradiant(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -176,7 +185,10 @@ void Throat::render(sf::RenderWindow &window) {
 
 
 	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+
+	}
 
 
 	window.display();
@@ -273,4 +285,19 @@ void Throat::eventG() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+}
+
+void Throat::updateGradiantAlpha(){
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x + mEntityHandler->getEntities().at(0)->getHeight() -
+			mEntityHandler->getEntities().back()->getPos().y;
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+	}
 }

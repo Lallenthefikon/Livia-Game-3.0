@@ -119,6 +119,7 @@
     <ClCompile Include="MapGenerator.cpp" />
     <ClCompile Include="Meatball.cpp" />
     <ClCompile Include="Mouth.cpp" />
+    <ClCompile Include="Octo_Pi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SoundFactory.cpp" />
     <ClCompile Include="SoundFX.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="Meatball.h" />
     <ClInclude Include="Mouth.h" />
+    <ClInclude Include="Octo_Pi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />

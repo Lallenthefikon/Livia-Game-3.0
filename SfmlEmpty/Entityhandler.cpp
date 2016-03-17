@@ -37,6 +37,9 @@ void Entityhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 	case '5':
 		mEntities.push_back(Factory::createGerm(pos));
 		break;
+	case '6':
+		mEntities.push_back(Factory::createOcto_Pi(pos));
+		break;
 	default:
 		break;
 	}

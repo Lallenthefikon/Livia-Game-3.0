@@ -182,6 +182,14 @@ void MapGenerator::readEntityfile(std::string &filename){
 				default:
 					break;
 				}
+				break;
+			case 'O':
+				switch (line[1]) {
+				case 'P':
+					MapGenerator::createOcto_Pi(MapGenerator::readPosition(line));
+					break;
+				}
+				break;
 			default:
 				break;
 
@@ -238,6 +246,9 @@ void MapGenerator::createGerm(sf::Vector2f pos) {
 	mEntityHandler->add(pos, '5');
 }
 
+void MapGenerator::createOcto_Pi(sf::Vector2f pos) {
+	mEntityHandler->add(pos, '6');
+}
 
 // Create terrains
 void MapGenerator::createBlock0(sf::Vector2f pos, char type){

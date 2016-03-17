@@ -38,6 +38,14 @@ private:
 	void eventF();
 	void eventG();
 
+	void checkIfNewMap();
+
+	bool mEventA = false;
+	bool mEventB = false;
+	bool mEventC = false;
+	bool mEventD = false;
+	bool mEventE = false;
+
 	Entityhandler* mEntityHandler;
 	Terrainhandler* mTerrainHandler;
 	MapGenerator& mMapGenerator;

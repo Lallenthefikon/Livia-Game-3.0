@@ -56,7 +56,7 @@ mTextHandler(Texthandler::getInstance()){
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 
 
-	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 30, mSprite.getTextureRect().height- 10));
+	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width - 20, mSprite.getTextureRect().height- 10));
 	//mCollisionBody.setTexture(*mCurrentAnimation->back());
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
@@ -140,9 +140,10 @@ void Player::entityCollision(Entity* entity, char direction){
 	switch (entity->getType()){
 	case Entity::WORM:
 	case Entity::GERM:
+	case Entity::OCTO_PI:
 		switch (direction){
 		case 'b':
-			if (mLife > 0){
+			if (mLife > 0 && entity->getLife() > 0){
 				if (!mInvulnerable){
 					delta = entity->getPos().y - mCollisionBody.getPosition().y;
 					mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
@@ -153,8 +154,8 @@ void Player::entityCollision(Entity* entity, char direction){
 					else {
 						mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 					}
-					entity->getHit();
 				}
+				entity->getHit();
 			}
 			break;
 		default:
@@ -202,6 +203,7 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		break;
 
 	case Terrain::EVENT:
+		mSoundFX.stopAllSound();
 		terrain->trigger();
 		break;
 		
@@ -254,6 +256,14 @@ void Player::getHit() {
 		if (mLife > 0) {
 			mLife--;
 			mInvulnerable = true;
+			mState = DAMAGED;
+			Player::updateANI();
+			if (mTurned == TURNEDLEFT) {
+				mVelocity.x += 20;
+			}
+			else {
+				mVelocity.x -= 20;
+			}
 			mInvulnerableTimer.restart().asMilliseconds();
 			if (!mLife <= 0) {
 				Player::playSound(Player::DAMAGED);
@@ -460,14 +470,14 @@ void Player::updateState() {
 	if (mState == WALLSTUCK) {
 		if (mCollisionR) {
 			mLastBlockToched = mCurrentCollisionR->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
-			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				mState = FALLING;
 				changed = true;
 			}
 		}
 		if (mCollisionL) {
 			mLastBlockToched = mCurrentCollisionL->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
-			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || !sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				mState = FALLING;
 				changed = true;
 			}
@@ -492,7 +502,7 @@ void Player::updateState() {
 		}
 
 		// Player runs in a direction
-		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
+		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING && mState != DAMAGED) {
 			mState = RUNNING;
 			changed = true;
 			if (!mVelocity.y > 0) {
@@ -501,7 +511,7 @@ void Player::updateState() {
 		}
 
 
-		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK) {
+		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK && mState != DAMAGED) {
 			mState = IDLE;
 			changed = true;
 			Player::stopSound(RUNNING);
@@ -524,7 +534,7 @@ void Player::updateState() {
 
 		// Player collides with sticky block to the right
 		if (mCollisionR) {
-			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mState != WALLSTUCK) {
+			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') == Terrain::BLOCK0WALLJUMP  && mState != WALLSTUCK) {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;
@@ -534,7 +544,7 @@ void Player::updateState() {
 
 		// Player collides with sticky block to the left
 		if (mCollisionL) {
-			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') == Terrain::BLOCK0WALLJUMP && sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mState != WALLSTUCK) {
+			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') == Terrain::BLOCK0WALLJUMP  && mState != WALLSTUCK) {
 				mState = WALLSTUCK;
 				mJumpStarted = false;
 				changed = true;
@@ -548,12 +558,12 @@ void Player::updateState() {
 		}
 
 		// Player direction right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDRIGHT) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDRIGHT && mState != DAMAGED) {
 			mTurned = TURNEDRIGHT;
 			changed = true;
 		}
 		// Player direction left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDLEFT) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDLEFT && mState != DAMAGED) {
 			mTurned = TURNEDLEFT;
 			changed = true;
 		}
@@ -609,6 +619,11 @@ void Player::updateCollision() {
 void Player::updateANI(){
 	float spriteWidth;
 	switch (mState){
+	case DAMAGED:
+		mCurrentAnimationRate = 31.75;
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
+		mCurrentAnimation = Animations::getPlayerHurtANI();
+		break;
 
 	case JUMPING:
 		mCurrentAnimationRate = 31.25;
@@ -683,6 +698,12 @@ void Player::animate(){
 			if (mState == DEATH || mState == FALLDEATH){
 				mIsAlive = false;
 				mAnimationIndex -= 1;
+			}
+			else if (mState == DAMAGED) {
+				mState = IDLE;
+				Player::updateState();
+				Player::updateANI();
+				mAnimationIndex = 0;
 			}
 			else
 			mAnimationIndex = 0;

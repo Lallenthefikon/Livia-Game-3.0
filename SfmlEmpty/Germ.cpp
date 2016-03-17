@@ -59,6 +59,7 @@ void Germ::entityCollision(Entity* entity, char direction) {
 		case 't':
 			break;
 		default:
+			if (mLife > 0)
 			entity->getHit();
 			break;
 		}

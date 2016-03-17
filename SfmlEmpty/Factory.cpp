@@ -15,6 +15,7 @@
 #include "ExtraLife.h"
 #include "Germ.h"
 #include "EditorEventBlock.h"
+#include "Octo_Pi.h"
 
 Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
@@ -78,4 +79,8 @@ Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {
 
 Entity* Factory::createGerm(sf::Vector2f pos) {
 	return Germ::createGerm(pos);
+}
+
+Entity* Factory::createOcto_Pi(sf::Vector2f pos) {
+	return Octo_Pi::createOcto_Pi(pos);
 }

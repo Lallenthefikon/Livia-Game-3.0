@@ -2,10 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-static float ANIFramesPerFrame;
+static float ANIFramesPerFrame = 0.5;
 
-Dialoguehandler::Dialoguehandler():
-	mDialogueAnimationLeft(Animations::getDialogueANI()){
+Dialoguehandler::Dialoguehandler(){
 }
 
 Dialoguehandler::~Dialoguehandler(){
@@ -19,11 +18,20 @@ Dialoguehandler& Dialoguehandler::getInstance() {
 
 void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 	window.draw(mSpriteHudBackground);
+	if (mCurrentspeaker != INSTRUCTIONS) {
+		if (mLeftActive)
+			window.draw(mDialoguespriteLeft);
+		else
+			window.draw(mDialoguespriteRight);
+	}
 	Texthandler::getInstance().renderDialougeText(window);
 }
 
 
 void Dialoguehandler::updateDialogue() {
+	mDialoguespriteLeft.setTextureRect(sf::IntRect(mDialoguespriteLeft.getLocalBounds().width, 0, -mDialoguespriteLeft.getLocalBounds().width, mDialoguespriteLeft.getLocalBounds().height));
+	
+	animate();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		if (mReturnRealesed) {
 			mIndex++;
@@ -31,6 +39,7 @@ void Dialoguehandler::updateDialogue() {
 				isInDialogue = false;
 			}
 			else {
+				Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
 			}
 			mReturnRealesed = false;
@@ -58,16 +67,24 @@ void Dialoguehandler::updateDialogue() {
 	//if (!found) {
 	//	isInDialogue = false;
 	//}
-	
 }
 
 void Dialoguehandler::loadDialougehandler(char level){
 	mReturnRealesed = true;
 	Dialoguehandler::loadTexture(level);
+
+
+
 	mSpriteHudBackground.setTexture(mTexture);
 	mSpriteHudBackground.setScale(1.5, 1.4);
-	mSpriteHudBackground.setPosition((Toolbox::getWindowSize().x / 2) - (mSpriteHudBackground.getGlobalBounds().width / 2), Toolbox::getWindowSize().y - mSpriteHudBackground.getGlobalBounds().height - 30);
-
+	mSpriteHudBackground.setPosition(sf::Vector2f(240,750));
+	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition().x + 30, mSpriteHudBackground.getPosition().y + 25);
+	mDialoguespriteLeft.setScale(0.47, 0.47);
+	
+	mDialoguespriteRight.setPosition(sf::Vector2f(mSpriteHudBackground.getPosition().x + mSpriteHudBackground.getGlobalBounds().width - 212,
+	mSpriteHudBackground.getPosition().y + 25)); 
+	mDialoguespriteRight.setScale(0.47, 0.47);
+	mTimer = 0;
 }
 
 void Dialoguehandler::clear(){
@@ -81,6 +98,7 @@ void Dialoguehandler::setCurrentDialogue(std::string filename){
 	mFilename = filename;
 	Dialoguehandler::readFile();
 	Texthandler::getInstance().setDialougeText(*mStringVectors[0]->at(0), *mStringVectors[0]->at(1), *mStringVectors[0]->at(2));
+	Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 }
 
 void Dialoguehandler::internalClear() {
@@ -92,6 +110,7 @@ void Dialoguehandler::internalClear() {
 		delete mStringVectors.back();
 		mStringVectors.pop_back();
 	}
+	mSpeakers.clear();
 }
 
 void Dialoguehandler::readFile(){
@@ -101,7 +120,7 @@ void Dialoguehandler::readFile(){
 	if (dialougefile.is_open()) {
 		while (getline(dialougefile, line)) {
 			if (index == 0) {
-				Dialoguehandler::setCurrentSpeaker(line);
+				mSpeakers.push_back(new std::string(line));
 				mStringVectors.push_back(new Strings);
 			}
 			else if (index < 4) {
@@ -119,14 +138,38 @@ void Dialoguehandler::readFile(){
 void Dialoguehandler::setCurrentSpeaker(std::string &line){
 	switch (line[0]) {
 	case 'M':
-		if (line[1] == 'S') {
+		if (line[1] == 'A') {
 			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I') {
+			mCurrentspeaker = MUHNIN;
+			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
 		}
 		break;
 	case 'L':
-		if (line[1] == 'I')
+		if (line[1] == 'I') {
 			mCurrentspeaker = LIVIA;
+			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
+			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
+		}
 		break;
+	case 'A':
+		if (line[1] == 'C') {
+			mCurrentspeaker = TUMMY;
+			mDialogueAnimationRight = Animations::getDialogueTummyANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.25;
+		}
+	case 'I':
+		if (line[1] == 'N') {
+			mCurrentspeaker = INSTRUCTIONS;
+		}
 	default:
 		break;
 	}
@@ -146,19 +189,40 @@ void Dialoguehandler::loadTexture(char level) {
 }
 
 void Dialoguehandler::animate() {
-	//mTimer += ANIFramesPerFrame;
+	mTimer += ANIFramesPerFrame;
 
-	//if (mTimer >= 1) {
-	//	mAnimationIndex += 1;
-	//	mTimer = 0;
-	//	if (isInDialogue == true) {
-	//		if (mAnimationIndex >= mCurrentAnimation->size()) {
-
-	//		}
-	//		if (mCurrentAnimation->size() > 0)
-	//			mDialoguespriteLeft.setTexture(*mCurrentAnimation->at(mAnimationIndex));
-	//		mDialoguespriteRight.setTexture(*mCurrentAnimation->at(mAnimationIndex));
-	//	}
-	//}
+	if (mTimer >= 1) {
+		mTimer = 0;
+		if (mLeftActive) {
+			mAnimationIndexLeft += 1;
+			if (mAnimationIndexLeft >= mDialogueAnimationLeft->size()) {
+				mAnimationIndexLeft = 0;
+			}
+			if (mDialogueAnimationLeft->size() > 0)
+				mDialoguespriteLeft.setTexture(*mDialogueAnimationLeft->at(mAnimationIndexLeft));
+		}
+		else {
+			mAnimationIndexRight += 1;
+			if (mAnimationIndexRight >= mDialogueAnimationRight->size()) {
+				mAnimationIndexRight = 0;
+			}
+			if (mDialogueAnimationRight->size() > 0)
+				mDialoguespriteRight.setTexture(*mDialogueAnimationRight->at(mAnimationIndexRight));
+		}
+	}
 }
+
+
+//mTimer += ANIFramesPerFrame;
+//if (mTimer >= 2) {
+//	mAnimationIndex += 1;
+//	mTimer = 0;
+//	if (mAnimationIndex >= mHeartAnimation->size())
+//		mAnimationIndex = 0;
+//	if (mHeartAnimation->size() > 0) {
+//		for (int i = 0; i < mLives.size(); i++) {
+//			mLives[i].setTexture(*mHeartAnimation->at(mAnimationIndex));
+//		}
+//	}
+//}
 

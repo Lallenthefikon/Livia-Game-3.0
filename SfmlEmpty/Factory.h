@@ -16,6 +16,7 @@ struct Factory{
 	static Entity* createMeatball(sf::Vector2f pos);
 	static Entity* createExtraLife(sf::Vector2f pos);
 	static Entity* createGerm(sf::Vector2f pos);
+	static Entity* createOcto_Pi(sf::Vector2f pos);
 	
 	static Terrain* createBlock0(sf::Vector2f pos, char type);
 	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);

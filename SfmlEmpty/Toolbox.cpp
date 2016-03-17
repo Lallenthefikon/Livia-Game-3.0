@@ -8,10 +8,11 @@ static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 static int mPlayerHealth;
 static float mFrameTime(0);
+static float staticFrametime(0.0180);
 
 // Level Info
 static std::string mCurrentLevelName;
-static sf::Vector2f mGravity(0, 125);
+static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
 
@@ -79,57 +80,56 @@ void Toolbox::loadTextures(std::string levelName) {
 
 	if (mStomachBackgroundTexture.getSize().x <= 0)
 		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
-
+		
 	if (mStomachMiddlegroundTexture.getSize().x <= 0)
 		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
-
+		
 	if (mAcidBottom.getSize().x <= 0)
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
-
+		
 	if (mDecorationTexture.getSize().x <= 0)
 		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
 
 	if (mEnemy0sheet.getSize().x <= 0)
-		mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
-
+	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
+	
 	if (mBlock0sheet.getSize().x <= 0)
-		mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
+	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
 
 	if (mGoalTexture.getSize().x <= 0)
-		mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
+	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	if (mPlayersheet.getSize().x <= 0)
-		mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
+	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
 		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 
 	if (mAcidMonsterVerticalTexture.getSize().x <= 0)
-		mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
+	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	if (mTileTexture.getSize().x <= 0)
-		mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
-
+	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+	
 	if (mEditorMenyTexture.getSize().x <= 0)
-		mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
-
+	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
+	
 	if (mLifeTexture.getSize().x <= 0)
-		mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
+	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
 	if (mMeatballTexture.getSize().x <= 0)
-		mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
-
+	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
+	
 	if (mMeatballSpawnerTexture.getSize().x <= 0)
-		mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 
 	if (mDialogueTexture.getSize().x <= 0)
-		mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 	
 	if (mDialogueBoxSpriteSheetIMG.getSize().x <= 0)
-		mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-	
-	if (mDialogueSpriteSheetIMG.getSize().x <= 0)
-		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
+
 }
 
 void Toolbox::loadSounds(std::string levelName) {
@@ -164,7 +164,7 @@ void Toolbox::loadSounds(std::string levelName) {
 }
 
 void Toolbox::loadFonts(std::string levelName) {
-	mGameOverFont.loadFromFile("resources/fonts/ComicSansMSRegular.ttf");
+	mGameOverFont.loadFromFile("resources/fonts/Barokah.ttf");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -237,7 +237,7 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case DIALOGUETEXTURE:
 		return mDialogueSpriteSheetIMG;
-			break;
+		break;
 
 	case MEATBALLTEXTURE:
 		return mMeatballTexture;
@@ -259,7 +259,7 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mWindowPos = sf::Vector2f(window.getPosition());
 }
 
-void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+void Toolbox::setWindowSize(sf::RenderWindow &window) {
 	mWindowSize = sf::Vector2f(window.getSize());
 }
 
@@ -445,7 +445,8 @@ void Toolbox::copyFrameTime(float &frameTime) {
 }
 
 float& Toolbox::getFrameTime() {
-	return mFrameTime;
+	//return mFrameTime;
+	return staticFrametime;
 }
 
 void Toolbox::copyGravity(sf::Vector2f &gravity) {

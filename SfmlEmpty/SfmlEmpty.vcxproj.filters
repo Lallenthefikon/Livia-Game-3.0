@@ -166,6 +166,9 @@
     <ClCompile Include="Intestine.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
+    <ClCompile Include="Octo_Pi.cpp">
+      <Filter>Source Files\Entity</Filter>
+    </ClCompile>
     <ClCompile Include="LevelMusic.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
@@ -329,6 +332,9 @@
     </ClInclude>
     <ClInclude Include="Mouth.h">
       <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Octo_Pi.h">
+      <Filter>Header Files\Entity</Filter>
     </ClInclude>
     <ClInclude Include="LevelMusic.h">
       <Filter>Header Files\Sound</Filter>

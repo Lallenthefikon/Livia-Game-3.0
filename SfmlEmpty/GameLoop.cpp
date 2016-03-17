@@ -2,12 +2,13 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLevelDirectory("resources/maps/mMap3.txt"),
+	mCurrentLevelDirectory("resources/maps/mMap0.txt"),
 	mCurrentLevelName("Hub"),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
 	mWindow.setVerticalSyncEnabled(true);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
+	mWindow.setVerticalSyncEnabled(true);
 }
 
 GameLoop::~GameLoop() {
@@ -82,7 +83,7 @@ void GameLoop::run() {
 	mWindow.setFramerateLimit(60);
 
 	int clickOnce = 0;
-
+	Toolbox::setWindowSize(mWindow);
 	sf::Clock clock;
 
 	// Loop

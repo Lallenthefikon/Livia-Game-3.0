@@ -261,6 +261,12 @@ void MapEditor::createExtraLife(sf::Vector2f mousePos) {
 	mEntities.push_back(Factory::createExtraLife(mousePos));
 }
 
+void MapEditor::createOcto_Pi(sf::Vector2f mousePos){
+	mEntities.push_back(Factory::createOcto_Pi(mousePos));
+}
+
+
+
 // Terrains
 void MapEditor::createBlock0(sf::Vector2f mousePos){
 	mTerrains.push_back(Factory::createBlock0(mousePos,'a'));
@@ -340,6 +346,9 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::EXTRALIFE:
 		MapEditor::createExtraLife(mousePos);
 		break;
+	case MapEditorMeny::OCTO_PI:
+		MapEditor::createOcto_Pi(mousePos);
+		break;
 	case MapEditorMeny::BLOCK0WALLJUMP:
 		MapEditor::createBlock0WallJump(mousePos);
 		break;
@@ -415,6 +424,8 @@ void MapEditor::eraseDecoration(int index) {
 
 
 void MapEditor::changeInsertType(){
+
+
 	switch (mInsertType){
 	case MapEditorMeny::ACIDMONSTER:
 		mInsertType = MapEditorMeny::PLAYER;
@@ -483,6 +494,9 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::EXTRALIFE;
 		break;
 	case MapEditorMeny::EXTRALIFE:
+		mInsertType = MapEditorMeny::OCTO_PI;
+		break;
+	case MapEditorMeny::OCTO_PI:
 		mInsertType = MapEditorMeny::ACIDMONSTER;
 		break;
 	default:
@@ -722,6 +736,11 @@ void MapEditor::writeEntityToFile(std::string filename){
 			case Entity::EXTRALIFE:
 				output.push_back('E');
 				output.push_back('0');
+				break;
+
+			case Entity::OCTO_PI:
+				output.push_back('O');
+				output.push_back('P');
 				break;
 
 			default:
