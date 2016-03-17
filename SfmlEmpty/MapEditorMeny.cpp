@@ -259,12 +259,14 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 			offset = sf::Vector2f(23.f, 40.f);
 		if (mEntities[i]->getType() == Entity::EXTRALIFE)
 			offset = sf::Vector2f(8.f, 7.f);
+		if (mEntities[i]->getType() == Entity::GERM)
+			offset = sf::Vector2f(15.f, 20.f);
 		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + offset.x, newPos.y + offset.y));
 	}
 
 	// Block0 
 	for (size_t i = 0; i < mTerrains.size(); i++)
-	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 100));
+	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 6, newPos.y + 100));
 
 	// Decorations
 	for (size_t i = 0; i < mDecorations.size(); i++)

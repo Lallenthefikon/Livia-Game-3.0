@@ -3,29 +3,29 @@
 
 Stomach::Stomach() :
 	// Initiate singleton classes
-mBackground(),
-mTexture(),
+	mBackground(),
+	mTexture(),
 
-mEntityHandler(Entityhandler::getInstance()),
-mTerrainHandler(Terrainhandler::getInstance()),
+	mEntityHandler(Entityhandler::getInstance()),
+	mTerrainHandler(Terrainhandler::getInstance()),
 
-mMapGenerator(MapGenerator::getInstance()),
-mCollisionHandler(Collisionhandler::getInstance()),
-mLayerHandler(LayerHandler::getInstance()),
-mTextHandler(Texthandler::getInstance()),
-mDecorationhandler(Decorationhandler::getInstance()),
-mDialoguehandler(Dialoguehandler::getInstance()),
+	mMapGenerator(MapGenerator::getInstance()),
+	mCollisionHandler(Collisionhandler::getInstance()),
+	mLayerHandler(LayerHandler::getInstance()),
+	mTextHandler(Texthandler::getInstance()),
+	mDecorationhandler(Decorationhandler::getInstance()),
+	mDialoguehandler(Dialoguehandler::getInstance()),
 
 	// Music
 	mLevelMusic(LevelMusic::getInstance()),
 
-mCamera(),
+	mCamera(),
 
-mMapName("Stomach"),
-mMapPath("resources/maps/mMap1.txt"),
-mLevelState("Cutscene"),
+	mMapName("Stomach"),
+	mMapPath("resources/maps/mMap1.txt"),
+	mLevelState("Cutscene"),
 
-mZoomedOut(false),
+	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 	Toolbox::loadTextures(mMapName);
@@ -36,7 +36,7 @@ mZoomedOut(false),
 	Toolbox::copyLevelBounds(mLevelBounds);
 	//Toolbox::copyCurrentLevelName(mMapName);
 
-	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(1,363,1080, 1920));
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1, 363, 1080, 1920));
 	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -49,7 +49,7 @@ mZoomedOut(false),
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(0,0,1920, 363));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 	//mLayerHandler.addMiddleground(mAcidTexture);
@@ -79,7 +79,7 @@ void Stomach::update(sf::RenderWindow &window) {
 
 	mLevelMusic.playMusic(LevelMusic::STOMACHMUSIC);
 	mLevelMusic.playMusic(LevelMusic::STOMACHAMBIANCE);
-	
+
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
@@ -105,7 +105,7 @@ void Stomach::update(sf::RenderWindow &window) {
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
 		mTerrainHandler->bringOutTheDead();
-		
+
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
@@ -145,7 +145,7 @@ void Stomach::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
 }
 
 void Stomach::render(sf::RenderWindow &window) {
@@ -155,13 +155,13 @@ void Stomach::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
-	
 
-	
+
+
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	mLayerHandler.renderVertGradiant(window);
-	
+
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
@@ -178,7 +178,7 @@ void Stomach::render(sf::RenderWindow &window) {
 
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
-	
+
 	// Hud
 	mLayerHandler.renderHud(window);
 
@@ -249,47 +249,47 @@ void Stomach::resetLevel(sf::RenderWindow &window) {
 
 void Stomach::eventA() {
 	if (!eventAtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-	eventAtriggerd = true;
-}
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		eventAtriggerd = true;
+	}
 }
 void Stomach::eventB() {
 	if (!eventBtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
-	eventBtriggerd = true;
-}
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+		eventBtriggerd = true;
+	}
 }
 void Stomach::eventC() {
 	if (!eventCtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
-	eventCtriggerd = true;
-}
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+		eventCtriggerd = true;
+	}
 }
 void Stomach::eventD() {
 	if (!eventDtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-	eventDtriggerd = true;
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+		eventDtriggerd = true;
 	}
 }
 void Stomach::eventE() {
-		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
+	AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
 }
 void Stomach::eventF() {
 	if (!eventFtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-	eventFtriggerd = true;
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		eventFtriggerd = true;
 	}
 }
 
 void Stomach::eventG() {
 	if (!eventGtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 		eventGtriggerd = true;
 	}
 }
@@ -302,7 +302,7 @@ void Stomach::eventH() {
 
 }
 
-void Stomach::updateVertGradiantAlpha(){
+void Stomach::updateVertGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
 		float delta = mEntityHandler->getEntities().at(0)->getPos().x -
 			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());

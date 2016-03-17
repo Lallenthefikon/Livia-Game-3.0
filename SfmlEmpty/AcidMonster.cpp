@@ -57,7 +57,7 @@ void AcidMonster::update(){
 		//mSprite.setTexture(*mCurrentAnimation->at(0));
 		mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 		mSpriteOffset = sf::Vector2f(mCollisionBody.getLocalBounds().width / 2, mCollisionBody.getLocalBounds().height / 2);
-		mVelocityGoal.x = -mMaxSpeed;
+		mVelocityGoal.x = mMaxSpeed;
 	}
 	else if (Toolbox::getCurrentLevelName() == "Throat") {
 		ANIFramesPerFrame = 100 * Toolbox::getFrameTime();
