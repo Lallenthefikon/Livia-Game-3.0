@@ -34,7 +34,7 @@ mZoomedOut(false),
 	//Toolbox::copyCurrentLevelName(mMapName);
 
 	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(1,363,1080, 1920));
-	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
+	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
 	mLifeSprite.setScale(1.5, 1.5);

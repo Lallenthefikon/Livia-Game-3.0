@@ -34,7 +34,7 @@ public:
 	
 	void addAcid(sf::Texture &acidTexture);
 	void addAcidGradiantVertical(sf::Texture &vertGrad);
-	
+	void addAcidGradiantHoriz(sf::Texture &vertGrad);
 	void updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f sceneCamCoordPos);
 
 	void updateLife();
@@ -67,7 +67,7 @@ private:
 	
 	Camera mCamera;
 
-	sf::Sprite mBackground, mMiddleground, mForeground, mAcidGlow;
+	sf::Sprite mBackground, mMiddleground, mForeground, mAcidGlowVert;
 	sf::Vector2f mlocalPos1, mlocalPos2, mLocalPos3;
 	std::vector<sf::Sprite> mBackgrounds, mMiddlegrounds;
 
