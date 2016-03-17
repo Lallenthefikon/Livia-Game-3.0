@@ -60,3 +60,6 @@ void ExtraLife::animate() {
 		}
 	}
 }
+
+void ExtraLife::stopAllSound() {
+}

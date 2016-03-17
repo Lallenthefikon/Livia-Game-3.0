@@ -349,3 +349,7 @@ void Worm::playSound(WORMSTATE state) {
 void Worm::setPos(sf::Vector2f newPos){
 	mSprite.setPosition(newPos);
 }
+
+void Worm::stopAllSound() {
+	mSoundFX.stopAllSound();
+}

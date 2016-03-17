@@ -16,6 +16,8 @@ Mouth::Mouth() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mLevelMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Mouth"),
@@ -50,6 +52,7 @@ Mouth::Mouth() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -70,8 +73,10 @@ void Mouth::update(sf::RenderWindow &window) {
 		if (gEvent.key.code == sf::Keyboard::R)
 			resetLevel(window);
 	}
-	// Updates independent of state
 
+	//mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
+
+	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -107,6 +112,8 @@ void Mouth::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 

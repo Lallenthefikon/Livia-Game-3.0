@@ -4,8 +4,8 @@
 GameLoop::GameLoop() :
 	mCurrentLevelDirectory("resources/maps/mMap3.txt"),
 	mCurrentLevelName("Hub"),
-	mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK") {
-	mWindow.setVerticalSyncEnabled(false);
+	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
+	mWindow.setVerticalSyncEnabled(true);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
 }

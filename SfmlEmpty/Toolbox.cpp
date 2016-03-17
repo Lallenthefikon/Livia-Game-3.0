@@ -87,7 +87,7 @@ void Toolbox::loadTextures(std::string levelName) {
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
 
 	if (mDecorationTexture.getSize().x <= 0)
-		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
 
 	if (mEnemy0sheet.getSize().x <= 0)
 		mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");

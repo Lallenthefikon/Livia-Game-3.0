@@ -17,7 +17,7 @@ Stomach::Stomach() :
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
 	// Music
-	mStomachMusic(LevelMusic::getInstance()),
+	mLevelMusic(LevelMusic::getInstance()),
 
 	mCamera(),
 
@@ -52,7 +52,7 @@ Stomach::Stomach() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
-	mStomachMusic.stopAllMusic();
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -73,6 +73,10 @@ void Stomach::update(sf::RenderWindow &window) {
 		if (gEvent.key.code == sf::Keyboard::R)
 			resetLevel(window);
 	}
+
+	mLevelMusic.playMusic(LevelMusic::STOMACHMUSIC);
+	mLevelMusic.playMusic(LevelMusic::STOMACHAMBIANCE);
+	
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
@@ -109,6 +113,8 @@ void Stomach::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -137,8 +143,6 @@ void Stomach::update(sf::RenderWindow &window) {
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
 	}
-	mStomachMusic.playMusic(LevelMusic::STOMACHMUSIC);
-	mStomachMusic.playMusic(LevelMusic::STOMACHAMBIANCE);
 }
 
 void Stomach::render(sf::RenderWindow &window) {

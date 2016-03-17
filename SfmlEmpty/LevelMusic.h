@@ -6,7 +6,7 @@
 class LevelMusic {
 public:
 	enum MUSICTYPE { STOMACHMUSIC, STOMACHAMBIANCE, THROATMUSIC, HUBMUSIC, INTESTINEMUSIC };
-	typedef std::vector<sf::Music> MusicVector;
+	typedef std::vector<sf::Music*> MusicVector;
 	static LevelMusic& getInstance();
 	virtual ~LevelMusic();
 	virtual void playMusic(MUSICTYPE type);

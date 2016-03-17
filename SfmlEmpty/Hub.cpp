@@ -16,7 +16,7 @@ Hub::Hub() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
-	mHubMusic(LevelMusic::getInstance()),
+	mLevelMusic(LevelMusic::getInstance()),
 
 	mCamera(),
 
@@ -51,7 +51,7 @@ Hub::Hub() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
-	mHubMusic.stopAllMusic();
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -72,8 +72,10 @@ void Hub::update(sf::RenderWindow &window) {
 		if (gEvent.key.code == sf::Keyboard::R)
 			resetLevel(window);
 	}
-	// Updates independent of state
 
+	mLevelMusic.playMusic(LevelMusic::HUBMUSIC);
+
+	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -104,22 +106,25 @@ void Hub::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+			mLevelMusic.stopAllMusic();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+			mLevelMusic.stopAllMusic();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+			mLevelMusic.stopAllMusic();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
+			mLevelMusic.stopAllMusic();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
 		}
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
-	mHubMusic.playMusic(LevelMusic::HUBMUSIC);
 }
 
 void Hub::render(sf::RenderWindow &window) {

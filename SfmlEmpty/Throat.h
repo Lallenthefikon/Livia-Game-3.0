@@ -57,7 +57,7 @@ private:
 	sf::Sprite mLifeSprite;
 
 	// Music
-	LevelMusic& mThroatMusic;
+	LevelMusic& mLevelMusic;
 
 	// Level Info
 	sf::FloatRect mLevelBounds;

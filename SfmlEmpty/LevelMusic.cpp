@@ -24,22 +24,22 @@ void LevelMusic::initialize() {
 	tempMusic2.openFromFile(Toolbox::getMusic(Toolbox::THROATMUSIC));
 	tempMusic3.openFromFile(Toolbox::getMusic(Toolbox::HUBMUSIC));*/
 
-	/*mMusic.push_back(tempMusic0);
-	mMusic.push_back(tempMusic1);
-	mMusic.push_back(tempMusic2);
-	mMusic.push_back(tempMusic3);
+	mMusic.push_back(&tempMusic0);
+	mMusic.push_back(&tempMusic1);
+	mMusic.push_back(&tempMusic2);
+	mMusic.push_back(&tempMusic3);
 
-	mMusic[0].setVolume(80);
-	mMusic[0].setLoop(true);
+	mMusic[0]->setVolume(80);
+	mMusic[0]->setLoop(true);
 
-	mMusic[1].setVolume(25);
-	mMusic[1].setLoop(true);
+	mMusic[1]->setVolume(25);
+	mMusic[1]->setLoop(true);
 
-	mMusic[2].setVolume(25);
-	mMusic[2].setLoop(true);
+	mMusic[2]->setVolume(25);
+	mMusic[2]->setLoop(true);
 
-	mMusic[3].setVolume(25);
-	mMusic[3].setLoop(true);*/
+	mMusic[3]->setVolume(25);
+	mMusic[3]->setLoop(true);
 }
 
 void LevelMusic::finalize() {

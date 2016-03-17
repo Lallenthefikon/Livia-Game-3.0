@@ -16,7 +16,7 @@ Throat::Throat() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
-	mThroatMusic(LevelMusic::getInstance()),
+	mLevelMusic(LevelMusic::getInstance()),
 
 	mCamera(),
 
@@ -51,7 +51,7 @@ Throat::Throat() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 	
-	mThroatMusic.stopAllMusic();
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -72,8 +72,10 @@ void Throat::update(sf::RenderWindow &window) {
 		if (gEvent.key.code == sf::Keyboard::R)
 			resetLevel(window);
 	}
-	// Updates independent of state
 
+	mLevelMusic.playMusic(LevelMusic::THROATMUSIC);
+	
+	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -113,6 +115,8 @@ void Throat::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -135,7 +139,6 @@ void Throat::update(sf::RenderWindow &window) {
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
-	mThroatMusic.playMusic(LevelMusic::THROATMUSIC);
 }
 
 void Throat::render(sf::RenderWindow &window) {

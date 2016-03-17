@@ -824,3 +824,7 @@ void Player::checkPlayerWithinBounds(){
 		mLife = 0;
 	}*/
 }
+
+void Player::stopAllSound() {
+	mSoundFX.stopAllSound();
+}

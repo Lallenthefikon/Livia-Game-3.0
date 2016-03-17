@@ -35,6 +35,9 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mCollisionBody.setScale(newScale); mSprite.setScale(newScale); }
 	virtual int getLife() { return mLife; }
+
+	virtual void stopAllSound();
+
 	void invulnerableBlink();
 	void checkPlayerWithinBounds();
 

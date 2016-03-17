@@ -3,6 +3,7 @@
 
 static float ANIFramesPerFrame(0.25);
 
+
 AcidMonster::AcidMonster(sf::Vector2f pos):
 mSoundFX(SoundFactory::getTummySound()),
 mIsOnScreen(true),
@@ -300,4 +301,8 @@ void AcidMonster::setSpeed() {
 	} else if (mState == MOVINGUP) {
 		mMaxSpeed = -4.3;
 	}
+}
+
+void AcidMonster::stopAllSound() {
+	mSoundFX.stopAllSound();
 }

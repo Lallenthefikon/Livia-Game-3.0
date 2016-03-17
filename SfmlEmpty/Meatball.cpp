@@ -178,5 +178,8 @@ void Meatball::checkOutOfBounds() {
 }
 
 void Meatball::kill() {
-		mIsAlive = false;
-	}
+	mIsAlive = false;
+}
+
+void Meatball::stopAllSound() {
+}

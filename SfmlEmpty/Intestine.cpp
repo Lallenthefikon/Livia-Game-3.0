@@ -16,7 +16,7 @@ Intestine::Intestine() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
-	mIntestineMusic(LevelMusic::getInstance()),
+	mLevelMusic(LevelMusic::getInstance()),
 
 	mCamera(),
 
@@ -52,7 +52,7 @@ Intestine::Intestine() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
-	mIntestineMusic.stopAllMusic();
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -74,10 +74,12 @@ void Intestine::update(sf::RenderWindow &window) {
 			resetLevel(window);
 	}
 	// Updates independent of state
-
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
+
+	mLevelMusic.playMusic(LevelMusic::INTESTINEMUSIC);
+
 	// Updates depending on state
 	if (mLevelState == "Cutscene") {
 		mCamera.updateStomachCam(window, mLevelState);
@@ -110,6 +112,8 @@ void Intestine::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -138,7 +142,6 @@ void Intestine::update(sf::RenderWindow &window) {
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
 	}
-	mIntestineMusic.playMusic(LevelMusic::INTESTINEMUSIC);
 }
 
 void Intestine::render(sf::RenderWindow &window) {

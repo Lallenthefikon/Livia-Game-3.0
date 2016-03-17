@@ -25,6 +25,8 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mSprite.setScale(newScale); }
 	virtual int getLife() { return 0; }
+
+	virtual void stopAllSound();
 private:
 	ExtraLife(sf::Vector2f pos);
 

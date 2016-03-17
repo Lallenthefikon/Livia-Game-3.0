@@ -395,3 +395,7 @@ void Germ::playSound(GERMSTATE state) {
 void Germ::setPos(sf::Vector2f newPos) {
 	mCollisionBody.setPosition(newPos);
 }
+
+void Germ::stopAllSound() {
+	mSoundFX.stopAllSound();
+}

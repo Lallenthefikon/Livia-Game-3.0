@@ -23,6 +23,7 @@ public:
 	void bringOutTheDead();
 	int getPlayerLife();
 	bool isPlayerAlive();
+	void stopAllSound();
 
 private:
 	Entityhandler();

@@ -38,5 +38,6 @@ public:
 	virtual void setScale(sf::Vector2f newScale) = 0;
 	virtual int getLife() = 0;
 
+	virtual void stopAllSound() = 0;
 };
 
