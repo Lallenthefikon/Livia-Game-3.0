@@ -51,7 +51,6 @@ void Octo_Pi::update() {
 
 
 void Octo_Pi::addVector(sf::Vector2f &vector) {
-	
 		mVelocityGoal.x += vector.x;
 		mVelocityGoal.y += vector.y;
 }
