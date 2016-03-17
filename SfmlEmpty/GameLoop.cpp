@@ -10,6 +10,7 @@ GameLoop::GameLoop() :
 	mWindow.setVerticalSyncEnabled(false);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
+	mWindow.setVerticalSyncEnabled(true);
 }
 
 GameLoop::~GameLoop() {

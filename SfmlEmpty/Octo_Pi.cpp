@@ -1,17 +1,17 @@
-#include "Germ.h"
-
+#include "Octo_Pi.h"
 
 static float ANIFramesPerFrame(0.5);
 
-Germ::Germ(sf::Vector2f pos) :
+Octo_Pi::Octo_Pi(sf::Vector2f pos) :
 	mCurrentAnimation(Animations::getGermWalkingANI()),
 	mIsOnScreen(true),
-	mAcceleration(8),
-	mCollisionBodyOffset(-10,-10),
+	mAcceleration(8,70),
+	mJumpspeed(30),
+	mCollisionBodyOffset(-10, -10),
 	mMaxSpeed(4),
 	mIsAlive(true),
-	mLife(5),
-	mState(IMWALKINGHERE),
+	mLife(1),
+	mState(IMBOUNCINGHERE),
 	mCurrentAnimationRate(15.643),
 	mSoundFX(SoundFactory::getWormSound()) {
 	mVelocityGoal.x = -mMaxSpeed;
@@ -20,39 +20,41 @@ Germ::Germ(sf::Vector2f pos) :
 	mCollisionBody.setTextureRect(sf::IntRect(0, 0, mSprite.getTextureRect().width + mCollisionBodyOffset.x, mSprite.getTextureRect().height + mCollisionBodyOffset.y));
 	mSpriteOffset = sf::Vector2f(mCollisionBody.getGlobalBounds().width / 2, mCollisionBody.getGlobalBounds().height / 2);
 	mCollisionBody.setPosition(pos - mSpriteOffset);
-	Germ::updateTexturepos();
+	Octo_Pi::updateTexturepos();
 }
 
-Germ::~Germ() {
+Octo_Pi::~Octo_Pi() {
 }
 
-Entity* Germ::createGerm(sf::Vector2f pos) {
-	return new Germ(pos);
+Entity* Octo_Pi::createOcto_Pi(sf::Vector2f pos) {
+	return new Octo_Pi(pos);
 }
 
-void Germ::render(sf::RenderWindow &window) {
-	Germ::updateTexturepos();
+void Octo_Pi::render(sf::RenderWindow &window) {
+	Octo_Pi::updateTexturepos();
 	window.draw(mSprite);
 	//window.draw(mCollisionBody);
 }
 
-void Germ::update() {
+void Octo_Pi::update() {
 	ANIFramesPerFrame = mCurrentAnimationRate * Toolbox::getFrameTime();
 
-	Germ::addSpeed();
-	Germ::lerp();
-	Germ::updateCollision();
-	Germ::updateState();
-	Germ::animate();
+	Octo_Pi::updateCollision();
+	Octo_Pi::addSpeed();
+	Octo_Pi::updateState();
+	Octo_Pi::animate();
+	Octo_Pi::lerp();
 
 	mCollisionBody.move(mVelocity);
 }
 
-void Germ::addVector(sf::Vector2f &vector) {
-	mVelocity += vector;
+
+
+void Octo_Pi::addVector(sf::Vector2f &vector) {
+	mVelocityGoal += vector;
 }
 
-void Germ::entityCollision(Entity* entity, char direction) {
+void Octo_Pi::entityCollision(Entity* entity, char direction) {
 	switch (entity->getType()) {
 	case Entity::PLAYER:
 		switch (direction) {
@@ -63,16 +65,17 @@ void Germ::entityCollision(Entity* entity, char direction) {
 			entity->getHit();
 			break;
 		}
+		break;
 	default:
 		break;
 	}
 }
 
-void Germ::terrainCollision(Terrain* terrain, char direction) {
+void Octo_Pi::terrainCollision(Terrain* terrain, char direction) {
 
 }
 
-void Germ::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
+void Octo_Pi::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
 	float delta;
 	switch (blockterrain->getType()) {
 	case Terrain::COLLISIONBLOCK:
@@ -112,15 +115,15 @@ void Germ::blockterrainCollision(BlockTerrain * blockterrain, char direction) {
 }
 
 
-void Germ::getHit() {
+void Octo_Pi::getHit() {
 	mLife--;
-	Germ::playSound(DEATH);
+	Octo_Pi::playSound(DEATH);
 }
 
 
 // Privates
 
-void Germ::updateTexturepos() {
+void Octo_Pi::updateTexturepos() {
 	sf::Vector2f temp(mCollisionBody.getPosition() + mSpriteOffset);
 	temp.x -= (mSprite.getLocalBounds().width / 2);
 	temp.y -= (mSprite.getLocalBounds().height / 2);
@@ -129,37 +132,37 @@ void Germ::updateTexturepos() {
 	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
 }
 
-void Germ::lerp() {
+void Octo_Pi::lerp() {
 
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = Toolbox::getFrameTime() * mAcceleration;
+	sf::Vector2f delta(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
+	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
-	if (differenceX > delta) {
-		mVelocity.x += delta;
+	if (differenceX > delta.x) {
+		mVelocity.x += delta.x;
 		lerpedX = true;
 	}
 	// Interpolates the velocity up from stationary
-	if (differenceY > delta) {
-		mVelocity.y += delta;
+	if (differenceY > delta.y) {
+		mVelocity.y += delta.y;
 		lerpedY = true;
 	}
 	// Interpolates the velocity down to stationary
-	if (differenceX < -delta) {
-		mVelocity.x += -delta;
+	if (differenceX < -delta.x) {
+		mVelocity.x += -delta.x;
 		lerpedX = true;
 	}
 	// Interpolates the velocity down to stationary
-	if (differenceY < -delta) {
-		mVelocity.y += -delta;
+	if (differenceY < -delta.y) {
+		mVelocity.y += -delta.y;
 		lerpedY = true;
 	}
 
@@ -172,14 +175,25 @@ void Germ::lerp() {
 }
 
 
-void Germ::addSpeed(){
+
+
+void Octo_Pi::addSpeed() {
+	if (mCollisionT && mVelocity.y < 0)
+		mVelocity.y = 0;
+	if (mCollisionB && mVelocity.y > 0)
+		mVelocity.y = -mJumpspeed;
+	if (mCollisionL && mVelocity.x < 0)
+		mVelocity.x *= -1;
+	if (mCollisionR && mVelocity.x > 0)
+		mVelocity.x *= -1;
+
 }
 
-void Germ::updateSpeed(){
+void Octo_Pi::updateSpeed() {
 	if (mState == DAMAGED) {
 		mVelocityGoal.x = 0;
 	}
-	if (mState == IMWALKINGHERE) {
+	if (mState == IMBOUNCINGHERE) {
 		if (mTurned == TURNEDLEFT)
 			mVelocityGoal.x = -mMaxSpeed;
 		if (mTurned == TURNEDRIGHT)
@@ -187,7 +201,7 @@ void Germ::updateSpeed(){
 	}
 }
 
-void Germ::updateState() {
+void Octo_Pi::updateState() {
 	bool changed(false);
 
 	if (mLife <= 0 && mState != DEATH) {
@@ -195,51 +209,40 @@ void Germ::updateState() {
 		changed = true;
 	}
 
-	
+
 
 	if (mState != DEATH) {
-		if (mLife < 5) {
-			mLife = 5;
-			mState = DAMAGED;
-			changed = true;
-		}
-		if (mLife > 5) {
-			mLife = 5;
-			mState = IMWALKINGHERE;
-			changed = true;
-		}
-
-		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != DAMAGED && mState != IMWALKINGHERE) {
-			mState = IMWALKINGHERE;
+		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != DAMAGED && mState != IMBOUNCINGHERE) {
+			mState = IMBOUNCINGHERE;
 			changed = true;
 		}
 
 		if (mVelocity.x > 0 && mTurned != TURNEDRIGHT) {
-			mTurned = Germ::TURNEDRIGHT;
+			mTurned = Octo_Pi::TURNEDRIGHT;
 			changed = true;
 		}
 
 		if (mVelocity.x < 0 && mTurned != TURNEDLEFT) {
-			mTurned = Germ::TURNEDLEFT;
+			mTurned = Octo_Pi::TURNEDLEFT;
 			changed = true;
 		}
 	}
 	if (changed) {
-		Germ::updateANI();
-		Germ::updateSpeed();
+		Octo_Pi::updateANI();
+		Octo_Pi::updateSpeed();
 	}
 }
 
 
-void Germ::updateANI() {
+void Octo_Pi::updateANI() {
 	//mCurrentAnimation = Animations::getWormCrawlingANI();
 	switch (mState) {
-	case Germ::IMWALKINGHERE:
+	case Octo_Pi::IMBOUNCINGHERE:
 		mCurrentAnimation = Animations::getGermWalkingANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 130));
 		mCurrentAnimationRate = 31.250;
 		break;
-	case Germ::DAMAGED:
+	case Octo_Pi::DEATH:
 		mCurrentAnimation = Animations::getGermDamagedANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 65, 130));
 		mCurrentAnimationRate = 15.625;
@@ -252,12 +255,12 @@ void Germ::updateANI() {
 
 	if (mTurned == TURNEDRIGHT)
 		mSprite.setTextureRect(sf::IntRect(mSprite.getLocalBounds().width, 0, -mSprite.getLocalBounds().width, mSprite.getLocalBounds().height));
-	
+
 	mAnimationIndex = 0;
 	mTimer = 0;
 }
 
-void Germ::updateCollision() {
+void Octo_Pi::updateCollision() {
 	if (mCollisionT) {
 		if (!CollisionFuncs::currentCollisionT(mCollisionBody, mCurrentCollisionT->getSprite())) {
 			mCollisionT = false;
@@ -272,95 +275,17 @@ void Germ::updateCollision() {
 		if (!CollisionFuncs::currentCollisionL(mCollisionBody, mCurrentCollisionL->getSprite())) {
 			mCollisionL = false;
 		}
-		else {
-			mVelocityGoal.x = mMaxSpeed;
-		}
 	}
 	if (mCollisionR) {
 		if (!CollisionFuncs::currentCollisionR(mCollisionBody, mCurrentCollisionR->getSprite())) {
 			mCollisionR = false;
 		}
-		else {
-			mVelocityGoal.x = -mMaxSpeed;
-		}
 	}
 
-	if (mCollisionT && mVelocity.y < 0)
-		mVelocity.y = 0;
-	if (mCollisionB && mVelocity.y > 0)
-		mVelocity.y = 0;
-	if (mCollisionL && mVelocity.x < 0)
-		mVelocity.x = 0;
-	if (mCollisionR && mVelocity.x > 0)
-		mVelocity.x = 0;
 
-	if (mCollisionB) {
-		switch (mCurrentCollisionB->getTileType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().width, 'b')) {
-
-		case 'p':
-			if (this->getPos().x < mCurrentCollisionB->getPos().x) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = mMaxSpeed;
-			}
-			else if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = -mMaxSpeed;
-			}
-			break;
-
-		case 'o':
-			if (this->getPos().x < mCurrentCollisionB->getPos().x) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = mMaxSpeed;
-			}
-			else if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = -mMaxSpeed;
-			}
-			break;
-
-		case 'm':
-			if (this->getPos().x < mCurrentCollisionB->getPos().x) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = mMaxSpeed;
-			}
-			break;
-
-		case 'l':
-			if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = -mMaxSpeed;
-			}
-			break;
-
-		case 'j':
-			if (this->getPos().x < mCurrentCollisionB->getPos().x) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x, this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = mMaxSpeed;
-			}
-			break;
-
-		case 'i':
-			if (this->getPos().x + this->getWidth() > mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth()) {
-				mCollisionBody.setPosition(mCurrentCollisionB->getPos().x + mCurrentCollisionB->getWidth() - this->getWidth(), this->getPos().y);
-				mVelocity.x = 0;
-				mVelocityGoal.x = -mMaxSpeed;
-			}
-			break;
-		default:
-			break;
-		}
-	}
 }
 
-void Germ::animate() {
+void Octo_Pi::animate() {
 	mTimer += ANIFramesPerFrame;
 
 	if (mTimer >= 1) {
@@ -373,9 +298,6 @@ void Germ::animate() {
 			}
 			else
 				mAnimationIndex = 0;
-
-			if (mState == DAMAGED)
-				mLife++;
 		}
 
 		if (mCurrentAnimation->size() > 0)
@@ -383,9 +305,9 @@ void Germ::animate() {
 	}
 }
 
-void Germ::playSound(GERMSTATE state) {
+void Octo_Pi::playSound(OCTOSTATE state) {
 	switch (state) {
-	case Germ::DEATH:
+	case Octo_Pi::DEATH:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::DEATH);
 		break;
 	default:
@@ -393,6 +315,6 @@ void Germ::playSound(GERMSTATE state) {
 	}
 }
 
-void Germ::setPos(sf::Vector2f newPos) {
+void Octo_Pi::setPos(sf::Vector2f newPos) {
 	mCollisionBody.setPosition(newPos);
 }
