@@ -173,10 +173,7 @@ void Stomach::render(sf::RenderWindow &window) {
 	// Dialouge
 	if (mLevelState == "Dialogue") {
 		Dialoguehandler::getInstance().renderDialogue(window);
-
 	}
-
-	
 	window.display();
 }
 
