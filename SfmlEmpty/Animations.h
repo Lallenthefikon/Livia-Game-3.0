@@ -24,6 +24,8 @@ struct Animations{
 	static Textures* getGermWalkingANI();
 	static Textures* getGermDamagedANI();
 
+	static Textures* getOcto_PiANI();
+
 	static Textures* getAcidMonster();
 
 	static Textures* getMeatballANI();

@@ -30,10 +30,13 @@ Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterHorizontalANI;
 Animations::Textures mAcidMonsterVerticalANI;
+
 Animations::Textures mGermWalkingANI;
 Animations::Textures mGermDamagedANI;
 
 Animations::Textures mAcidMonsterANI;
+
+Animations::Textures mOcto_PiANI;
 
 Animations::Textures mMeatballANI;
 
@@ -236,6 +239,22 @@ void Animations::loadTextures(){
 			mGermDamagedANI.push_back(new sf::Texture);
 			mGermDamagedANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((65 * x) + 333, (130 * y) + 200, 65, 130));
 			mGermDamagedANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
+		}
+		x = 0;
+		y = 0;
+	}
+
+	// Octo ani
+	if (mOcto_PiANI.size() == 0) {
+		for (int i = 0; i < 32; i++) {
+			mOcto_PiANI.push_back(new sf::Texture);
+			mOcto_PiANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x) + 700, (120 * y), 80, 120));
+			mOcto_PiANI[i]->setSmooth(true);
 			x++;
 			if (x == 4) {
 				x = 0;
@@ -450,7 +469,7 @@ Animations::Textures* Animations::getWormDyingANI(){
 	return &mWormDyingANI;
 }
 
-// Germ Walking ANI
+// Germ ANI
 Animations::Textures* Animations::getGermWalkingANI() {
 	return &mGermWalkingANI;
 }
@@ -458,6 +477,12 @@ Animations::Textures* Animations::getGermWalkingANI() {
 Animations::Textures* Animations::getGermDamagedANI() {
 	return &mGermDamagedANI;
 }
+
+// Octo_Pi ANI
+Animations::Textures * Animations::getOcto_PiANI(){
+	return &mOcto_PiANI;
+}
+
 
 
 
