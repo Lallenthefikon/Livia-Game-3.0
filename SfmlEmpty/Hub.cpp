@@ -97,18 +97,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
-		}
+		checkIfNewMap();
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
@@ -170,27 +159,27 @@ void Hub::unloadLevel() {
 void Hub::triggerEvent(char type){
 	switch (type) {
 	case 'a':
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Hub::eventA();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventA = true;
 		break;
 	case 'b':
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Hub::eventB();
+			mEventB = true;
 		break;
 
 	case 'c':
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Hub::eventC();
+			mEventC = true;
 		break;
 
 	case 'd':
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Hub::eventD();
+			mEventD = true;
 		break;
 
 	case 'e':
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		Hub::eventE();
+			mEventE = true;
 		break;
 
 	case 'f':
@@ -240,4 +229,28 @@ void Hub::eventG() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+}
+
+void Hub::checkIfNewMap(){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || mEventA) {
+		Hub::eventA();
+		mEventA = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || mEventB) {
+		Hub::eventB();
+		mEventB = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
+		Hub::eventC();
+		mEventC = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
+		Hub::eventD();
+		mEventD = false;
+	}
+	else if (mEventE) {
+		Hub::eventE();
+		mEventE = false;
+	}
+
 }

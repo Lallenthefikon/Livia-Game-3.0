@@ -5,7 +5,7 @@ static float ANIFramesPerFrame(0.5);
 Octo_Pi::Octo_Pi(sf::Vector2f pos) :
 	mCurrentAnimation(Animations::getGermWalkingANI()),
 	mIsOnScreen(true),
-	mAcceleration(8),
+	mAcceleration(8,70),
 	mJumpspeed(30),
 	mCollisionBodyOffset(-10, -10),
 	mMaxSpeed(4),
@@ -51,7 +51,7 @@ void Octo_Pi::update() {
 
 
 void Octo_Pi::addVector(sf::Vector2f &vector) {
-	mVelocity += vector;
+	mVelocityGoal += vector;
 }
 
 void Octo_Pi::entityCollision(Entity* entity, char direction) {
@@ -137,32 +137,32 @@ void Octo_Pi::lerp() {
 	bool lerpedY(false);
 	bool lerpedX(false);
 
-	float delta = Toolbox::getFrameTime() * mAcceleration;
+	sf::Vector2f delta(Toolbox::getFrameTime() * mAcceleration.x, Toolbox::getFrameTime() * mAcceleration.y);
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 40) {
-		mVelocityGoal.y = 40;
+	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
-	if (differenceX > delta) {
-		mVelocity.x += delta;
+	if (differenceX > delta.x) {
+		mVelocity.x += delta.x;
 		lerpedX = true;
 	}
 	// Interpolates the velocity up from stationary
-	if (differenceY > delta) {
-		mVelocity.y += delta;
+	if (differenceY > delta.y) {
+		mVelocity.y += delta.y;
 		lerpedY = true;
 	}
 	// Interpolates the velocity down to stationary
-	if (differenceX < -delta) {
-		mVelocity.x += -delta;
+	if (differenceX < -delta.x) {
+		mVelocity.x += -delta.x;
 		lerpedX = true;
 	}
 	// Interpolates the velocity down to stationary
-	if (differenceY < -delta) {
-		mVelocity.y += -delta;
+	if (differenceY < -delta.y) {
+		mVelocity.y += -delta.y;
 		lerpedY = true;
 	}
 

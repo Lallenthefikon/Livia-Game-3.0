@@ -61,7 +61,6 @@ private:
 		mCurrentAnimationRate;
 	sf::Clock moveTimer;
 
-	float mAcceleration;
 	float mMaxSpeed;
 	float mJumpspeed;
 
@@ -69,7 +68,8 @@ private:
 	sf::Vector2f mSpriteOffset,
 		mVelocity,
 		mVelocityGoal,
-		mCollisionBodyOffset;
+		mCollisionBodyOffset,
+		mAcceleration;
 
 	OCTOSTATE mState;
 	OCTOTURNED mTurned;

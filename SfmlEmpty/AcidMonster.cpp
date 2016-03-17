@@ -83,7 +83,7 @@ void AcidMonster::update(){
 
 	AcidMonster::updateSound();
 
-	AcidMonster::playSound(mState);
+	//AcidMonster::playSound(mState);
 }
 
 void AcidMonster::addVector(sf::Vector2f &vector){
