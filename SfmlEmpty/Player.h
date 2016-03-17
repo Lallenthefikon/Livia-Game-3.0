@@ -7,7 +7,7 @@
 class Player : public Entity{
 
 public:
-	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, FALLDEATH, LANDED };
+	enum PLAYERSTATE { JUMPING, IDLE, RUNNING, FALLING, DAMAGED, WALLSTUCK, DEATH, FALLDEATH, DROWN, LANDED };
 	enum PLAYERTURNED { TURNEDLEFT, TURNEDRIGHT };
 	enum BLINKSTATES { BLINKIN, BLINKOUT };
 
@@ -35,6 +35,9 @@ public:
 	virtual void setPos(sf::Vector2f newPos);
 	virtual void setScale(sf::Vector2f newScale) { mCollisionBody.setScale(newScale); mSprite.setScale(newScale); }
 	virtual int getLife() { return mLife; }
+
+	virtual void stopAllSound();
+
 	void invulnerableBlink();
 	void checkPlayerWithinBounds();
 
@@ -44,7 +47,6 @@ private:
 
 	void playerInput();
 	void lerp();
-	void clickOnce(sf::Keyboard::Key key);
 
 	void jump();
 	void move();

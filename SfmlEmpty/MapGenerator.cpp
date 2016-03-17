@@ -209,7 +209,7 @@ void MapGenerator::readDecorationfile(std::string &filename) {
 		while (getline(decorationFile, line)) {
 			switch (line[0]) {
 			case 'D':
-				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1], line[2]);
+				MapGenerator::createDecoration(MapGenerator::readPosition(line), line[1], line[2], line[3]);
 				break;
 			default:
 				break;
@@ -281,8 +281,8 @@ void MapGenerator::createEvent(sf::Vector2f pos, Level *level, char eventType, s
 
 
 // Create decoration
-void MapGenerator::createDecoration(sf::Vector2f pos, char id, char layer) {
-	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id, layer));
+void MapGenerator::createDecoration(sf::Vector2f pos, char id, char layer, char rotation) {
+	mDecorationhandler->addDecoration(Factory::createDecoration(pos, id, layer, rotation));
 }
 
 

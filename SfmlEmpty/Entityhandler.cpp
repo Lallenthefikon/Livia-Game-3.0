@@ -72,6 +72,12 @@ bool Entityhandler::isPlayerAlive() {
 		return false;
 }
 
+void Entityhandler::stopAllSound() {
+	for (auto i : mEntities) {
+		i->stopAllSound();
+	}
+}
+
 void Entityhandler::render(sf::RenderWindow& window) {
 	for (auto i : mEntities)
 		i->render(window);

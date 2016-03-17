@@ -320,3 +320,7 @@ void Octo_Pi::playSound(OCTOSTATE state) {
 void Octo_Pi::setPos(sf::Vector2f newPos) {
 	mCollisionBody.setPosition(newPos);
 }
+
+void Octo_Pi::stopAllSound() {
+	mSoundFX.stopAllSound();
+}
