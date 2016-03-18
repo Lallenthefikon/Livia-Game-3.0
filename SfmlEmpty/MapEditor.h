@@ -18,6 +18,10 @@
 
 class MapEditor : public GameState{
 public:
+
+	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<Decoration*> Decorations;
+
 	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
 
 	virtual void update(sf::RenderWindow &window);

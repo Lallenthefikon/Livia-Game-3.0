@@ -856,16 +856,24 @@ char MapEditor::blockType(Terrain* terrain){
 	bool rightOccupied(false);
 	bool topOccupied(false);
 	bool botOccupied(false);
+	bool topLeftOccupied(false);
+	bool topRightOccipied(false);
+	bool botLeftOccipied(false);
+	bool botRightOccipied(false);
 
 	sf::Vector2f thisPos(terrain->getPos());
+	std::string returnString;
 
 	Terrains relevantTerrains;
 	for (Terrains::size_type i = 0; i < mTerrains.size(); i++){
 		if (mTerrains[i]->getPos().x < thisPos.x + 200 && mTerrains[i]->getPos().x > thisPos.x - 200)
+			if(mTerrains[i]->getType() == Terrain::BLOCK0 || 
+				mTerrains[i]->getType() == Terrain::BLOCK0ICY || 
+				mTerrains[i]->getType() == Terrain::BLOCK0WALLJUMP)
 			relevantTerrains.push_back(mTerrains[i]);
 	}
 
-	// Check left side
+	
 	sf::Vector2f leftBorder(thisPos.x - 1, 
 		thisPos.y + (terrain->getHeight()/ 2));
 	sf::Vector2f rightBorder(thisPos.x + terrain->getWidth() + 1, 
@@ -874,6 +882,18 @@ char MapEditor::blockType(Terrain* terrain){
 		thisPos.y - 1);
 	sf::Vector2f botBorder(thisPos.x + (terrain->getWidth() / 2), 
 		thisPos.y + (terrain->getHeight() + 1));
+	sf::Vector2f topLeft(terrain->getPos());
+	topLeft.x -= 1;
+	topLeft.y -= 1;
+	sf::Vector2f topRight(terrain->getPos());
+	topRight.x += terrain->getWidth() + 1;
+	topRight.y += 1;
+	sf::Vector2f botLeft(terrain->getPos());
+	botLeft.x -= 1;
+	botLeft.y += terrain->getHeight() + 1;
+	sf::Vector2f botRight(terrain->getPos());
+	botRight.x += terrain->getWidth() + 1;
+	botLeft.y += terrain->getHeight() + 1;
 
 	for (Terrains::size_type i = 0; i < relevantTerrains.size(); i++){
 		if (MapEditor::isSpriteClicked(relevantTerrains[i]->getSprite(), &leftBorder))
@@ -887,39 +907,44 @@ char MapEditor::blockType(Terrain* terrain){
 	}
 
 	if (leftOccupied && rightOccupied && topOccupied && botOccupied)
-		return 'a';
+		returnString.push_back('a');
 	if (leftOccupied && rightOccupied && topOccupied && !botOccupied)
-		return 'b';
+		returnString.push_back('b');
 	if (leftOccupied && rightOccupied && !topOccupied && botOccupied)
-		return 'c';
+		returnString.push_back('c');
 	if (leftOccupied && !rightOccupied && topOccupied && botOccupied)
-		return 'd';
+		returnString.push_back('d');
 	if (!leftOccupied && rightOccupied && topOccupied && botOccupied)
-		return 'e';
+		returnString.push_back('e');
 	if (leftOccupied && rightOccupied && !topOccupied && !botOccupied)
-		return 'f';
+		returnString.push_back('f');
 	if (leftOccupied && !rightOccupied && topOccupied && !botOccupied)
-		return 'g';
+		returnString.push_back('g');
 	if (!leftOccupied && rightOccupied && topOccupied && !botOccupied)
-		return 'h';
+		returnString.push_back('h');
 	if (leftOccupied && !rightOccupied && !topOccupied && botOccupied)
-		return 'i';
+		returnString.push_back('i');
 	if (!leftOccupied && rightOccupied && !topOccupied && botOccupied)
-		return 'j';
+		returnString.push_back('j');
 	if (!leftOccupied && !rightOccupied && topOccupied && botOccupied)
-		return 'k';
+		returnString.push_back('k');
 	if (leftOccupied && !rightOccupied && !topOccupied && !botOccupied)
-		return 'l';
+		returnString.push_back('l');
 	if (!leftOccupied && rightOccupied && !topOccupied && !botOccupied)
-		return 'm';
+		returnString.push_back('m');
 	if (!leftOccupied && !rightOccupied && topOccupied && !botOccupied)
-		return 'n';
+		returnString.push_back('n');
 	if (!leftOccupied && !rightOccupied && !topOccupied && botOccupied)
-		return 'o';
+		returnString.push_back('o');
 	if (!leftOccupied && !rightOccupied && !topOccupied && !botOccupied)
-		return 'p';
-	return '0';
+		returnString.push_back('p');
+
+	if (returnString[0] == 'a') {
+
+	}
 }
+
+
 	
 void MapEditor::internalClear(){
 	while (!mEntities.empty()){
