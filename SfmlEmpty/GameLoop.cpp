@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLevelDirectory("resources/maps/mMap3.txt"),
+	mCurrentLevelDirectory("resources/maps/mMap0.txt"),
 	mCurrentLevelName("Hub"),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia 3.DANK"),
 	mStomachMusic(Toolbox::getMusic(Toolbox::SOUNDKEY::STOMACHMUSIC)),
@@ -10,6 +10,7 @@ GameLoop::GameLoop() :
 	mWindow.setVerticalSyncEnabled(false);
 	mWindow.setKeyRepeatEnabled(false);
 	updateState();
+	mWindow.setVerticalSyncEnabled(true);
 }
 
 GameLoop::~GameLoop() {
@@ -92,7 +93,7 @@ void GameLoop::run() {
 	mStomachAmbience.play();
 
 	int clickOnce = 0;
-
+	Toolbox::setWindowSize(mWindow);
 	sf::Clock clock;
 
 	// Loop

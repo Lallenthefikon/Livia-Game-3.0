@@ -18,8 +18,8 @@ Mouth::Mouth() :
 
 	mCamera(),
 
-	mMapName("Stomach"),
-	mMapPath("resources/maps/mMap3.txt"),
+	mMapName("Mouth"),
+	mMapPath("resources/maps/mMap1.txt"),
 	mLevelState("Cutscene"),
 
 	mZoomedOut(false),
@@ -236,7 +236,7 @@ void Mouth::eventA() {
 	if (!eventAtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventAtriggerd = true;
 	}
 }
@@ -244,7 +244,7 @@ void Mouth::eventB() {
 	if (!eventBtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventB.txt");
 		eventBtriggerd = true;
 	}
 }
@@ -252,7 +252,7 @@ void Mouth::eventC() {
 	if (!eventCtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventC.txt");
 		eventCtriggerd = true;
 	}
 }
@@ -260,18 +260,18 @@ void Mouth::eventD() {
 	if (!eventDtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventD.txt");
 		eventDtriggerd = true;
 	}
 }
 void Mouth::eventE() {
-	AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
+	//AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
 }
 void Mouth::eventF() {
 	if (!eventFtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventFtriggerd = true;
 	}
 }
@@ -280,7 +280,7 @@ void Mouth::eventG() {
 	if (!eventGtriggerd) {
 		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().loadDialougehandler('s');
-		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventGtriggerd = true;
 	}
 }

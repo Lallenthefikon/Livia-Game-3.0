@@ -100,6 +100,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				default:
 					break;
 				}
+				break;
 
 				// Meatball spawner
 			case 'M':
@@ -176,6 +177,14 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 				 default:
 					 break;
 				 }
+				 break;
+			 case 'O':
+				 switch (line[1]) {
+				 case 'P':
+					 MapEditMaploader::createOcto_Pi(MapEditMaploader::readPosition(line));
+					 break;
+				 }
+				 break;
 			 default:
 				 break;
 
@@ -230,6 +239,10 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
  void MapEditMaploader::createExtraLife(sf::Vector2f & pos) {
 	 mEntities.push_back(Factory::createExtraLife(pos));
+ }
+
+ void MapEditMaploader::createOcto_Pi(sf::Vector2f & pos){
+	 mEntities.push_back(Factory::createOcto_Pi(pos));
  }
 
  void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){

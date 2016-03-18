@@ -83,7 +83,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-		mDialoguehandler.updateDialogue();
+
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -96,22 +96,16 @@ void Hub::update(sf::RenderWindow &window) {
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);*/
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-		}
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
-		}
-		//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
-		//	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
-		//}
+		checkIfNewMap();
 	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().updateDialogue();
+		if (Dialoguehandler::getInstance().isInDialogue == false)
+			mLevelState = "ZoomedOut";
+}
 }
 
 void Hub::render(sf::RenderWindow &window) {
@@ -145,13 +139,16 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderHud(window);
 
 	// Dialogue
-	mDialoguehandler.renderDialogue(window);
+	if (mLevelState == "Dialogue") {
+		Dialoguehandler::getInstance().renderDialogue(window);
+	}
 
 
 	window.display();
 }
 
 void Hub::loadLevel() {
+	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
@@ -166,22 +163,27 @@ void Hub::unloadLevel() {
 void Hub::triggerEvent(char type){
 	switch (type) {
 	case 'a':
-		Hub::eventA();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventA = true;
 		break;
 	case 'b':
-		Hub::eventB();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventB = true;
 		break;
 
 	case 'c':
-		Hub::eventC();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventC = true;
 		break;
 
 	case 'd':
-		Hub::eventD();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventD = true;
 		break;
 
 	case 'e':
-		Hub::eventE();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			mEventE = true;
 		break;
 
 	case 'f':
@@ -207,29 +209,19 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 }
 void Hub::eventB() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventB.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 }
 void Hub::eventC() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventC.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
 void Hub::eventD() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventD.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
 }
 void Hub::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 }
 void Hub::eventF() {
 	mLevelState = "Dialogue";
@@ -241,4 +233,28 @@ void Hub::eventG() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+}
+
+void Hub::checkIfNewMap(){
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || mEventA) {
+		Hub::eventA();
+		mEventA = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || mEventB) {
+		Hub::eventB();
+		mEventB = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
+		Hub::eventC();
+		mEventC = false;
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
+		Hub::eventD();
+		mEventD = false;
+	}
+	else if (mEventE) {
+		Hub::eventE();
+		mEventE = false;
+	}
+
 }

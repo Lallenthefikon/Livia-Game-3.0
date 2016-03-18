@@ -151,17 +151,15 @@ void Stomach::render(sf::RenderWindow &window) {
 	// Dialouge
 	if (mLevelState == "Dialogue") {
 		Dialoguehandler::getInstance().renderDialogue(window);
-
 	}
-
-	
 	window.display();
 }
 
 void Stomach::loadLevel() {
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyLevelBounds(mLevelBounds);
+	Toolbox::loadTextures(mMapName);
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 	//mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
@@ -234,7 +232,6 @@ void Stomach::resetLevel(sf::RenderWindow &window) {
 void Stomach::eventA() {
 	if (!eventAtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 	eventAtriggerd = true;
 }
@@ -242,7 +239,6 @@ void Stomach::eventA() {
 void Stomach::eventB() {
 	if (!eventBtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
 	eventBtriggerd = true;
 }
@@ -250,7 +246,6 @@ void Stomach::eventB() {
 void Stomach::eventC() {
 	if (!eventCtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
 	eventCtriggerd = true;
 }
@@ -258,7 +253,6 @@ void Stomach::eventC() {
 void Stomach::eventD() {
 	if (!eventDtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
 	eventDtriggerd = true;
 	}
@@ -269,7 +263,6 @@ void Stomach::eventE() {
 void Stomach::eventF() {
 	if (!eventFtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 	eventFtriggerd = true;
 	}
@@ -278,7 +271,6 @@ void Stomach::eventF() {
 void Stomach::eventG() {
 	if (!eventGtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 		eventGtriggerd = true;
 	}

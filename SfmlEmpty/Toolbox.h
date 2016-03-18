@@ -14,7 +14,7 @@ struct Toolbox {
 		ACIDMONSTERVERTICALTEXTURE,
 		ACIDMONSTERHORIZONTALTEXTURE,
 		// Blocks
-		BLOCK0TEXTURE, 
+		BLOCK0TEXTURE,
 		// Other Entities
 		MEATBALLTEXTURE, MEATBALLSPAWNERTEXTURE,
 		// Editor
@@ -73,7 +73,7 @@ struct Toolbox {
 	// Camera Info
 	static void copyCameraInfo(sf::Vector2f &globalCameraBounds, sf::Vector2f &localCameraBounds);
 	static sf::FloatRect getGlobalCameraBounds();
-	static void setGlobalCameraBounds(sf::RenderWindow &window);
+	static void setWindowSize(sf::RenderWindow &window);
 
 	// Level Info
 	static void copyLevelBounds(sf::FloatRect &levelBounds);
@@ -113,5 +113,8 @@ struct Toolbox {
 	// Gravity
 	static void copyGravity(sf::Vector2f &gravity);
 	static sf::Vector2f& getGravity();
+
+	static void Toolbox::setGamePaused(bool isPaused);
+	static bool Toolbox::getGamePaused();
 };
 

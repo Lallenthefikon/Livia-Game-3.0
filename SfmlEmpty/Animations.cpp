@@ -30,10 +30,13 @@ Animations::Textures mWormCrawlingANI;
 
 Animations::Textures mAcidMonsterHorizontalANI;
 Animations::Textures mAcidMonsterVerticalANI;
+
 Animations::Textures mGermWalkingANI;
 Animations::Textures mGermDamagedANI;
 
 Animations::Textures mAcidMonsterANI;
+
+Animations::Textures mOcto_PiANI;
 
 Animations::Textures mMeatballANI;
 
@@ -44,7 +47,10 @@ Animations::Textures mSpikesANI;
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
 
-Animations::Textures mDialogueANI;
+Animations::Textures mDialogueLiviaANI; 
+Animations::Textures mDialogueMansaANI;
+Animations::Textures mDialogueMuhninANI;
+Animations::Textures mDialogueTummyANI;
 
 void Animations::loadTextures(){
 	int x = 0;
@@ -243,6 +249,22 @@ void Animations::loadTextures(){
 		y = 0;
 	}
 
+	// Octo ani
+	if (mOcto_PiANI.size() == 0) {
+		for (int i = 0; i < 32; i++) {
+			mOcto_PiANI.push_back(new sf::Texture);
+			mOcto_PiANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x) + 700, (120 * y), 80, 120));
+			mOcto_PiANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
+		}
+		x = 0;
+		y = 0;
+	}
+
 	// Acidmonster ANI
 	if (mAcidMonsterHorizontalANI.size() == 0) {
 		for (int i = 0; i < 32; i++) {
@@ -329,9 +351,9 @@ void Animations::loadTextures(){
 	// Livia
 
 	for (int i = 0; i < 32; i++) {
-		mDialogueANI.push_back(new sf::Texture);
-		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
-		mDialogueANI[i]->setSmooth(true);
+		mDialogueLiviaANI.push_back(new sf::Texture);
+		mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+		mDialogueLiviaANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
 			x = 0;
@@ -344,9 +366,9 @@ void Animations::loadTextures(){
 	// Mansa 
 
 	for (int i = 0; i < 32; i++) {
-		mDialogueANI.push_back(new sf::Texture);
-		mDialogueANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
-		mDialogueANI[i]->setSmooth(true);
+		mDialogueMansaANI.push_back(new sf::Texture);
+		mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+		mDialogueMansaANI[i]->setSmooth(true);
 		x++;
 		if (x == 4) {
 			x = 0;
@@ -356,6 +378,35 @@ void Animations::loadTextures(){
 	x = 0;
 	y = 0;
 
+	// Muhnin
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueMuhninANI.push_back(new sf::Texture);
+		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
+		mDialogueMuhninANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
+
+	// Tummy
+
+	for (int i = 0; i < 32; i++) {
+		mDialogueTummyANI.push_back(new sf::Texture);
+		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
+		mDialogueTummyANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
+		}
+	}
+	x = 0;
+	y = 0;
 
 
 	/*mMeatballANI.push_back(new sf::Texture);
@@ -418,7 +469,7 @@ Animations::Textures* Animations::getWormDyingANI(){
 	return &mWormDyingANI;
 }
 
-// Germ Walking ANI
+// Germ ANI
 Animations::Textures* Animations::getGermWalkingANI() {
 	return &mGermWalkingANI;
 }
@@ -426,6 +477,12 @@ Animations::Textures* Animations::getGermWalkingANI() {
 Animations::Textures* Animations::getGermDamagedANI() {
 	return &mGermDamagedANI;
 }
+
+// Octo_Pi ANI
+Animations::Textures * Animations::getOcto_PiANI(){
+	return &mOcto_PiANI;
+}
+
 
 
 
@@ -461,6 +518,18 @@ Animations::Textures* Animations::getDecoration1ANI() {
 }
 
 // Dialogue ANI
-Animations::Textures* Animations::getDialogueANI() {
-	return &mDialogueANI;
+Animations::Textures* Animations::getDialogueLiviaANI() {
+	return &mDialogueLiviaANI;
+}
+
+Animations::Textures* Animations::getDialogueMansaANI() {
+	return &mDialogueMansaANI;
+}
+
+Animations::Textures* Animations::getDialogueMuhninANI(){
+	return &mDialogueMuhninANI;
+}
+
+Animations::Textures* Animations::getDialogueTummyANI() {
+	return &mDialogueTummyANI;
 }

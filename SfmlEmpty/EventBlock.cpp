@@ -33,6 +33,5 @@ void EventBlock::setPos(sf::Vector2f newPos) {
 
 void EventBlock::trigger(){
 	mLevel->triggerEvent(mEventType);
-	mIsAlive = false;
 }
 

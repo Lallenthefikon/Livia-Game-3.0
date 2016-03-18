@@ -8,10 +8,11 @@ static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 static int mPlayerHealth;
 static float mFrameTime(0);
+static float staticFrametime(0.020);
 
 // Level Info
 static std::string mCurrentLevelName;
-static sf::Vector2f mGravity(0, 125);
+static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
 
@@ -83,6 +84,8 @@ static sf::SoundBuffer mAirHorn;
 
 // Fonts
 static sf::Font mGameOverFont;
+
+static bool mPaused;
 
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
@@ -158,9 +161,8 @@ void Toolbox::loadTextures(std::string levelName){
 	if (mDialogueTexture.getSize().x <= 0) {
 		mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 		mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/Livia Dialog.png");
+		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
 	}
-
 
 }
 
@@ -193,7 +195,7 @@ void Toolbox::loadSounds(std::string levelName) {
 }
 
 void Toolbox::loadFonts(std::string levelName) {
-	mGameOverFont.loadFromFile("resources/fonts/ComicSansMSRegular.ttf");
+	mGameOverFont.loadFromFile("resources/fonts/Barokah.ttf");
 }
 
 sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
@@ -312,7 +314,7 @@ void Toolbox::copyScreenInfo(sf::RenderWindow &window, sf::VideoMode &videoMode)
 	mWindowPos = sf::Vector2f(window.getPosition());
 }
 
-void Toolbox::setGlobalCameraBounds(sf::RenderWindow &window) {
+void Toolbox::setWindowSize(sf::RenderWindow &window) {
 	mWindowSize = sf::Vector2f(window.getSize());
 }
 
@@ -489,7 +491,8 @@ void Toolbox::copyFrameTime(float &frameTime) {
 }
 
 float& Toolbox::getFrameTime() {
-	return mFrameTime;
+	//return mFrameTime;
+	return staticFrametime;
 }
 
 void Toolbox::copyGravity(sf::Vector2f &gravity) {
@@ -499,4 +502,12 @@ void Toolbox::copyGravity(sf::Vector2f &gravity) {
 sf::Vector2f& Toolbox::getGravity() {
 	return mGravity;
 	//std::cout << "Gravity Y: " << mGravity.y << std::endl;
+}
+
+void Toolbox::setGamePaused(bool isPaused) {
+	mPaused = isPaused;
+}
+
+bool Toolbox::getGamePaused() {
+	return mPaused;
 }

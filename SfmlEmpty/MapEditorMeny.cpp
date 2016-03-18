@@ -56,6 +56,9 @@ void MapEditorMeny::insertObjects(){
 	mEntities.push_back(Factory::createExtraLife(sf::Vector2f(WIDTHBETWEEN * 4.4f, 70.5)));
 	mEntities.back()->setScale(sf::Vector2f(0.7f, 0.7f));
 
+	mEntities.push_back(Factory::createOcto_Pi(sf::Vector2f(WIDTHBETWEEN * 5, 70)));
+	mEntities.back()->setScale(sf::Vector2f(0.7f, 0.7f));
+
 	// Terrains
 	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
@@ -114,6 +117,11 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				case Entity::EXTRALIFE:
 					mInsertType = EXTRALIFE;
 					break;
+
+				case Entity::OCTO_PI:
+					mInsertType = OCTO_PI;
+					break;
+
 
 				default:
 					break;

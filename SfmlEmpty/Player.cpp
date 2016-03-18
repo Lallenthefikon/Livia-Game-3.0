@@ -140,9 +140,10 @@ void Player::entityCollision(Entity* entity, char direction){
 	switch (entity->getType()){
 	case Entity::WORM:
 	case Entity::GERM:
+	case Entity::OCTO_PI:
 		switch (direction){
 		case 'b':
-			if (mLife > 0){
+			if (mLife > 0 && entity->getLife() > 0){
 				if (!mInvulnerable){
 					delta = entity->getPos().y - mCollisionBody.getPosition().y;
 					mCollisionBody.move(sf::Vector2f(0, delta - this->getHeight() - 1));
@@ -153,8 +154,8 @@ void Player::entityCollision(Entity* entity, char direction){
 					else {
 						mVelocity.y = mJumpSpeedInitial * Toolbox::getFrameTime();
 					}
-					entity->getHit();
 				}
+				entity->getHit();
 			}
 			break;
 		default:
@@ -162,7 +163,7 @@ void Player::entityCollision(Entity* entity, char direction){
 		}
 		break;
 	case Entity::ACIDMONSTER:
-		mLife = 0;
+		//mLife = 0;
 		break;
 	case Entity::EXTRALIFE:
 		mLife++;
@@ -202,6 +203,7 @@ void Player::terrainCollision(Terrain* terrain, char direction){
 		break;
 
 	case Terrain::EVENT:
+		mSoundFX.stopAllSound();
 		terrain->trigger();
 		break;
 		
@@ -254,6 +256,14 @@ void Player::getHit() {
 		if (mLife > 0) {
 			mLife--;
 			mInvulnerable = true;
+			mState = DAMAGED;
+			Player::updateANI();
+			if (mTurned == TURNEDLEFT) {
+				mVelocity.x += 20;
+			}
+			else {
+				mVelocity.x -= 20;
+			}
 			mInvulnerableTimer.restart().asMilliseconds();
 			if (!mLife <= 0) {
 				Player::playSound(Player::DAMAGED);
@@ -488,7 +498,7 @@ void Player::updateState() {
 		}
 
 		// Player runs in a direction
-		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING) {
+		if (mVelocity.x != 0 && mVelocity.y == 0 && mState != JUMPING && mState != RUNNING && mState != DAMAGED) {
 			mState = RUNNING;
 			changed = true;
 			if (!mVelocity.y > 0) {
@@ -497,7 +507,7 @@ void Player::updateState() {
 		}
 
 
-		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK) {
+		if (mVelocity.x == 0 && mVelocity.y == 0 && mState != JUMPING && mState != IDLE && mState != WALLSTUCK && mState != DAMAGED) {
 			mState = IDLE;
 			changed = true;
 			Player::stopSound(RUNNING);
@@ -544,12 +554,12 @@ void Player::updateState() {
 		}
 
 		// Player direction right
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDRIGHT) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && mTurned != TURNEDRIGHT && mState != DAMAGED) {
 			mTurned = TURNEDRIGHT;
 			changed = true;
 		}
 		// Player direction left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDLEFT) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && mTurned != TURNEDLEFT && mState != DAMAGED) {
 			mTurned = TURNEDLEFT;
 			changed = true;
 		}
@@ -605,6 +615,11 @@ void Player::updateCollision() {
 void Player::updateANI(){
 	float spriteWidth;
 	switch (mState){
+	case DAMAGED:
+		mCurrentAnimationRate = 31.75;
+		mSprite.setTextureRect(sf::IntRect(0, 0, 100, 140));
+		mCurrentAnimation = Animations::getPlayerHurtANI();
+		break;
 
 	case JUMPING:
 		mCurrentAnimationRate = 31.25;
@@ -679,6 +694,12 @@ void Player::animate(){
 			if (mState == DEATH || mState == FALLDEATH){
 				mIsAlive = false;
 				mAnimationIndex -= 1;
+			}
+			else if (mState == DAMAGED) {
+				mState = IDLE;
+				Player::updateState();
+				Player::updateANI();
+				mAnimationIndex = 0;
 			}
 			else
 			mAnimationIndex = 0;
