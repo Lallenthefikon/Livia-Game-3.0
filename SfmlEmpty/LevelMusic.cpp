@@ -2,10 +2,12 @@
 
 
 LevelMusic::LevelMusic() : 
-tempMusic0(Toolbox::getMusic(Toolbox::STOMACHAMBIENCE)),
-tempMusic1(Toolbox::getMusic(Toolbox::STOMACHMUSIC)),
-tempMusic2(Toolbox::getMusic(Toolbox::THROATMUSIC)),
-tempMusic3(Toolbox::getMusic(Toolbox::HUBMUSIC)){
+	stomachAmbience(Toolbox::getMusic(Toolbox::STOMACHAMBIENCE)),
+	stomachMusic(Toolbox::getMusic(Toolbox::STOMACHMUSIC)),
+	throatMusic(Toolbox::getMusic(Toolbox::THROATMUSIC)),
+	hubMusic(Toolbox::getMusic(Toolbox::HUBMUSIC)),
+	mouthMusic(Toolbox::getMusic(Toolbox::MOUTHMUSIC)),
+	intestineMusic(Toolbox::getMusic(Toolbox::INTESTINEMUSIC)){
 	initialize();
 }
 
@@ -19,15 +21,13 @@ LevelMusic& LevelMusic::getInstance() {
 }
 
 void LevelMusic::initialize() {
-	/*tempMusic0.openFromFile(Toolbox::getMusic(Toolbox::STOMACHMUSIC));
-	tempMusic1.openFromFile(Toolbox::getMusic(Toolbox::STOMACHAMBIENCE));
-	tempMusic2.openFromFile(Toolbox::getMusic(Toolbox::THROATMUSIC));
-	tempMusic3.openFromFile(Toolbox::getMusic(Toolbox::HUBMUSIC));*/
 
-	mMusic.push_back(&tempMusic0);
-	mMusic.push_back(&tempMusic1);
-	mMusic.push_back(&tempMusic2);
-	mMusic.push_back(&tempMusic3);
+	mMusic.push_back(&stomachAmbience);
+	mMusic.push_back(&stomachMusic);
+	mMusic.push_back(&throatMusic);
+	mMusic.push_back(&hubMusic);
+	mMusic.push_back(&mouthMusic);
+	mMusic.push_back(&intestineMusic);
 
 	mMusic[0]->setVolume(80);
 	mMusic[0]->setLoop(true);
@@ -40,6 +40,12 @@ void LevelMusic::initialize() {
 
 	mMusic[3]->setVolume(25);
 	mMusic[3]->setLoop(true);
+	
+	mMusic[4]->setVolume(25);
+	mMusic[4]->setLoop(true);
+
+	mMusic[5]->setVolume(25);
+	mMusic[5]->setLoop(true);
 }
 
 void LevelMusic::finalize() {
@@ -48,25 +54,29 @@ void LevelMusic::finalize() {
 
 void LevelMusic::playMusic(MUSICTYPE type) {
 	switch (type) {
-	case LevelMusic::STOMACHMUSIC:
-		if (tempMusic0.getStatus() != sf::Music::Playing)
-			tempMusic0.play();
-		break;
 	case LevelMusic::STOMACHAMBIANCE:
-		if (tempMusic1.getStatus() != sf::Music::Playing)
-			tempMusic1.play();
+		if (mMusic[0]->getStatus() != sf::Music::Playing)
+			mMusic[0]->play();
+		break;
+	case LevelMusic::STOMACHMUSIC :
+		if (mMusic[1]->getStatus() != sf::Music::Playing)
+			mMusic[1]->play();
 		break;
 	case LevelMusic::THROATMUSIC:
-		if (tempMusic2.getStatus() != sf::Music::Playing)
-			tempMusic2.play();
+		if (mMusic[2]->getStatus() != sf::Music::Playing)
+			mMusic[2]->play();
 		break;
 	case LevelMusic::HUBMUSIC:
-		if (tempMusic3.getStatus() != sf::Music::Playing)
-			tempMusic3.play();
+		if (mMusic[3]->getStatus() != sf::Music::Playing)
+			mMusic[3]->play();
+		break;
+	case LevelMusic::MOUTHMUSIC:
+		if (mMusic[4]->getStatus() != sf::Music::Playing)
+			mMusic[4]->play();
 		break;
 	case LevelMusic::INTESTINEMUSIC:
-		if (tempMusic3.getStatus() != sf::Music::Playing)
-			tempMusic3.play();
+		if (mMusic[5]->getStatus() != sf::Music::Playing)
+			mMusic[5]->play();
 		break;
 	default:
 		break;
@@ -75,25 +85,29 @@ void LevelMusic::playMusic(MUSICTYPE type) {
 
 void LevelMusic::stopMusic(MUSICTYPE type) {
 	switch (type) {
-	case LevelMusic::STOMACHMUSIC:
-		if (tempMusic0.getStatus() == sf::Music::Playing)
-			tempMusic0.stop();
-		break;
 	case LevelMusic::STOMACHAMBIANCE:
-		if (tempMusic1.getStatus() == sf::Music::Playing)
-			tempMusic1.stop();
+		if (mMusic[0]->getStatus() == sf::Music::Playing)
+			mMusic[0]->stop();
+		break;
+	case LevelMusic::STOMACHMUSIC:
+		if (mMusic[1]->getStatus() == sf::Music::Playing)
+			mMusic[1]->stop();
 		break;
 	case LevelMusic::THROATMUSIC:
-		if (tempMusic2.getStatus() == sf::Music::Playing)
-			tempMusic2.stop();
+		if (mMusic[2]->getStatus() == sf::Music::Playing)
+			mMusic[2]->stop();
 		break;
 	case LevelMusic::HUBMUSIC:
-		if (tempMusic3.getStatus() == sf::Music::Playing)
-			tempMusic3.stop();
+		if (mMusic[3]->getStatus() == sf::Music::Playing)
+			mMusic[3]->stop();
+		break;
+	case LevelMusic::MOUTHMUSIC:
+		if (mMusic[4]->getStatus() == sf::Music::Playing)
+			mMusic[4]->stop();
 		break;
 	case LevelMusic::INTESTINEMUSIC:
-		if (tempMusic3.getStatus() == sf::Music::Playing)
-			tempMusic3.stop();
+		if (mMusic[5]->getStatus() == sf::Music::Playing)
+			mMusic[5]->stop();
 		break;
 	default:
 		break;
@@ -101,11 +115,9 @@ void LevelMusic::stopMusic(MUSICTYPE type) {
 }
 
 void LevelMusic::stopAllMusic() {
-	/*for (MusicVector::size_type i = 0; i < mMusic.size(); i++) {
-		mMusic[i].stop();
-	}*/
-	tempMusic0.stop();
-	tempMusic1.stop();
-	tempMusic2.stop();
-	tempMusic3.stop();
+	/*for (auto i : mMusic)
+		i->stop();*/
+	for (MusicVector::size_type i = 0; i < mMusic.size(); i++) {
+		mMusic[i]->stop();
+	}
 }

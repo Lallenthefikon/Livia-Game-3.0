@@ -83,6 +83,8 @@ static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::Music mThroatMusic;
 static sf::Music mHubMusic;
+static sf::Music mMouthMusic;
+static sf::Music mInestineMusic;
 static sf::SoundBuffer mAirHorn;
 
 // Fonts
@@ -99,19 +101,19 @@ void Toolbox::loadTextures(std::string levelName) {
 
 	if (mStomachBackgroundTexture.getSize().x <= 0)
 		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
-		
+
 	if (mStomachMiddlegroundTexture.getSize().x <= 0)
 		mStomachMiddlegroundTexture.loadFromFile("resources/images/background/mellangrund suddig.png");
-		
+
 	if (mAcidBottom.getSize().x <= 0)
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
-		
+
 	if (mDecorationTexture.getSize().x <= 0)
 		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
 
 	if (mHubBackground.getSize().x <= 0)
 		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
-	
+
 	if (mThroatBackground.getSize().x <= 0)
 		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
 
@@ -128,62 +130,61 @@ void Toolbox::loadTextures(std::string levelName) {
 		mIntestineBackground.loadFromFile("resources/images/background/Tarm bakgrund.png");
 
 	if (mEnemy0sheet.getSize().x <= 0)
-	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
-	
+		mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
+
 	if (mBlock0sheet.getSize().x <= 0)
-	mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
+		mBlock0sheet.loadFromFile("resources/images/terrain/Current_block0_sheet 2.png");
 
 	if (mGoalTexture.getSize().x <= 0)
-	mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
+		mGoalTexture.loadFromFile("resources/images/terrain/goal.jpg");
 
 	if (mPlayersheet.getSize().x <= 0)
-	mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
+		mPlayersheet.loadFromFile("resources/images/entities/Current_livia_sheet.png");
 
 	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
 		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 
 	if (mAcidMonsterVerticalTexture.getSize().x <= 0)
-	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
+		mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	if (mTileTexture.getSize().x <= 0)
-	mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
-	
+		mTileTexture.loadFromFile("resources/images/map editor/Tile.png");
+
 	if (mEditorMenyTexture.getSize().x <= 0)
-	mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
-	
+		mEditorMenyTexture.loadFromFile("resources/images/map editor/EditorMenu.png");
+
 	if (mLifeTexture.getSize().x <= 0)
-	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
+		mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
 	if (mMeatballTexture.getSize().x <= 0)
-	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
-	
+		mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
+
 	if (mMeatballSpawnerTexture.getSize().x <= 0)
-	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
+		mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 
 	if (mDialogueTexture.getSize().x <= 0) {
-	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
-	
-	if (mDialogueBoxSpriteSheetIMG.getSize().x <= 0)
-	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
-	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
-	}
+		mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
 
+		if (mDialogueBoxSpriteSheetIMG.getSize().x <= 0)
+			mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
+		mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
+	}
 }
 
 void Toolbox::loadSounds(std::string levelName) {
 
-		// Load Tummy Acid Trip
-		
-		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
-		
-		// Music and ambience
-		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
-		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
-		mThroatMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
-		mHubMusic.openFromFile("resources/sounds/music/hub/Hub.ogg");
+	// Load Tummy Acid Trip
+	mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
+
+	// Music and ambience
+	mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+	mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+	mThroatMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+	mHubMusic.openFromFile("resources/sounds/music/hub/Hub.ogg");
+	mMouthMusic.openFromFile("resources/sounds/music/mouth/Mouthie.ogg");
+	mInestineMusic.openFromFile("resources/sounds/music/intestine/Intestine.ogg");
 
 	// Global effects
-	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
 	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/walking/Walkcycle_01.ogg");
 	mPlayerJumpSound1.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
 	mPlayerJumpSound2.loadFromFile("resources/sounds/effects/livia/jumps/Jump_05.ogg");
@@ -477,8 +478,14 @@ sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
 	case Toolbox::THROATMUSIC:
 		return mThroatMusic;
 		break;
+	case Toolbox::MOUTHMUSIC:
+		return mMouthMusic;
+		break;
 	case Toolbox::HUBMUSIC:
 		return mHubMusic;
+		break;
+	case Toolbox::INTESTINEMUSIC:
+		return mInestineMusic;
 		break;
 	default:
 		break;

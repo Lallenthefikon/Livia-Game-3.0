@@ -57,6 +57,10 @@ struct Toolbox {
 		THROATMUSIC,
 		// Hub
 		HUBMUSIC,
+		// Mouth
+		MOUTHMUSIC,
+		// Intestine
+		INTESTINEMUSIC,
 		// Tummy
 		TUMMYRUNNING
 	};

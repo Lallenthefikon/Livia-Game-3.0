@@ -36,7 +36,7 @@ Throat::Throat() :
 	Toolbox::copyCurrentLevelName(mMapName);
 
 	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1970, 0, 1920, 1347));
-	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
+	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -75,7 +75,7 @@ void Throat::update(sf::RenderWindow &window) {
 	}
 
 	mLevelMusic.playMusic(LevelMusic::THROATMUSIC);
-	
+
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
@@ -96,8 +96,7 @@ void Throat::update(sf::RenderWindow &window) {
 
 		if (Toolbox::getPlayerHealth() > 0) {
 			mCamera.updateThroatCam(window, mLevelState);
-		}
-		else {
+		} else {
 			mCamera.updateThroatCam(window, "Stop");
 		}
 
@@ -216,7 +215,7 @@ void Throat::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Throat::triggerEvent(char type){
+void Throat::triggerEvent(char type) {
 	switch (type) {
 	case 'a':
 		Throat::eventA();
@@ -225,25 +224,25 @@ void Throat::triggerEvent(char type){
 		Throat::eventB();
 		break;
 
-	//case 'c':
-	//	Throat::eventC();
-	//	break;
+		//case 'c':
+		//	Throat::eventC();
+		//	break;
 
-	//case 'd':
-	//	Throat::eventD();
-	//	break;
+		//case 'd':
+		//	Throat::eventD();
+		//	break;
 
-	//case 'e':
-	//	Throat::eventE();
-	//	break;
+		//case 'e':
+		//	Throat::eventE();
+		//	break;
 
-	//case 'f':
-	//	Throat::eventF();
-	//	break;
+		//case 'f':
+		//	Throat::eventF();
+		//	break;
 
-	//case 'g':
-	//	Throat::eventG();
-	//	break;
+		//case 'g':
+		//	Throat::eventG();
+		//	break;
 
 	default:
 		break;
@@ -262,17 +261,17 @@ void Throat::resetLevel(sf::RenderWindow &window) {
 
 void Throat::eventA() {
 	if (!eventAtriggerd) {
-	mLevelState = "Dialogue";
+		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventA.txt");
 		eventAtriggerd = true;
 	}
 }
 void Throat::eventB() {
 	if (!eventBtriggerd) {
-	mLevelState = "Dialogue";
+		mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
 		eventBtriggerd = true;
-}
+	}
 }
 //void Throat::eventC() {
 //	mLevelState = "Dialogue";

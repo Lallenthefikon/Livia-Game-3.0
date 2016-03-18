@@ -811,6 +811,66 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 			case Decoration::LIVIA:
 				output.push_back('9');
 				break;
+			case Decoration::TEN:
+				output.push_back('a');
+				break;
+			case Decoration::ELEVEN:
+				output.push_back('b');
+				break;
+			case Decoration::TWELVE:
+				output.push_back('c');
+				break;
+			case Decoration::THIRTEEN:
+				output.push_back('d');
+				break;
+			case Decoration::FOURTEEN:
+				output.push_back('e');
+				break;
+			case Decoration::FIFTEEN:
+				output.push_back('f');
+				break;
+			case Decoration::SIXTEEN:
+				output.push_back('g');
+				break;
+			case Decoration::SEVENTEEN:
+				output.push_back('h');
+				break;
+			case Decoration::EIGHTEEN:
+				output.push_back('j');
+				break;
+			case Decoration::NINETEEN:
+				output.push_back('k');
+				break;
+			case Decoration::TWENTY:
+				output.push_back('l');
+				break;
+			case Decoration::TWENTYONE:
+				output.push_back('m');
+				break;
+			case Decoration::TWENTYTWO:
+				output.push_back('n');
+				break;
+			case Decoration::TWENTYTHREE:
+				output.push_back('o');
+				break;
+			case Decoration::TWENTYFOUR:
+				output.push_back('p');
+				break;
+			case Decoration::TWENTYFIVE:
+				output.push_back('q');
+				break;
+			case Decoration::TWENTYSIX:
+				output.push_back('r');
+				break;
+			case Decoration::TWENTYSEVEN:
+				output.push_back('s');
+				break;
+			case Decoration::TWENTYEIGHT:
+				output.push_back('t');
+				break;
+			case Decoration::TWENTYNINE:
+				output.push_back('u');
+				break;
 			default:
 				break;
 			}

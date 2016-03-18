@@ -72,6 +72,86 @@ void Decoration::setID(char &id) {
 		mDecorationID = LIVIA;
 		mCurrentAnimation = Animations::getDecoration9ANI();
 		break;
+	case 'a':
+		mDecorationID = TEN;
+		mCurrentAnimation = Animations::getDecoration10ANI();
+		break;
+	case 'b':
+		mDecorationID = ELEVEN;
+		mCurrentAnimation = Animations::getDecoration11ANI();
+		break;
+	case 'c':
+		mDecorationID = TWELVE;
+		mCurrentAnimation = Animations::getDecoration12ANI();
+		break;
+	case 'd':
+		mDecorationID = THIRTEEN;
+		mCurrentAnimation = Animations::getDecoration13ANI();
+		break;
+	case 'e':
+		mDecorationID = FOURTEEN;
+		mCurrentAnimation = Animations::getDecoration14ANI();
+		break;
+	case 'f':
+		mDecorationID = FIFTEEN;
+		mCurrentAnimation = Animations::getDecoration15ANI();
+		break;
+	case 'g':
+		mDecorationID = SIXTEEN;
+		mCurrentAnimation = Animations::getDecoration16ANI();
+		break;
+	case 'h':
+		mDecorationID = SEVENTEEN;
+		mCurrentAnimation = Animations::getDecoration17ANI();
+		break;
+	case 'i':
+		mDecorationID = EIGHTEEN;
+		mCurrentAnimation = Animations::getDecoration18ANI();
+		break;
+	case 'j':
+		mDecorationID = NINETEEN;
+		mCurrentAnimation = Animations::getDecoration19ANI();
+		break;
+	case 'k':
+		mDecorationID = TWENTY;
+		mCurrentAnimation = Animations::getDecoration20ANI();
+		break;
+	case 'l':
+		mDecorationID = TWENTYONE;
+		mCurrentAnimation = Animations::getDecoration21ANI();
+		break;
+	case 'm':
+		mDecorationID = TWENTYTWO;
+		mCurrentAnimation = Animations::getDecoration22ANI();
+		break;
+	case 'n':
+		mDecorationID = TWENTYTHREE;
+		mCurrentAnimation = Animations::getDecoration23ANI();
+		break;
+	case 'o':
+		mDecorationID = TWENTYFOUR;
+		mCurrentAnimation = Animations::getDecoration24ANI();
+		break;
+	case 'p':
+		mDecorationID = TWENTYFIVE;
+		mCurrentAnimation = Animations::getDecoration25ANI();
+		break;
+	case 'q':
+		mDecorationID = TWENTYSIX;
+		mCurrentAnimation = Animations::getDecoration26ANI();
+		break;
+	case 'r':
+		mDecorationID = TWENTYSEVEN;
+		mCurrentAnimation = Animations::getDecoration27ANI();
+		break;
+	case 's':
+		mDecorationID = TWENTYEIGHT;
+		mCurrentAnimation = Animations::getDecoration28ANI();
+		break;
+	case 't':
+		mDecorationID = TWENTYNINE;
+		mCurrentAnimation = Animations::getDecoration29ANI();
+		break;
 	default:
 		break;
 	}
