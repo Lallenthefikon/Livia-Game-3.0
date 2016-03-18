@@ -134,7 +134,7 @@ void Stomach::render(sf::RenderWindow &window) {
 
 	
 
-
+	
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	mLayerHandler.renderVertGradiant(window);
