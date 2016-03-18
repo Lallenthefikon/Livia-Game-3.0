@@ -8,7 +8,7 @@ static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 static int mPlayerHealth;
 static float mFrameTime(0);
-static float staticFrametime(0.020);
+static float staticFrametime(0.0180);
 
 // Level Info
 static std::string mCurrentLevelName;

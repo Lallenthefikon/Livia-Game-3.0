@@ -248,7 +248,7 @@ void LayerHandler::renderBackground(sf::RenderWindow &window){
 }
 
 void LayerHandler::renderVertGradiant(sf::RenderWindow &window) {
-	window.draw(mAcidGlow);
+	window.draw(mAcidGlowVert);
 }
 
 void LayerHandler::renderMiddleground(sf::RenderWindow & window){
@@ -334,10 +334,17 @@ void LayerHandler::addAcid(sf::Texture &acidTexture) {
 }
 
 void LayerHandler::addAcidGradiantVertical(sf::Texture &vertGrad){
-	mAcidGlow.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
-	mAcidGlow.setTexture(vertGrad);
-	mAcidGlow.setPosition(0, 0);
+	mAcidGlowVert.setTextureRect(sf::IntRect(0, 0, 1920, 1347));
+	mAcidGlowVert.setTexture(vertGrad);
+	mAcidGlowVert.setPosition(0, 0);
 }
+
+void LayerHandler::addAcidGradiantHoriz(sf::Texture & vertGrad){
+	mAcidGlowVert.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	mAcidGlowVert.setTexture(vertGrad);
+	mAcidGlowVert.setPosition(0, 0);
+}
+
 
 void LayerHandler::animate(){
 	mTimer += ANIFramesPerFrame;
@@ -385,7 +392,7 @@ void LayerHandler::updateLife() {
 }
 
 void LayerHandler::updateVertGlowAlpha(int alpha){
-	mAcidGlow.setColor(sf::Color(255, 255, 255, alpha));
+	mAcidGlowVert.setColor(sf::Color(255, 255, 255, alpha));
 }
 
 void LayerHandler::clearLife() {
