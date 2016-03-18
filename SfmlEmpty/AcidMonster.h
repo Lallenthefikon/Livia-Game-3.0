@@ -31,6 +31,8 @@
 		virtual void setScale(sf::Vector2f newScale){ mCollisionBody.setScale(newScale), mSprite.setScale(newScale); }
 		virtual int getLife(){ return 0; }
 
+		virtual void stopAllSound();
+
 	private:
 		AcidMonster(sf::Vector2f pos);
 
@@ -43,6 +45,7 @@
 		void updateANI();
 		void animate();
 
+		void setSpeed();
 		void setAnimation();
 
 		void playSound(ACIDMONSTERSTATE state);

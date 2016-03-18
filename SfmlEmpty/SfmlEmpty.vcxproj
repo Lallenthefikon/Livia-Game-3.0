@@ -92,6 +92,7 @@
     <ClCompile Include="HandlerFactory.cpp" />
     <ClCompile Include="Hub.cpp" />
     <ClCompile Include="Intestine.cpp" />
+    <ClCompile Include="LevelMusic.cpp" />
     <ClCompile Include="MeatballSpawner.cpp" />
     <ClCompile Include="BlockTerrain.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="HandlerFactory.h" />
     <ClInclude Include="Hub.h" />
     <ClInclude Include="Intestine.h" />
+    <ClInclude Include="LevelMusic.h" />
     <ClInclude Include="MeatballSpawner.h" />
     <ClInclude Include="BlockTerrain.h" />
     <ClInclude Include="Camera.h" />

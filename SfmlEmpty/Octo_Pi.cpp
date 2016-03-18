@@ -51,7 +51,6 @@ void Octo_Pi::update() {
 
 
 void Octo_Pi::addVector(sf::Vector2f &vector) {
-	
 		mVelocityGoal.x += vector.x;
 		mVelocityGoal.y += vector.y;
 }
@@ -320,4 +319,8 @@ void Octo_Pi::playSound(OCTOSTATE state) {
 
 void Octo_Pi::setPos(sf::Vector2f newPos) {
 	mCollisionBody.setPosition(newPos);
+}
+
+void Octo_Pi::stopAllSound() {
+	mSoundFX.stopAllSound();
 }

@@ -32,6 +32,7 @@ public:
 	virtual void setScale(sf::Vector2f newScale) { mCollisionBody.setScale(newScale); mSprite.setScale(newScale); }
 	virtual int getLife() { return mLife; }
 
+	virtual void stopAllSound();
 
 private:
 	Germ(sf::Vector2f pos);

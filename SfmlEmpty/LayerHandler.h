@@ -25,6 +25,7 @@ public:
 	void renderMiddleground(sf::RenderWindow &window);
 	void renderForeground(sf::RenderWindow &window);
 	void renderHud(sf::RenderWindow &window);
+	void renderVertGradiant(sf::RenderWindow &window);
 
 	void addVerticalBackground(sf::Texture &backgroundTexture);
 	void addHorizontalBackground(sf::Texture &backgroundTexture);
@@ -34,10 +35,13 @@ public:
 	void addLifeSprite(sf::Sprite &life);
 	
 	void addAcid(sf::Texture &acidTexture);
-	
+	void addAcidGradiantVertical(sf::Texture &vertGrad);
+	void addAcidGradiantHoriz(sf::Texture &vertGrad);
 	void updateHud(sf::Vector2f viewCamCoordPos, sf::Vector2f sceneCamCoordPos);
 
 	void updateLife();
+
+	void updateVertGlowAlpha(int alpha);
 
 	void clearLife();
 
@@ -65,7 +69,7 @@ private:
 	
 	Camera mCamera;
 
-	sf::Sprite mBackground, mMiddleground, mForeground;
+	sf::Sprite mBackground, mMiddleground, mForeground, mAcidGlowVert;
 	sf::Vector2f mlocalPos1, mlocalPos2, mLocalPos3;
 	std::vector<sf::Sprite> mBackgrounds, mMiddlegrounds;
 

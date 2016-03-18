@@ -16,6 +16,9 @@ mTextHandler(Texthandler::getInstance()),
 mDecorationhandler(Decorationhandler::getInstance()),
 mDialoguehandler(Dialoguehandler::getInstance()),
 
+	// Music
+	mLevelMusic(LevelMusic::getInstance()),
+
 mCamera(),
 
 mMapName("Stomach"),
@@ -29,6 +32,7 @@ mZoomedOut(false),
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -46,9 +50,14 @@ void Stomach::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
+
+	mLevelMusic.playMusic(LevelMusic::STOMACHMUSIC);
+	mLevelMusic.playMusic(LevelMusic::STOMACHAMBIANCE);
+
 	// Updates independent of state
-	
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -82,10 +91,12 @@ void Stomach::update(sf::RenderWindow &window) {
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
-
+		updateVertGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-		}
+	}
 
 	}
 	if (mLevelState == "Rising") {
@@ -122,8 +133,11 @@ void Stomach::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	
+
+
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
+	mLayerHandler.renderVertGradiant(window);
 	
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -186,8 +200,8 @@ void Stomach::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Stomach::triggerEvent(char type){
-	switch (type){
+void Stomach::triggerEvent(char type) {
+	switch (type) {
 	case 'a':
 		Stomach::eventA();
 		break;
@@ -220,7 +234,7 @@ void Stomach::triggerEvent(char type){
 	}
 }
 
-void Stomach::setCurrentMap(std::string &mapname){
+void Stomach::setCurrentMap(std::string &mapname) {
 }
 
 void Stomach::resetLevel(sf::RenderWindow &window) {
@@ -282,4 +296,19 @@ void Stomach::eventH() {
 		eventGtriggerd = true;
 	}
 
+}
+
+void Stomach::updateVertGradiantAlpha() {
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x -
+			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+	}
 }

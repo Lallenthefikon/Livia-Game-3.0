@@ -16,6 +16,8 @@ Intestine::Intestine() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mLevelMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Intestine"),
@@ -50,6 +52,7 @@ Intestine::Intestine() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -67,12 +70,16 @@ void Intestine::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
 	// Updates independent of state
-
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
+
+	mLevelMusic.playMusic(LevelMusic::INTESTINEMUSIC);
+
 	// Updates depending on state
 	if (mLevelState == "Cutscene") {
 		mCamera.updateStomachCam(window, mLevelState);
@@ -105,6 +112,8 @@ void Intestine::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 

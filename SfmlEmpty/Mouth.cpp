@@ -16,6 +16,8 @@ Mouth::Mouth() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mLevelMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Mouth"),
@@ -29,6 +31,7 @@ Mouth::Mouth() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -46,9 +49,13 @@ void Mouth::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
-	// Updates independent of state
 
+	//mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
+
+	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -74,6 +81,7 @@ void Mouth::update(sf::RenderWindow &window) {
 		mEntityHandler->bringOutTheDead();
 		mTerrainHandler->bringOutTheDead();
 
+
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
@@ -84,6 +92,8 @@ void Mouth::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -234,32 +244,32 @@ void Mouth::resetLevel(sf::RenderWindow &window) {
 
 void Mouth::eventA() {
 	if (!eventAtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventAtriggerd = true;
 	}
 }
 void Mouth::eventB() {
 	if (!eventBtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventB.txt");
 		eventBtriggerd = true;
 	}
 }
 void Mouth::eventC() {
 	if (!eventCtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventC.txt");
 		eventCtriggerd = true;
 	}
 }
 void Mouth::eventD() {
 	if (!eventDtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventD.txt");
 		eventDtriggerd = true;
 	}
@@ -269,8 +279,8 @@ void Mouth::eventE() {
 }
 void Mouth::eventF() {
 	if (!eventFtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventFtriggerd = true;
 	}
@@ -278,8 +288,8 @@ void Mouth::eventF() {
 
 void Mouth::eventG() {
 	if (!eventGtriggerd) {
-		mLevelState = "Dialogue";
-		Dialoguehandler::getInstance().loadDialougehandler('s');
+	mLevelState = "Dialogue";
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
 		eventGtriggerd = true;
 	}

@@ -324,6 +324,10 @@ void LayerHandler::renderBackground(sf::RenderWindow &window){
 	}
 }
 
+void LayerHandler::renderVertGradiant(sf::RenderWindow &window) {
+	window.draw(mAcidGlowVert);
+}
+
 void LayerHandler::renderMiddleground(sf::RenderWindow & window){
 	for (size_t i = 0; i < mMiddlegrounds.size(); i++) {
 		window.draw(mMiddlegrounds[i]);
@@ -430,7 +434,21 @@ void LayerHandler::addAcid(sf::Texture &acidTexture) {
 	mForeground.setScale(4, 1);
 	mForegroundObjects.push_back(mForeground);
 	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
+
 }
+
+void LayerHandler::addAcidGradiantVertical(sf::Texture &vertGrad){
+	mAcidGlowVert.setTextureRect(sf::IntRect(0, 0, 1920, 1347));
+	mAcidGlowVert.setTexture(vertGrad);
+	mAcidGlowVert.setPosition(0, 0);
+}
+
+void LayerHandler::addAcidGradiantHoriz(sf::Texture & vertGrad){
+	mAcidGlowVert.setTextureRect(sf::IntRect(0, 0, 1920, 1080));
+	mAcidGlowVert.setTexture(vertGrad);
+	mAcidGlowVert.setPosition(0, 0);
+}
+
 
 void LayerHandler::animate(){
 	mTimer += ANIFramesPerFrame;
@@ -475,6 +493,10 @@ void LayerHandler::updateLife() {
 	//	}
 	//	ANIFramesPerFrame = 125 / div * Toolbox::getFrameTime();
 	//}
+}
+
+void LayerHandler::updateVertGlowAlpha(int alpha){
+	mAcidGlowVert.setColor(sf::Color(255, 255, 255, alpha));
 }
 
 void LayerHandler::clearLife() {
