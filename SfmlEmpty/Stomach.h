@@ -81,10 +81,10 @@ private:
 	bool eventAtriggerd = false;
 	bool eventBtriggerd = false;
 	bool eventCtriggerd = false;
-	bool eventDtriggerd = false;
-	bool eventEtriggerd = false;
-	bool eventFtriggerd = false;
-	bool eventGtriggerd = false;
-	bool eventHtriggerd = false;
+	//bool eventDtriggerd = false;
+	//bool eventEtriggerd = false;
+	//bool eventFtriggerd = false;
+	//bool eventGtriggerd = false;
+	//bool eventHtriggerd = false;
 	
 };

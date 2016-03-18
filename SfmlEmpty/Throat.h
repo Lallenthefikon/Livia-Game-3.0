@@ -33,11 +33,11 @@ private:
 	Throat();
 	void eventA();
 	void eventB();
-	void eventC();
-	void eventD();
-	void eventE();
-	void eventF();
-	void eventG();
+	//void eventC();
+	//void eventD();
+	//void eventE();
+	//void eventF();
+	//void eventG();
 
 	void updateGradiantAlpha();
 
@@ -77,4 +77,7 @@ private:
 
 	bool mGameOver = false;
 	bool mZoomedOut;
+
+	bool eventAtriggerd = false;
+	bool eventBtriggerd = false;
 };

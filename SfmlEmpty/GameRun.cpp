@@ -1,4 +1,5 @@
 #include "GameRun.h"
+bool PAUSEPRESSED = false;
 
 GameRun::GameRun(std::string &levelDirectory, std::string &levelName){
 	mCurrentLevel = &Hub::getInstance();
@@ -14,7 +15,17 @@ GameRun* GameRun::getInstance(std::string &levelDirectory, std::string &levelNam
 }
 
 void GameRun::update(sf::RenderWindow &window){
-	mCurrentLevel->update(window);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !PAUSEPRESSED) {
+		Toolbox::setGamePaused(!Toolbox::getGamePaused());
+	}
+	else if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P)){
+		PAUSEPRESSED = false;
+	}
+	
+	if (!Toolbox::getGamePaused()) {
+		mCurrentLevel->update(window);
+	}
+		
 }
 
 void GameRun::render(sf::RenderWindow &window){
