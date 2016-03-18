@@ -50,6 +50,8 @@ Throat::Throat() :
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
+	
+	mLevelMusic.stopAllMusic();
 
 }
 
