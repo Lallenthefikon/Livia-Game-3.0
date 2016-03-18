@@ -238,6 +238,7 @@ void Hub::checkIfNewMap(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
 		Hub::eventC();
 		mEventC = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
 		Hub::eventD();
