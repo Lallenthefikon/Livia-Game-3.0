@@ -70,4 +70,12 @@ private:
 
 	bool mGameOver = false;
 	bool mZoomedOut;
+
+	bool eventAtriggerd = false;
+	bool eventBtriggerd = false;
+	bool eventCtriggerd = false;
+	bool eventDtriggerd = false;
+	bool eventEtriggerd = false;
+	bool eventFtriggerd = false;
+	bool eventGtriggerd = false;
 };

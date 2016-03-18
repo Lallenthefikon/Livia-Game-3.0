@@ -122,18 +122,20 @@ void Animations::loadTextures(){
 	}
 
 	// Player FallDying ANI
-	for (int i = 0; i < 8; i++) {
-		mPlayerFallDyingANI.push_back(new sf::Texture);
-		mPlayerFallDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 970, (160 * y)+ 580, 100, 160));
-		mPlayerFallDyingANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mPlayerFallDyingANI.size() == 0) {
+		for (int i = 0; i < 8; i++) {
+			mPlayerFallDyingANI.push_back(new sf::Texture);
+			mPlayerFallDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 970, (160 * y) + 580, 100, 160));
+			mPlayerFallDyingANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
 
 	// Player Dying ANI
 	if (mPlayerDyingANI.size() == 0) {
@@ -152,18 +154,20 @@ void Animations::loadTextures(){
 	}
 
 	// Player Damage ANI
-	for (int i = 0; i < 8; i++) {
-		mPlayerDamageANI.push_back(new sf::Texture);
-		mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
-		mPlayerDamageANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mPlayerDamageANI.size() == 0) {
+		for (int i = 0; i < 8; i++) {
+			mPlayerDamageANI.push_back(new sf::Texture);
+			mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
+			mPlayerDamageANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
 
 	// Player Slide ANI
 	if (mPlayerSlideANI.size() == 0) {
@@ -330,65 +334,66 @@ void Animations::loadTextures(){
 	// Dialogue ANI
 
 	// Livia
-
-	for (int i = 0; i < 32; i++) {
-		mDialogueLiviaANI.push_back(new sf::Texture);
-		mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
-		mDialogueLiviaANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mDialogueLiviaANI.size() == 0) {
+		for (int i = 0; i < 32; i++) {
+			mDialogueLiviaANI.push_back(new sf::Texture);
+			mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+			mDialogueLiviaANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
-
 	// Mansa 
-
-	for (int i = 0; i < 32; i++) {
-		mDialogueMansaANI.push_back(new sf::Texture);
-		mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
-		mDialogueMansaANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mDialogueMansaANI.size() == 0) {
+		for (int i = 0; i < 32; i++) {
+			mDialogueMansaANI.push_back(new sf::Texture);
+			mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+			mDialogueMansaANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
 
 	// Muhnin
-
-	for (int i = 0; i < 32; i++) {
-		mDialogueMuhninANI.push_back(new sf::Texture);
-		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
-		mDialogueMuhninANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mDialogueMuhninANI.size() == 0) {
+		for (int i = 0; i < 31; i++) {
+			mDialogueMuhninANI.push_back(new sf::Texture);
+			mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
+			mDialogueMuhninANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
-
 	// Tummy
-
-	for (int i = 0; i < 32; i++) {
-		mDialogueTummyANI.push_back(new sf::Texture);
-		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
-		mDialogueTummyANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+	if (mDialogueTummyANI.size() == 0) {
+		for (int i = 0; i < 32; i++) {
+			mDialogueTummyANI.push_back(new sf::Texture);
+			mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
+			mDialogueTummyANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
+		x = 0;
+		y = 0;
 	}
-	x = 0;
-	y = 0;
-
 
 	/*mMeatballANI.push_back(new sf::Texture);
 	mMeatballANI[0]->loadFromImage(mMeatballIMG, sf::IntRect(0, 0, 400, 251));*/

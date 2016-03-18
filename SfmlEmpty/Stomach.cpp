@@ -202,21 +202,21 @@ void Stomach::triggerEvent(char type){
 		Stomach::eventC();
 		break;
 
-	case 'd':
-		Stomach::eventD();
-		break;
+	//case 'd':
+	//	Stomach::eventD();
+	//	break;
 
-	case 'e':
-		Stomach::eventE();
-		break;
+	//case 'e':
+	//	Stomach::eventE();
+	//	break;
 
-	case 'f':
-		Stomach::eventF();
-		break;
+	//case 'f':
+	//	Stomach::eventF();
+	//	break;
 
-	case 'g':
-		Stomach::eventG();
-		break;
+	//case 'g':
+	//	Stomach::eventG();
+	//	break;
 
 	default:
 		break;
@@ -253,36 +253,36 @@ void Stomach::eventC() {
 	eventCtriggerd = true;
 }
 }
-void Stomach::eventD() {
-	if (!eventDtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-	eventDtriggerd = true;
-	}
-}
-void Stomach::eventE() {
-		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
-}
-void Stomach::eventF() {
-	if (!eventFtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-	eventFtriggerd = true;
-	}
-}
-
-void Stomach::eventG() {
-	if (!eventGtriggerd) {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-		eventGtriggerd = true;
-	}
-}
-
-void Stomach::eventH() {
-	if (!eventHtriggerd) {
-		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-		eventGtriggerd = true;
-	}
-
-}
+//void Stomach::eventD() {
+//	if (!eventDtriggerd) {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+//	eventDtriggerd = true;
+//	}
+//}
+//void Stomach::eventE() {
+//		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
+//}
+//void Stomach::eventF() {
+//	if (!eventFtriggerd) {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//	eventFtriggerd = true;
+//	}
+//}
+//
+//void Stomach::eventG() {
+//	if (!eventGtriggerd) {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//		eventGtriggerd = true;
+//	}
+//}
+//
+//void Stomach::eventH() {
+//	if (!eventHtriggerd) {
+//		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+//		eventGtriggerd = true;
+//	}
+//
+//}

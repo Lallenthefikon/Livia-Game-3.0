@@ -49,8 +49,6 @@ Mouth::Mouth() :
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
-
-
 }
 
 Mouth::~Mouth() {
@@ -182,6 +180,7 @@ void Mouth::render(sf::RenderWindow &window) {
 void Mouth::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::loadTextures(mMapName);
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
 }
@@ -234,38 +233,52 @@ void Mouth::resetLevel(sf::RenderWindow &window) {
 }
 
 void Mouth::eventA() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	if (!eventAtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventA.txt");
+		eventAtriggerd = true;
+	}
 }
 void Mouth::eventB() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+	if (!eventBtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventB.txt");
+		eventBtriggerd = true;
+	}
 }
 void Mouth::eventC() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+	if (!eventCtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventC.txt");
+		eventCtriggerd = true;
+	}
 }
 void Mouth::eventD() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+	if (!eventDtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventD.txt");
+		eventDtriggerd = true;
+	}
 }
 void Mouth::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	if (!eventEtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventE.txt");
+		eventEtriggerd = true;
+	}
 }
 void Mouth::eventF() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	if (!eventFtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventF.txt");
+		eventFtriggerd = true;
+	}
 }
 
 void Mouth::eventG() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	if (!eventGtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventG.txt");
+		eventGtriggerd = true;
+	}
 }

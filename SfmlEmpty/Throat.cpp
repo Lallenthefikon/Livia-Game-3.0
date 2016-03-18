@@ -29,7 +29,7 @@ Throat::Throat() :
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
-
+	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 
@@ -169,6 +169,8 @@ void Throat::render(sf::RenderWindow &window) {
 	// Hud
 	mLayerHandler.renderHud(window);
 
+	//Foreground
+	window.setView(mCamera.getSceneryView());
 
 	// Dialogue
 	if (mLevelState == "Dialogue") {
@@ -183,6 +185,7 @@ void Throat::render(sf::RenderWindow &window) {
 void Throat::loadLevel() {
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyCurrentLevelName(mMapName);
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
 
@@ -201,25 +204,25 @@ void Throat::triggerEvent(char type){
 		Throat::eventB();
 		break;
 
-	case 'c':
-		Throat::eventC();
-		break;
+	//case 'c':
+	//	Throat::eventC();
+	//	break;
 
-	case 'd':
-		Throat::eventD();
-		break;
+	//case 'd':
+	//	Throat::eventD();
+	//	break;
 
-	case 'e':
-		Throat::eventE();
-		break;
+	//case 'e':
+	//	Throat::eventE();
+	//	break;
 
-	case 'f':
-		Throat::eventF();
-		break;
+	//case 'f':
+	//	Throat::eventF();
+	//	break;
 
-	case 'g':
-		Throat::eventG();
-		break;
+	//case 'g':
+	//	Throat::eventG();
+	//	break;
 
 	default:
 		break;
@@ -237,38 +240,42 @@ void Throat::resetLevel(sf::RenderWindow &window) {
 
 
 void Throat::eventA() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+	if (!eventAtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventA.txt");
+		eventAtriggerd = true;
+	}
 }
 void Throat::eventB() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
+	if (!eventBtriggerd) {
+		mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
+		eventBtriggerd = true;
+	}
 }
-void Throat::eventC() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
-}
-void Throat::eventD() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-}
-void Throat::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-void Throat::eventF() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-
-void Throat::eventG() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
+//void Throat::eventC() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+//}
+//void Throat::eventD() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+//}
+//void Throat::eventE() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}
+//void Throat::eventF() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}
+//
+//void Throat::eventG() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}

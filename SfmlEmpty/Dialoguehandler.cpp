@@ -31,6 +31,7 @@ void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 void Dialoguehandler::updateDialogue() {
 	mDialoguespriteLeft.setTextureRect(sf::IntRect(mDialoguespriteLeft.getLocalBounds().width, 0, -mDialoguespriteLeft.getLocalBounds().width, mDialoguespriteLeft.getLocalBounds().height));
 	
+	if(mCurrentspeaker != INSTRUCTIONS)
 	animate();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		if (mReturnRealesed) {
@@ -148,7 +149,7 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 			mCurrentspeaker = MUHNIN;
 			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
 			mLeftActive = false;
-			ANIFramesPerFrame = 0.5;
+			ANIFramesPerFrame = 0.25;
 		}
 		break;
 	case 'L':
@@ -179,13 +180,17 @@ void Dialoguehandler::loadTexture(char level) {
 	int xIndex;
 	int yIndex;
 	switch (level) {
+	//case 'm':
+	//	xIndex = 1;
+	//	yIndex = 0;
+	//	break;
 	case 's':
 	default:
 		xIndex = 0;
 		yIndex = 0;
 		break;
 	}
-	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUEBOXSHEET), sf::IntRect(xIndex, yIndex, 1000, 200));
+	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::DIALOGUEBOXSHEET), sf::IntRect(1000*xIndex, 200*yIndex, 1000, 200));
 }
 
 void Dialoguehandler::animate() {
