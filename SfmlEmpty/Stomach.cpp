@@ -178,6 +178,8 @@ void Stomach::loadLevel() {
 	//mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
 
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 368, 1920, 1080));
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -190,7 +192,7 @@ void Stomach::loadLevel() {
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(0,0, 1920, 363));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top");
 
 	mLevelState = "Cutscene";
@@ -297,3 +299,18 @@ void Stomach::eventC() {
 //	}
 //
 //}
+
+void Stomach::updateVertGradiantAlpha() {
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x -
+			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+	}
+}

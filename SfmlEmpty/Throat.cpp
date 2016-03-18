@@ -192,6 +192,9 @@ void Throat::loadLevel() {
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1970, 0, 1920, 1347));
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
+
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
 	mLifeSprite.setScale(1.5, 1.5);
@@ -295,3 +298,19 @@ void Throat::eventB() {
 //	Dialoguehandler::getInstance().loadDialougehandler('s');
 //	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 //}
+
+
+void Throat::updateGradiantAlpha() {
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x + mEntityHandler->getEntities().at(0)->getHeight() -
+			mEntityHandler->getEntities().back()->getPos().y;
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+	}
+}

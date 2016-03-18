@@ -408,18 +408,18 @@ void Animations::loadTextures(){
 	}
 	// Tummy
 	if (mDialogueTummyANI.size() == 0) {
-	for (int i = 0; i < 32; i++) {
-		mDialogueTummyANI.push_back(new sf::Texture);
-		mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
-		mDialogueTummyANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+		for (int i = 0; i < 32; i++) {
+			mDialogueTummyANI.push_back(new sf::Texture);
+			mDialogueTummyANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 3200, (500 * y), 400, 500));
+			mDialogueTummyANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 
 	/*mMeatballANI.push_back(new sf::Texture);
