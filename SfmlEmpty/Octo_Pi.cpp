@@ -1,12 +1,11 @@
 #include "Octo_Pi.h"
-
 static float ANIFramesPerFrame(0.5);
 
 Octo_Pi::Octo_Pi(sf::Vector2f pos) :
-	mCurrentAnimation(Animations::getGermWalkingANI()),
+	mCurrentAnimation(Animations::getOcto_PiANI()),
 	mIsOnScreen(true),
 	mAcceleration(8,70),
-	mJumpspeed(30),
+	mJumpspeed(20),
 	mCollisionBodyOffset(-10, -10),
 	mMaxSpeed(4),
 	mIsAlive(true),
@@ -44,14 +43,16 @@ void Octo_Pi::update() {
 	Octo_Pi::updateState();
 	Octo_Pi::animate();
 	Octo_Pi::lerp();
-
-	mCollisionBody.move(mVelocity);
+	if (mState != DAMAGED) {
+		mCollisionBody.move(mVelocity);
+	}
 }
 
 
 
 void Octo_Pi::addVector(sf::Vector2f &vector) {
-	mVelocityGoal += vector;
+		mVelocityGoal.x += vector.x;
+		mVelocityGoal.y += vector.y;
 }
 
 void Octo_Pi::entityCollision(Entity* entity, char direction) {
@@ -62,7 +63,7 @@ void Octo_Pi::entityCollision(Entity* entity, char direction) {
 			break;
 		default:
 			if (mLife > 0)
-			entity->getHit();
+			//entity->getHit();
 			break;
 		}
 		break;
@@ -128,8 +129,7 @@ void Octo_Pi::updateTexturepos() {
 	temp.x -= (mSprite.getLocalBounds().width / 2);
 	temp.y -= (mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(temp);
-	//std::cout << "X: " << mCollisionBody.getPosition().x << std::endl;
-	//std::cout << "Y: " << mCollisionBody.getPosition().y << std::endl;
+	
 }
 
 void Octo_Pi::lerp() {
@@ -141,8 +141,8 @@ void Octo_Pi::lerp() {
 	float differenceX = mVelocityGoal.x - mVelocity.x;
 	float differenceY = mVelocityGoal.y - mVelocity.y;
 
-	if (mVelocityGoal.y > 2500 * Toolbox::getFrameTime()) {
-		mVelocityGoal.y = 2500 * Toolbox::getFrameTime();
+	if (mVelocityGoal.y > 2000 * Toolbox::getFrameTime()) {
+		mVelocityGoal.y = 2000 * Toolbox::getFrameTime();
 	}
 
 	// Interpolates the velocity up from stationary
@@ -180,8 +180,10 @@ void Octo_Pi::lerp() {
 void Octo_Pi::addSpeed() {
 	if (mCollisionT && mVelocity.y < 0)
 		mVelocity.y = 0;
-	if (mCollisionB && mVelocity.y > 0)
-		mVelocity.y = -mJumpspeed;
+	if (mCollisionB && mVelocity.y > 0) {
+		mVelocity.y *= -1;
+		mVelocityGoal.y = -mJumpspeed;
+	}
 	if (mCollisionL && mVelocity.x < 0)
 		mVelocity.x *= -1;
 	if (mCollisionR && mVelocity.x > 0)
@@ -238,13 +240,13 @@ void Octo_Pi::updateANI() {
 	//mCurrentAnimation = Animations::getWormCrawlingANI();
 	switch (mState) {
 	case Octo_Pi::IMBOUNCINGHERE:
-		mCurrentAnimation = Animations::getGermWalkingANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 130));
+		mCurrentAnimation = Animations::getOcto_PiANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 120));
 		mCurrentAnimationRate = 31.250;
 		break;
 	case Octo_Pi::DEATH:
-		mCurrentAnimation = Animations::getGermDamagedANI();
-		mSprite.setTextureRect(sf::IntRect(0, 0, 65, 130));
+		mCurrentAnimation = Animations::getOcto_PiANI();
+		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 120));
 		mCurrentAnimationRate = 15.625;
 		break;
 	default:
@@ -317,4 +319,8 @@ void Octo_Pi::playSound(OCTOSTATE state) {
 
 void Octo_Pi::setPos(sf::Vector2f newPos) {
 	mCollisionBody.setPosition(newPos);
+}
+
+void Octo_Pi::stopAllSound() {
+	mSoundFX.stopAllSound();
 }

@@ -41,6 +41,7 @@ void MapEditorMeny::insertObjects(){
 	// Entities
 	mEntities.push_back(Factory::createGerm(sf::Vector2f(WIDTHBETWEEN * 2.7, 70)));
 	mEntities.back()->setScale(sf::Vector2f(0.6, 0.6));
+	
 	mEntities.push_back(Factory::createPlayer(sf::Vector2f(WIDTHBETWEEN*0.8, 80)));
 	mEntities.back()->setScale(sf::Vector2f(0.6f,0.6f));
 	
@@ -74,6 +75,7 @@ void MapEditorMeny::insertObjects(){
 	
 	mTerrains.push_back(Factory::createGoal(sf::Vector2f(WIDTHBETWEEN * 4.8, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
+	
 	mTerrains.push_back(Factory::createMeatballSpawner(sf::Vector2f(WIDTHBETWEEN * 5.8f, 150)));
 	mTerrains.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 
@@ -82,10 +84,35 @@ void MapEditorMeny::insertObjects(){
 	mTerrains.back()->setScale(sf::Vector2f(0.2, 0.2));
 
 	// Decorations
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 0.8f, 180.f), '1', 'b'));
-	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
-	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 1.8f, 180.f), '0', 'b'));
-	mDecorations.back()->setScale(sf::Vector2f(0.6f, 0.6f));
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 0.8f, 180.f), '0', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+	
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 1.8f, 180.f), '1', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 2.8f, 180.f), '2', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 3.8f, 180.f), '3', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 4.8f, 180.f), '4', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 5.8f, 180.f), '5', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 6.8f, 180.f), '6', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 7.8f, 180.f), '7', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 8.8f, 180.f), '8', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 9.8f, 180.f), '9', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -174,6 +201,30 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 				case Decoration::SAYS:
 					mInsertType = DECORATION1;
 					break;
+				case Decoration::HIGH:
+					mInsertType = DECORATION2;
+					break;
+				case Decoration::FIVE:
+					mInsertType = DECORATION3;
+					break;
+				case Decoration::FOURTWENTYBLAZEITFAGGOT:
+					mInsertType = DECORATION4;
+					break;
+				case Decoration::DANK:
+					mInsertType = DECORATION5;
+					break;
+				case Decoration::SHREK:
+					mInsertType = DECORATION6;
+					break;
+				case Decoration::TRUMP:
+					mInsertType = DECORATION7;
+					break;
+				case Decoration::BERNIE:
+					mInsertType = DECORATION8;
+					break;
+				case Decoration::LIVIA:
+					mInsertType = DECORATION9;
+					break;
 				default:
 					break;
 				}
@@ -198,27 +249,24 @@ void MapEditorMeny::resetMenusPos(sf::Vector2f newPos){
 	// Entities
 	sf::Vector2f offset(0.f, 0.f);
 	for (size_t i = 0; i < mEntities.size(); i++) {
-		if (mEntities[i]->getType() == Entity::PLAYER) {
+		if (mEntities[i]->getType() == Entity::PLAYER)
 			offset = sf::Vector2f(25.f, 20.f);
-		}
-		if (mEntities[i]->getType() == Entity::WORM) {
+		if (mEntities[i]->getType() == Entity::WORM)
 			offset = sf::Vector2f(4.2f, 60.f);
-		}
-		if (mEntities[i]->getType() == Entity::ACIDMONSTER) {
+		if (mEntities[i]->getType() == Entity::ACIDMONSTER)
 			offset = sf::Vector2f(28.f, 60.f);
-		}
-		if (mEntities[i]->getType() == Entity::MEATBALL) {
+		if (mEntities[i]->getType() == Entity::MEATBALL)
 			offset = sf::Vector2f(23.f, 40.f);
-		}
-		if (mEntities[i]->getType() == Entity::EXTRALIFE) {
+		if (mEntities[i]->getType() == Entity::EXTRALIFE)
 			offset = sf::Vector2f(8.f, 7.f);
-		}
+		if (mEntities[i]->getType() == Entity::GERM)
+			offset = sf::Vector2f(15.f, 20.f);
 		mEntities[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + offset.x, newPos.y + offset.y));
 	}
 
 	// Block0 
 	for (size_t i = 0; i < mTerrains.size(); i++)
-	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 2, newPos.y + 100));
+	mTerrains[i]->setPos(sf::Vector2f(newPos.x + WIDTHBETWEEN * i + 6, newPos.y + 100));
 
 	// Decorations
 	for (size_t i = 0; i < mDecorations.size(); i++)

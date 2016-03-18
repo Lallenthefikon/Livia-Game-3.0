@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+#include "LevelMusic.h"
 
 class Level{
 public:

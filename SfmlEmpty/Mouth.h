@@ -11,6 +11,7 @@
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "AddObjectsDuringGame.h"
 #include "GameRun.h"
 
 
@@ -54,6 +55,9 @@ private:
 	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
+
+	// Music
+	LevelMusic& mLevelMusic;
 
 	// Level Info
 	sf::FloatRect mLevelBounds;

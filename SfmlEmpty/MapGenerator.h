@@ -45,7 +45,7 @@ private:
 	
 	
 	// Decoration
-	void createDecoration(sf::Vector2f pos, char id, char layer);
+	void createDecoration(sf::Vector2f pos, char id, char layer, char rotation);
 	void createEvent(sf::Vector2f pos,Level *level, char eventType, sf::Vector2f size);
 	
 	void createCollisionBlocks();

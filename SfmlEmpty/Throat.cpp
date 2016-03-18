@@ -16,6 +16,8 @@ Throat::Throat() :
 	mDecorationhandler(Decorationhandler::getInstance()),
 	mDialoguehandler(Dialoguehandler::getInstance()),
 
+	mLevelMusic(LevelMusic::getInstance()),
+
 	mCamera(),
 
 	mMapName("Throat"),
@@ -65,9 +67,13 @@ void Throat::update(sf::RenderWindow &window) {
 	while (window.pollEvent(gEvent)) {
 		if (gEvent.type == sf::Event::Closed)
 			window.close();
+		if (gEvent.key.code == sf::Keyboard::R)
+			resetLevel(window);
 	}
-	// Updates independent of state
 
+	mLevelMusic.playMusic(LevelMusic::THROATMUSIC);
+	
+	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
 	}
@@ -101,12 +107,14 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
-
+		updateGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+			mLevelMusic.stopAllMusic();
+			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -123,7 +131,7 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset") {
@@ -143,13 +151,8 @@ void Throat::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
-	// Middleground
-	mLayerHandler.renderMiddleground(window);
-
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
-
-
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -161,7 +164,6 @@ void Throat::render(sf::RenderWindow &window) {
 	// Entities
 	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
-
 
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
@@ -178,15 +180,27 @@ void Throat::render(sf::RenderWindow &window) {
 
 	}
 
-
 	window.display();
 }
 
 void Throat::loadLevel() {
 	Toolbox::loadTextures(mMapName);
+	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
+
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::THROATBACKGROUND));
+	mLayerHandler.addVerticalBackground(mBackgroundTexture);
+
+	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
 	mLevelState = "Cutscene";
 
 }
@@ -241,17 +255,17 @@ void Throat::resetLevel(sf::RenderWindow &window) {
 
 void Throat::eventA() {
 	if (!eventAtriggerd) {
-		mLevelState = "Dialogue";
+	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventA.txt");
 		eventAtriggerd = true;
 	}
 }
 void Throat::eventB() {
 	if (!eventBtriggerd) {
-		mLevelState = "Dialogue";
+	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
 		eventBtriggerd = true;
-	}
+}
 }
 //void Throat::eventC() {
 //	mLevelState = "Dialogue";

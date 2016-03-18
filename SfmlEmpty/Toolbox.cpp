@@ -8,10 +8,11 @@ static sf::Vector2f mPlayerPosition;
 static bool mPlayerAlive;
 static int mPlayerHealth;
 static float mFrameTime(0);
+static float staticFrametime(0.0180);
 
 // Level Info
 static std::string mCurrentLevelName;
-static sf::Vector2f mGravity(0, 125);
+static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
 
@@ -24,11 +25,28 @@ static sf::Image mDialogueTexture;
 static sf::Image mMeatballTexture;
 static sf::Image mMeatballSpawnerTexture;
 
+// Stomach
 static sf::Image mAcidMonsterHorizontalTexture;
 static sf::Image mAcidMonsterVerticalTexture;
 static sf::Image mStomachBackgroundTexture;
 static sf::Image mStomachMiddlegroundTexture;
 static sf::Image mAcidBottom;
+
+// Hub
+static sf::Image mHubBackground;
+
+// Throat
+static sf::Image mThroatBackground;
+static sf::Image mThroatMiddleground;
+
+// Mouth
+static sf::Image mMouthBackground;
+static sf::Image mMouthMiddleground;
+
+// Intestine
+static sf::Image mIntestineBackground;
+
+
 static sf::Image mLifeTexture;
 
 static sf::Image mTileTexture;
@@ -53,6 +71,7 @@ static sf::SoundBuffer mPlayerJumpSound3;
 static sf::SoundBuffer mPlayerDamagedSound;
 static sf::SoundBuffer mPlayerDeathSound;
 static sf::SoundBuffer mPlayerFallDeathSound;
+static sf::SoundBuffer mPlayerDrownSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
@@ -62,20 +81,23 @@ static sf::SoundBuffer mTummyRunningSound;
 
 static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
+static sf::Music mThroatMusic;
+static sf::Music mHubMusic;
 static sf::SoundBuffer mAirHorn;
 
 // Fonts
 static sf::Font mGameOverFont;
+
+static bool mPaused;
 
 Toolbox& Toolbox::getInstance(){
 	static Toolbox toolbox;
 	return toolbox;
 }
 
-void Toolbox::loadTextures(std::string levelName){
+void Toolbox::loadTextures(std::string levelName) {
 
-
-	if(mStomachBackgroundTexture.getSize().x <= 0)
+	if (mStomachBackgroundTexture.getSize().x <= 0)
 		mStomachBackgroundTexture.loadFromFile("resources/images/background/Magsack mork suddig.png");
 		
 	if (mStomachMiddlegroundTexture.getSize().x <= 0)
@@ -85,7 +107,25 @@ void Toolbox::loadTextures(std::string levelName){
 		mAcidBottom.loadFromFile("resources/images/background/Magsyra suddig gulare.png");
 		
 	if (mDecorationTexture.getSize().x <= 0)
-		mDecorationTexture.loadFromFile("resources/images/decoration/decoration_spritesheet.png");
+		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
+
+	if (mHubBackground.getSize().x <= 0)
+		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
+	
+	if (mThroatBackground.getSize().x <= 0)
+		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
+
+	if (mThroatBackground.getSize().x <= 0)
+		mThroatMiddleground.loadFromFile("resources/images/background/Strupe kant h.png");
+
+	if (mMouthBackground.getSize().x <= 0)
+		mMouthBackground.loadFromFile("resources/images/background/mun bakgr suddif 0.2.png");
+
+	if (mMouthMiddleground.getSize().x <= 0)
+		mMouthMiddleground.loadFromFile("resources/images/background/Tänder.png");
+
+	if (mIntestineBackground.getSize().x <= 0)
+		mIntestineBackground.loadFromFile("resources/images/background/Tarm bakgrund.png");
 
 	if (mEnemy0sheet.getSize().x <= 0)
 	mEnemy0sheet.loadFromFile("resources/images/entities/Current_Enemy0_sheet.png");
@@ -102,7 +142,7 @@ void Toolbox::loadTextures(std::string levelName){
 	if (mAcidMonsterHorizontalTexture.getSize().x <= 0)
 		mAcidMonsterHorizontalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Horizontal.png");
 
-	if(mAcidMonsterVerticalTexture.getSize().x <= 0)
+	if (mAcidMonsterVerticalTexture.getSize().x <= 0)
 	mAcidMonsterVerticalTexture.loadFromFile("resources/images/entities/tummy/Tummy_Vertical.png");
 
 	if (mTileTexture.getSize().x <= 0)
@@ -114,16 +154,19 @@ void Toolbox::loadTextures(std::string levelName){
 	if (mLifeTexture.getSize().x <= 0)
 	mLifeTexture.loadFromFile("resources/images/hud/Heart spritesheet.png");
 
-	if(mMeatballTexture.getSize().x <= 0)
+	if (mMeatballTexture.getSize().x <= 0)
 	mMeatballTexture.loadFromFile("resources/images/entities/Meatball_projectile_Spritesheet.png");
 	
 	if (mMeatballSpawnerTexture.getSize().x <= 0)
 	mMeatballSpawnerTexture.loadFromFile("resources/images/terrain/meatball_spawner.png");
 
-	if (mDialogueTexture.getSize().x <= 0)
+	if (mDialogueTexture.getSize().x <= 0) {
 	mDialogueTexture.loadFromFile("resources/images/dialogue/Dialogue-bubble.png");
+	
+	if (mDialogueBoxSpriteSheetIMG.getSize().x <= 0)
 	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
 	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
+	}
 
 }
 
@@ -136,6 +179,8 @@ void Toolbox::loadSounds(std::string levelName) {
 		// Music and ambience
 		mStomachMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
+		mThroatMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
+		mHubMusic.openFromFile("resources/sounds/music/hub/Hub.ogg");
 
 	// Global effects
 	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
@@ -148,6 +193,7 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerFallDeathSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Fall_01.ogg");
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall jump/wall_01.ogg");
 	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
+	mPlayerDrownSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Drown_01.ogg");
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
@@ -200,7 +246,31 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 		break;
 
 	case HUBBACKGROUND:
-		return mStomachBackgroundTexture;
+		return mHubBackground;
+		break;
+
+	case THROATBACKGROUND:
+		return mThroatBackground;
+		break;
+
+	case THROATMIDDLEGROUNDRIGHT:
+		return mThroatMiddleground;
+		break;
+
+	case THROATMIDDLEGROUNDLEFT:
+		return mThroatMiddleground;
+		break;
+
+	case MOUTHBACKGROUND:
+		return mMouthBackground;
+		break;
+
+	case MOUTHMIDDLEGROUND:
+		return mMouthMiddleground;
+		break;
+
+	case INTESTINEBACKGROUND:
+		return mIntestineBackground;
 		break;
 
 	case LIFETEXTURE:
@@ -373,6 +443,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERWALLSLIDE:
 		return mPlayerWallSlideSound;
 		break;
+	case Toolbox::PLAYERDROWN:
+		return mPlayerDrownSound;
+		break;
 	case Toolbox::WORMIDLE:
 		return mAirHorn;		// Temporary lol (Jk, Final)
 		break;
@@ -401,12 +474,18 @@ sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
 	case Toolbox::STOMACHMUSIC:
 		return mStomachMusic;
 		break;
+	case Toolbox::THROATMUSIC:
+		return mThroatMusic;
+		break;
+	case Toolbox::HUBMUSIC:
+		return mHubMusic;
+		break;
 	default:
 		break;
 	}
 }
 
-sf::Font & Toolbox::getFont(FONTKEY fontKey) {
+sf::Font& Toolbox::getFont(FONTKEY fontKey) {
 	switch (fontKey) {
 	case Toolbox::GAMEOVER:
 		return mGameOverFont;
@@ -428,7 +507,8 @@ void Toolbox::copyFrameTime(float &frameTime) {
 }
 
 float& Toolbox::getFrameTime() {
-	return mFrameTime;
+	//return mFrameTime;
+	return staticFrametime;
 }
 
 void Toolbox::copyGravity(sf::Vector2f &gravity) {
@@ -438,4 +518,12 @@ void Toolbox::copyGravity(sf::Vector2f &gravity) {
 sf::Vector2f& Toolbox::getGravity() {
 	return mGravity;
 	//std::cout << "Gravity Y: " << mGravity.y << std::endl;
+}
+
+void Toolbox::setGamePaused(bool isPaused) {
+	mPaused = isPaused;
+}
+
+bool Toolbox::getGamePaused() {
+	return mPaused;
 }
