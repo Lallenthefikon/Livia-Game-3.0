@@ -297,11 +297,11 @@ void MapEditor::createMeatballSpawner(sf::Vector2f mousepos) {
 }
 
 // Decorations
-void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer) {
+void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer, char rotation) {
 	if (id == '0') {	// Lol
 		mAirHorn.play();
 	}
-	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer));
+	mDecorations.push_back(Factory::createDecoration(mousepos, id, layer, rotation));
 }
 
 
@@ -362,10 +362,34 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		MapEditor::createGoal(mousePos);
 		break;
 	case MapEditorMeny::DECORATION0:
-		MapEditor::createDecoration(mousePos, '0', mDecorationLayer);
+		MapEditor::createDecoration(mousePos, '0', mDecorationLayer, mRotDirection);
 		break;
 	case MapEditorMeny::DECORATION1:
-		MapEditor::createDecoration(mousePos, '1', mDecorationLayer);
+		MapEditor::createDecoration(mousePos, '1', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION2:
+		MapEditor::createDecoration(mousePos, '2', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION3:
+		MapEditor::createDecoration(mousePos, '3', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION4:
+		MapEditor::createDecoration(mousePos, '4', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION5:
+		MapEditor::createDecoration(mousePos, '5', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION6:
+		MapEditor::createDecoration(mousePos, '6', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION7:
+		MapEditor::createDecoration(mousePos, '7', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION8:
+		MapEditor::createDecoration(mousePos, '8', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION9:
+		MapEditor::createDecoration(mousePos, '9', mDecorationLayer, mRotDirection);
 		break;
 	case MapEditorMeny::MEATBALL:
 		MapEditor::createMeatball(mousePos);
@@ -431,12 +455,36 @@ void MapEditor::changeInsertType(){
 		mInsertType = MapEditorMeny::DECORATION0;
 		break;
 	case MapEditorMeny::DECORATION0:
-		mInsertType = MapEditorMeny::EVENT;
-		break;
-	case MapEditorMeny::EVENT:
 		mInsertType = MapEditorMeny::DECORATION1;
 		break;
 	case MapEditorMeny::DECORATION1:
+		mInsertType = MapEditorMeny::DECORATION2;
+		break;
+	case MapEditorMeny::DECORATION2:
+		mInsertType = MapEditorMeny::DECORATION3;
+		break;
+	case MapEditorMeny::DECORATION3:
+		mInsertType = MapEditorMeny::DECORATION4;
+		break;
+	case MapEditorMeny::DECORATION4:
+		mInsertType = MapEditorMeny::DECORATION5;
+		break;
+	case MapEditorMeny::DECORATION5:
+		mInsertType = MapEditorMeny::DECORATION6;
+		break;
+	case MapEditorMeny::DECORATION6:
+		mInsertType = MapEditorMeny::DECORATION7;
+		break;
+	case MapEditorMeny::DECORATION7:
+		mInsertType = MapEditorMeny::DECORATION8;
+		break;
+	case MapEditorMeny::DECORATION8:
+		mInsertType = MapEditorMeny::DECORATION9;
+		break;
+	case MapEditorMeny::DECORATION9:
+		mInsertType = MapEditorMeny::EVENT;
+		break;
+	case MapEditorMeny::EVENT:
 		mInsertType = MapEditorMeny::MEATBALLSPAWNER;
 		break;
 	case MapEditorMeny::MEATBALLSPAWNER:
@@ -739,6 +787,30 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 			case Decoration::SAYS:
 				output.push_back('1');
 				break;
+			case Decoration::HIGH:
+				output.push_back('2');
+				break;
+			case Decoration::FIVE:
+				output.push_back('3');
+				break;
+			case Decoration::FOURTWENTYBLAZEITFAGGOT:
+				output.push_back('4');
+				break;
+			case Decoration::DANK:
+				output.push_back('5');
+				break;
+			case Decoration::SHREK:
+				output.push_back('6');
+				break;
+			case Decoration::TRUMP:
+				output.push_back('7');
+				break;
+			case Decoration::BERNIE:
+				output.push_back('8');
+				break;
+			case Decoration::LIVIA:
+				output.push_back('9');
+				break;
 			default:
 				break;
 			}
@@ -752,6 +824,7 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 			default:
 				break;
 			}
+			output.push_back(mDecorations[i]->getRotation());
 			output.push_back('|');
 
 			// Inserts xpos into output followed by a ','

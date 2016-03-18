@@ -26,6 +26,7 @@ void LiviaSound::initialize() {
 	mSounds.insert({ FALLDEATH, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERFALLDEATH)) });
 	mSounds.insert({ WALLSLIDE, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERWALLSLIDE)) });
 	mSounds.insert({ LANDING, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERLAND)) });
+	mSounds.insert({ DROWN, new sf::Sound(Toolbox::getSound(Toolbox::SOUNDKEY::PLAYERDROWN)) });
 	mSounds[RUNNING]->setLoop(true);
 	mSounds[WALLSLIDE]->setLoop(true);
 
@@ -35,6 +36,7 @@ void LiviaSound::initialize() {
 	mSounds[JUMPING2]->setVolume(33);
 	mSounds[JUMPING3]->setVolume(33);
 	mSounds[DEATH]->setVolume(75);
+	mSounds[DROWN]->setVolume(60);
 }
 
 void LiviaSound::finalize() {
@@ -96,6 +98,10 @@ void LiviaSound::playSound(SOUNDTYPE type) {
 			mSounds[WALLSLIDE]->play();
 		break;
 
+	case SoundFX::DROWN:
+			mSounds[DROWN]->play();
+		break;
+
 	default:
 		break;
 	}
@@ -146,6 +152,11 @@ void LiviaSound::stopSound(SOUNDTYPE type) {
 	case SoundFX::WALLSLIDE:
 		if (mSounds[WALLSLIDE]->getStatus() == sf::Sound::Status::Playing)
 			mSounds[WALLSLIDE]->stop();
+		break;
+
+	case SoundFX::DROWN:
+		if (mSounds[DROWN]->getStatus() == sf::Sound::Status::Playing)
+			mSounds[DROWN]->stop();
 		break;
 
 	default:

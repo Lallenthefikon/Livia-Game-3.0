@@ -46,6 +46,14 @@ Animations::Textures mSpikesANI;
 
 Animations::Textures mDecoration0ANI;
 Animations::Textures mDecoration1ANI;
+Animations::Textures mDecoration2ANI;
+Animations::Textures mDecoration3ANI;
+Animations::Textures mDecoration4ANI;
+Animations::Textures mDecoration5ANI;
+Animations::Textures mDecoration6ANI;
+Animations::Textures mDecoration7ANI;
+Animations::Textures mDecoration8ANI;
+Animations::Textures mDecoration9ANI;
 
 Animations::Textures mDialogueLiviaANI; 
 Animations::Textures mDialogueMansaANI;
@@ -60,17 +68,17 @@ void Animations::loadTextures(){
 	if (mPlayerRunningANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
 
-			mPlayerRunningANI.push_back(new sf::Texture);
-			mPlayerRunningANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, 140 * y, 100, 140));
-			mPlayerRunningANI[i]->setSmooth(true);
-			x++;
+		mPlayerRunningANI.push_back(new sf::Texture);
+		mPlayerRunningANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, 140 * y, 100, 140));
+		mPlayerRunningANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 
@@ -78,50 +86,50 @@ void Animations::loadTextures(){
 	if (mPlayerJumpingANI.size() == 0) {
 		for (int i = 0; i < 8; i++) {
 
-			mPlayerJumpingANI.push_back(new sf::Texture);
-			mPlayerJumpingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, (160 * y) + 560, 100, 160));
-			mPlayerJumpingANI[i]->setSmooth(true);
-			x++;
+		mPlayerJumpingANI.push_back(new sf::Texture);
+		mPlayerJumpingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect(100 * x, (160 * y) + 560, 100, 160));
+		mPlayerJumpingANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Player idle ANI
 	if (mPlayerIdleANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
 
-			mPlayerIdleANI.push_back(new sf::Texture);
-			mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 340, 70, 140));
-			mPlayerIdleANI[i]->setSmooth(true);
-			x++;
+		mPlayerIdleANI.push_back(new sf::Texture);
+		mPlayerIdleANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((70 * x) + 400, (140 * y) + 340, 70, 140));
+		mPlayerIdleANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Player falling ANI
 	if (mPlayerFallingANI.size() == 0) {
 		for (int i = 0; i < 8; i++) {
-			mPlayerFallingANI.push_back(new sf::Texture);
-			mPlayerFallingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 400, (160 * y), 100, 160));
-			mPlayerFallingANI[i]->setSmooth(true);
-			x++;
+		mPlayerFallingANI.push_back(new sf::Texture);
+		mPlayerFallingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 400, (160 * y), 100, 160));
+		mPlayerFallingANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Player FallDying ANI
@@ -141,17 +149,17 @@ void Animations::loadTextures(){
 	// Player Dying ANI
 	if (mPlayerDyingANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
-			mPlayerDyingANI.push_back(new sf::Texture);
+		mPlayerDyingANI.push_back(new sf::Texture);
 			mPlayerDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((188 * x) + 800, (140 * y), 188, 140));
-			mPlayerDyingANI[i]->setSmooth(true);
-			x++;
+		mPlayerDyingANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Player Damage ANI
@@ -170,83 +178,83 @@ void Animations::loadTextures(){
 
 	// Player Slide ANI
 	if (mPlayerSlideANI.size() == 0) {
-		for (int i = 0; i < 8; i++){
-				mPlayerSlideANI.push_back(new sf::Texture);
-				mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 700, (140 * y) + 600, 67, 140));
-				mPlayerSlideANI[i]->setSmooth(true);
-				x++;
-				if (x == 4){
-					x = 0;
-					y++;
-				}
-			}
+	for (int i = 0; i < 8; i++){
+		mPlayerSlideANI.push_back(new sf::Texture);
+		mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 700, (140 * y) + 600, 67, 140));
+		mPlayerSlideANI[i]->setSmooth(true);
+		x++;
+		if (x == 4){
 			x = 0;
-			y = 0;
+			y++;
+		}
 	}
-	
+	x = 0;
+	y = 0;
+	}
+
 
 	// Worm crawling ANI
 	if (mWormCrawlingANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
-			mWormCrawlingANI.push_back(new sf::Texture);
-			mWormCrawlingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y), 75, 35));
-			mWormCrawlingANI[i]->setSmooth(true);
-			x++;
+		mWormCrawlingANI.push_back(new sf::Texture);
+		mWormCrawlingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y), 75, 35));
+		mWormCrawlingANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Worm Dying ANI
 	if (mWormDyingANI.size() == 0) {
 		for (int i = 0; i < 8; i++) {
-			mWormDyingANI.push_back(new sf::Texture);
-			mWormDyingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
-			mWormDyingANI[i]->setSmooth(true);
-			x++;
+		mWormDyingANI.push_back(new sf::Texture);
+		mWormDyingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
+		mWormDyingANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Germ Walking ANI
 	if (mGermWalkingANI.size() == 0) {
-		for (int i = 0; i < 16; i++) {
-			mGermWalkingANI.push_back(new sf::Texture);
-			mGermWalkingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x), (130 * y) + 216, 80, 130));
-			mGermWalkingANI[i]->setSmooth(true);
-			x++;
-			if (x == 4) {
-				x = 0;
-				y++;
-			}
+	for (int i = 0; i < 16; i++) {
+		mGermWalkingANI.push_back(new sf::Texture);
+		mGermWalkingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x), (130 * y) + 216, 80, 130));
+		mGermWalkingANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Germ damaged ANI
 	if (mGermDamagedANI.size() == 0) {
-		for (int i = 0; i < 8; i++) {
-			mGermDamagedANI.push_back(new sf::Texture);
-			mGermDamagedANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((65 * x) + 333, (130 * y) + 200, 65, 130));
-			mGermDamagedANI[i]->setSmooth(true);
-			x++;
-			if (x == 4) {
-				x = 0;
-				y++;
-			}
+	for (int i = 0; i < 8; i++) {
+		mGermDamagedANI.push_back(new sf::Texture);
+		mGermDamagedANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((65 * x) + 333, (130 * y) + 200, 65, 130));
+		mGermDamagedANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Octo ani
@@ -268,82 +276,82 @@ void Animations::loadTextures(){
 	// Acidmonster ANI
 	if (mAcidMonsterHorizontalANI.size() == 0) {
 		for (int i = 0; i < 32; i++) {
-			mAcidMonsterHorizontalANI.push_back(new sf::Texture);
-			mAcidMonsterHorizontalANI[i]->loadFromImage(mAcidMonsterHorizontalIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
-			mAcidMonsterHorizontalANI[i]->setSmooth(true);
-			x++;
+	mAcidMonsterHorizontalANI.push_back(new sf::Texture);
+		mAcidMonsterHorizontalANI[i]->loadFromImage(mAcidMonsterHorizontalIMG, sf::IntRect((1131 * x), (1200 * y), 1131, 1200));
+		mAcidMonsterHorizontalANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Acidmonster vertical ANI
 	if (mAcidMonsterVerticalANI.size() == 0) {
 		for (int i = 0; i < 31; i++) {
-			mAcidMonsterVerticalANI.push_back(new sf::Texture);
-			mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterVerticalIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
-			mAcidMonsterVerticalANI[i]->setSmooth(true);
-			x++;
-			if (x == 4) {
-				x = 0;
-				y++;
-			}
+		mAcidMonsterVerticalANI.push_back(new sf::Texture);
+		mAcidMonsterVerticalANI[i]->loadFromImage(mAcidMonsterVerticalIMG, sf::IntRect((1920 * x), (1212 * y), 1920, 1212));
+		mAcidMonsterVerticalANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 
 	// Heart ANI
 	if (mHeartANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
-			mHeartANI.push_back(new sf::Texture);
-			mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((75 * x), (100 * y), 75, 100));
-			mHeartANI[i]->setSmooth(true);
-			x++;
+		mHeartANI.push_back(new sf::Texture);
+		mHeartANI[i]->loadFromImage(mHeartIMG, sf::IntRect((75 * x), (100 * y), 75, 100));
+		mHeartANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Spikes ANI
 	if (mSpikesANI.size() == 0) {
 		for (int i = 0; i < 16; i++) {
-			mSpikesANI.push_back(new sf::Texture);
-			mSpikesANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((96 * x) + 300, (50 * y), 96, 50));
-			mSpikesANI[i]->setSmooth(true);
-			x++;
+		mSpikesANI.push_back(new sf::Texture);
+		mSpikesANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((96 * x) + 300, (50 * y), 96, 50));
+		mSpikesANI[i]->setSmooth(true);
+		x++;
 			if (x == 4) {
-				x = 0;
-				y++;
-			}
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Meatball ANI
 	if (mMeatballANI.size() == 0) {
-		for (int i = 0; i < 16; i++) {
-			mMeatballANI.push_back(new sf::Texture);
-			mMeatballANI[i]->loadFromImage(mMeatballIMG, sf::IntRect((200 * x), (200 * y), 200, 200));
-			mMeatballANI[i]->setSmooth(true);
-			x++;
-			if (x == 4) {
-				x = 0;
-				y++;
-			}
+	for (int i = 0; i < 16; i++) {
+		mMeatballANI.push_back(new sf::Texture);
+		mMeatballANI[i]->loadFromImage(mMeatballIMG, sf::IntRect((200 * x), (200 * y), 200, 200));
+		mMeatballANI[i]->setSmooth(true);
+		x++;
+		if (x == 4) {
+			x = 0;
+			y++;
 		}
-		x = 0;
-		y = 0;
+	}
+	x = 0;
+	y = 0;
 	}
 
 	// Dialogue ANI
@@ -415,19 +423,47 @@ void Animations::loadTextures(){
 	// Decoration sprite
 	if (mDecoration0ANI.size() == 0) {
 		mDecoration0ANI.push_back(new sf::Texture);
-		mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 100, 100));
+		mDecoration0ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 0, 300, 300));
 	}
-
 	if (mDecoration1ANI.size() == 0) {
 		mDecoration1ANI.push_back(new sf::Texture);
-		mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(100, 0, 100, 200));
+		mDecoration1ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 0, 300, 300));
 	}
-
-
-
+	if (mDecoration2ANI.size() == 0) {
+		mDecoration2ANI.push_back(new sf::Texture);
+		mDecoration2ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 0, 300, 300));
+	}
+	if (mDecoration3ANI.size() == 0) {
+		mDecoration3ANI.push_back(new sf::Texture);
+		mDecoration3ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 0, 300, 300));
+	}
+	if (mDecoration4ANI.size() == 0) {
+		mDecoration4ANI.push_back(new sf::Texture);
+		mDecoration4ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 0, 300, 300));
+	}
+	if (mDecoration5ANI.size() == 0) {
+		mDecoration5ANI.push_back(new sf::Texture);
+		mDecoration5ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(0, 300, 300, 300));
+	}
+	if (mDecoration6ANI.size() == 0) {
+		mDecoration6ANI.push_back(new sf::Texture);
+		mDecoration6ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(300, 300, 300, 300));
+	}
+	if (mDecoration7ANI.size() == 0) {
+		mDecoration7ANI.push_back(new sf::Texture);
+		mDecoration7ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(600, 300, 300, 300));
+	}
+	if (mDecoration8ANI.size() == 0) {
+		mDecoration8ANI.push_back(new sf::Texture);
+		mDecoration8ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(900, 300, 300, 300));
+	}
+	if (mDecoration9ANI.size() == 0) {
+		mDecoration9ANI.push_back(new sf::Texture);
+		mDecoration9ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 300, 300, 300));
+	}
 }
-// Player ANI
 
+// Player ANI
 Animations::Textures* Animations::getPlayerRunningANI(){
 	return &mPlayerRunningANI;
 }
@@ -515,6 +551,38 @@ Animations::Textures* Animations::getDecoration0ANI(){
 
 Animations::Textures* Animations::getDecoration1ANI() {
 	return &mDecoration1ANI;
+}
+
+Animations::Textures* Animations::getDecoration2ANI() {
+	return &mDecoration2ANI;
+}
+
+Animations::Textures* Animations::getDecoration3ANI() {
+	return &mDecoration3ANI;
+}
+
+Animations::Textures* Animations::getDecoration4ANI() {
+	return &mDecoration4ANI;
+}
+
+Animations::Textures* Animations::getDecoration5ANI() {
+	return &mDecoration5ANI;
+}
+
+Animations::Textures* Animations::getDecoration6ANI() {
+	return &mDecoration6ANI;
+}
+
+Animations::Textures* Animations::getDecoration7ANI() {
+	return &mDecoration7ANI;
+}
+
+Animations::Textures* Animations::getDecoration8ANI() {
+	return &mDecoration8ANI;
+}
+
+Animations::Textures* Animations::getDecoration9ANI() {
+	return &mDecoration9ANI;
 }
 
 // Dialogue ANI

@@ -441,7 +441,7 @@ void Player::updateState() {
 	bool changed(false);
 
 	// Player dies from damage
-	if (mLife <= 0 && mState != DEATH && mState != FALLDEATH) {
+	if (mLife <= 0 && mState != DEATH && mState != FALLDEATH && mState != DROWN) {
 		if (mState == FALLING || mState == JUMPING) {
 			mState = DEATH;
 			changed = true;
@@ -457,10 +457,14 @@ void Player::updateState() {
 	}
 	// Player falls to death
 	else if (mFallenOutsideBounds && mState != FALLDEATH && mState != DEATH){
-		mState = FALLDEATH;
+		mLife = 0;
+		if (Toolbox::getCurrentLevelName() == "Stomach") {
+			mState = DROWN;
+		} else
+			mState = FALLDEATH;
 		changed = true;
 		Player::stopSound(RUNNING);
-		Player::playSound(FALLDEATH);
+		Player::playSound(mState);
 	}
 
 	if (mState == WALLSTUCK) {
@@ -749,6 +753,9 @@ void Player::playSound(PLAYERSTATE state) {
 	case Player::FALLDEATH:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::FALLDEATH);
 		break;
+	case Player::DROWN:
+		mSoundFX.playSound(SoundFX::SOUNDTYPE::DROWN);
+		break;
 	case Player::WALLSTUCK:
 		mSoundFX.playSound(SoundFX::SOUNDTYPE::WALLSLIDE);
 		break;
@@ -837,4 +844,8 @@ void Player::checkPlayerWithinBounds(){
 	/*if (mPlayerCoordPos.y >= Toolbox::getLevelBounds().height){
 		mLife = 0;
 	}*/
+}
+
+void Player::stopAllSound() {
+	mSoundFX.stopAllSound();
 }

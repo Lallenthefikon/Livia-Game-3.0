@@ -59,6 +59,9 @@ private:
 	sf::Sprite mLifeSprite;
 	sf::Texture mVertAcidGradiant;
 
+	// Music
+	LevelMusic& mLevelMusic;
+
 	// Level Info
 	sf::FloatRect mLevelBounds;
 	sf::Sprite mAcidSprite;
