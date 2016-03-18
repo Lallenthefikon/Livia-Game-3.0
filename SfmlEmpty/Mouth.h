@@ -11,6 +11,7 @@
 #include "Toolbox.h"
 #include "Camera.h"
 #include "Level.h"
+#include "AddObjectsDuringGame.h"
 #include "GameRun.h"
 
 
@@ -73,4 +74,12 @@ private:
 
 	bool mGameOver = false;
 	bool mZoomedOut;
+
+	bool eventAtriggerd = false;
+	bool eventBtriggerd = false;
+	bool eventCtriggerd = false;
+	bool eventDtriggerd = false;
+	bool eventEtriggerd = false;
+	bool eventFtriggerd = false;
+	bool eventGtriggerd = false;
 };

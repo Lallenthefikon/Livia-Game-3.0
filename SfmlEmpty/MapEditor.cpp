@@ -4,7 +4,7 @@
 #include <sstream>
 
 MapEditor::MapEditor(std::string &levelDirectory, std::string &levelName) :
-mMapDimensionsTiles(100, 100), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
+mMapDimensionsTiles(1000, 50), //Design, 250/350 för tarm, 50/500 för magsäck, 500/50 för strupe
 mTileDimensions(100, 100),
 
 mInsertType(MapEditorMeny::BLOCK0),
@@ -139,10 +139,10 @@ void MapEditor::update(sf::RenderWindow &window){
 				MapEditor::changeEventType();
 				break;
 			case sf::Keyboard::P:
-				mEventSize.y -= 30;
+				mEventSize.y += 30;
 				break;
 			case sf::Keyboard::O:
-				mEventSize.y += 30;
+				mEventSize.y -= 30;
 				break;
 			case sf::Keyboard::I:
 				mEventSize.x += 30;

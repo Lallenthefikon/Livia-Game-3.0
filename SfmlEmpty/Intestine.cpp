@@ -41,14 +41,14 @@ Intestine::Intestine() :
 	mLifeSprite.setScale(1.5, 1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
-	mLayerHandler.addBackground(mBackgroundTexture);
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
+	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top");
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -106,7 +106,7 @@ void Intestine::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
@@ -131,7 +131,7 @@ void Intestine::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset") {

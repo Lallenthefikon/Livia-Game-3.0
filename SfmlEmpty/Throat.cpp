@@ -31,12 +31,9 @@ Throat::Throat() :
 	Toolbox::loadSounds(mMapName);
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
-
+	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
-
-	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(1970,0, 1920, 1347));
-	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -49,12 +46,10 @@ Throat::Throat() :
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
-	
-	mLevelMusic.stopAllMusic();
 
 }
 
@@ -112,7 +107,7 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
@@ -136,7 +131,7 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 	}
 	if (mLevelState == "Reset") {
@@ -156,14 +151,8 @@ void Throat::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
-	// Middleground
-	mLayerHandler.renderMiddleground(window);
-	mLayerHandler.renderVertGradiant(window);
-
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
-
-
 
 	// Decorations back
 	mDecorationhandler.renderDecoration(window, 'b');
@@ -176,13 +165,14 @@ void Throat::render(sf::RenderWindow &window) {
 	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
-
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
 
 	// Hud
 	mLayerHandler.renderHud(window);
 
+	//Foreground
+	window.setView(mCamera.getSceneryView());
 
 	// Dialogue
 	if (mLevelState == "Dialogue") {
@@ -190,14 +180,27 @@ void Throat::render(sf::RenderWindow &window) {
 
 	}
 
-
 	window.display();
 }
 
 void Throat::loadLevel() {
 	Toolbox::loadTextures(mMapName);
+	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
+	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
+
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::THROATBACKGROUND));
+	mLayerHandler.addVerticalBackground(mBackgroundTexture);
+
+	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
 	mLevelState = "Cutscene";
 
 }
@@ -215,25 +218,25 @@ void Throat::triggerEvent(char type){
 		Throat::eventB();
 		break;
 
-	case 'c':
-		Throat::eventC();
-		break;
+	//case 'c':
+	//	Throat::eventC();
+	//	break;
 
-	case 'd':
-		Throat::eventD();
-		break;
+	//case 'd':
+	//	Throat::eventD();
+	//	break;
 
-	case 'e':
-		Throat::eventE();
-		break;
+	//case 'e':
+	//	Throat::eventE();
+	//	break;
 
-	case 'f':
-		Throat::eventF();
-		break;
+	//case 'f':
+	//	Throat::eventF();
+	//	break;
 
-	case 'g':
-		Throat::eventG();
-		break;
+	//case 'g':
+	//	Throat::eventG();
+	//	break;
 
 	default:
 		break;
@@ -251,53 +254,42 @@ void Throat::resetLevel(sf::RenderWindow &window) {
 
 
 void Throat::eventA() {
+	if (!eventAtriggerd) {
 	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-void Throat::eventB() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
-}
-void Throat::eventC() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
-}
-void Throat::eventD() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-}
-void Throat::eventE() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-void Throat::eventF() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-
-void Throat::eventG() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-}
-
-void Throat::updateGradiantAlpha(){
-	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
-		float delta = mEntityHandler->getEntities().at(0)->getPos().x + mEntityHandler->getEntities().at(0)->getHeight() -
-			mEntityHandler->getEntities().back()->getPos().y;
-		float alpha = 255 - (255 * delta / 3000);
-		if (alpha < 0) {
-			alpha = 0;
-		}
-		if (alpha > 255) {
-			alpha = 255;
-		}
-		mLayerHandler.updateVertGlowAlpha(alpha);
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventA.txt");
+		eventAtriggerd = true;
 	}
 }
+void Throat::eventB() {
+	if (!eventBtriggerd) {
+	mLevelState = "Dialogue";
+		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
+		eventBtriggerd = true;
+}
+}
+//void Throat::eventC() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
+//}
+//void Throat::eventD() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
+//}
+//void Throat::eventE() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}
+//void Throat::eventF() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}
+//
+//void Throat::eventG() {
+//	mLevelState = "Dialogue";
+//	Dialoguehandler::getInstance().loadDialougehandler('s');
+//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
+//}

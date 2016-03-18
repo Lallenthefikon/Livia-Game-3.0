@@ -28,6 +28,17 @@ struct Toolbox {
 		// Hub
 		HUBBACKGROUND,
 		DECORATIONTEXTURE,
+		// Throat
+		THROATBACKGROUND,
+		THROATMIDDLEGROUNDLEFT,
+		THROATMIDDLEGROUNDRIGHT,
+		// Intestine
+		INTESTINEBACKGROUND,
+		// Mouth
+		MOUTHBACKGROUND,
+		MOUTHMIDDLEGROUND,
+
+
 		// Dialogue
 		DIALOGUEMAPEDITORTEXTURE,
 		DIALOGUEBOXSHEET,
@@ -106,5 +117,8 @@ struct Toolbox {
 	// Gravity
 	static void copyGravity(sf::Vector2f &gravity);
 	static sf::Vector2f& getGravity();
+
+	static void Toolbox::setGamePaused(bool isPaused);
+	static bool Toolbox::getGamePaused();
 };
 
