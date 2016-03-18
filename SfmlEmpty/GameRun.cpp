@@ -2,7 +2,7 @@
 bool PAUSEPRESSED = false;
 
 GameRun::GameRun(std::string &levelDirectory, std::string &levelName){
-	mCurrentLevel = &Hub::getInstance();
+	mCurrentLevel = &Mouth::getInstance();
 	setCurrentLevel(levelDirectory, levelName);
 }
 

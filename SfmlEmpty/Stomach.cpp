@@ -122,7 +122,13 @@ void Stomach::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
+
+	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+		mSwitchLevelWhenDone = false;
+		eventCtriggerd = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
+	}
 }
 
 void Stomach::render(sf::RenderWindow &window) {
@@ -170,6 +176,7 @@ void Stomach::render(sf::RenderWindow &window) {
 }
 
 void Stomach::loadLevel() {
+	mLevelMusic.stopAllMusic();
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::loadTextures(mMapName);
@@ -215,22 +222,6 @@ void Stomach::triggerEvent(char type) {
 		Stomach::eventC();
 		break;
 
-	//case 'd':
-	//	Stomach::eventD();
-	//	break;
-
-	//case 'e':
-	//	Stomach::eventE();
-	//	break;
-
-	//case 'f':
-	//	Stomach::eventF();
-	//	break;
-
-	//case 'g':
-	//	Stomach::eventG();
-	//	break;
-
 	default:
 		break;
 	}
@@ -264,6 +255,7 @@ void Stomach::eventC() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
 	eventCtriggerd = true;
+	mSwitchLevelWhenDone = true;
 }
 }
 //void Stomach::eventD() {

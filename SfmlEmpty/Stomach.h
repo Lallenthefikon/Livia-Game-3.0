@@ -77,6 +77,7 @@ private:
 	sf::Texture mTexture;
 
 	bool mGameOver = false;
+	bool mSwitchLevelWhenDone = false;
 	bool mZoomedOut;
 	bool eventAtriggerd = false;
 	bool eventBtriggerd = false;

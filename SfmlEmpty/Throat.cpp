@@ -120,6 +120,12 @@ void Throat::update(sf::RenderWindow &window) {
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
+		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+			mSwitchLevelWhenDone = false;
+			eventAtriggerd = false;
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+		}
+
 	}
 	if (mLevelState == "Rising") {
 
@@ -143,6 +149,12 @@ void Throat::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
+	}
+
+	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+		mSwitchLevelWhenDone = false;
+		eventBtriggerd = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 	}
 }
 
@@ -186,6 +198,7 @@ void Throat::render(sf::RenderWindow &window) {
 }
 
 void Throat::loadLevel() {
+	mLevelMusic.stopAllMusic();
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
@@ -223,26 +236,6 @@ void Throat::triggerEvent(char type){
 		Throat::eventB();
 		break;
 
-	//case 'c':
-	//	Throat::eventC();
-	//	break;
-
-	//case 'd':
-	//	Throat::eventD();
-	//	break;
-
-	//case 'e':
-	//	Throat::eventE();
-	//	break;
-
-	//case 'f':
-	//	Throat::eventF();
-	//	break;
-
-	//case 'g':
-	//	Throat::eventG();
-	//	break;
-
 	default:
 		break;
 	}
@@ -270,35 +263,9 @@ void Throat::eventB() {
 	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
 		eventBtriggerd = true;
+		mSwitchLevelWhenDone = true;
 }
 }
-//void Throat::eventC() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
-//}
-//void Throat::eventD() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-//}
-//void Throat::eventE() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-//void Throat::eventF() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-//
-//void Throat::eventG() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-
 
 void Throat::updateGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
