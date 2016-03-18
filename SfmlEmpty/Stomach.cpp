@@ -28,7 +28,30 @@ mLevelState("Cutscene"),
 mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+	Texthandler::getInstance().loadTexts();
+	Toolbox::copyLevelBounds(mLevelBounds);
+	//Toolbox::copyCurrentLevelName(mMapName);
 
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1, 363, 1080, 1920));
+	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
+	mLayerHandler.addVerticalBackground(mBackgroundTexture);
+
+	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -295,5 +318,19 @@ void Stomach::eventC() {
 //		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 //		eventGtriggerd = true;
 //	}
-//
 //}
+
+void Stomach::updateVertGradiantAlpha() {
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x -
+			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+	}
+}
