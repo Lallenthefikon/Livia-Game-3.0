@@ -393,6 +393,66 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 	case MapEditorMeny::DECORATION9:
 		MapEditor::createDecoration(mousePos, '9', mDecorationLayer, mRotDirection);
 		break;
+	case MapEditorMeny::DECORATION10:
+		MapEditor::createDecoration(mousePos, 'a', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION11:
+		MapEditor::createDecoration(mousePos, 'b', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION12:
+		MapEditor::createDecoration(mousePos, 'c', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION13:
+		MapEditor::createDecoration(mousePos, 'd', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION14:
+		MapEditor::createDecoration(mousePos, 'e', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION15:
+		MapEditor::createDecoration(mousePos, 'f', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION16:
+		MapEditor::createDecoration(mousePos, 'g', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION17:
+		MapEditor::createDecoration(mousePos, 'h', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION18:
+		MapEditor::createDecoration(mousePos, 'j', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION19:
+		MapEditor::createDecoration(mousePos, 'k', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION20:
+		MapEditor::createDecoration(mousePos, 'l', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION21:
+		MapEditor::createDecoration(mousePos, 'm', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION22:
+		MapEditor::createDecoration(mousePos, 'n', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION23:
+		MapEditor::createDecoration(mousePos, 'o', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION24:
+		MapEditor::createDecoration(mousePos, 'p', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION25:
+		MapEditor::createDecoration(mousePos, 'q', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION26:
+		MapEditor::createDecoration(mousePos, 'r', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION27:
+		MapEditor::createDecoration(mousePos, 's', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION28:
+		MapEditor::createDecoration(mousePos, 't', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION29:
+		MapEditor::createDecoration(mousePos, 'u', mDecorationLayer, mRotDirection);
+		break;
 	case MapEditorMeny::MEATBALL:
 		MapEditor::createMeatball(mousePos);
 		break;

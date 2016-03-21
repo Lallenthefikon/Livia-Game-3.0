@@ -27,7 +27,6 @@ mLevelState("Cutscene"),
 
 mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4550.f) {
-	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 	Toolbox::loadTextures(mMapName);
 	Toolbox::loadSounds(mMapName);
