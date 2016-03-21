@@ -787,13 +787,9 @@ Animations::Textures* Animations::getDecoration25ANI() {
 
 Animations::Textures* Animations::getDecoration26ANI() {
 	return &mDecoration26ANI;
+}
 Animations::Textures* Animations::getTileDecTextures() {
 	return &mTileDecTextures;
-}
-
-// Dialogue ANI
-Animations::Textures* Animations::getDialogueLiviaANI() {
-	return &mDialogueLiviaANI;
 }
 
 Animations::Textures* Animations::getDecoration27ANI() {
