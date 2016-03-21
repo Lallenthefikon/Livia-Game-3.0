@@ -80,7 +80,7 @@ void Stomach::update(sf::RenderWindow &window) {
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
 		mTerrainHandler->bringOutTheDead();
-		
+
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
@@ -94,7 +94,7 @@ void Stomach::update(sf::RenderWindow &window) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-	}
+		}
 
 	}
 	if (mLevelState == "Rising") {
@@ -126,7 +126,14 @@ void Stomach::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
+
+	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+		mSwitchLevelWhenDone = false;
+		eventCtriggerd = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
+	}
+
 }
 
 void Stomach::render(sf::RenderWindow &window) {
@@ -142,7 +149,7 @@ void Stomach::render(sf::RenderWindow &window) {
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
-		mLayerHandler.renderVertGradiant(window);
+	mLayerHandler.renderVertGradiant(window);
 	}
 	
 	// Change view to tileView containing all entities and terrains
@@ -176,6 +183,7 @@ void Stomach::render(sf::RenderWindow &window) {
 }
 
 void Stomach::loadLevel() {
+	mLevelMusic.stopAllMusic();
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
@@ -271,7 +279,7 @@ void Stomach::eventB() {
 }
 void Stomach::eventC() {
 	if (eventBtriggerd) {
-		if (!eventCtriggerd) {
+	if (!eventCtriggerd) {
 			AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(-1400, 2550));
 			eventCtriggerd = true;
 		}
@@ -282,7 +290,7 @@ void Stomach::eventD() {
 	mLevelState = "Dialogue";
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
 	eventDtriggerd = true;
-	}
+}
 }
 //void Stomach::eventE() {
 //		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(0, 0));
