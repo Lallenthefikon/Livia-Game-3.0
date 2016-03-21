@@ -27,29 +27,8 @@ Hub::Hub() :
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 12300.f) {
 
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyLevelBounds(mLevelBounds);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
-
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
-
-	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-//	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
 
 	mLevelMusic.stopAllMusic();
 
@@ -161,6 +140,7 @@ void Hub::loadLevel() {
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 	mLevelState = "Center";
+	mLevelMusic.stopAllMusic();
 
 }
 
@@ -217,30 +197,33 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
-}
-void Hub::eventB() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-}
-void Hub::eventC() {
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
+void Hub::eventB() {
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
+}
+void Hub::eventC() {
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	////GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
+}
 void Hub::eventD() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
+	/*GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");*/
 }
 void Hub::eventE() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+	/*GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");*/
 }
 void Hub::eventF() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
 }
 
 void Hub::eventG() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
 }
 
 void Hub::checkIfNewMap(){
@@ -255,6 +238,7 @@ void Hub::checkIfNewMap(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
 		Hub::eventC();
 		mEventC = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
 		Hub::eventD();

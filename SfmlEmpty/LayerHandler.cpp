@@ -1,7 +1,7 @@
 #include "LayerHandler.h"
 #include <iostream>
 
-float BACKGROUNDSPEED = 0.07f;
+float BACKGROUNDSPEED = 10.07f;
 float MIDDLEGROUNDSPEED = BACKGROUNDSPEED * 2;
 float FOREGROUNDSPEED;
 
@@ -161,25 +161,29 @@ void LayerHandler::moveBackgroundVertical(sf::RenderWindow &window, Camera &cam,
 		//std::cout << "Middle 0" << std::endl;
 	}
 
+	std::cout << "Top: " << furthestUpBG->getPosition().y << "Middle: " << middleBG->getPosition().y << "Btm: " << furthestDownBG->getPosition().y << std::endl;
+
 	sf::Vector2f middleBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(middleBG->getPosition().x, middleBG->getPosition().y), window);
 	sf::Vector2f leftBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestDownBG->getPosition().x, furthestDownBG->getPosition().y), window);
 	sf::Vector2f rightBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestUpBG->getPosition().x, furthestUpBG->getPosition().y), window);
 
 	// Resets furthest left when moving right 
-	if (furthestDownBG->getPosition().y < -furthestDownBG->getLocalBounds().height) {
+	if (furthestDownBG->getPosition().y < furthestDownBG->getLocalBounds().height) {
 		furthestDownBG->setPosition(0, furthestUpBG->getPosition().y + furthestDownBG->getLocalBounds().height);
 	}
 	// Resets furthest right when moving left 
-	else if ((furthestUpBG->getPosition().y > 1080) && (cam.getVelocity().y < 0)) {
+	/*else if ((furthestUpBG->getPosition().y > 1080) && (cam.getVelocity().y < 0)) {
 		furthestUpBG->setPosition(0, furthestUpBG->getPosition().y + furthestDownBG->getLocalBounds().height);
-	}
+	}*/
 
 	// Moves backgrounds at same speed
 	float camVelY = cam.getVelocity().y;
 
 	furthestUpBG->move(0, -camVelY * BACKGROUNDSPEED);
-	middleBG->move(0, -camVelY * BACKGROUNDSPEED);
-	furthestDownBG->move(0, -camVelY * BACKGROUNDSPEED);
+	middleBG->setPosition(furthestUpBG->getPosition().x, furthestUpBG->getPosition().y);
+	furthestDownBG->setPosition(middleBG->getPosition().x, middleBG->getPosition().y);
+	//middleBG->move(0, -camVelY * BACKGROUNDSPEED);
+	//furthestDownBG->move(0, -camVelY * BACKGROUNDSPEED);
 }
 
 void LayerHandler::moveMiddleground(sf::RenderWindow & window, Camera & cam, sf::Vector2f & middleCamCoordPosSceneView, sf::Vector2f & middleCamCoordPosTileView){
