@@ -12,6 +12,7 @@ static float staticFrametime(0.0180);
 
 // Level Info
 static std::string mCurrentLevelName;
+static std::string mCurrentLevelDirectory;
 static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
@@ -363,6 +364,14 @@ void Toolbox::copyCurrentLevelName(std::string newLevelName){
 
 std::string Toolbox::getCurrentLevelName(){
 	return mCurrentLevelName;
+}
+
+void Toolbox::copyCurrentLevelDirectory(std::string newDirectory) {
+	mCurrentLevelDirectory = newDirectory;
+}
+
+std::string Toolbox::getCurrentLevelDirectory() {
+	return mCurrentLevelDirectory;
 }
 
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){

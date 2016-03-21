@@ -5,8 +5,10 @@ GameLoop::GameLoop() :
 	mCurrentLevelDirectory("resources/maps/mMap0.txt"),
 	mCurrentLevelName("Hub"),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
-	mWindow.setVerticalSyncEnabled(true);
+	mWindow.setVerticalSyncEnabled(false);
 	mWindow.setKeyRepeatEnabled(false);
+	Toolbox::copyCurrentLevelName(mCurrentLevelName);
+	Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
 	updateState();
 	mWindow.setVerticalSyncEnabled(true);
 }
@@ -26,12 +28,13 @@ void GameLoop::switchState() {
 
 void GameLoop::updateState() {
 	if (gameRunning) {
-		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
+		mCurrentState = GameRun::getInstance(Toolbox::getCurrentLevelDirectory(), Toolbox::getCurrentLevelName());
 
 	} else if (mapEditing) {
-		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
+		mCurrentState = MapEditor::getInstance(Toolbox::getCurrentLevelDirectory(), Toolbox::getCurrentLevelName());
 	}
 	mCurrentState->loadLevel();
+	std::cout << "Changed state" << std::endl;
 }
 
 void GameLoop::manualStateChange(int &i) {
@@ -88,6 +91,7 @@ void GameLoop::run() {
 
 	// Loop
 	while (mWindow.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		std::cout << "Level name: " << Toolbox::getCurrentLevelName() << " Level directory: " << Toolbox::getCurrentLevelDirectory() << std::endl;
 		manualStateChange(clickOnce);
 		manualFPSChange(clickOnce);
 		update();

@@ -28,6 +28,9 @@ Mouth::Mouth() :
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
+
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -172,6 +175,7 @@ void Mouth::loadLevel() {
 
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Toolbox::copyLevelBounds(mLevelBounds);

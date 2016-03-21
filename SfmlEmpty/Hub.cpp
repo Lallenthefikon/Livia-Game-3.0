@@ -157,6 +157,7 @@ void Hub::render(sf::RenderWindow &window) {
 
 void Hub::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);

@@ -34,7 +34,8 @@ mZoomedOut(false),
 	Animations::loadTextures();
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
-	//Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 
 	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1, 363, 1080, 1920));
 	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
@@ -195,6 +196,7 @@ void Stomach::render(sf::RenderWindow &window) {
 void Stomach::loadLevel() {
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);

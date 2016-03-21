@@ -306,16 +306,18 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer, cha
 
 
 void MapEditor::loadLevel(){
-	mCurrentLevelDirectory[15] = 'E';
-	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
+	std::string currentLevelDirectory = Toolbox::getCurrentLevelDirectory();
+	
+	currentLevelDirectory[15] = 'E';
+	mEntities = mMaploader.getEntities(currentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'T';
-	mTerrains = mMaploader.getTerrain(mCurrentLevelDirectory);
+	currentLevelDirectory[15] = 'T';
+	mTerrains = mMaploader.getTerrain(currentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'D';
-	mDecorations = mMaploader.getDecorations(mCurrentLevelDirectory);
+	currentLevelDirectory[15] = 'D';
+	mDecorations = mMaploader.getDecorations(currentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'm';
+	currentLevelDirectory[15] = 'm';
 
 	mMaploader.clear();
 }
