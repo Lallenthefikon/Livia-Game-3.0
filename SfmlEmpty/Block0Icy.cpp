@@ -2,7 +2,7 @@
 
 
 
-Block0Icy::Block0Icy(sf::Vector2f pos, char type):
+Block0Icy::Block0Icy(sf::Vector2f pos, char type, char type1):
 mTileType(type),
 mTexture() {
 	Block0Icy::setTexture(type);
@@ -15,8 +15,8 @@ mTexture() {
 Block0Icy::~Block0Icy(){
 }
 
-Terrain* Block0Icy::createBlock0Icy(sf::Vector2f pos, char type) {
-	return new Block0Icy(pos, type);
+Terrain* Block0Icy::createBlock0Icy(sf::Vector2f pos, char type, char type1) {
+	return new Block0Icy(pos, type, type1);
 }
 
 void Block0Icy::render(sf::RenderWindow &window) {

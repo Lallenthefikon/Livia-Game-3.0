@@ -55,12 +55,14 @@ Animations::Textures mDecoration7ANI;
 Animations::Textures mDecoration8ANI;
 Animations::Textures mDecoration9ANI;
 
+Animations::Textures mTileDecTextures;
+
 Animations::Textures mDialogueLiviaANI; 
 Animations::Textures mDialogueMansaANI;
 Animations::Textures mDialogueMuhninANI;
 Animations::Textures mDialogueTummyANI;
 
-void Animations::loadTextures(){
+void Animations::loadTextures() {
 	int x = 0;
 	int y = 0;
 
@@ -134,18 +136,18 @@ void Animations::loadTextures(){
 
 	// Player FallDying ANI
 	if (mPlayerFallDyingANI.size() == 0) {
-	for (int i = 0; i < 8; i++) {
-		mPlayerFallDyingANI.push_back(new sf::Texture);
+		for (int i = 0; i < 8; i++) {
+			mPlayerFallDyingANI.push_back(new sf::Texture);
 			mPlayerFallDyingANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((100 * x) + 970, (160 * y) + 580, 100, 160));
-		mPlayerFallDyingANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+			mPlayerFallDyingANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 
 	// Player Dying ANI
@@ -166,36 +168,36 @@ void Animations::loadTextures(){
 
 	// Player Damage ANI
 	if (mPlayerDamageANI.size() == 0) {
-	for (int i = 0; i < 8; i++) {
-		mPlayerDamageANI.push_back(new sf::Texture);
-		mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
-		mPlayerDamageANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+		for (int i = 0; i < 8; i++) {
+			mPlayerDamageANI.push_back(new sf::Texture);
+			mPlayerDamageANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((80 * x), (140 * y) + 900, 80, 140));
+			mPlayerDamageANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 
 	// Player Slide ANI
 	if (mPlayerSlideANI.size() == 0) {
-		for (int i = 0; i < 8; i++){
-				mPlayerSlideANI.push_back(new sf::Texture);
-				mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 700, (140 * y) + 600, 67, 140));
-				mPlayerSlideANI[i]->setSmooth(true);
-				x++;
-				if (x == 4){
-					x = 0;
-					y++;
-				}
+		for (int i = 0; i < 8; i++) {
+			mPlayerSlideANI.push_back(new sf::Texture);
+			mPlayerSlideANI[i]->loadFromImage(mPlayerIMG, sf::IntRect((67 * x) + 700, (140 * y) + 600, 67, 140));
+			mPlayerSlideANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
 			}
-			x = 0;
-			y = 0;
+		}
+		x = 0;
+		y = 0;
 	}
-	
+
 
 	// Worm crawling ANI
 	if (mWormCrawlingANI.size() == 0) {
@@ -362,49 +364,49 @@ void Animations::loadTextures(){
 
 	// Livia
 	if (mDialogueLiviaANI.size() == 0) {
-	for (int i = 0; i < 32; i++) {
-		mDialogueLiviaANI.push_back(new sf::Texture);
-		mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
-		mDialogueLiviaANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+		for (int i = 0; i < 32; i++) {
+			mDialogueLiviaANI.push_back(new sf::Texture);
+			mDialogueLiviaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x), (500 * y), 400, 500));
+			mDialogueLiviaANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 	// Mansa 
 	if (mDialogueMansaANI.size() == 0) {
-	for (int i = 0; i < 32; i++) {
-		mDialogueMansaANI.push_back(new sf::Texture);
-		mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
-		mDialogueMansaANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+		for (int i = 0; i < 32; i++) {
+			mDialogueMansaANI.push_back(new sf::Texture);
+			mDialogueMansaANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 1600, (500 * y), 400, 500));
+			mDialogueMansaANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 
 	// Muhnin
 	if (mDialogueMuhninANI.size() == 0) {
 		for (int i = 0; i < 31; i++) {
-		mDialogueMuhninANI.push_back(new sf::Texture);
-		mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
-		mDialogueMuhninANI[i]->setSmooth(true);
-		x++;
-		if (x == 4) {
-			x = 0;
-			y++;
+			mDialogueMuhninANI.push_back(new sf::Texture);
+			mDialogueMuhninANI[i]->loadFromImage(mDialogueSpritesheetIMG, sf::IntRect((400 * x) + 4800, (500 * y), 400, 500));
+			mDialogueMuhninANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
 		}
-	}
-	x = 0;
-	y = 0;
+		x = 0;
+		y = 0;
 	}
 	// Tummy
 	if (mDialogueTummyANI.size() == 0) {
@@ -466,7 +468,19 @@ void Animations::loadTextures(){
 		mDecoration9ANI.push_back(new sf::Texture);
 		mDecoration9ANI[0]->loadFromImage(mDecorationIMG, sf::IntRect(1200, 300, 300, 300));
 	}
+	if (mTileDecTextures.size() == 0) {
+		for (int i = 0; i < 24; i++) {
+			mTileDecTextures.push_back(new sf::Texture);
+			mTileDecTextures[i]->loadFromImage(Toolbox::getTexture(Toolbox::TILEDECSHEET), sf::IntRect((100 * x), (100 * y), 100, 100));
+			mTileDecTextures[i]->setSmooth(true);
+			x++;
+			if (x == 6) {
+				x = 0;
+				y++;
+			}
+		}
 	}
+}
 
 // Player ANI
 Animations::Textures* Animations::getPlayerRunningANI(){
@@ -588,6 +602,10 @@ Animations::Textures* Animations::getDecoration8ANI() {
 
 Animations::Textures* Animations::getDecoration9ANI() {
 	return &mDecoration9ANI;
+}
+
+Animations::Textures* Animations::getTileDecTextures() {
+	return &mTileDecTextures;
 }
 
 // Dialogue ANI

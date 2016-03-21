@@ -469,15 +469,15 @@ void Player::updateState() {
 
 	if (mState == WALLSTUCK) {
 		if (mCollisionR) {
-			mLastBlockToched = mCurrentCollisionR->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
-			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			mLastBlockToched = mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().width, 'l');
+			if (mCurrentCollisionR->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 				mState = FALLING;
 				changed = true;
 			}
 		}
 		if (mCollisionL) {
-			mLastBlockToched = mCurrentCollisionL->getType(mSprite.getPosition(), mSprite.getGlobalBounds().width, 'b');
-			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'l') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+			mLastBlockToched = mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().width, 'r');
+			if (mCurrentCollisionL->getType(mCollisionBody.getPosition(), mCollisionBody.getGlobalBounds().height, 'r') != Terrain::BLOCK0WALLJUMP || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 				mState = FALLING;
 				changed = true;
 			}

@@ -74,7 +74,7 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
-	char blockType(Terrain* terrain);
+	std::string blockType(Terrain* terrain);
 	void internalClear();
 
 	std::string floatToString(float f);

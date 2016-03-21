@@ -18,12 +18,12 @@ struct Factory{
 	static Entity* createGerm(sf::Vector2f pos);
 	static Entity* createOcto_Pi(sf::Vector2f pos);
 	
-	static Terrain* createBlock0(sf::Vector2f pos, char type);
-	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
+	static Terrain* createBlock0(sf::Vector2f pos, char type, char type1);
+	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type, char type1);
 	static Terrain* createSpikes(sf::Vector2f pos, char type);
 	static Terrain* createMeatballSpawner(sf::Vector2f pos);
 	static Terrain* createGoal(sf::Vector2f pos);
-	static Terrain* createBlock0Icy(sf::Vector2f pos, char id);
+	static Terrain* createBlock0Icy(sf::Vector2f pos, char type, char type1);
 	static Terrain* createEditorEvent(sf::Vector2f pos, char eventType, sf::Vector2f size);
 
 	static Terrain* createEvent(sf::Vector2f pos, Level* level, char eventType, sf::Vector2f size);

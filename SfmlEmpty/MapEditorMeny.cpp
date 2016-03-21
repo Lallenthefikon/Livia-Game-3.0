@@ -61,13 +61,13 @@ void MapEditorMeny::insertObjects(){
 	mEntities.back()->setScale(sf::Vector2f(0.7f, 0.7f));
 
 	// Terrains
-	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a'));
+	mTerrains.push_back(Factory::createBlock0(sf::Vector2f(WIDTHBETWEEN * 0.8, 150), 'a', 'q'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 	
-	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p'));
+	mTerrains.push_back(Factory::createBlock0WallJump(sf::Vector2f(WIDTHBETWEEN * 1.8, 150), 'p', 'q'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 	
-	mTerrains.push_back(Factory::createBlock0Icy(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), 'a'));
+	mTerrains.push_back(Factory::createBlock0Icy(sf::Vector2f(WIDTHBETWEEN * 2.8, 70), 'a', 'q'));
 	mTerrains.back()->setScale(sf::Vector2f(0.6, 0.6));
 	
 	mTerrains.push_back(Factory::createSpikes(sf::Vector2f(WIDTHBETWEEN * 3.8, 150), 't'));
