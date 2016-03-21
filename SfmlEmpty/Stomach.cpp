@@ -143,12 +143,12 @@ void Stomach::update(sf::RenderWindow &window) {
 		resetLevel(window);
 	}
 	if (mLevelState == "Dialogue") {
-		/*if (mDialoguehandler.getFilename() == "resources/Dialogues/Stomach Event/EventB.txt") {
+		if (mDialoguehandler.getFilename() == "resources/Dialogues/Stomach Event/EventB.txt") {
 			mAcidAlpha += 1;
-			if (mAcidAlpha > 255)
-				mAcidAlpha = 255;
+			if (mAcidAlpha > 170)
+				mAcidAlpha = 170;
 			mLayerHandler.updateVertGlowAlpha(mAcidAlpha);
-		}*/
+		}
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
@@ -348,7 +348,7 @@ void Stomach::eventD() {
 
 void Stomach::updateVertGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
-		float delta =   -
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x  - 1000 -
 			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());
 		float alpha = 255 - (255 * delta / 2000);
 		if (alpha < 0) {

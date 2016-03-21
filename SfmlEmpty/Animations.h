@@ -68,5 +68,6 @@ struct Animations{
 	static Textures* getDecoration27ANI();
 	static Textures* getDecoration28ANI();
 	static Textures* getDecoration29ANI();
+	static Textures* getTileDecTextures();
 };
 

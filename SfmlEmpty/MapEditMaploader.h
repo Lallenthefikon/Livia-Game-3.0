@@ -42,9 +42,9 @@ private:
 	void createExtraLife(sf::Vector2f &pos);
 	void createOcto_Pi(sf::Vector2f &pos);
 
-	void createBlock0(sf::Vector2f &pos, char type);
-	void createBlock0WallJump(sf::Vector2f &pos, char type);
-	void createBlock0Icy(sf::Vector2f &pos, char type);
+	void createBlock0(sf::Vector2f &pos, char type, char type1);
+	void createBlock0WallJump(sf::Vector2f &pos, char type, char type1);
+	void createBlock0Icy(sf::Vector2f &pos, char type, char type1);
 	void createSpikes(sf::Vector2f &pos, char type);
 	void createGoal(sf::Vector2f &pos);
 	void createEvent(sf::Vector2f &pos, char eventType, sf::Vector2f size);

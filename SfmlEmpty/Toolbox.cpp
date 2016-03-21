@@ -20,6 +20,7 @@ static sf::FloatRect mLevelBounds;
 // Textures
 static sf::Image mEnemy0sheet;
 static sf::Image mBlock0sheet;
+static sf::Image mTiledecSheet;
 static sf::Image mPlayersheet;
 static sf::Image mGoalTexture;
 static sf::Image mDialogueTexture;
@@ -112,6 +113,9 @@ void Toolbox::loadTextures(std::string levelName) {
 		
 	if (mDecorationTexture.getSize().x <= 0)
 		mDecorationTexture.loadFromFile("resources/images/decoration/stomach/decoration_spritesheet.png");
+
+	if (mTiledecSheet.getSize().x <= 0)
+		mTiledecSheet.loadFromFile("resources/images/decoration/tiledec sheet.png");
 
 	if (mHubBackground.getSize().x <= 0)
 		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
@@ -317,6 +321,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case MEATBALLSPAWNERTEXTURE:
 		return mMeatballSpawnerTexture;
+		break;
+
+	case TILEDECSHEET:
+		return mTiledecSheet;
 		break;
 
 	default:

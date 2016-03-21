@@ -7,7 +7,7 @@ class Block0WallJump : public Terrain {
 public:
 	virtual ~Block0WallJump();
 	virtual Terrain::TERRAINTYPE getType(){ return Terrain::BLOCK0WALLJUMP; }
-	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type);
+	static Terrain* createBlock0WallJump(sf::Vector2f pos, char type, char type1);
 	virtual void render(sf::RenderWindow &window);
 	virtual void update();
 	virtual sf::Vector2f getPos(){ return mSprite.getPosition(); }
@@ -24,7 +24,7 @@ public:
 
 
 private:
-	Block0WallJump(sf::Vector2f pos, char type);
+	Block0WallJump(sf::Vector2f pos, char type, char type1);
 
 	void setTexture(char type);
 

@@ -49,13 +49,13 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 			case 'B':
 				switch (line[1]) {
 				case '0':
-					MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2]);
+					MapEditMaploader::createBlock0(MapEditMaploader::readPosition(line), line[2], line[3]);
 					break;
 				case 'W':
-					MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2]);
+					MapEditMaploader::createBlock0WallJump(MapEditMaploader::readPosition(line), line[2], line[3]);
 					break;
 				case 'I':
-					MapEditMaploader::createBlock0Icy(MapEditMaploader::readPosition(line), line[2]);
+					MapEditMaploader::createBlock0Icy(MapEditMaploader::readPosition(line), line[2], line[3]);
 					break;
 				default:
 					break;
@@ -214,8 +214,8 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
  }
 
 
- void MapEditMaploader::createBlock0(sf::Vector2f &pos, char type){
-	 mTerrains.push_back(Factory::createBlock0(pos, type));
+ void MapEditMaploader::createBlock0(sf::Vector2f &pos, char type, char type1){
+	 mTerrains.push_back(Factory::createBlock0(pos, type, type1));
  }
 
  void MapEditMaploader::createPlayer(sf::Vector2f &pos){
@@ -246,12 +246,12 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 	 mEntities.push_back(Factory::createOcto_Pi(pos));
  }
 
- void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type){
-	mTerrains.push_back(Factory::createBlock0WallJump(pos, type));
+ void MapEditMaploader::createBlock0WallJump(sf::Vector2f &pos, char type, char type1){
+	mTerrains.push_back(Factory::createBlock0WallJump(pos, type, type1));
  }
 
- void MapEditMaploader::createBlock0Icy(sf::Vector2f & pos, char type){
-	 mTerrains.push_back(Factory::createBlock0Icy(pos, type));
+ void MapEditMaploader::createBlock0Icy(sf::Vector2f & pos, char type, char type1){
+	 mTerrains.push_back(Factory::createBlock0Icy(pos, type, type1));
  }
 
  void MapEditMaploader::createSpikes(sf::Vector2f &pos, char type){

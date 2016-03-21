@@ -1,6 +1,6 @@
 #include "Block0WallJump.h"
 
-Block0WallJump::Block0WallJump(sf::Vector2f pos, char type) :
+Block0WallJump::Block0WallJump(sf::Vector2f pos, char type, char type1) :
 mTileType(type){
 	Block0WallJump::setTexture(type);
 	mSprite.setTexture(mTexture);
@@ -11,8 +11,8 @@ mTileType(type){
 Block0WallJump::~Block0WallJump(){
 }
 
-Terrain* Block0WallJump::createBlock0WallJump(sf::Vector2f pos, char type){
-	return new Block0WallJump(pos, type);
+Terrain* Block0WallJump::createBlock0WallJump(sf::Vector2f pos, char type, char type1){
+	return new Block0WallJump(pos, type, type1);
 }
 
 void Block0WallJump::render(sf::RenderWindow &window){
