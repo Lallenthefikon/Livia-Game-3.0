@@ -28,6 +28,30 @@ Mouth::Mouth() :
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyLevelBounds(mLevelBounds);
+
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
+	
+
+	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	//	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	//mLayerHandler.addMiddleground(mAcidTexture);
+	//mLayerHandler.addAcid(mAcidTexture);
+
+	
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
 
@@ -97,6 +121,12 @@ void Mouth::update(sf::RenderWindow &window) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+		}
+
+		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+			mSwitchLevelWhenDone = false;
+			eventGtriggerd = false;
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -172,6 +202,7 @@ void Mouth::render(sf::RenderWindow &window) {
 }
 
 void Mouth::loadLevel() {
+	mLevelMusic.stopAllMusic();
 
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
@@ -296,5 +327,6 @@ void Mouth::eventG() {
 	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventG.txt");
 		eventGtriggerd = true;
+		mSwitchLevelWhenDone = true;
 	}
 }

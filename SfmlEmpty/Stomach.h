@@ -28,6 +28,7 @@ public:
 	virtual void triggerEvent(char type);
 	void setCurrentMap(std::string &mapname);
 	void resetLevel(sf::RenderWindow &window);
+
 	
 private:
 	Stomach();
@@ -77,11 +78,13 @@ private:
 	sf::Texture mTexture;
 
 	bool mGameOver = false;
+	bool mSwitchLevelWhenDone = false;
 	bool mZoomedOut;
 	bool eventAtriggerd = false;
 	bool eventBtriggerd = false;
 	bool eventCtriggerd = false;
-	//bool eventDtriggerd = false;
+	bool eventDtriggerd = false;
+	int mAcidAlpha;
 	//bool eventEtriggerd = false;
 	//bool eventFtriggerd = false;
 	//bool eventGtriggerd = false;

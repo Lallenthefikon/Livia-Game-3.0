@@ -55,6 +55,8 @@ Throat::Throat() :
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
+	mLevelMusic.stopAllMusic();
+
 }
 
 Throat::~Throat() {
@@ -76,7 +78,7 @@ void Throat::update(sf::RenderWindow &window) {
 	}
 
 	mLevelMusic.playMusic(LevelMusic::THROATMUSIC);
-
+	
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
 		resetLevel(window);
@@ -121,6 +123,12 @@ void Throat::update(sf::RenderWindow &window) {
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
+		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+			mSwitchLevelWhenDone = false;
+			eventAtriggerd = false;
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+	}
+
 	}
 	if (mLevelState == "Rising") {
 
@@ -145,6 +153,12 @@ void Throat::update(sf::RenderWindow &window) {
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
 	}
+
+	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+		mSwitchLevelWhenDone = false;
+		eventBtriggerd = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+}
 }
 
 void Throat::render(sf::RenderWindow &window) {
@@ -191,12 +205,16 @@ void Throat::render(sf::RenderWindow &window) {
 }
 
 void Throat::loadLevel() {
+	mLevelMusic.stopAllMusic();
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
+
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1970, 0, 1920, 1347));
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
@@ -226,26 +244,6 @@ void Throat::triggerEvent(char type) {
 		Throat::eventB();
 		break;
 
-		//case 'c':
-		//	Throat::eventC();
-		//	break;
-
-		//case 'd':
-		//	Throat::eventD();
-		//	break;
-
-		//case 'e':
-		//	Throat::eventE();
-		//	break;
-
-		//case 'f':
-		//	Throat::eventF();
-		//	break;
-
-		//case 'g':
-		//	Throat::eventG();
-		//	break;
-
 	default:
 		break;
 	}
@@ -263,17 +261,33 @@ void Throat::resetLevel(sf::RenderWindow &window) {
 
 void Throat::eventA() {
 	if (!eventAtriggerd) {
-		mLevelState = "Dialogue";
+	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventA.txt");
 		eventAtriggerd = true;
 	}
 }
 void Throat::eventB() {
 	if (!eventBtriggerd) {
-		mLevelState = "Dialogue";
+	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
 		eventBtriggerd = true;
-	}
+		mSwitchLevelWhenDone = true;
+}
+}
+
+void Throat::updateGradiantAlpha() {
+	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
+		float delta = mEntityHandler->getEntities().at(0)->getPos().x + mEntityHandler->getEntities().at(0)->getHeight() -
+			mEntityHandler->getEntities().back()->getPos().y;
+		float alpha = 255 - (255 * delta / 3000);
+		if (alpha < 0) {
+			alpha = 0;
+		}
+		if (alpha > 255) {
+			alpha = 255;
+		}
+		mLayerHandler.updateVertGlowAlpha(alpha);
+}
 }
 //void Throat::eventC() {
 //	mLevelState = "Dialogue";
@@ -301,18 +315,3 @@ void Throat::eventB() {
 //	Dialoguehandler::getInstance().loadDialougehandler('s');
 //	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
 //}
-
-void Throat::updateGradiantAlpha() {
-	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
-		float delta = mEntityHandler->getEntities().at(0)->getPos().x + mEntityHandler->getEntities().at(0)->getHeight() -
-			mEntityHandler->getEntities().back()->getPos().y;
-		float alpha = 255 - (255 * delta / 3000);
-		if (alpha < 0) {
-			alpha = 0;
-		}
-		if (alpha > 255) {
-			alpha = 255;
-		}
-		mLayerHandler.updateVertGlowAlpha(alpha);
-	}
-}

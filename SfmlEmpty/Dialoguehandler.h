@@ -22,6 +22,7 @@ public:
 	void loadDialougehandler(char level);
 	void clear();
 	void setCurrentDialogue(std::string filename);
+	std::string getFilename() { return mFilename; }
 
 	~Dialoguehandler();
 	bool isInDialogue = false;

@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLevelDirectory("resources/maps/mMap0.txt"),
+	mCurrentLevelDirectory("resources/maps/mMap1.txt"),
 	mCurrentLevelName("Hub"),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
 	mWindow.setVerticalSyncEnabled(false);
