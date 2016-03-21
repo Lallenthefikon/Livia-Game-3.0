@@ -27,29 +27,8 @@ Hub::Hub() :
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 12300.f) {
 
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyLevelBounds(mLevelBounds);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
-
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
-
-	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-//	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
 
 	mLevelMusic.stopAllMusic();
 
@@ -91,7 +70,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-
+	
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -100,12 +79,12 @@ void Hub::update(sf::RenderWindow &window) {
 		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		/*mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);*/
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		checkIfNewMap();
-		}
+	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
@@ -113,7 +92,7 @@ void Hub::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
 }
 
 void Hub::render(sf::RenderWindow &window) {
@@ -124,7 +103,7 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	// Middleground
-	//mLayerHandler.renderMiddleground(window);
+	// mLayerHandler.renderMiddleground(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -157,11 +136,16 @@ void Hub::render(sf::RenderWindow &window) {
 
 void Hub::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
-	mLevelState = "Center";
 
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBMIDDLEGROUND), sf::IntRect(0, 0, 1920, 1080));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));
+	
+	mLevelState = "Center";
+	mLevelMusic.stopAllMusic();
 }
 
 void Hub::unloadLevel() {
@@ -217,30 +201,35 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
-}
-void Hub::eventB() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-}
-void Hub::eventC() {
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
+void Hub::eventB() {
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
+}
+void Hub::eventC() {
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	////GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
+}
 void Hub::eventD() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
+	/*GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");*/
 }
 void Hub::eventE() {
-	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+	/*GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");*/
 }
 void Hub::eventF() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
 }
 
 void Hub::eventG() {
-	mLevelState = "Dialogue";
-	Dialoguehandler::getInstance().loadDialougehandler('s');
-	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
+	//mLevelState = "Dialogue";
+	//Dialoguehandler::getInstance().loadDialougehandler('s');
+	//Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Hub Event/EventA.txt");
 }
 
 void Hub::checkIfNewMap(){
@@ -255,6 +244,7 @@ void Hub::checkIfNewMap(){
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
 		Hub::eventC();
 		mEventC = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
 		Hub::eventD();
@@ -264,5 +254,8 @@ void Hub::checkIfNewMap(){
 		Hub::eventE();
 		mEventE = false;
 	}
+}
 
+void Hub::stopAllMusic() {
+	mLevelMusic.stopAllMusic();
 }

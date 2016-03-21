@@ -39,6 +39,7 @@ private:
 	void eventG();
 
 	void checkIfNewMap();
+	void stopAllMusic();
 
 	bool mEventA = false;
 	bool mEventB = false;

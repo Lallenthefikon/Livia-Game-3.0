@@ -46,8 +46,8 @@ Throat::Throat() :
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
+	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	//mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 1080));
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 	
@@ -95,8 +95,7 @@ void Throat::update(sf::RenderWindow &window) {
 
 		if (Toolbox::getPlayerHealth() > 0) {
 			mCamera.updateThroatCam(window, mLevelState);
-		}
-		else {
+		} else {
 			mCamera.updateThroatCam(window, "Stop");
 		}
 
@@ -109,14 +108,20 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 		updateGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+		}
+
+		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+			mSwitchLevelWhenDone = false;
+			eventAtriggerd = false;
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -144,6 +149,12 @@ void Throat::update(sf::RenderWindow &window) {
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
 	}
+
+	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+		mSwitchLevelWhenDone = false;
+		eventBtriggerd = false;
+		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+	}
 }
 
 void Throat::render(sf::RenderWindow &window) {
@@ -152,6 +163,10 @@ void Throat::render(sf::RenderWindow &window) {
 	// Change view to sceneryView containing background, HUD and other estetic scene objects
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
+
+	// Middleground
+	mLayerHandler.renderMiddleground(window);
+	mLayerHandler.renderVertGradiant(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -186,9 +201,11 @@ void Throat::render(sf::RenderWindow &window) {
 }
 
 void Throat::loadLevel() {
+	mLevelMusic.stopAllMusic();
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 
@@ -214,7 +231,7 @@ void Throat::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Throat::triggerEvent(char type){
+void Throat::triggerEvent(char type) {
 	switch (type) {
 	case 'a':
 		Throat::eventA();
@@ -222,26 +239,6 @@ void Throat::triggerEvent(char type){
 	case 'b':
 		Throat::eventB();
 		break;
-
-	//case 'c':
-	//	Throat::eventC();
-	//	break;
-
-	//case 'd':
-	//	Throat::eventD();
-	//	break;
-
-	//case 'e':
-	//	Throat::eventE();
-	//	break;
-
-	//case 'f':
-	//	Throat::eventF();
-	//	break;
-
-	//case 'g':
-	//	Throat::eventG();
-	//	break;
 
 	default:
 		break;
@@ -270,35 +267,9 @@ void Throat::eventB() {
 	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Throat Event/EventB.txt");
 		eventBtriggerd = true;
+		mSwitchLevelWhenDone = true;
 }
 }
-//void Throat::eventC() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventC.txt");
-//}
-//void Throat::eventD() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventD.txt");
-//}
-//void Throat::eventE() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-//void Throat::eventF() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-//
-//void Throat::eventG() {
-//	mLevelState = "Dialogue";
-//	Dialoguehandler::getInstance().loadDialougehandler('s');
-//	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventA.txt");
-//}
-
 
 void Throat::updateGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {

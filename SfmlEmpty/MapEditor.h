@@ -47,7 +47,7 @@ public:
 	void createDecoration(sf::Vector2f mousePos, char id, char layer, char rotation);
 
 
-	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
+	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName);
 	virtual void loadLevel();
 
 	void clearMap();

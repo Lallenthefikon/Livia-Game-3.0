@@ -28,6 +28,30 @@ Mouth::Mouth() :
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyLevelBounds(mLevelBounds);
+
+
+
+	
+
+	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	//	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
+	//mLayerHandler.addMiddleground(mAcidTexture);
+	//mLayerHandler.addAcid(mAcidTexture);
+
+	
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
+
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -53,7 +77,7 @@ void Mouth::update(sf::RenderWindow &window) {
 			resetLevel(window);
 	}
 
-	//mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
+	mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
 
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
@@ -88,12 +112,18 @@ void Mouth::update(sf::RenderWindow &window) {
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Bottom");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
+			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
+		}
+
+		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
+			mSwitchLevelWhenDone = false;
+			eventGtriggerd = false;
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
 
@@ -131,7 +161,6 @@ void Mouth::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
-
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 
@@ -161,17 +190,17 @@ void Mouth::render(sf::RenderWindow &window) {
 	// Dialouge
 	if (mLevelState == "Dialogue") {
 		Dialoguehandler::getInstance().renderDialogue(window);
-
 	}
-
 
 	window.display();
 }
 
 void Mouth::loadLevel() {
+	mLevelMusic.stopAllMusic();
 
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Toolbox::copyLevelBounds(mLevelBounds);
@@ -192,7 +221,7 @@ void Mouth::loadLevel() {
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
 	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 348));
 
 	mLevelState = "Cutscene";
 }
@@ -206,6 +235,7 @@ void Mouth::triggerEvent(char type) {
 	case 'a':
 		Mouth::eventA();
 		break;
+
 	case 'b':
 		Mouth::eventB();
 		break;
@@ -292,5 +322,6 @@ void Mouth::eventG() {
 	mLevelState = "Dialogue";
 		Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Mouth Event/EventG.txt");
 		eventGtriggerd = true;
+		mSwitchLevelWhenDone = true;
 	}
 }

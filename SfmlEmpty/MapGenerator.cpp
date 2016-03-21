@@ -1,5 +1,6 @@
 #include "MapGenerator.h"
 #include <fstream>
+#include <iostream>
 
 MapGenerator::MapGenerator() :
 mTerrainhandler(Terrainhandler::getInstance()),

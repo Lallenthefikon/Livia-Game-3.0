@@ -29,8 +29,6 @@ mAirHorn(Toolbox::getSound(Toolbox::WORMIDLE)) {
 
 	Toolbox::loadTextures(levelName);
 	mTileTexture.loadFromImage(Toolbox::getTexture(Toolbox::TILETEXTURE));
-	MapEditor::loadLevel();
-	MapEditor::createGrid();
 }
 
 MapEditor::~MapEditor(){
@@ -305,7 +303,16 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer, cha
 }
 
 
+void MapEditor::setCurrentLevel(std::string & levelDirectory, std::string & levelName){
+	mCurrentLevelDirectory = levelDirectory;
+	mCurrentLevelName = levelName;
+
+}
+
 void MapEditor::loadLevel(){
+
+	MapEditor::createGrid();
+
 	mCurrentLevelDirectory[15] = 'E';
 	mEntities = mMaploader.getEntities(mCurrentLevelDirectory);
 
@@ -390,6 +397,66 @@ void MapEditor::insertObject(sf::Vector2f mousePos) {
 		break;
 	case MapEditorMeny::DECORATION9:
 		MapEditor::createDecoration(mousePos, '9', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION10:
+		MapEditor::createDecoration(mousePos, 'a', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION11:
+		MapEditor::createDecoration(mousePos, 'b', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION12:
+		MapEditor::createDecoration(mousePos, 'c', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION13:
+		MapEditor::createDecoration(mousePos, 'd', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION14:
+		MapEditor::createDecoration(mousePos, 'e', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION15:
+		MapEditor::createDecoration(mousePos, 'f', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION16:
+		MapEditor::createDecoration(mousePos, 'g', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION17:
+		MapEditor::createDecoration(mousePos, 'h', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION18:
+		MapEditor::createDecoration(mousePos, 'j', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION19:
+		MapEditor::createDecoration(mousePos, 'k', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION20:
+		MapEditor::createDecoration(mousePos, 'l', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION21:
+		MapEditor::createDecoration(mousePos, 'm', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION22:
+		MapEditor::createDecoration(mousePos, 'n', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION23:
+		MapEditor::createDecoration(mousePos, 'o', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION24:
+		MapEditor::createDecoration(mousePos, 'p', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION25:
+		MapEditor::createDecoration(mousePos, 'q', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION26:
+		MapEditor::createDecoration(mousePos, 'r', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION27:
+		MapEditor::createDecoration(mousePos, 's', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION28:
+		MapEditor::createDecoration(mousePos, 't', mDecorationLayer, mRotDirection);
+		break;
+	case MapEditorMeny::DECORATION29:
+		MapEditor::createDecoration(mousePos, 'u', mDecorationLayer, mRotDirection);
 		break;
 	case MapEditorMeny::MEATBALL:
 		MapEditor::createMeatball(mousePos);
@@ -554,19 +621,20 @@ std::string MapEditor::layerToString() const {
 
 void MapEditor::saveMap(){
 
+	std::string currentLevelDirectory = Toolbox::getCurrentLevelDirectory();
 	MapEditor::sortVectors();
 
-	mCurrentLevelDirectory[15] = 'T';
-	MapEditor::writeTerrainToFile(mCurrentLevelDirectory);
+	currentLevelDirectory[15] = 'T';
+	MapEditor::writeTerrainToFile(currentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'E';
-	MapEditor::writeEntityToFile(mCurrentLevelDirectory);
+	currentLevelDirectory[15] = 'E';
+	MapEditor::writeEntityToFile(currentLevelDirectory);
 
-	mCurrentLevelDirectory[15] = 'D';
-	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
+	currentLevelDirectory[15] = 'D';
+	MapEditor::writeDecorationToFile(currentLevelDirectory);
 
 
-	mCurrentLevelDirectory[15] = 'm';
+	currentLevelDirectory[15] = 'm';
 
 }
 
@@ -816,6 +884,66 @@ void MapEditor::writeDecorationToFile(std::string filename) {
 				break;
 			case Decoration::LIVIA:
 				output.push_back('9');
+				break;
+			case Decoration::TEN:
+				output.push_back('a');
+				break;
+			case Decoration::ELEVEN:
+				output.push_back('b');
+				break;
+			case Decoration::TWELVE:
+				output.push_back('c');
+				break;
+			case Decoration::THIRTEEN:
+				output.push_back('d');
+				break;
+			case Decoration::FOURTEEN:
+				output.push_back('e');
+				break;
+			case Decoration::FIFTEEN:
+				output.push_back('f');
+				break;
+			case Decoration::SIXTEEN:
+				output.push_back('g');
+				break;
+			case Decoration::SEVENTEEN:
+				output.push_back('h');
+				break;
+			case Decoration::EIGHTEEN:
+				output.push_back('i');
+				break;
+			case Decoration::NINETEEN:
+				output.push_back('j');
+				break;
+			case Decoration::TWENTY:
+				output.push_back('k');
+				break;
+			case Decoration::TWENTYONE:
+				output.push_back('l');
+				break;
+			case Decoration::TWENTYTWO:
+				output.push_back('m');
+				break;
+			case Decoration::TWENTYTHREE:
+				output.push_back('n');
+				break;
+			case Decoration::TWENTYFOUR:
+				output.push_back('o');
+				break;
+			case Decoration::TWENTYFIVE:
+				output.push_back('p');
+				break;
+			case Decoration::TWENTYSIX:
+				output.push_back('q');
+				break;
+			case Decoration::TWENTYSEVEN:
+				output.push_back('r');
+				break;
+			case Decoration::TWENTYEIGHT:
+				output.push_back('s');
+				break;
+			case Decoration::TWENTYNINE:
+				output.push_back('t');
 				break;
 			default:
 				break;
@@ -1112,6 +1240,25 @@ std::string MapEditor::floatToString(float f){
 //}
 
 void MapEditor::createGrid(){
+	std::string currentLevelName = Toolbox::getCurrentLevelName();
+	if (currentLevelName == "Throat") {
+		mMapDimensionsTiles = sf::Vector2f(50, 500);
+	}
+	else if (currentLevelName == "Stomach") {
+		mMapDimensionsTiles = sf::Vector2f(500, 50);
+	}
+	else if (currentLevelName == "Hub") {
+		mMapDimensionsTiles = sf::Vector2f(100, 100);
+	}
+	else if (currentLevelName == "Intestine") {
+		mMapDimensionsTiles = sf::Vector2f(250, 350);
+	}
+	else if (currentLevelName == "Mouth") {
+		mMapDimensionsTiles = sf::Vector2f(500, 50);
+	}
+
+	mGrid.clear();
+
 	sf::Vector2f lastTilePos(-mTileDimensions.x, -mTileDimensions.y);
 	//std::vector<sf::Sprite> tiles;
 

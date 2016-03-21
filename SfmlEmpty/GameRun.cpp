@@ -2,7 +2,7 @@
 bool PAUSEPRESSED = false;
 
 GameRun::GameRun(std::string &levelDirectory, std::string &levelName){
-	mCurrentLevel = &Hub::getInstance();
+	mCurrentLevel = &Mouth::getInstance();
 	setCurrentLevel(levelDirectory, levelName);
 }
 
@@ -34,6 +34,12 @@ void GameRun::render(sf::RenderWindow &window){
 
 void GameRun::loadLevel(){
 	mCurrentLevel->loadLevel();
+}
+
+void GameRun::setCurrentLevel(std::string & levelDirectory, std::string & levelName){
+	mCurrentLevelDirectory = levelDirectory;
+	mCurrentLevelName = levelName;
+	changeLevel(mCurrentLevelName);
 }
 
 void GameRun::changeLevel(std::string levelName){

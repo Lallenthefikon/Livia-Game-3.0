@@ -15,7 +15,7 @@ public:
 	static LayerHandler& LayerHandler::getInstance();
 	void moveBackgroundHorizontal(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
 	void moveBackgroundVertical(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
-	void moveMiddleground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
+	void moveMiddleground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView, std::string orientation);
 	void moveForeground(sf::Vector2f &velocity);
 	// Unused
 	void moveStationaryBackground(sf::RenderWindow &window, Camera &cam, sf::Vector2f &middleCamCoordPosSceneView, sf::Vector2f &middleCamCoordPosTileView);
@@ -29,7 +29,7 @@ public:
 
 	void addVerticalBackground(sf::Texture &backgroundTexture);
 	void addHorizontalBackground(sf::Texture &backgroundTexture);
-	void addMiddleground(sf::Texture &backgroundTexture, std::string orientation);
+	void addMiddleground(sf::Texture &backgroundTexture, std::string orientation, sf::IntRect middlegroundBounds);
 	void addForegroundObject(sf::Texture &foregroundTexture);
 
 	void addLifeSprite(sf::Sprite &life);

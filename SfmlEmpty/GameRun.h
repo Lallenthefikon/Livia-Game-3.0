@@ -20,7 +20,7 @@ public:
 	virtual void update(sf::RenderWindow &window);
 	virtual void render(sf::RenderWindow &window);
 	virtual void loadLevel();
-	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
+	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName);
 	void changeLevel(std::string levelName);
 private:
 	GameRun(std::string &mapname, std::string &levelName);

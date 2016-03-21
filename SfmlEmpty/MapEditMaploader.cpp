@@ -1,5 +1,6 @@
 #include "MapEditMaploader.h"
 #include <fstream>
+#include <iostream>
 
 MapEditMaploader::MapEditMaploader(){
 }
@@ -277,7 +278,7 @@ void MapEditMaploader::readTerrainfile(std::string &filename) {
 
 
 	 // Translates string of two cordinates too floats of corndinates
-	 // returns cordinates when a "-" is read
+	 // returns cordinates when a "|" is read
 
 	 bool yDone = false;
 	 bool deciDone = false;
