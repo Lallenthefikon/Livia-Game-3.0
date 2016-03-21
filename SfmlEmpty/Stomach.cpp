@@ -117,12 +117,12 @@ void Stomach::update(sf::RenderWindow &window) {
 		resetLevel(window);
 	}
 	if (mLevelState == "Dialogue") {
-		if (mDialoguehandler.getFilename() == "resources/Dialogues/Stomach Event/EventB.txt") {
+		/*if (mDialoguehandler.getFilename() == "resources/Dialogues/Stomach Event/EventB.txt") {
 			mAcidAlpha += 1;
 			if (mAcidAlpha > 255)
 				mAcidAlpha = 255;
 			mLayerHandler.updateVertGlowAlpha(mAcidAlpha);
-		}
+		}*/
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
@@ -272,7 +272,7 @@ void Stomach::eventB() {
 	if (!eventBtriggerd) {
 	mLevelState = "Dialogue";
 	mAcidAlpha = 0;
-	AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(100, 2550));
+	AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(600, 2550));
 	Dialoguehandler::getInstance().setCurrentDialogue("resources/Dialogues/Stomach Event/EventB.txt");
 	eventBtriggerd = true;
 }
@@ -280,7 +280,7 @@ void Stomach::eventB() {
 void Stomach::eventC() {
 	if (eventBtriggerd) {
 	if (!eventCtriggerd) {
-			AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(-1400, 2550));
+			AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(-1500, 2550));
 			eventCtriggerd = true;
 		}
 	}
@@ -321,9 +321,9 @@ void Stomach::eventD() {
 
 void Stomach::updateVertGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
-		float delta = mEntityHandler->getEntities().at(0)->getPos().x -
+		float delta =   -
 			(mEntityHandler->getEntities().back()->getPos().x + mEntityHandler->getEntities().back()->getWidth());
-		float alpha = 255 - (255 * delta / 3000);
+		float alpha = 255 - (255 * delta / 2000);
 		if (alpha < 0) {
 			alpha = 0;
 		}

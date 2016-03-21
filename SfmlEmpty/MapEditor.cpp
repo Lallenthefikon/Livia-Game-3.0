@@ -956,7 +956,7 @@ std::string MapEditor::floatToString(float f){
 //}
 
 void MapEditor::createGrid(){
-	sf::Vector2f lastTilePos(-mTileDimensions.x, -mTileDimensions.y);
+	sf::Vector2f lastTilePos(-mTileDimensions.x - 5000, -mTileDimensions.y);
 	//std::vector<sf::Sprite> tiles;
 
 	for (size_t i = 0; i < mMapDimensionsTiles.x; i++){
