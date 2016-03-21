@@ -180,6 +180,7 @@
     <ClInclude Include="Mouth.h" />
     <ClInclude Include="Octo_Pi.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SoundFactory.h" />
     <ClInclude Include="SoundFX.h" />
     <ClInclude Include="Spikes.h" />
@@ -192,6 +193,13 @@
     <ClInclude Include="TummySound.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="WormSound.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SfmlEmpty.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\logo with outline.png" />
+    <Image Include="..\..\..\..\Downloads\logoIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

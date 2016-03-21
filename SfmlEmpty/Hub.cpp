@@ -79,8 +79,8 @@ void Hub::update(sf::RenderWindow &window) {
 		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		/*mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);*/
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		checkIfNewMap();
@@ -103,7 +103,7 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	// Middleground
-	//mLayerHandler.renderMiddleground(window);
+	// mLayerHandler.renderMiddleground(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -140,9 +140,12 @@ void Hub::loadLevel() {
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBMIDDLEGROUND), sf::IntRect(0, 0, 1920, 1080));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));
+	
 	mLevelState = "Center";
 	mLevelMusic.stopAllMusic();
-
 }
 
 void Hub::unloadLevel() {

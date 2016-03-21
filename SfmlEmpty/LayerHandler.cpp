@@ -1,7 +1,7 @@
 #include "LayerHandler.h"
 #include <iostream>
 
-float BACKGROUNDSPEED = 0.2f; // 10.07f
+float BACKGROUNDSPEED = .07f;
 float MIDDLEGROUNDSPEED = BACKGROUNDSPEED * 2;
 float FOREGROUNDSPEED;
 
@@ -14,6 +14,7 @@ mDialogueHandler(Dialoguehandler::getInstance()),
 mHeartAnimation(Animations::getHeartANI()),
 mMiddlegrounds(3),
 mBackgrounds(3),
+mForegroundObjects(1),
 mPreviousLife(-1),
 mMaxLife(20) {
 	//mForegroundObjects.push_back(background);
@@ -186,7 +187,17 @@ void LayerHandler::moveBackgroundVertical(sf::RenderWindow &window, Camera &cam,
 	//furthestDownBG->move(0, -camVelY * BACKGROUNDSPEED);
 }
 
-void LayerHandler::moveMiddleground(sf::RenderWindow & window, Camera & cam, sf::Vector2f & middleCamCoordPosSceneView, sf::Vector2f & middleCamCoordPosTileView){
+void LayerHandler::moveMiddleground(sf::RenderWindow & window, Camera & cam, sf::Vector2f & middleCamCoordPosSceneView, sf::Vector2f & middleCamCoordPosTileView, std::string orientation){
+	float yPos;
+	if (orientation == "Bottom") {
+		yPos = 1080.f - mMiddlegrounds[0].getLocalBounds().height;
+	}
+	else if( orientation == "Top"){
+		yPos = 0.f;
+	}
+	else {
+		yPos = 0.f;
+	}
 	sf::Sprite* furthestRightMG;
 	sf::Sprite* furthestLeftMG;
 	sf::Sprite* middleMG;
@@ -247,11 +258,11 @@ void LayerHandler::moveMiddleground(sf::RenderWindow & window, Camera & cam, sf:
 
 	// Resets furthest left when moving right 
 	if (furthestLeftMG->getPosition().x < -furthestLeftMG->getLocalBounds().width) {
-		furthestLeftMG->setPosition(furthestRightMG->getPosition().x + furthestLeftMG->getLocalBounds().width, 0);
+		furthestLeftMG->setPosition(furthestRightMG->getPosition().x + furthestLeftMG->getLocalBounds().width, yPos);
 	}
 	// Resets furthest right when moving left 
 	else if ((furthestRightMG->getPosition().x > 1920) && (cam.getVelocity().x < 0)) {
-		furthestRightMG->setPosition(furthestLeftMG->getPosition().x - furthestLeftMG->getLocalBounds().width, 0);
+		furthestRightMG->setPosition(furthestLeftMG->getPosition().x - furthestLeftMG->getLocalBounds().width, yPos);
 	}
 
 	// Moves backgrounds at same speed
@@ -391,8 +402,11 @@ void LayerHandler::addVerticalBackground(sf::Texture &backgroundTexture) {
 	mBackgrounds[2].setPosition(sf::Vector2f(0.f, mBackgrounds[1].getPosition().y - mBackgrounds[2].getLocalBounds().height));
 }
 
-void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture, std::string orientation){
+void LayerHandler::addMiddleground(sf::Texture &middlegroundTexture, std::string orientation, sf::IntRect middlegroundBounds){
 	mMiddleground.setTexture(middlegroundTexture);
+	for (size_t i = 0; i < mMiddlegrounds.size(); i++){
+		mMiddlegrounds[i].setTextureRect(middlegroundBounds);
+	}
 	if (orientation == "Top") {
 		mMiddlegrounds[0] = mMiddleground;
 		mMiddlegrounds[0].setPosition(sf::Vector2f(0.f, 0.f));
@@ -419,7 +433,7 @@ void LayerHandler::addMiddleground(sf::Texture & middlegroundTexture, std::strin
 void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
 	mForeground.setTexture(foregroundTexture);
 	mForeground.setScale(4, 1);
-	mForegroundObjects.push_back(mForeground);
+	mForegroundObjects[0] = mForeground;
 	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
 }
 

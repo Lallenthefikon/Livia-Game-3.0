@@ -113,7 +113,7 @@ void Stomach::update(sf::RenderWindow &window) {
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 		updateVertGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
@@ -200,6 +200,7 @@ void Stomach::render(sf::RenderWindow &window) {
 
 	// Foreground
 	window.setView(mCamera.getSceneryView());
+	mLayerHandler.renderForeground(window);
 
 	// Dialouge
 	if (mLevelState == "Dialogue") {
@@ -235,7 +236,7 @@ void Stomach::loadLevel() {
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
 	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(0,0, 1920, 363));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top");
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 363));
 
 	mLevelState = "Cutscene";
 }
