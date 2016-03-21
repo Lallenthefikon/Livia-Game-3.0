@@ -27,6 +27,32 @@ mLevelState("Cutscene"),
 
 mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4550.f) {
+
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+	Texthandler::getInstance().loadTexts();
+	Toolbox::copyLevelBounds(mLevelBounds);
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
+
+	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1, 363, 1080, 1920));
+	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
+
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
+	mLayerHandler.addVerticalBackground(mBackgroundTexture);
+
+	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	mLayerHandler.addForegroundObject(mAcidTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 363));
+	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -80,21 +106,21 @@ void Stomach::update(sf::RenderWindow &window) {
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
 		mTerrainHandler->bringOutTheDead();
-
+		
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 		updateVertGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
 			mLevelMusic.stopAllMusic();
 			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-		}
+	}
 
 	}
 	if (mLevelState == "Rising") {
@@ -126,13 +152,13 @@ void Stomach::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-	}
+}
 
 	if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
 		mSwitchLevelWhenDone = false;
 		eventCtriggerd = false;
 		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
-	}
+}
 
 }
 
@@ -145,7 +171,7 @@ void Stomach::render(sf::RenderWindow &window) {
 
 	
 
-	
+
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {
@@ -174,6 +200,7 @@ void Stomach::render(sf::RenderWindow &window) {
 
 	// Foreground
 	window.setView(mCamera.getSceneryView());
+	mLayerHandler.renderForeground(window);
 
 	// Dialouge
 	if (mLevelState == "Dialogue") {
@@ -187,6 +214,7 @@ void Stomach::loadLevel() {
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
@@ -208,7 +236,7 @@ void Stomach::loadLevel() {
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
 	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(0,0, 1920, 363));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top");
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 363));
 
 	mLevelState = "Cutscene";
 }
@@ -316,7 +344,6 @@ void Stomach::eventD() {
 //		GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 //		eventGtriggerd = true;
 //	}
-//
 //}
 
 void Stomach::updateVertGradiantAlpha() {

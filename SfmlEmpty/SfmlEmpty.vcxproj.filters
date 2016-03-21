@@ -172,6 +172,9 @@
     <ClCompile Include="LevelMusic.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="DialogueSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -339,6 +342,10 @@
     <ClInclude Include="LevelMusic.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="DialogueSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -398,5 +405,12 @@
     <Filter Include="Source Files\Entity">
       <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SfmlEmpty.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\logoIcon.ico" />
+    <Image Include="..\..\..\..\Downloads\logo with outline.png" />
   </ItemGroup>
 </Project>

@@ -27,6 +27,7 @@ struct Toolbox {
 		STOMACHBACKGROUND, STOMACHMIDDLEGROUND, STOMACHACID,
 		// Hub
 		HUBBACKGROUND,
+		HUBMIDDLEGROUND,
 		DECORATIONTEXTURE,
 		// Throat
 		THROATBACKGROUND,
@@ -57,6 +58,10 @@ struct Toolbox {
 		THROATMUSIC,
 		// Hub
 		HUBMUSIC,
+		// Mouth
+		MOUTHMUSIC,
+		// Intestine
+		INTESTINEMUSIC,
 		// Tummy
 		TUMMYRUNNING
 	};
@@ -84,6 +89,8 @@ struct Toolbox {
 	static sf::FloatRect getLevelBounds();
 	static void copyCurrentLevelName(std::string newLevelName);
 	static std::string getCurrentLevelName();
+	static void copyCurrentLevelDirectory(std::string newDirectory);
+	static std::string getCurrentLevelDirectory();
 
 	// Player Info 
 	static void copyPlayerSprite(sf::Sprite &playerSprite);

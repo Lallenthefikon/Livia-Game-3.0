@@ -90,4 +90,6 @@ void TummySound::updateSound(SoundFX::SOUNDTYPE type, float &volume) {
 }
 
 void TummySound::stopAllSound() {
+	for (auto i : mSounds)
+		i.second->stop();
 }

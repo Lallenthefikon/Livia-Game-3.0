@@ -70,7 +70,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-
+	
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -79,12 +79,12 @@ void Hub::update(sf::RenderWindow &window) {
 		//mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		/*mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);*/
+		//mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		checkIfNewMap();
-		}
+	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
@@ -92,7 +92,7 @@ void Hub::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
 }
 
 void Hub::render(sf::RenderWindow &window) {
@@ -103,7 +103,7 @@ void Hub::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	// Middleground
-	//mLayerHandler.renderMiddleground(window);
+	// mLayerHandler.renderMiddleground(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -136,12 +136,16 @@ void Hub::render(sf::RenderWindow &window) {
 
 void Hub::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
+
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBMIDDLEGROUND), sf::IntRect(0, 0, 1920, 1080));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));
+	
 	mLevelState = "Center";
 	mLevelMusic.stopAllMusic();
-
 }
 
 void Hub::unloadLevel() {
@@ -197,6 +201,8 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
+	Hub::stopAllMusic();
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
 void Hub::eventB() {
@@ -248,5 +254,8 @@ void Hub::checkIfNewMap(){
 		Hub::eventE();
 		mEventE = false;
 	}
+}
 
+void Hub::stopAllMusic() {
+	mLevelMusic.stopAllMusic();
 }
