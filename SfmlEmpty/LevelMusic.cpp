@@ -115,8 +115,6 @@ void LevelMusic::stopMusic(MUSICTYPE type) {
 }
 
 void LevelMusic::stopAllMusic() {
-	/*for (auto i : mMusic)
-		i->stop();*/
 	for (MusicVector::size_type i = 0; i < mMusic.size(); i++) {
 		mMusic[i]->stop();
 	}

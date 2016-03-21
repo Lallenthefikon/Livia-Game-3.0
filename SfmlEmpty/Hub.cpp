@@ -217,18 +217,23 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 }
 void Hub::eventB() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Throat");
 }
 void Hub::eventC() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
 void Hub::eventD() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Intestine");
 }
 void Hub::eventE() {
+	Hub::stopAllMusic();
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 }
 void Hub::eventF() {
@@ -264,5 +269,8 @@ void Hub::checkIfNewMap(){
 		Hub::eventE();
 		mEventE = false;
 	}
+}
 
+void Hub::stopAllMusic() {
+	mLevelMusic.stopAllMusic();
 }

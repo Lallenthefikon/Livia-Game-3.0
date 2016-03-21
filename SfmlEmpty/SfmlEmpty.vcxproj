@@ -86,6 +86,7 @@
     <ClCompile Include="Block0WallJump.cpp" />
     <ClCompile Include="Block0Icy.cpp" />
     <ClCompile Include="BlockGoal.cpp" />
+    <ClCompile Include="DialogueSound.cpp" />
     <ClCompile Include="EditorEventBlock.cpp" />
     <ClCompile Include="ExtraLife.cpp" />
     <ClCompile Include="Germ.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Block0WallJump.h" />
     <ClInclude Include="Block0Icy.h" />
     <ClInclude Include="BlockGoal.h" />
+    <ClInclude Include="DialogueSound.h" />
     <ClInclude Include="EditorEventBlock.h" />
     <ClInclude Include="ExtraLife.h" />
     <ClInclude Include="Germ.h" />

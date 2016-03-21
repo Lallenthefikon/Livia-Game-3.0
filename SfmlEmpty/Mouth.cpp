@@ -53,7 +53,7 @@ void Mouth::update(sf::RenderWindow &window) {
 			resetLevel(window);
 	}
 
-	//mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
+	mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
 
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {

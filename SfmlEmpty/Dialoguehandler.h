@@ -6,7 +6,8 @@
 #include "Toolbox.h"
 #include "Texthandler.h"
 #include "Animations.h"
-
+#include "SoundFX.h"
+#include "SoundFactory.h"
 
 class Dialoguehandler {
 public:
@@ -31,6 +32,7 @@ private:
 	void internalClear();
 	void readFile();
 	void setCurrentSpeaker(std::string &line);
+	void playSpeakerSound(CURRENTSPEAKER speaker);
 	void loadTexture(char level);
 	void animate();
 	size_t currentDialouge;
@@ -51,5 +53,6 @@ private:
 	bool mLeftActive = true;
 	Strings mSpeakers;
 
+	SoundFX& mSoundFX;
 };
 
