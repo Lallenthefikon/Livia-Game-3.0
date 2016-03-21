@@ -162,7 +162,7 @@ void LayerHandler::moveBackgroundVertical(sf::RenderWindow &window, Camera &cam,
 		//std::cout << "Middle 0" << std::endl;
 	}
 
-	std::cout << "Top: " << furthestUpBG->getPosition().y << "Middle: " << middleBG->getPosition().y << "Btm: " << furthestDownBG->getPosition().y << std::endl;
+	//std::cout << "Top: " << furthestUpBG->getPosition().y << "Middle: " << middleBG->getPosition().y << "Btm: " << furthestDownBG->getPosition().y << std::endl;
 
 	sf::Vector2f middleBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(middleBG->getPosition().x, middleBG->getPosition().y), window);
 	sf::Vector2f leftBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestDownBG->getPosition().x, furthestDownBG->getPosition().y), window);

@@ -95,8 +95,7 @@ void Throat::update(sf::RenderWindow &window) {
 
 		if (Toolbox::getPlayerHealth() > 0) {
 			mCamera.updateThroatCam(window, mLevelState);
-		}
-		else {
+		} else {
 			mCamera.updateThroatCam(window, "Stop");
 		}
 
@@ -165,6 +164,10 @@ void Throat::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
+	// Middleground
+	mLayerHandler.renderMiddleground(window);
+	mLayerHandler.renderVertGradiant(window);
+
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
 
@@ -202,6 +205,7 @@ void Throat::loadLevel() {
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 
@@ -227,7 +231,7 @@ void Throat::unloadLevel() {
 	//Toolbox::unloadTextures(mMapName);
 }
 
-void Throat::triggerEvent(char type){
+void Throat::triggerEvent(char type) {
 	switch (type) {
 	case 'a':
 		Throat::eventA();

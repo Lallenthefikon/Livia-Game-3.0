@@ -4,7 +4,8 @@
 
 static float ANIFramesPerFrame = 0.5;
 
-Dialoguehandler::Dialoguehandler(){
+Dialoguehandler::Dialoguehandler() :
+	mSoundFX(SoundFactory::getDialogueSound()){
 }
 
 Dialoguehandler::~Dialoguehandler(){
@@ -30,9 +31,9 @@ void Dialoguehandler::renderDialogue(sf::RenderWindow & window){
 
 void Dialoguehandler::updateDialogue() {
 	mDialoguespriteLeft.setTextureRect(sf::IntRect(mDialoguespriteLeft.getLocalBounds().width, 0, -mDialoguespriteLeft.getLocalBounds().width, mDialoguespriteLeft.getLocalBounds().height));
-	
-	if(mCurrentspeaker != INSTRUCTIONS)
-	animate();
+
+	if (mCurrentspeaker != INSTRUCTIONS)
+		animate();
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
 		if (mReturnRealesed) {
 			mIndex++;
@@ -42,6 +43,7 @@ void Dialoguehandler::updateDialogue() {
 			else {
 				Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
+				Dialoguehandler::playSpeakerSound(mCurrentspeaker);
 			}
 			mReturnRealesed = false;
 		}
@@ -100,6 +102,7 @@ void Dialoguehandler::setCurrentDialogue(std::string filename){
 	Dialoguehandler::readFile();
 	Texthandler::getInstance().setDialougeText(*mStringVectors[0]->at(0), *mStringVectors[0]->at(1), *mStringVectors[0]->at(2));
 	Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
+	Dialoguehandler::playSpeakerSound(mCurrentspeaker);
 }
 
 void Dialoguehandler::internalClear() {
@@ -217,6 +220,24 @@ void Dialoguehandler::animate() {
 	}
 }
 
+void Dialoguehandler::playSpeakerSound(CURRENTSPEAKER speaker) {
+	switch (speaker) {
+	case Dialoguehandler::LIVIA:
+		mSoundFX.playSound(SoundFX::SPEAKERLIVIA);
+		break;
+	case Dialoguehandler::MANSASOUL:
+		mSoundFX.playSound(SoundFX::SPEAKERMANSA);
+		break;
+	case Dialoguehandler::TUMMY:
+		mSoundFX.playSound(SoundFX::SPEAKERTUMMY);
+		break;
+	case Dialoguehandler::MUHNIN:
+		mSoundFX.playSound(SoundFX::SPEAKERMUHNIN);
+		break;
+	default:
+		break;
+	}
+}
 
 //mTimer += ANIFramesPerFrame;
 //if (mTimer >= 2) {

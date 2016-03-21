@@ -70,7 +70,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mTerrainHandler->update();
 		mCollisionHandler.checkCollision(mEntityHandler->getEntities(), mTerrainHandler->getTerrains(), mTerrainHandler->getCollisionTerrains());
 		mEntityHandler->bringOutTheDead();
-
+	
 
 		window.setView(mCamera.getTileView());
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
@@ -84,7 +84,7 @@ void Hub::update(sf::RenderWindow &window) {
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		checkIfNewMap();
-		}
+	}
 	if (mLevelState == "Reset") {
 		resetLevel(window);
 	}
@@ -92,7 +92,7 @@ void Hub::update(sf::RenderWindow &window) {
 		Dialoguehandler::getInstance().updateDialogue();
 		if (Dialoguehandler::getInstance().isInDialogue == false)
 			mLevelState = "ZoomedOut";
-}
+	}
 }
 
 void Hub::render(sf::RenderWindow &window) {
@@ -136,6 +136,7 @@ void Hub::render(sf::RenderWindow &window) {
 
 void Hub::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	mMapGenerator.loadMap(mMapPath, this);
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
@@ -200,6 +201,8 @@ void Hub::resetLevel(sf::RenderWindow &window) {
 }
 
 void Hub::eventA() {
+	Hub::stopAllMusic();
+	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Stomach");
 	GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Mouth");
 }
 void Hub::eventB() {
@@ -251,5 +254,8 @@ void Hub::checkIfNewMap(){
 		Hub::eventE();
 		mEventE = false;
 	}
+}
 
+void Hub::stopAllMusic() {
+	mLevelMusic.stopAllMusic();
 }

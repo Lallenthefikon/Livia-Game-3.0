@@ -113,6 +113,63 @@ void MapEditorMeny::insertObjects(){
 
 	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 9.8f, 180.f), '9', 'b', 't'));
 	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 10.8f, 180.f), 'a', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 11.8f, 180.f), 'b', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 12.8f, 180.f), 'c', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 13.8f, 180.f), 'd', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 14.8f, 180.f), 'e', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 15.8f, 180.f), 'f', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 16.8f, 180.f), 'g', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 17.8f, 180.f), 'h', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 18.8f, 180.f), 'j', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 19.8f, 180.f), 'k', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 20.8f, 180.f), 'l', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 21.8f, 180.f), 'm', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 22.8f, 180.f), 'n', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 23.8f, 180.f), 'o', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 24.8f, 180.f), 'p', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 25.8f, 180.f), 'q', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 26.8f, 180.f), 'r', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 27.8f, 180.f), 's', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
+
+	mDecorations.push_back(Factory::createDecoration(sf::Vector2f(WIDTHBETWEEN * 28.8f, 180.f), 't', 'b', 't'));
+	mDecorations.back()->setScale(sf::Vector2f(0.2f, 0.2f));
 }
 
 bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
@@ -224,6 +281,66 @@ bool MapEditorMeny::menyClicked(sf::Vector2i mousepos){
 					break;
 				case Decoration::LIVIA:
 					mInsertType = DECORATION9;
+					break;
+				case Decoration::TEN:
+					mInsertType = DECORATION10;
+					break;
+				case Decoration::ELEVEN:
+					mInsertType = DECORATION11;
+					break;
+				case Decoration::TWELVE:
+					mInsertType = DECORATION12;
+					break;
+				case Decoration::THIRTEEN:
+					mInsertType = DECORATION13;
+					break;
+				case Decoration::FOURTEEN:
+					mInsertType = DECORATION14;
+					break;
+				case Decoration::FIFTEEN:
+					mInsertType = DECORATION15;
+					break;
+				case Decoration::SIXTEEN:
+					mInsertType = DECORATION16;
+					break;
+				case Decoration::SEVENTEEN:
+					mInsertType = DECORATION17;
+					break;
+				case Decoration::EIGHTEEN:
+					mInsertType = DECORATION18;
+					break;
+				case Decoration::NINETEEN:
+					mInsertType = DECORATION19;
+					break;
+				case Decoration::TWENTY:
+					mInsertType = DECORATION20;
+					break;
+				case Decoration::TWENTYONE:
+					mInsertType = DECORATION21;
+					break;
+				case Decoration::TWENTYTWO:
+					mInsertType = DECORATION22;
+					break;
+				case Decoration::TWENTYTHREE:
+					mInsertType = DECORATION23;
+					break;
+				case Decoration::TWENTYFOUR:
+					mInsertType = DECORATION24;
+					break;
+				case Decoration::TWENTYFIVE:
+					mInsertType = DECORATION25;
+					break;
+				case Decoration::TWENTYSIX:
+					mInsertType = DECORATION26;
+					break;
+				case Decoration::TWENTYSEVEN:
+					mInsertType = DECORATION27;
+					break;
+				case Decoration::TWENTYEIGHT:
+					mInsertType = DECORATION28;
+					break;
+				case Decoration::TWENTYNINE:
+					mInsertType = DECORATION29;
 					break;
 				default:
 					break;

@@ -5,7 +5,7 @@
 
 class LevelMusic {
 public:
-	enum MUSICTYPE { STOMACHMUSIC, STOMACHAMBIANCE, THROATMUSIC, HUBMUSIC, INTESTINEMUSIC };
+	enum MUSICTYPE { STOMACHMUSIC, STOMACHAMBIANCE, THROATMUSIC, HUBMUSIC, MOUTHMUSIC, INTESTINEMUSIC };
 	typedef std::vector<sf::Music*> MusicVector;
 	static LevelMusic& getInstance();
 	virtual ~LevelMusic();
@@ -17,9 +17,11 @@ private:
 	void initialize();
 	void finalize();
 	MusicVector mMusic;
-	sf::Music& tempMusic0;
-	sf::Music& tempMusic1;
-	sf::Music& tempMusic2;
-	sf::Music& tempMusic3;
+	sf::Music& stomachAmbience;
+	sf::Music& stomachMusic;
+	sf::Music& throatMusic;
+	sf::Music& hubMusic;
+	sf::Music& mouthMusic;
+	sf::Music& intestineMusic;
 };
 

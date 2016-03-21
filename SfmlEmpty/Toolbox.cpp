@@ -12,6 +12,7 @@ static float staticFrametime(0.0180);
 
 // Level Info
 static std::string mCurrentLevelName;
+static std::string mCurrentLevelDirectory;
 static sf::Vector2f mGravity(0, 20);
 static sf::FloatRect mLevelBounds;
 
@@ -84,6 +85,8 @@ static sf::Music mStomachMusic;
 static sf::Music mStomachAmbience;
 static sf::Music mThroatMusic;
 static sf::Music mHubMusic;
+static sf::Music mMouthMusic;
+static sf::Music mInestineMusic;
 static sf::SoundBuffer mAirHorn;
 
 // Fonts
@@ -112,14 +115,14 @@ void Toolbox::loadTextures(std::string levelName) {
 
 	if (mHubBackground.getSize().x <= 0)
 		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
-
+	
 	if (mHubMiddleground.getSize().x <= 0)
 		mHubMiddleground.loadFromFile("resources/images/background/moln current.png");
 	
 	if (mThroatBackground.getSize().x <= 0)
 		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
 
-	if (mThroatBackground.getSize().x <= 0)
+	if (mThroatMiddleground.getSize().x <= 0)
 		mThroatMiddleground.loadFromFile("resources/images/background/Strupe kant h.png");
 
 	if (mMouthBackground.getSize().x <= 0)
@@ -171,13 +174,11 @@ void Toolbox::loadTextures(std::string levelName) {
 	mDialogueBoxSpriteSheetIMG.loadFromFile("resources/images/dialogue/TextboxSpritesheet.png");
 	mDialogueSpriteSheetIMG.loadFromFile("resources/images/dialogue/DialogueSpritesheet.png");
 	}
-
 }
 
 void Toolbox::loadSounds(std::string levelName) {
 
 		// Load Tummy Acid Trip
-		
 		mTummyRunningSound.loadFromFile("resources/sounds/effects/tummy/TummyAcidTrip.ogg");
 		
 		// Music and ambience
@@ -185,9 +186,10 @@ void Toolbox::loadSounds(std::string levelName) {
 		mStomachAmbience.openFromFile("resources/sounds/music/stomach/Ambient_Stomach.ogg");
 		mThroatMusic.openFromFile("resources/sounds/music/stomach/Mage.ogg");
 		mHubMusic.openFromFile("resources/sounds/music/hub/Hub.ogg");
+	mMouthMusic.openFromFile("resources/sounds/music/mouth/Mouthie.ogg");
+	mInestineMusic.openFromFile("resources/sounds/music/intestine/Intestine.ogg");
 
 	// Global effects
-	//mPlayerIdleSound.loadFromFile("resources/sounds/effects/livia/jump_02.ogg");
 	mPlayerRunSound.loadFromFile("resources/sounds/effects/livia/walking/Walkcycle_01.ogg");
 	mPlayerJumpSound1.loadFromFile("resources/sounds/effects/livia/jumps/Jump_01.ogg");
 	mPlayerJumpSound2.loadFromFile("resources/sounds/effects/livia/jumps/Jump_05.ogg");
@@ -372,6 +374,14 @@ std::string Toolbox::getCurrentLevelName(){
 	return mCurrentLevelName;
 }
 
+void Toolbox::copyCurrentLevelDirectory(std::string newDirectory) {
+	mCurrentLevelDirectory = newDirectory;
+}
+
+std::string Toolbox::getCurrentLevelDirectory() {
+	return mCurrentLevelDirectory;
+}
+
 void Toolbox::copyPlayerSprite(sf::Sprite &playerSprite){
 	mPlayerSprite = playerSprite;
 }
@@ -485,8 +495,14 @@ sf::Music& Toolbox::getMusic(SOUNDKEY soundKey) {
 	case Toolbox::THROATMUSIC:
 		return mThroatMusic;
 		break;
+	case Toolbox::MOUTHMUSIC:
+		return mMouthMusic;
+		break;
 	case Toolbox::HUBMUSIC:
 		return mHubMusic;
+		break;
+	case Toolbox::INTESTINEMUSIC:
+		return mInestineMusic;
 		break;
 	default:
 		break;

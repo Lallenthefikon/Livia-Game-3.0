@@ -172,6 +172,9 @@
     <ClCompile Include="LevelMusic.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="DialogueSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -340,6 +343,9 @@
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="DialogueSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

@@ -49,6 +49,9 @@ Mouth::Mouth() :
 	//mLayerHandler.addAcid(mAcidTexture);
 
 	
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
+
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 
@@ -74,7 +77,7 @@ void Mouth::update(sf::RenderWindow &window) {
 			resetLevel(window);
 	}
 
-	//mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
+	mLevelMusic.playMusic(LevelMusic::MOUTHMUSIC);
 
 	// Updates independent of state
 	if (!Toolbox::getPlayerIsAlive()) {
@@ -197,6 +200,7 @@ void Mouth::loadLevel() {
 
 	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
 	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	Toolbox::copyLevelBounds(mLevelBounds);
