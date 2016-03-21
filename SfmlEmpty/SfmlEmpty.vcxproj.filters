@@ -404,6 +404,7 @@
     <ResourceCompile Include="SfmlEmpty.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon1.ico" />
+    <Image Include="..\..\..\..\Downloads\logoIcon.ico" />
+    <Image Include="..\..\..\..\Downloads\logo with outline.png" />
   </ItemGroup>
 </Project>
