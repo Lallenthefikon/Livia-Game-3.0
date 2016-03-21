@@ -118,7 +118,7 @@ void Toolbox::loadTextures(std::string levelName) {
 	if (mThroatBackground.getSize().x <= 0)
 		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
 
-	if (mThroatBackground.getSize().x <= 0)
+	if (mThroatMiddleground.getSize().x <= 0)
 		mThroatMiddleground.loadFromFile("resources/images/background/Strupe kant h.png");
 
 	if (mMouthBackground.getSize().x <= 0)

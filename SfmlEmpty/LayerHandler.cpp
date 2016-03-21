@@ -1,7 +1,7 @@
 #include "LayerHandler.h"
 #include <iostream>
 
-float BACKGROUNDSPEED = 10.07f;
+float BACKGROUNDSPEED = 0.2f; // 10.07f
 float MIDDLEGROUNDSPEED = BACKGROUNDSPEED * 2;
 float FOREGROUNDSPEED;
 
@@ -161,7 +161,7 @@ void LayerHandler::moveBackgroundVertical(sf::RenderWindow &window, Camera &cam,
 		//std::cout << "Middle 0" << std::endl;
 	}
 
-	std::cout << "Top: " << furthestUpBG->getPosition().y << "Middle: " << middleBG->getPosition().y << "Btm: " << furthestDownBG->getPosition().y << std::endl;
+	//std::cout << "Top: " << furthestUpBG->getPosition().y << "Middle: " << middleBG->getPosition().y << "Btm: " << furthestDownBG->getPosition().y << std::endl;
 
 	sf::Vector2f middleBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(middleBG->getPosition().x, middleBG->getPosition().y), window);
 	sf::Vector2f leftBgCoordPos = Toolbox::findCoordPos(sf::Vector2i(furthestDownBG->getPosition().x, furthestDownBG->getPosition().y), window);

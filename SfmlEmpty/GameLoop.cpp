@@ -34,7 +34,7 @@ void GameLoop::updateState() {
 		mCurrentState = MapEditor::getInstance(Toolbox::getCurrentLevelDirectory(), Toolbox::getCurrentLevelName());
 	}
 	mCurrentState->loadLevel();
-	std::cout << "Changed state" << std::endl;
+	//std::cout << "Changed state" << std::endl;
 }
 
 void GameLoop::manualStateChange(int &i) {

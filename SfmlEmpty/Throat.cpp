@@ -27,35 +27,6 @@ Throat::Throat() :
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 57500.f) {
 
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-	Texthandler::getInstance().loadTexts();
-	Toolbox::copyLevelBounds(mLevelBounds);
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyCurrentLevelDirectory(mMapPath);
-
-	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1970, 0, 1920, 1347));
-	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
-
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
-	mLayerHandler.addVerticalBackground(mBackgroundTexture);
-
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
-
-	mLevelMusic.stopAllMusic();
 
 }
 
@@ -206,6 +177,10 @@ void Throat::render(sf::RenderWindow &window) {
 
 void Throat::loadLevel() {
 	mLevelMusic.stopAllMusic();
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+	Texthandler::getInstance().loadTexts();
 	Toolbox::loadTextures(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
@@ -224,8 +199,8 @@ void Throat::loadLevel() {
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::THROATBACKGROUND));
 	mLayerHandler.addVerticalBackground(mBackgroundTexture);
 
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
+	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
+	//mLayerHandler.addForegroundObject(mAcidTexture);
 
 	mLevelState = "Cutscene";
 
