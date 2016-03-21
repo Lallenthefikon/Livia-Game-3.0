@@ -21,6 +21,9 @@ private:
 	void calcTimeElapsedAndFPS(sf::Clock &clock);
 	void manualStateChange(int &i);
 	void manualFPSChange(int &i);
+	void manualMapDirectoryChange(int &i);
+	std::string getLevelFilename(int i);
+	std::string getMapName(int i);
 	void switchFPS();
 	void updateFPS();
 	void switchState();
@@ -31,6 +34,11 @@ private:
 	
 	std::string mCurrentLevelDirectory,
 		mCurrentLevelName;
+
+	int mCurrentLvlIndex,
+		clickOnce0 = 0,
+		clickOnce1 = 0,
+		clickOnce2 = 0;
 	
 	float mFrameTime;
 	int FPS;
