@@ -339,6 +339,7 @@
     <ClInclude Include="LevelMusic.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">
@@ -398,5 +399,11 @@
     <Filter Include="Source Files\Entity">
       <UniqueIdentifier>{0c9e0a0f-86fe-49cc-b271-81b463b5f08e}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SfmlEmpty.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico" />
   </ItemGroup>
 </Project>

@@ -36,10 +36,7 @@ Mouth::Mouth() :
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
+
 
 	
 
@@ -112,7 +109,7 @@ void Mouth::update(sf::RenderWindow &window) {
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
 		mLayerHandler.moveBackgroundHorizontal(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Bottom");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
@@ -161,7 +158,6 @@ void Mouth::render(sf::RenderWindow &window) {
 	window.setView(mCamera.getSceneryView());
 	mLayerHandler.renderBackground(window);
 
-
 	// Middleground
 	mLayerHandler.renderMiddleground(window);
 
@@ -191,9 +187,7 @@ void Mouth::render(sf::RenderWindow &window) {
 	// Dialouge
 	if (mLevelState == "Dialogue") {
 		Dialoguehandler::getInstance().renderDialogue(window);
-
 	}
-
 
 	window.display();
 }
@@ -223,7 +217,7 @@ void Mouth::loadLevel() {
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
 	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 348));
 
 	mLevelState = "Cutscene";
 }
@@ -237,6 +231,7 @@ void Mouth::triggerEvent(char type) {
 	case 'a':
 		Mouth::eventA();
 		break;
+
 	case 'b':
 		Mouth::eventB();
 		break;

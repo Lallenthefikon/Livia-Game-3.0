@@ -46,8 +46,8 @@ Throat::Throat() :
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom");
+	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	//mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 1080));
 	//mLayerHandler.addMiddleground(mAcidTexture);
 	//mLayerHandler.addAcid(mAcidTexture);
 	
@@ -109,9 +109,9 @@ void Throat::update(sf::RenderWindow &window) {
 		sf::Vector2f tileViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(mCamera.getTileView().getCenter().x, 0), window);
 		window.setView(mCamera.getSceneryView());
 		sf::Vector2f sceneViewCoordPos = Toolbox::findCoordPos(sf::Vector2i(tileViewCoordPos.x, 0), window);
-		mLayerHandler.moveBackgroundVertical(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveStationaryBackground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
 		mLayerHandler.moveStationaryForeground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
-		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos);
+		mLayerHandler.moveMiddleground(window, mCamera, sceneViewCoordPos, tileViewCoordPos, "Top");
 		mLayerHandler.updateHud(mCamera.getTileView().getCenter(), tileViewCoordPos);
 		updateGradiantAlpha();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {

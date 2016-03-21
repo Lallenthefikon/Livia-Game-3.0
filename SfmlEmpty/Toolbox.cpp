@@ -34,6 +34,7 @@ static sf::Image mAcidBottom;
 
 // Hub
 static sf::Image mHubBackground;
+static sf::Image mHubMiddleground;
 
 // Throat
 static sf::Image mThroatBackground;
@@ -111,6 +112,9 @@ void Toolbox::loadTextures(std::string levelName) {
 
 	if (mHubBackground.getSize().x <= 0)
 		mHubBackground.loadFromFile("resources/images/background/Hub bakgrund.png");
+
+	if (mHubMiddleground.getSize().x <= 0)
+		mHubMiddleground.loadFromFile("resources/images/background/moln current.png");
 	
 	if (mThroatBackground.getSize().x <= 0)
 		mThroatBackground.loadFromFile("resources/images/background/strupe back current.png");
@@ -247,6 +251,10 @@ sf::Image& Toolbox::getTexture(TEXTUREKEY textureKey){
 
 	case HUBBACKGROUND:
 		return mHubBackground;
+		break;
+
+	case HUBMIDDLEGROUND:
+		return mHubMiddleground;
 		break;
 
 	case THROATBACKGROUND:
