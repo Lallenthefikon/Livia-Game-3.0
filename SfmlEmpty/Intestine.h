@@ -51,7 +51,6 @@ private:
 	sf::Texture mBackgroundTexture;
 	sf::Texture mMiddlegroundTexture;
 	sf::Texture mLifeTexture;
-	sf::Texture mAcidTexture;
 	sf::Sprite mBackgroundSprite;
 	sf::Sprite mLifeSprite;
 

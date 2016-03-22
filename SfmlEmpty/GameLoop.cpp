@@ -6,7 +6,7 @@ GameLoop::GameLoop() :
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
 	mCurrentLevelDirectory = getLevelFilename(mCurrentLvlIndex);
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
-	mWindow.setVerticalSyncEnabled(false);
+	mWindow.setVerticalSyncEnabled(true);
 	mWindow.setKeyRepeatEnabled(false);
 	Toolbox::copyCurrentLevelName(mCurrentLevelName);
 	Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);

@@ -1,4 +1,5 @@
 #include "Terrainhandler.h"
+#include <iostream>
 
 Terrainhandler::Terrainhandler(){
 }
@@ -49,6 +50,7 @@ void Terrainhandler::render(sf::RenderWindow &window) {
 }
 
 void Terrainhandler::update() {
+	std::cout << mTerrains.size() << std::endl;
 	for (auto i : mTerrains)
 		i->update();
 }

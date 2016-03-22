@@ -6,6 +6,13 @@ static float ANIFramesPerFrame = 0.5;
 
 Dialoguehandler::Dialoguehandler() :
 	mSoundFX(SoundFactory::getDialogueSound()){
+	mSpriteHudBackground.setScale(1.5, 1.4);
+	mSpriteHudBackground.setPosition(sf::Vector2f(240, 750));
+	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition().x + 30, mSpriteHudBackground.getPosition().y + 25);
+	mDialoguespriteLeft.setScale(0.47, 0.47);
+
+	mDialoguespriteRight.setScale(0.47, 0.47);
+	mTimer = 0;
 }
 
 Dialoguehandler::~Dialoguehandler(){
@@ -74,20 +81,10 @@ void Dialoguehandler::updateDialogue() {
 
 void Dialoguehandler::loadDialougehandler(char level){
 	mReturnRealesed = true;
-	Dialoguehandler::loadTexture(level);
-
-
-
+	Dialoguehandler::loadTexture(level); 
 	mSpriteHudBackground.setTexture(mTexture);
-	mSpriteHudBackground.setScale(1.5, 1.4);
-	mSpriteHudBackground.setPosition(sf::Vector2f(240,750));
-	mDialoguespriteLeft.setPosition(mSpriteHudBackground.getPosition().x + 30, mSpriteHudBackground.getPosition().y + 25);
-	mDialoguespriteLeft.setScale(0.47, 0.47);
-	
 	mDialoguespriteRight.setPosition(sf::Vector2f(mSpriteHudBackground.getPosition().x + mSpriteHudBackground.getGlobalBounds().width - 212,
-	mSpriteHudBackground.getPosition().y + 25)); 
-	mDialoguespriteRight.setScale(0.47, 0.47);
-	mTimer = 0;
+		mSpriteHudBackground.getPosition().y + 25));
 }
 
 void Dialoguehandler::clear(){

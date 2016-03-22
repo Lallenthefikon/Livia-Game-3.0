@@ -27,11 +27,6 @@ Intestine::Intestine() :
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
@@ -44,9 +39,6 @@ Intestine::Intestine() :
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
-
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
 
 	/*mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));*/
@@ -154,7 +146,7 @@ void Intestine::render(sf::RenderWindow &window) {
 
 
 	// Middleground
-	mLayerHandler.renderMiddleground(window);
+	//mLayerHandler.renderMiddleground(window);
 
 	// Change view to tileView containing all entities and terrains
 	window.setView(mCamera.getTileView());
@@ -167,7 +159,6 @@ void Intestine::render(sf::RenderWindow &window) {
 	mCollisionHandler.renderCollision(window);
 
 	// Entities
-	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
 	// Decorations front
@@ -190,11 +181,29 @@ void Intestine::render(sf::RenderWindow &window) {
 }
 
 void Intestine::loadLevel() {
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyCurrentLevelDirectory(mMapPath);
-	Toolbox::loadTextures(mMapName);
+
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+	Texthandler::getInstance().loadTexts();
+	Toolbox::copyLevelBounds(mLevelBounds);
+	Toolbox::copyCurrentLevelName(mMapName);
+	Toolbox::copyCurrentLevelDirectory(mMapPath);
+
+
+	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::INTESTINEBACKGROUND));
+	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
+
+	/*mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
+	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));*/
+	//mLayerHandler.addMiddleground(mAcidTexture);
+	//mLayerHandler.addAcid(mAcidTexture);
+
+	mLevelMusic.stopAllMusic();
+
 }
 
 void Intestine::unloadLevel() {
