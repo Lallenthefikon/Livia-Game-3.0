@@ -119,6 +119,10 @@ void Block0::setTexture(char type) {
 	else if (Toolbox::getCurrentLevelName() == "Intestine") {
 		xIndex += 8;
 	}
+	else if (Toolbox::getCurrentLevelName() == "Mouth") {
+		xIndex += 4;
+		yIndex += 4;
+	}
 
 
 	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE),

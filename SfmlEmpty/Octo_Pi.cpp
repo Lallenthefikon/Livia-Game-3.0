@@ -63,7 +63,7 @@ void Octo_Pi::entityCollision(Entity* entity, char direction) {
 			break;
 		default:
 			if (mLife > 0)
-			//entity->getHit();
+			entity->getHit();
 			break;
 		}
 		break;
@@ -178,8 +178,11 @@ void Octo_Pi::lerp() {
 
 
 void Octo_Pi::addSpeed() {
-	if (mCollisionT && mVelocity.y < 0)
-		mVelocity.y = 0;
+	if (mCollisionT && mVelocity.y < 0) {
+		mVelocity.y *= -1;
+		mVelocityGoal.y = -mJumpspeed;
+	}
+
 	if (mCollisionB && mVelocity.y > 0) {
 		mVelocity.y *= -1;
 		mVelocityGoal.y = -mJumpspeed;
@@ -245,7 +248,7 @@ void Octo_Pi::updateANI() {
 		mCurrentAnimationRate = 31.250;
 		break;
 	case Octo_Pi::DEATH:
-		mCurrentAnimation = Animations::getOcto_PiANI();
+		mCurrentAnimation = Animations::getOcto_PiDeathANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 120));
 		mCurrentAnimationRate = 15.625;
 		break;

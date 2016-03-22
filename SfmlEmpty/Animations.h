@@ -25,6 +25,7 @@ struct Animations{
 	static Textures* getGermDamagedANI();
 
 	static Textures* getOcto_PiANI();
+	static Textures* getOcto_PiDeathANI();
 
 	static Textures* getAcidMonster();
 

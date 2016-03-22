@@ -37,6 +37,7 @@ Animations::Textures mGermDamagedANI;
 Animations::Textures mAcidMonsterANI;
 
 Animations::Textures mOcto_PiANI;
+Animations::Textures mOcto_PiDeathANI;
 
 Animations::Textures mMeatballANI;
 
@@ -289,6 +290,21 @@ void Animations::loadTextures() {
 			mOcto_PiANI.push_back(new sf::Texture);
 			mOcto_PiANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x) + 700, (120 * y), 80, 120));
 			mOcto_PiANI[i]->setSmooth(true);
+			x++;
+			if (x == 4) {
+				x = 0;
+				y++;
+			}
+		}
+		x = 0;
+		y = 0;
+	}
+
+	if (mOcto_PiDeathANI.size() == 0) {
+		for (int i = 0; i < 16; i++) {
+			mOcto_PiDeathANI.push_back(new sf::Texture);
+			mOcto_PiDeathANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((80 * x) + 333, (120 * y) + 470, 80, 120));
+			mOcto_PiDeathANI[i]->setSmooth(true);
 			x++;
 			if (x == 4) {
 				x = 0;
@@ -636,6 +652,10 @@ Animations::Textures* Animations::getGermDamagedANI() {
 // Octo_Pi ANI
 Animations::Textures * Animations::getOcto_PiANI(){
 	return &mOcto_PiANI;
+}
+
+Animations::Textures * Animations::getOcto_PiDeathANI() {
+	return &mOcto_PiDeathANI;
 }
 
 
