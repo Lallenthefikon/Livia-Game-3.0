@@ -83,6 +83,9 @@ void GameLoop::manualMapDirectoryChange(int & i){
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
 		Toolbox::copyCurrentLevelName(mCurrentLevelName);
 		Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
+		switchState();
+		updateState();
+
 	}
 }
 
