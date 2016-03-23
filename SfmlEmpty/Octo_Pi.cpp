@@ -250,7 +250,7 @@ void Octo_Pi::updateANI() {
 	case Octo_Pi::DEATH:
 		mCurrentAnimation = Animations::getOcto_PiDeathANI();
 		mSprite.setTextureRect(sf::IntRect(0, 0, 80, 120));
-		mCurrentAnimationRate = 15.625;
+		mCurrentAnimationRate = 25.625;
 		break;
 	default:
 		break;

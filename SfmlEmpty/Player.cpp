@@ -92,7 +92,7 @@ void Player::render(sf::RenderWindow &window){
 	if (mState == DEATH) {
 		mTextHandler.renderGameOver(window);
 	}
-	if (mWin) {
+ 	if (mWin) {
 		mTextHandler.renderWin(window);
 	}
 }

@@ -78,6 +78,24 @@ static sf::SoundBuffer mPlayerDrownSound;
 static sf::SoundBuffer mPlayerWallSlideSound;
 static sf::SoundBuffer mPlayerLandSound;
 
+static sf::SoundBuffer mLiviaDialogueSound1;
+static sf::SoundBuffer mLiviaDialogueSound2;
+static sf::SoundBuffer mLiviaDialogueSound3;
+static sf::SoundBuffer mLiviaDialogueSound4;
+static sf::SoundBuffer mLiviaDialogueSound5;
+
+static sf::SoundBuffer mMansaDialogueSound1;
+static sf::SoundBuffer mMansaDialogueSound2;
+static sf::SoundBuffer mMansaDialogueSound3;
+static sf::SoundBuffer mMansaDialogueSound4;
+static sf::SoundBuffer mMansaDialogueSound5;
+static sf::SoundBuffer mMansaDialogueSound6;
+
+static sf::SoundBuffer mMhuininDialogueSound1;
+static sf::SoundBuffer mMhuininDialogueSound2;
+static sf::SoundBuffer mMhuininDialogueSound3;
+static sf::SoundBuffer mTummyDialogueSound;
+
 static sf::SoundBuffer mWormDeathSound;
 
 static sf::SoundBuffer mTummyRunningSound;
@@ -204,6 +222,27 @@ void Toolbox::loadSounds(std::string levelName) {
 	mPlayerWallSlideSound.loadFromFile("resources/sounds/effects/livia/wall jump/wall_01.ogg");
 	mPlayerLandSound.loadFromFile("resources/sounds/effects/livia/landing/Landing_03.ogg");
 	mPlayerDrownSound.loadFromFile("resources/sounds/effects/livia/deaths/Death_Drown_01.ogg");
+	
+	mLiviaDialogueSound1.loadFromFile("resources/sounds/effects/livia/dialogue/Dialogue_14.ogg");
+	mLiviaDialogueSound2.loadFromFile("resources/sounds/effects/livia/dialogue/Dialogue_12.ogg");
+	mLiviaDialogueSound3.loadFromFile("resources/sounds/effects/livia/dialogue/Dialogue_02.ogg");
+	mLiviaDialogueSound4.loadFromFile("resources/sounds/effects/livia/dialogue/Dialogue_11.ogg");
+	mLiviaDialogueSound5.loadFromFile("resources/sounds/effects/livia/dialogue/Dialogue_05.ogg");
+	
+	mMansaDialogueSound1.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_06.ogg");
+	mMansaDialogueSound2.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_17.ogg");
+	mMansaDialogueSound3.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_03.ogg");
+	mMansaDialogueSound4.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_14.ogg");
+	mMansaDialogueSound5.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_18.ogg");
+	mMansaDialogueSound6.loadFromFile("resources/sounds/effects/mansa/dialogue/Dialogue_02.ogg");
+	
+	mTummyDialogueSound.loadFromFile("resources/sounds/effects/tummy/dialogue/Dialogue_01.ogg");
+	
+	mMhuininDialogueSound1.loadFromFile("resources/sounds/effects/mhuinin/dialogue/Dialogue_01.ogg");
+	mMhuininDialogueSound2.loadFromFile("resources/sounds/effects/mhuinin/dialogue/Dialogue_07.ogg");
+	mMhuininDialogueSound3.loadFromFile("resources/sounds/effects/mhuinin/dialogue/Dialogue_08.ogg");
+
+
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
 
@@ -472,6 +511,51 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::PLAYERDROWN:
 		return mPlayerDrownSound;
 		break;
+	case Toolbox::SPEAKERLIVIASOUND1:
+		return mLiviaDialogueSound1;
+		break;
+	case Toolbox::SPEAKERLIVIASOUND2:
+		return mLiviaDialogueSound2;
+		break;
+	case Toolbox::SPEAKERLIVIASOUND3:
+		return mLiviaDialogueSound3;
+		break;
+	case Toolbox::SPEAKERLIVIASOUND4:
+		return mLiviaDialogueSound4;
+		break;
+	case Toolbox::SPEAKERLIVIASOUND5:
+		return mLiviaDialogueSound5;
+		break;
+	case Toolbox::SPEAKERMANSASOUND1:
+		return mMansaDialogueSound1;
+		break;
+	case Toolbox::SPEAKERMANSASOUND2:
+		return mMansaDialogueSound2;
+		break;
+	case Toolbox::SPEAKERMANSASOUND3:
+		return mMansaDialogueSound3;
+		break;
+	case Toolbox::SPEAKERMANSASOUND4:
+		return mMansaDialogueSound4;
+		break;
+	case Toolbox::SPEAKERMANSASOUND5:
+		return mMansaDialogueSound5;
+		break;
+	case Toolbox::SPEAKERMANSASOUND6:
+		return mMansaDialogueSound6;
+		break;
+	case Toolbox::SPEAKERTUMMYSOUND:
+		return mTummyDialogueSound;
+		break;
+	case Toolbox::SPEAKERMHUININSOUND1:
+		return mMhuininDialogueSound1;
+		break;
+	case Toolbox::SPEAKERMHUININSOUND2:
+		return mMhuininDialogueSound2;
+		break;
+	case Toolbox::SPEAKERMHUININSOUND3:
+		return mMhuininDialogueSound3;
+		break;
 	case Toolbox::WORMIDLE:
 		return mAirHorn;		// Temporary lol (Jk, Final)
 		break;
@@ -487,6 +571,7 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 	case Toolbox::TUMMYRUNNING:
 		return mTummyRunningSound;
 		break;
+		
 	default:
 		break;
 	}

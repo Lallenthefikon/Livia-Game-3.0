@@ -1263,7 +1263,7 @@ void MapEditor::createGrid(){
 	//std::vector<sf::Sprite> tiles;
 
 	for (size_t i = 0; i < mMapDimensionsTiles.x; i++){
-		sf::Vector2f tilePos(0, 0);
+		sf::Vector2f tilePos(0, -1000);
 		tilePos.x = lastTilePos.x;
 		tilePos.x += mTileDimensions.x;
 

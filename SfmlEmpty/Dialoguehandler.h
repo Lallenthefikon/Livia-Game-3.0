@@ -33,7 +33,7 @@ private:
 	void internalClear();
 	void readFile();
 	void setCurrentSpeaker(std::string &line);
-	void playSpeakerSound(CURRENTSPEAKER speaker);
+	void playSpeakerSound(CURRENTSPEAKER speaker, int ID);
 	void loadTexture(char level);
 	void animate();
 	size_t currentDialouge;
@@ -53,6 +53,7 @@ private:
 	sf::Sprite mDialoguespriteRight;
 	bool mLeftActive = true;
 	Strings mSpeakers;
+	int mSpeakerID;
 
 	SoundFX& mSoundFX;
 };

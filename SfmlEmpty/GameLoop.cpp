@@ -3,10 +3,11 @@
 
 GameLoop::GameLoop() :
 	mCurrentLvlIndex(1),
-	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
+	mWindow() {
+	mWindow.create(sf::VideoMode(1920, 1080, 32), "Livia the danks", sf::Style::Fullscreen);
 	mCurrentLevelDirectory = getLevelFilename(mCurrentLvlIndex);
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
-	mWindow.setVerticalSyncEnabled(false);
+	mWindow.setVerticalSyncEnabled(true);
 	mWindow.setKeyRepeatEnabled(false);
 	Toolbox::copyCurrentLevelName(mCurrentLevelName);
 	Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);

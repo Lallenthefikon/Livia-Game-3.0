@@ -78,6 +78,12 @@ void Entityhandler::stopAllSound() {
 	}
 }
 
+void Entityhandler::renderAcidMonster(sf::RenderWindow& window) {
+	if (mEntities.back()->getType() == Entity::ACIDMONSTER)
+		mEntities.back()->render(window);
+
+}
+
 void Entityhandler::render(sf::RenderWindow& window) {
 	for (auto i : mEntities)
 		i->render(window);

@@ -43,7 +43,7 @@ void Dialoguehandler::updateDialogue() {
 			else {
 				Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
 				Texthandler::getInstance().setDialougeText(*mStringVectors[mIndex]->at(0), *mStringVectors[mIndex]->at(1), *mStringVectors[mIndex]->at(2));
-				Dialoguehandler::playSpeakerSound(mCurrentspeaker);
+				Dialoguehandler::playSpeakerSound(mCurrentspeaker, mSpeakerID);
 			}
 			mReturnRealesed = false;
 		}
@@ -102,7 +102,7 @@ void Dialoguehandler::setCurrentDialogue(std::string filename){
 	Dialoguehandler::readFile();
 	Texthandler::getInstance().setDialougeText(*mStringVectors[0]->at(0), *mStringVectors[0]->at(1), *mStringVectors[0]->at(2));
 	Dialoguehandler::setCurrentSpeaker(*mSpeakers[mIndex]);
-	Dialoguehandler::playSpeakerSound(mCurrentspeaker);
+	Dialoguehandler::playSpeakerSound(mCurrentspeaker, mSpeakerID);
 }
 
 void Dialoguehandler::internalClear() {
@@ -142,13 +142,64 @@ void Dialoguehandler::readFile(){
 void Dialoguehandler::setCurrentSpeaker(std::string &line){
 	switch (line[0]) {
 	case 'M':
-		if (line[1] == 'A') {
+		if (line[1] == 'A' && line[2] == 'a') {
+			mSpeakerID = 1;
 			mCurrentspeaker = MANSASOUL;
 			mDialogueAnimationRight = Animations::getDialogueMansaANI();
 			mLeftActive = false;
 			ANIFramesPerFrame = 0.5;
 		}
-		else if (line[1] == 'I') {
+		else if (line[1] == 'A' && line[2] == 'b') {
+			mSpeakerID = 2;
+			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'A' && line[2] == 'c') {
+			mSpeakerID = 3;
+			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'A' && line[2] == 'd') {
+			mSpeakerID = 4;
+			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'A' && line[2] == 'e') {
+			mSpeakerID = 5;
+			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'A' && line[2] == 'f') {
+			mSpeakerID = 6;
+			mCurrentspeaker = MANSASOUL;
+			mDialogueAnimationRight = Animations::getDialogueMansaANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I' && line[2] == 'a') {
+			mSpeakerID = 1;
+			mCurrentspeaker = MUHNIN;
+			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.25;
+		}
+		else if (line[1] == 'I' && line[2] == 'b') {
+			mSpeakerID = 2;
+			mCurrentspeaker = MUHNIN;
+			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
+			mLeftActive = false;
+			ANIFramesPerFrame = 0.25;
+		}
+		else if (line[1] == 'I' && line[2] == 'c') {
+			mSpeakerID = 3;
 			mCurrentspeaker = MUHNIN;
 			mDialogueAnimationRight = Animations::getDialogueMuhninANI();
 			mLeftActive = false;
@@ -156,7 +207,36 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 		}
 		break;
 	case 'L':
-		if (line[1] == 'I') {
+		if (line[1] == 'I' && line[2] == 'a') {
+			mSpeakerID = 1;
+			mCurrentspeaker = LIVIA;
+			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
+			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I' && line[2] == 'b') {
+			mSpeakerID = 2;
+			mCurrentspeaker = LIVIA;
+			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
+			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I' && line[2] == 'c') {
+			mSpeakerID = 3;
+			mCurrentspeaker = LIVIA;
+			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
+			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I' && line[2] == 'd') {
+			mSpeakerID = 4;
+			mCurrentspeaker = LIVIA;
+			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
+			mLeftActive = true;
+			ANIFramesPerFrame = 0.5;
+		}
+		else if (line[1] == 'I' && line[2] == 'e') {
+			mSpeakerID = 5;
 			mCurrentspeaker = LIVIA;
 			mDialogueAnimationLeft = Animations::getDialogueLiviaANI();
 			mLeftActive = true;
@@ -165,11 +245,13 @@ void Dialoguehandler::setCurrentSpeaker(std::string &line){
 		break;
 	case 'A':
 		if (line[1] == 'C') {
+			mSpeakerID = 1;
 			mCurrentspeaker = TUMMY;
 			mDialogueAnimationRight = Animations::getDialogueTummyANI();
 			mLeftActive = false;
 			ANIFramesPerFrame = 0.25;
 		}
+		break;
 	case 'I':
 		if (line[1] == 'N') {
 			mCurrentspeaker = INSTRUCTIONS;
@@ -203,6 +285,7 @@ void Dialoguehandler::animate() {
 		mTimer = 0;
 		if (mLeftActive) {
 			mAnimationIndexLeft += 1;
+
 			if (mAnimationIndexLeft >= mDialogueAnimationLeft->size()) {
 				mAnimationIndexLeft = 0;
 			}
@@ -220,20 +303,68 @@ void Dialoguehandler::animate() {
 	}
 }
 
-void Dialoguehandler::playSpeakerSound(CURRENTSPEAKER speaker) {
+void Dialoguehandler::playSpeakerSound(CURRENTSPEAKER speaker, int ID) {
 	switch (speaker) {
 	case Dialoguehandler::LIVIA:
-		mSoundFX.playSound(SoundFX::SPEAKERLIVIA);
+		switch (ID) {
+		case 1:
+			mSoundFX.playSound(SoundFX::SPEAKERLIVIA1);
+			break;
+		case 2:
+			mSoundFX.playSound(SoundFX::SPEAKERLIVIA2);
+			break;
+		case 3:
+			mSoundFX.playSound(SoundFX::SPEAKERLIVIA3);
+			break;
+		case 4:
+			mSoundFX.playSound(SoundFX::SPEAKERLIVIA4);
+			break;
+		case 5:
+			mSoundFX.playSound(SoundFX::SPEAKERLIVIA5);
+			break;
+		}
 		break;
 	case Dialoguehandler::MANSASOUL:
-		mSoundFX.playSound(SoundFX::SPEAKERMANSA);
+		switch (ID) {
+		case 1:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA1);
+			break;
+		case 2:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA2);
+			break;
+		case 3:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA3);
+			break;
+		case 4:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA4);
+			break;
+		case 5:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA5);
+			break;
+		case 6:
+			mSoundFX.playSound(SoundFX::SPEAKERMANSA6);
+			break;
+		}
 		break;
 	case Dialoguehandler::TUMMY:
-		mSoundFX.playSound(SoundFX::SPEAKERTUMMY);
+		switch (ID) {
+		case 1:
+			mSoundFX.playSound(SoundFX::SPEAKERTUMMY);
+			break;
+		}
 		break;
 	case Dialoguehandler::MUHNIN:
-		mSoundFX.playSound(SoundFX::SPEAKERMUHNIN);
-		break;
+		switch (ID) {
+		case 1:
+			mSoundFX.playSound(SoundFX::SPEAKERMUHNIN1);
+			break;
+		case 2:
+			mSoundFX.playSound(SoundFX::SPEAKERMUHNIN2);
+			break;
+		case 3:
+			mSoundFX.playSound(SoundFX::SPEAKERMUHNIN3);
+			break;
+		}
 	default:
 		break;
 	}

@@ -184,6 +184,7 @@ void Throat::render(sf::RenderWindow &window) {
 
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
+	mEntityHandler->renderAcidMonster(window);
 
 	// Hud
 	mLayerHandler.renderHud(window);

@@ -24,6 +24,7 @@ public:
 	int getPlayerLife();
 	bool isPlayerAlive();
 	void stopAllSound();
+	void renderAcidMonster(sf::RenderWindow& window);
 
 private:
 	Entityhandler();
