@@ -26,7 +26,15 @@ Hub::Hub() :
 
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 12300.f) {
-
+	Toolbox::loadTextures(mMapName);
+	Toolbox::loadSounds(mMapName);
+	Toolbox::loadFonts(mMapName);
+	Animations::loadTextures();
+	Texthandler::getInstance().loadTexts();
+	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
+	mLifeSprite.setTexture(mLifeTexture);
+	mLifeSprite.setScale(1.5, 1.5);
+	mLayerHandler.addLifeSprite(mLifeSprite);
 
 }
 
@@ -133,20 +141,21 @@ void Hub::render(sf::RenderWindow &window) {
 void Hub::loadLevel() {
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
-	Toolbox::loadTextures(mMapName);
+	Toolbox::copyLevelBounds(mLevelBounds);
 	mMapGenerator.loadMap(mMapPath, this);
 
 
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
 	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBMIDDLEGROUND), sf::IntRect(0, 0, 1920, 1080));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 1080));
 	
 	mLevelState = "Center";
 	mLevelMusic.stopAllMusic();
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::HUBBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
+
+
 }
 
 void Hub::unloadLevel() {

@@ -106,6 +106,8 @@ void Worm::blockterrainCollision(BlockTerrain * blockterrain, char direction){
 void Worm::getHit(){
 	mLife--;
 	Worm::playSound(DEATH);
+	mVelocity.x = 0;
+	mVelocityGoal.x = 0;
 }
 
 // Privates

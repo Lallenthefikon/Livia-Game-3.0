@@ -49,7 +49,6 @@ void Terrainhandler::render(sf::RenderWindow &window) {
 }
 
 void Terrainhandler::update() {
-	std::cout << mCollisionBlocks.size() << std::endl;
 	for (auto i : mTerrains)
 		i->update();
 }

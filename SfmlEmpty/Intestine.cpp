@@ -87,7 +87,7 @@ void Intestine::update(sf::RenderWindow &window) {
 	}
 	if (mLevelState == "ZoomedOut") {
 
-		mCamera.updateStomachCam(window, mLevelState);
+		mCamera.updateStomachCam(window, "Standard");
 
 		mEntityHandler->update();
 		mTerrainHandler->update();
@@ -184,11 +184,6 @@ void Intestine::loadLevel() {
 
 	mMapGenerator.loadMap(mMapPath, this);
 	mLevelState = "Cutscene";
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-	Texthandler::getInstance().loadTexts();
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);

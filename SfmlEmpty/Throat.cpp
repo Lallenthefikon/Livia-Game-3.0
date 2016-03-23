@@ -93,13 +93,6 @@ void Throat::update(sf::RenderWindow &window) {
 			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
-
-		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
-			mSwitchLevelWhenDone = false;
-			eventAtriggerd = false;
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-		}
-
 	}
 	if (mLevelState == "Rising") {
 
@@ -211,6 +204,9 @@ void Throat::triggerEvent(char type) {
 	case 'b':
 		Throat::eventB();
 		break;
+	case 'c':
+		
+		break;
 
 	default:
 		break;
@@ -242,6 +238,14 @@ void Throat::eventB() {
 		mSwitchLevelWhenDone = true;
 }
 }
+void Throat::eventC() {
+	if (!eventBtriggerd) {
+		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(1000, Toolbox::getPlayerPosition().y + 3000));
+		eventCtriggerd = true;
+	}
+}
+
+
 
 void Throat::updateGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {

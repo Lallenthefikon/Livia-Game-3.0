@@ -183,7 +183,7 @@ void Mouth::loadLevel() {
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 348));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 348));
 
 

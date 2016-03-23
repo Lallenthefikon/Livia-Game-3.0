@@ -2,7 +2,7 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLvlIndex(1),
+	mCurrentLvlIndex(0),
 	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
 	mCurrentLevelDirectory = getLevelFilename(mCurrentLvlIndex);
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
@@ -11,7 +11,6 @@ GameLoop::GameLoop() :
 	Toolbox::copyCurrentLevelName(mCurrentLevelName);
 	Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
 	updateState();
-	mWindow.setVerticalSyncEnabled(true);
 }
 
 GameLoop::~GameLoop() {
