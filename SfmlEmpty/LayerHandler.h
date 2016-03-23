@@ -43,7 +43,7 @@ public:
 
 	void updateVertGlowAlpha(int alpha);
 
-	void clearLife();
+	void clear();
 
 	~LayerHandler();
 private:

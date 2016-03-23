@@ -33,31 +33,10 @@ mZoomedOut(false),
 	Toolbox::loadFonts(mMapName);
 	Animations::loadTextures();
 	Texthandler::getInstance().loadTexts();
-	Toolbox::copyLevelBounds(mLevelBounds);
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyCurrentLevelDirectory(mMapPath);
-
-	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1, 363, 1080, 1920));
-	mLayerHandler.addAcidGradiantHoriz(mVertAcidGradiant);
 	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
 	mLifeSprite.setTexture(mLifeTexture);
 	mLifeSprite.setScale(1.5, 1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
-
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
-	mLayerHandler.addVerticalBackground(mBackgroundTexture);
-
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
-	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 363));
-	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
-
-	mLevelMusic.stopAllMusic();
-
 }
 
 Stomach::~Stomach() {
@@ -214,23 +193,15 @@ void Stomach::render(sf::RenderWindow &window) {
 
 void Stomach::loadLevel() {
 	mLevelMusic.stopAllMusic();
-	Texthandler::getInstance().loadTexts();
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
-	Toolbox::loadTextures(mMapName);
 	Dialoguehandler::getInstance().loadDialougehandler('s');
 	mMapGenerator.loadMap(mMapPath, this);
 	//mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
-
 	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 368, 1920, 1080));
 	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
@@ -238,7 +209,7 @@ void Stomach::loadLevel() {
 	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
 	mLayerHandler.addForegroundObject(mAcidTexture);
 
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND),sf::IntRect(0,0, 1920, 363));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 363));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Top", sf::IntRect(0, 0, 1920, 363));
 
 	mLevelState = "Cutscene";
