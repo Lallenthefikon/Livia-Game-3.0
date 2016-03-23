@@ -29,13 +29,12 @@ void GameLoop::switchState() {
 
 void GameLoop::updateState() {
 	if (gameRunning) {
-	
 		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->setCurrentLevel (mCurrentLevelDirectory, mCurrentLevelName);
+		//mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
 
 	} else if (mapEditing) {
 		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
+		//mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
 	}
 	mCurrentState->loadLevel();
 	//std::cout << "Changed state" << std::endl;
@@ -85,7 +84,6 @@ void GameLoop::manualMapDirectoryChange(int & i){
 		Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
 		switchState();
 		updateState();
-
 	}
 }
 
@@ -153,7 +151,7 @@ void GameLoop::run() {
 		//std::cout << "Level name: " << Toolbox::getCurrentLevelName() << " Level directory: " << Toolbox::getCurrentLevelDirectory() << std::endl;
 		manualStateChange(clickOnce0);
 		manualFPSChange(clickOnce1);
-		manualMapDirectoryChange(clickOnce2);
+		//manualMapDirectoryChange(clickOnce2);
 		update();
 		render();
 		calcTimeElapsedAndFPS(clock);
