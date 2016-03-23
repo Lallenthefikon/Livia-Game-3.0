@@ -1,4 +1,5 @@
 #include "Terrainhandler.h"
+#include <iostream>
 
 Terrainhandler::Terrainhandler(){
 }
@@ -43,7 +44,6 @@ void Terrainhandler::render(sf::RenderWindow &window) {
 			i->render(window);
 		}
 	}
-
 	for (auto i : mCollisionBlocks)
 		i->render(window);
 }

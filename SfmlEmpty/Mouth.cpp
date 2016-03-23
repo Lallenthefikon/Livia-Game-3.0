@@ -28,35 +28,6 @@ Mouth::Mouth() :
 	mLevelBounds(0.f, 0.f, 15000.f, 4230.f) {
 
 
-	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyLevelBounds(mLevelBounds);
-
-
-
-	
-
-	//mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	//	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	//mLayerHandler.addMiddleground(mMiddlegroundTexture);
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
-
-	
-	Toolbox::copyCurrentLevelName(mMapName);
-	Toolbox::copyCurrentLevelDirectory(mMapPath);
-
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
-
-	mLevelMusic.stopAllMusic();
-
 }
 
 Mouth::~Mouth() {
@@ -175,7 +146,6 @@ void Mouth::render(sf::RenderWindow &window) {
 	mCollisionHandler.renderCollision(window);
 
 	// Entities
-	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
 	// Decorations front
@@ -208,20 +178,14 @@ void Mouth::loadLevel() {
 	mMapGenerator.loadMap(mMapPath, this);
 	//mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
 	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHBACKGROUND));
 	mLayerHandler.addHorizontalBackground(mBackgroundTexture);
 
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND));
+	mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::MOUTHMIDDLEGROUND), sf::IntRect(0, 0, 1920, 348));
 	mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 348));
+
 
 	mLevelState = "Cutscene";
 }

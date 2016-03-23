@@ -18,6 +18,8 @@ public:
 	virtual void update();
 	virtual void clear();
 
+	void renderTummy(sf::RenderWindow &window);
+
 	Entities& getEntities() { return mEntities; }
 	
 	void bringOutTheDead();

@@ -33,7 +33,7 @@ private:
 	Throat();
 	void eventA();
 	void eventB();
-	//void eventC();
+	void eventC();
 	//void eventD();
 	//void eventE();
 	//void eventF();
@@ -81,4 +81,5 @@ private:
 
 	bool eventAtriggerd = false;
 	bool eventBtriggerd = false;
+	bool eventCtriggerd = false;
 };

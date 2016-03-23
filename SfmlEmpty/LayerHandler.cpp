@@ -350,9 +350,9 @@ void LayerHandler::renderMiddleground(sf::RenderWindow & window){
 }
 
 void LayerHandler::renderForeground(sf::RenderWindow &window){
-	/*for (size_t i = 0; i < mForegroundObjects.size(); i++) {
+	for (size_t i = 0; i < mForegroundObjects.size(); i++) {
 		window.draw(mForegroundObjects[i]);
-	}*/ //Design, kommenteras bort på alla banor förutom magsäck/strupe
+	} //Design, kommenteras bort på alla banor förutom magsäck/strupe
 }
 
 void LayerHandler::renderHud(sf::RenderWindow &window){
@@ -431,10 +431,11 @@ void LayerHandler::addMiddleground(sf::Texture &middlegroundTexture, std::string
 }
 
 void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
-	mForeground.setTexture(foregroundTexture);
-	mForeground.setScale(4, 1);
-	mForegroundObjects[0] = mForeground;
-	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
+	sf::Sprite pushbacksprite;
+	pushbacksprite.setTexture(foregroundTexture);
+	pushbacksprite.setScale(4, .1);
+	mForegroundObjects.push_back(pushbacksprite);
+	mForegroundObjects.back().setPosition(sf::Vector2f(0.f, 1080 - pushbacksprite.getGlobalBounds().height));
 }
 
 void LayerHandler::addLifeSprite(sf::Sprite &life){
@@ -448,10 +449,12 @@ void LayerHandler::addLifeSprite(sf::Sprite &life){
 }
 
 void LayerHandler::addAcid(sf::Texture &acidTexture) {
-	mForeground.setTexture(acidTexture);
-	mForeground.setScale(4, 1);
-	mForegroundObjects.push_back(mForeground);
-	mForegroundObjects[0].setPosition(sf::Vector2f(0.f, 10.f));
+	sf::Sprite pushbacksprite;
+	pushbacksprite.setTexture(acidTexture);
+	pushbacksprite.setScale(4, 1);
+	
+	mForegroundObjects.push_back(pushbacksprite);
+	mForegroundObjects.back().setPosition(sf::Vector2f(0.f, 10.f));
 
 }
 
@@ -517,11 +520,12 @@ void LayerHandler::updateVertGlowAlpha(int alpha){
 	mAcidGlowVert.setColor(sf::Color(255, 255, 255, alpha));
 }
 
-void LayerHandler::clearLife() {
-	mLives.clear();
+void LayerHandler::clear() {
+	internalClear();
 }
 
 void LayerHandler::internalClear() {
+	mLives.clear();
 }
 
 	//if (mTimerANI >= 1){

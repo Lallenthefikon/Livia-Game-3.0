@@ -41,6 +41,7 @@ private:
 	void eventG();
 	void eventH();
 
+
 	void updateVertGradiantAlpha();
 
 	Entityhandler* mEntityHandler;

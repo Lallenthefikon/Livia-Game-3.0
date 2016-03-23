@@ -26,32 +26,7 @@ Throat::Throat() :
 
 	mZoomedOut(false),
 	mLevelBounds(0.f, 0.f, 15000.f, 57500.f) {
-
 	Toolbox::loadTextures(mMapName);
-	Toolbox::loadSounds(mMapName);
-	Toolbox::loadFonts(mMapName);
-	Animations::loadTextures();
-	Texthandler::getInstance().loadTexts();
-	Toolbox::copyLevelBounds(mLevelBounds);
-	Toolbox::copyCurrentLevelName(mMapName);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
-
-	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHBACKGROUND));
-	mLayerHandler.addVerticalBackground(mBackgroundTexture);
-
-	mAcidTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHACID));
-	mLayerHandler.addForegroundObject(mAcidTexture);
-
-	//mMiddlegroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND));
-	//mLayerHandler.addMiddleground(mMiddlegroundTexture, "Bottom", sf::IntRect(0, 0, 1920, 1080));
-	//mLayerHandler.addMiddleground(mAcidTexture);
-	//mLayerHandler.addAcid(mAcidTexture);
-	
-	mLevelMusic.stopAllMusic();
 
 }
 
@@ -118,13 +93,6 @@ void Throat::update(sf::RenderWindow &window) {
 			mEntityHandler->stopAllSound();
 			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
 		}
-
-		if (mSwitchLevelWhenDone && !Dialoguehandler::getInstance().isInDialogue) {
-			mSwitchLevelWhenDone = false;
-			eventAtriggerd = false;
-			GameRun::getInstance(std::string(""), std::string(""))->changeLevel("Hub");
-		}
-
 	}
 	if (mLevelState == "Rising") {
 
@@ -165,7 +133,7 @@ void Throat::render(sf::RenderWindow &window) {
 	mLayerHandler.renderBackground(window);
 
 	// Middleground
-	mLayerHandler.renderMiddleground(window);
+	//mLayerHandler.renderMiddleground(window);
 	mLayerHandler.renderVertGradiant(window);
 
 	// Change view to tileView containing all entities and terrains
@@ -179,12 +147,14 @@ void Throat::render(sf::RenderWindow &window) {
 	mCollisionHandler.renderCollision(window);
 
 	// Entities
-	mLayerHandler.renderForeground(window);
 	mEntityHandler->render(window);
 
 	// Decorations front
 	mDecorationhandler.renderDecoration(window, 'f');
 	mEntityHandler->renderAcidMonster(window);
+
+	// Tummy
+	mEntityHandler->renderTummy(window);
 
 	// Hud
 	mLayerHandler.renderHud(window);
@@ -203,7 +173,7 @@ void Throat::render(sf::RenderWindow &window) {
 
 void Throat::loadLevel() {
 	mLevelMusic.stopAllMusic();
-	Toolbox::loadTextures(mMapName);
+
 	Toolbox::copyLevelBounds(mLevelBounds);
 	Toolbox::copyCurrentLevelName(mMapName);
 	Toolbox::copyCurrentLevelDirectory(mMapPath);
@@ -212,11 +182,6 @@ void Throat::loadLevel() {
 
 	mVertAcidGradiant.loadFromImage(Toolbox::getTexture(Toolbox::STOMACHMIDDLEGROUND), sf::IntRect(1970, 0, 1920, 1347));
 	mLayerHandler.addAcidGradiantVertical(mVertAcidGradiant);
-
-	mLifeTexture.loadFromImage(Toolbox::getTexture(Toolbox::LIFETEXTURE));
-	mLifeSprite.setTexture(mLifeTexture);
-	mLifeSprite.setScale(1.5, 1.5);
-	mLayerHandler.addLifeSprite(mLifeSprite);
 
 	mBackgroundTexture.loadFromImage(Toolbox::getTexture(Toolbox::THROATBACKGROUND));
 	mLayerHandler.addVerticalBackground(mBackgroundTexture);
@@ -239,6 +204,9 @@ void Throat::triggerEvent(char type) {
 		break;
 	case 'b':
 		Throat::eventB();
+		break;
+	case 'c':
+		
 		break;
 
 	default:
@@ -271,6 +239,14 @@ void Throat::eventB() {
 		mSwitchLevelWhenDone = true;
 }
 }
+void Throat::eventC() {
+	if (!eventBtriggerd) {
+		AddObjectsDuringGame::getInstance().createAcidMonster(sf::Vector2f(1000, Toolbox::getPlayerPosition().y + 3000));
+		eventCtriggerd = true;
+	}
+}
+
+
 
 void Throat::updateGradiantAlpha() {
 	if (mEntityHandler->getEntities().back()->getType() == Entity::ACIDMONSTER) {

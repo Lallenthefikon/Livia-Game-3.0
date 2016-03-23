@@ -50,12 +50,13 @@ void Entityhandler::bringOutTheDead() {
 		if (!mEntities[i]->getIsAlive()) {
 			if (mEntities[i]->getType() == Entity::PLAYER) {
 				//Entityhandler::gameOver();
-			} else {
+			}
+			else {
 				delete mEntities[i];
 				mEntities.erase(mEntities.begin() + i);
 			}
-}
-}
+		}
+	}
 }
 
 int Entityhandler::getPlayerLife() {
@@ -85,8 +86,19 @@ void Entityhandler::renderAcidMonster(sf::RenderWindow& window) {
 }
 
 void Entityhandler::render(sf::RenderWindow& window) {
-	for (auto i : mEntities)
-		i->render(window);
+	if (mEntities.back()->getType() != Entity::ACIDMONSTER) {
+		for (auto i : mEntities)
+			i->render(window);
+	}
+	else {
+		for (Entities::size_type i = 0; i < mEntities.size() - 1; i++) {
+			mEntities[i]->render(window);
+		}
+	}
+}
+
+void Entityhandler::renderTummy(sf::RenderWindow& window) {
+	mEntities.back()->render(window);
 }
 
 void Entityhandler::update() {

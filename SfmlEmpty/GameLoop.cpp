@@ -2,9 +2,8 @@
 #include <iostream>
 
 GameLoop::GameLoop() :
-	mCurrentLvlIndex(1),
-	mWindow() {
-	mWindow.create(sf::VideoMode(1920, 1080, 32), "Livia the danks", sf::Style::Fullscreen);
+	mCurrentLvlIndex(0),
+	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
 	mCurrentLevelDirectory = getLevelFilename(mCurrentLvlIndex);
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
 	mWindow.setVerticalSyncEnabled(true);
@@ -12,7 +11,6 @@ GameLoop::GameLoop() :
 	Toolbox::copyCurrentLevelName(mCurrentLevelName);
 	Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
 	updateState();
-	mWindow.setVerticalSyncEnabled(true);
 }
 
 GameLoop::~GameLoop() {
@@ -30,13 +28,12 @@ void GameLoop::switchState() {
 
 void GameLoop::updateState() {
 	if (gameRunning) {
-	
 		mCurrentState = GameRun::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->setCurrentLevel (mCurrentLevelDirectory, mCurrentLevelName);
+		//mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
 
 	} else if (mapEditing) {
 		mCurrentState = MapEditor::getInstance(mCurrentLevelDirectory, mCurrentLevelName);
-		mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
+		//mCurrentState->setCurrentLevel(mCurrentLevelDirectory, mCurrentLevelName);
 	}
 	mCurrentState->loadLevel();
 	//std::cout << "Changed state" << std::endl;
@@ -86,7 +83,6 @@ void GameLoop::manualMapDirectoryChange(int & i){
 		Toolbox::copyCurrentLevelDirectory(mCurrentLevelDirectory);
 		switchState();
 		updateState();
-
 	}
 }
 
@@ -154,7 +150,7 @@ void GameLoop::run() {
 		//std::cout << "Level name: " << Toolbox::getCurrentLevelName() << " Level directory: " << Toolbox::getCurrentLevelDirectory() << std::endl;
 		manualStateChange(clickOnce0);
 		manualFPSChange(clickOnce1);
-		manualMapDirectoryChange(clickOnce2);
+		//manualMapDirectoryChange(clickOnce2);
 		update();
 		render();
 		calcTimeElapsedAndFPS(clock);

@@ -136,7 +136,7 @@ void Block0::createDecorations(char type1){
 	if (Toolbox::getCurrentLevelName() == "Hub") {
 		Index += 4;
 	}
-	else if (Toolbox::getCurrentLevelName() == "Stomach" || Toolbox::getCurrentLevelName() == "Throat") {
+	else if (Toolbox::getCurrentLevelName() == "Stomach"|| Toolbox::getCurrentLevelName() == "Throat") {
 		Index += 2;
 	}
 
