@@ -306,10 +306,11 @@ void MapEditor::createDecoration(sf::Vector2f mousepos, char id, char layer, cha
 void MapEditor::setCurrentLevel(std::string & levelDirectory, std::string & levelName){
 	mCurrentLevelDirectory = levelDirectory;
 	mCurrentLevelName = levelName;
-
 }
 
 void MapEditor::loadLevel(){
+
+	mCurrentLevelDirectory = Toolbox::getCurrentLevelDirectory();
 
 	MapEditor::createGrid();
 
@@ -621,20 +622,21 @@ std::string MapEditor::layerToString() const {
 
 void MapEditor::saveMap(){
 
-	std::string currentLevelDirectory = Toolbox::getCurrentLevelDirectory();
+	mCurrentLevelDirectory = Toolbox::getCurrentLevelDirectory();
+	
 	MapEditor::sortVectors();
 
-	currentLevelDirectory[15] = 'T';
-	MapEditor::writeTerrainToFile(currentLevelDirectory);
+	mCurrentLevelDirectory[15] = 'T';
+	MapEditor::writeTerrainToFile(mCurrentLevelDirectory);
 
-	currentLevelDirectory[15] = 'E';
-	MapEditor::writeEntityToFile(currentLevelDirectory);
+	mCurrentLevelDirectory[15] = 'E';
+	MapEditor::writeEntityToFile(mCurrentLevelDirectory);
 
-	currentLevelDirectory[15] = 'D';
-	MapEditor::writeDecorationToFile(currentLevelDirectory);
+	mCurrentLevelDirectory[15] = 'D';
+	MapEditor::writeDecorationToFile(mCurrentLevelDirectory);
 
 
-	currentLevelDirectory[15] = 'm';
+	mCurrentLevelDirectory[15] = 'm';
 
 }
 

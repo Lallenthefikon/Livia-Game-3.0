@@ -39,7 +39,7 @@ private:
 		clickOnce0 = 0,
 		clickOnce1 = 0,
 		clickOnce2 = 0;
-	
+
 	float mFrameTime;
 	int FPS;
 	bool gameRunning = true, mapEditing; // States
