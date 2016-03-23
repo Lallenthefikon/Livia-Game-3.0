@@ -44,13 +44,12 @@ void Terrainhandler::render(sf::RenderWindow &window) {
 			i->render(window);
 		}
 	}
-
 	for (auto i : mCollisionBlocks)
 		i->render(window);
 }
 
 void Terrainhandler::update() {
-	std::cout << mTerrains.size() << std::endl;
+	std::cout << mCollisionBlocks.size() << std::endl;
 	for (auto i : mTerrains)
 		i->update();
 }
