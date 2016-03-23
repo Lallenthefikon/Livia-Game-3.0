@@ -3,6 +3,7 @@
 #include "WormSound.h"
 #include "TummySound.h"
 #include "DialogueSound.h"
+#include "GermSound.h"
 
 SoundFX& SoundFactory::getLiviaSound() {
 	return LiviaSound::createLiviaSound();
@@ -18,4 +19,8 @@ SoundFX& SoundFactory::getTummySound() {
 
 SoundFX& SoundFactory::getDialogueSound() {
 	return DialogueSound::createDialogueSound();
+}
+
+SoundFX& SoundFactory::getGermSound() {
+	return GermSound::createGermSound();
 }

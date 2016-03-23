@@ -175,6 +175,9 @@
     <ClCompile Include="DialogueSound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="GermSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AcidMonster.h">
@@ -344,6 +347,9 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="DialogueSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="GermSound.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
   </ItemGroup>

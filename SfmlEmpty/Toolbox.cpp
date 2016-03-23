@@ -97,6 +97,7 @@ static sf::SoundBuffer mMhuininDialogueSound3;
 static sf::SoundBuffer mTummyDialogueSound;
 
 static sf::SoundBuffer mWormDeathSound;
+static sf::SoundBuffer mGermDeathSound;
 
 static sf::SoundBuffer mTummyRunningSound;
 
@@ -245,6 +246,7 @@ void Toolbox::loadSounds(std::string levelName) {
 
 
 	mWormDeathSound.loadFromFile("resources/sounds/effects/worm/Death_01.ogg");
+	mGermDeathSound.loadFromFile("resources/sounds/effects/germ/Death_01.ogg");
 
 	mAirHorn.loadFromFile("resources/sounds/effects/Air_Horn_Sound_Effect.ogg");
 
@@ -567,6 +569,9 @@ sf::SoundBuffer& Toolbox::getSound(SOUNDKEY soundKey) {
 		break;
 	case Toolbox::WORMDEATH:
 		return mWormDeathSound;
+		break;
+	case Toolbox::GERMDEATH:
+		return mGermDeathSound;
 		break;
 	case Toolbox::TUMMYRUNNING:
 		return mTummyRunningSound;

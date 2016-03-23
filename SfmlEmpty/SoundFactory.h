@@ -7,4 +7,5 @@ struct SoundFactory {
 	static SoundFX& getWormSound();
 	static SoundFX& getTummySound();
 	static SoundFX& getDialogueSound();
+	static SoundFX& getGermSound();
 };

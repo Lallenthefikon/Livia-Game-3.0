@@ -90,6 +90,7 @@
     <ClCompile Include="EditorEventBlock.cpp" />
     <ClCompile Include="ExtraLife.cpp" />
     <ClCompile Include="Germ.cpp" />
+    <ClCompile Include="GermSound.cpp" />
     <ClCompile Include="HandlerFactory.cpp" />
     <ClCompile Include="Hub.cpp" />
     <ClCompile Include="Intestine.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="EditorEventBlock.h" />
     <ClInclude Include="ExtraLife.h" />
     <ClInclude Include="Germ.h" />
+    <ClInclude Include="GermSound.h" />
     <ClInclude Include="HandlerFactory.h" />
     <ClInclude Include="Hub.h" />
     <ClInclude Include="Intestine.h" />

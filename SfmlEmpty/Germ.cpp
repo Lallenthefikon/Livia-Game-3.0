@@ -13,7 +13,7 @@ Germ::Germ(sf::Vector2f pos) :
 	mLife(5),
 	mState(IMWALKINGHERE),
 	mCurrentAnimationRate(15.643),
-	mSoundFX(SoundFactory::getWormSound()) {
+	mSoundFX(SoundFactory::getGermSound()) {
 	mVelocityGoal.x = -mMaxSpeed;
 	mSprite.setTexture(*mCurrentAnimation->at(0));
 	//mCollisionBody.setTexture(*mCurrentAnimation->at(0));
