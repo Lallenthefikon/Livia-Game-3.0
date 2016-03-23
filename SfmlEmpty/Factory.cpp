@@ -21,8 +21,8 @@ Entity* Factory::createPlayer(sf::Vector2f pos){
 	return Player::createPlayer(pos);
 }
 
-Terrain* Factory::createBlock0(sf::Vector2f pos, char type){
-	return Block0::createBlock0(pos, type);
+Terrain* Factory::createBlock0(sf::Vector2f pos, char type, char type1){
+	return Block0::createBlock0(pos, type, type1);
 }
 
 Entity* Factory::createWorm(sf::Vector2f pos){
@@ -33,8 +33,8 @@ Entity* Factory::createAcidMonster(sf::Vector2f pos){
 	return AcidMonster::createAcidMonster(pos);
 }
 
-Terrain* Factory::createBlock0WallJump(sf::Vector2f pos, char type){
-	return Block0WallJump::createBlock0WallJump(pos, type);
+Terrain* Factory::createBlock0WallJump(sf::Vector2f pos, char type, char type1){
+	return Block0WallJump::createBlock0WallJump(pos, type, type1);
 }
 
 Terrain* Factory::createSpikes(sf::Vector2f pos, char type){
@@ -73,8 +73,8 @@ Terrain* Factory::createMeatballSpawner(sf::Vector2f pos) {
 	return MeatballSpawner::createMeatballSpawner(pos);
 }
 
-Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type) {
-	return Block0Icy::createBlock0Icy(pos, type);
+Terrain* Factory::createBlock0Icy(sf::Vector2f pos, char type, char type1) {
+	return Block0Icy::createBlock0Icy(pos, type, type1);
 }
 
 Entity* Factory::createGerm(sf::Vector2f pos) {

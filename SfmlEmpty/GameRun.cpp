@@ -36,6 +36,12 @@ void GameRun::loadLevel(){
 	mCurrentLevel->loadLevel();
 }
 
+void GameRun::setCurrentLevel(std::string & levelDirectory, std::string & levelName){
+	mCurrentLevelDirectory = levelDirectory;
+	mCurrentLevelName = levelName;
+	changeLevel(mCurrentLevelName);
+}
+
 void GameRun::changeLevel(std::string levelName){
 	if (levelName == "Hub") {
 		mCurrentLevel = &Hub::getInstance();

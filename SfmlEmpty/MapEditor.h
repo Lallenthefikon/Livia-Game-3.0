@@ -18,6 +18,10 @@
 
 class MapEditor : public GameState{
 public:
+
+	typedef std::vector<Terrain*> Terrains;
+	typedef std::vector<Decoration*> Decorations;
+
 	static MapEditor* getInstance(std::string &levelDirectory, std::string &levelName);
 
 	virtual void update(sf::RenderWindow &window);
@@ -43,7 +47,7 @@ public:
 	void createDecoration(sf::Vector2f mousePos, char id, char layer, char rotation);
 
 
-	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName){ mCurrentLevelDirectory = levelDirectory, mCurrentLevelName = levelName; }
+	virtual void setCurrentLevel(std::string &levelDirectory, std::string &levelName);
 	virtual void loadLevel();
 
 	void clearMap();
@@ -70,7 +74,7 @@ private:
 	void writeTerrainToFile(std::string filename);
 	void writeEntityToFile(std::string filename);
 	void writeDecorationToFile(std::string filename);
-	char blockType(Terrain* terrain);
+	std::string blockType(Terrain* terrain);
 	void internalClear();
 
 	std::string floatToString(float f);

@@ -57,13 +57,13 @@ void MapGenerator::readTerrainfile(std::string &filename, Level *level){
 			case 'B':
 				switch (line[1]){
 				case '0':
-					MapGenerator::createBlock0(MapGenerator::readPosition(line),line[2]);
+					MapGenerator::createBlock0(MapGenerator::readPosition(line),line[2], line[3]);
 					break;
 				case 'W':
-					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2]);
+					MapGenerator::createBlock0WallJump(MapGenerator::readPosition(line),line[2], line[3]);
 					break;
 				case 'I':
-					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2]);
+					MapGenerator::createBlock0Icy(MapGenerator::readPosition(line), line[2], line[3]);
 					break;
 				default:
 					break;
@@ -252,16 +252,16 @@ void MapGenerator::createOcto_Pi(sf::Vector2f pos) {
 }
 
 // Create terrains
-void MapGenerator::createBlock0(sf::Vector2f pos, char type){
-	mTempBlocks.push_back(Factory::createBlock0(pos, type));
+void MapGenerator::createBlock0(sf::Vector2f pos, char type, char type1){
+	mTempBlocks.push_back(Factory::createBlock0(pos, type, type1));
 }
 
-void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type){
-	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type));
+void MapGenerator::createBlock0WallJump(sf::Vector2f pos, char type, char type1){
+	mTempBlocks.push_back(Factory::createBlock0WallJump(pos, type, type1));
 }
 
-void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type){
-	mTempBlocks.push_back(Factory::createBlock0Icy(pos, type));
+void MapGenerator::createBlock0Icy(sf::Vector2f pos, char type, char type1){
+	mTempBlocks.push_back(Factory::createBlock0Icy(pos, type, type1));
 }
 
 void MapGenerator::createSpikes(sf::Vector2f pos, char type){

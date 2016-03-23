@@ -1,22 +1,27 @@
 #include "Block0.h"
 
-Block0::Block0(sf::Vector2f pos, char type):
+Block0::Block0(sf::Vector2f pos, char type, char type1):
 mTileType(type){
 	Block0::setTexture(type);
+	
 	mSprite.setTexture(mTexture);
 	mSpriteOffset = sf::Vector2f(mSprite.getLocalBounds().width / 2, mSprite.getLocalBounds().height / 2);
 	mSprite.setPosition(pos - mSpriteOffset);
+	Block0::createDecorations(type1);
 }
 
 Block0::~Block0(){
 }
 
-Terrain* Block0::createBlock0(sf::Vector2f pos, char type){
-	return new Block0(pos, type);
+Terrain* Block0::createBlock0(sf::Vector2f pos, char type, char type1){
+	return new Block0(pos, type, type1);
 }
 
 void Block0::render(sf::RenderWindow &window){
 	window.draw(mSprite);
+	for (int i = 0; i < mTileDecorations.size(); i++) {
+		window.draw(*mTileDecorations[i]);
+	}
 }
 
 void Block0::update(){
@@ -114,10 +119,111 @@ void Block0::setTexture(char type) {
 	else if (Toolbox::getCurrentLevelName() == "Intestine") {
 		xIndex += 8;
 	}
+	else if (Toolbox::getCurrentLevelName() == "Mouth") {
+		xIndex += 4;
+		yIndex += 4;
+	}
 
 
 	mTexture.loadFromImage(Toolbox::getTexture(Toolbox::BLOCK0TEXTURE),
 		sf::IntRect(tileWidth * xIndex, tileHeight * yIndex, tileWidth, tileHeight));
+
+}
+
+void Block0::createDecorations(char type1){
+	int Index(0);
+
+	if (Toolbox::getCurrentLevelName() == "Hub") {
+		Index += 4;
+	}
+	else if (Toolbox::getCurrentLevelName() == "Stomach") {
+		Index += 2;
+	}
+
+	switch (type1) {
+	case 'a':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 12));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 13));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'b':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 13));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'c':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 18));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'd':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 19));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'e':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 12));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'f':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 0));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'g':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 6));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'h':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 7));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'i':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 1));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'j':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 13));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 6));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'k':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 18));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 7));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'l':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 18));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 6));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	case 'm':
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 12));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		mTileDecorations.push_back(new sf::Sprite);
+		mTileDecorations.back()->setTexture(*Animations::getTileDecTextures()->at(Index + 7));
+		mTileDecorations.back()->setPosition(mSprite.getPosition());
+		break;
+	default:
+		break;
+	}
 
 }
 

@@ -131,37 +131,41 @@ void Collisionhandler::checkCollisionDirection(Entity *e0, Entity *e1) {
 	float deltaLeftCollision = e0Right - e1Left;
 	float deltaRightCollision = e1Right - e0Left;
 
-	
+	char e0Dir('q');
+	char e1Dir('q');
 
 	// Checks if deltaTopCollision is the smallest value, 
-	if (deltaTopCollision < deltaBottomCollision && deltaTopCollision < deltaLeftCollision && deltaTopCollision < deltaRightCollision) {
+	if (deltaTopCollision <= deltaBottomCollision && deltaTopCollision <= deltaLeftCollision && deltaTopCollision <= deltaRightCollision) {
 		// Top collision, e0 collided with e1's top edge
 		// lallen e0->move(sf::Vector2f(0, -1));
-		e0->entityCollision(e1, 'b');
-		e1->entityCollision(e0, 't');
+		e0Dir = 'b';
+		e1Dir = 't';
 	}
 	// Checks if deltaBottomCollision is the smallest value
-	if (deltaBottomCollision < deltaTopCollision && deltaBottomCollision < deltaLeftCollision && deltaBottomCollision < deltaRightCollision) {
+	if (deltaBottomCollision <= deltaTopCollision && deltaBottomCollision <= deltaLeftCollision && deltaBottomCollision <= deltaRightCollision) {
 		// Bottom collision
 		// lallen e0->move(sf::Vector2f(0, 1));
-		e0->entityCollision(e1, 't');
-		e1->entityCollision(e0, 'b');
+		e0Dir = 't';
+		e1Dir = 'b';
 	}
 	// Checks if deltaLeftCollision is the smallest value
-	if (deltaLeftCollision < deltaRightCollision && deltaLeftCollision < deltaTopCollision && deltaLeftCollision < deltaBottomCollision) {
+	if (deltaLeftCollision <= deltaRightCollision && deltaLeftCollision <= deltaTopCollision && deltaLeftCollision <= deltaBottomCollision) {
 		// Left collision
 		// lallen e0->move(sf::Vector2f(-1, 0));
-		e0->entityCollision(e1, 'r');
-		e1->entityCollision(e0, 'l');
+		e0Dir = 'r';
+		e1Dir = 'l';
 	}
 	// Checks if deltaRightCollision is the smallest value	
-	if (deltaRightCollision < deltaLeftCollision && deltaRightCollision < deltaTopCollision && deltaRightCollision < deltaBottomCollision) {
+	if (deltaRightCollision <= deltaLeftCollision && deltaRightCollision <= deltaTopCollision && deltaRightCollision <= deltaBottomCollision) {
 		// Right collision
 		// lallen e0->move(sf::Vector2f(1, 0));
-		e0->entityCollision(e1, 'l');
-		e1->entityCollision(e0, 'r');
+		e0Dir = 'l';
+		e1Dir = 'r';
 		
 	}
+
+	e0->entityCollision(e1, e0Dir);
+	e1->entityCollision(e0, e1Dir);
 }
 
 // Collision between an entity and a terrain

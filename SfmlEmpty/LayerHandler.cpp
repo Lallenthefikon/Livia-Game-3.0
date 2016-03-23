@@ -438,7 +438,7 @@ void LayerHandler::addForegroundObject(sf::Texture &foregroundTexture) {
 }
 
 void LayerHandler::addLifeSprite(sf::Sprite &life){
-	mLifeSprite = sf::Sprite(life);
+	mLifeSprite = life;
 	for (int i = 0; i < mMaxLife; i++) {
 		mLives.push_back(sf::Sprite(mLifeSprite));
 	}

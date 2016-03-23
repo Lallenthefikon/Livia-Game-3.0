@@ -15,12 +15,6 @@ Terrainhandler* Terrainhandler::getInstance(){
 void Terrainhandler::add(sf::Vector2f pos, char id, char type, char layer) {
 
 	switch (id) {
-	case '0':
-		mTerrains.push_back(Factory::createBlock0(pos, type));
-		break;
-	case '1':
-		mTerrains.push_back(Factory::createBlock0WallJump(pos, type));
-		break;
 	case '2':
 		mTerrains.push_back(Factory::createSpikes(pos, type));
 		break;
