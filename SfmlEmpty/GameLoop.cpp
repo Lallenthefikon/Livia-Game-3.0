@@ -148,8 +148,8 @@ void GameLoop::run() {
 	// Loop
 	while (mWindow.isOpen() && !sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		//std::cout << "Level name: " << Toolbox::getCurrentLevelName() << " Level directory: " << Toolbox::getCurrentLevelDirectory() << std::endl;
-		manualStateChange(clickOnce0);
-		manualFPSChange(clickOnce1);
+		//manualStateChange(clickOnce0);
+		//manualFPSChange(clickOnce1);
 		//manualMapDirectoryChange(clickOnce2);
 		update();
 		render();

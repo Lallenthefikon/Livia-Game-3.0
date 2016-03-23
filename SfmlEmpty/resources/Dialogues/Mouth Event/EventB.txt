@@ -5,4 +5,4 @@ Watch out! Don't fall down there.
 IN
 Use space to jump.
 Use 'R' to restart level.
- 
+Use 'L' to quit level.
