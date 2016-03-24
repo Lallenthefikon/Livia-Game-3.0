@@ -3,7 +3,7 @@
 
 GameLoop::GameLoop() :
 	mCurrentLvlIndex(0),
-	mWindow(sf::VideoMode::getDesktopMode(), "Livia is DA DANKEST") {
+	mWindow(sf::VideoMode::getDesktopMode(), "The Six Minds of Livia") {
 	mCurrentLevelDirectory = getLevelFilename(mCurrentLvlIndex);
 		mCurrentLevelName = getMapName(mCurrentLvlIndex);
 	mWindow.setVerticalSyncEnabled(true);

@@ -239,19 +239,19 @@ void Hub::eventG() {
 }
 
 void Hub::checkIfNewMap(){
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) || mEventA) {
+	if ( mEventA) {
 		Hub::eventA();
 		mEventA = false;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) || mEventB) {
+	else if (mEventB) {
 		Hub::eventB();
 		mEventB = false;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) || mEventC) {
+	else if ( mEventC) {
 		Hub::eventC();
 		mEventC = false;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4) || mEventD ) {	
+	else if(mEventD ) {	
 		Hub::eventD();
 		mEventD = false;
 	}
