@@ -240,7 +240,7 @@ void Animations::loadTextures() {
 	if (mWormDyingANI.size() == 0) {
 		for (int i = 0; i < 8; i++) {
 			mWormDyingANI.push_back(new sf::Texture);
-			mWormDyingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y) + 140, 75, 35));
+			mWormDyingANI[i]->loadFromImage(mEnemy0IMG, sf::IntRect((75 * x), (35 * y) + 142, 75, 35));
 			mWormDyingANI[i]->setSmooth(true);
 			x++;
 			if (x == 4) {
